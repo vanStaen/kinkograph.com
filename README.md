@@ -1,0 +1,2 @@
+# kinkograph.com
+Kinky Phototemplates
