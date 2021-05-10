@@ -3,7 +3,9 @@ import "./App.css";
 function App() {
   return (
     <div className="App">
-      test
+    <div className="App__main">
+      Kinkograph <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    </div>
     </div>
   );
 }

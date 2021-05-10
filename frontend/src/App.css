@@ -1,0 +1,28 @@
+.App {
+	font-size: min(calc(7px + 2vmin), 25px);
+  color: white;
+}
+
+.App__main {
+  min-height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  min-height: calc(var(--vh, 1vh) * 100);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #282c34;
+  background-image: url("img/diaboli.jpg");
+  background-size: cover;
+}
+
+.App__tittle {
+    min-height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+    min-height: calc(var(--vh, 1vh) * 100);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #282c34;
+    background-image: url("img/diaboli.jpg");
+    background-size: cover;
+  }
