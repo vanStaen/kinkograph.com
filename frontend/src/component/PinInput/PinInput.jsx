@@ -9,6 +9,7 @@ export const PinInput = (props) => {
       document.getElementById(nextInput).value = "";
       document.getElementById(nextInput).focus();
     } else {
+      document.getElementById(1).focus();
       const code =
         document.getElementById(1).value +
         document.getElementById(2).value +
@@ -16,6 +17,12 @@ export const PinInput = (props) => {
         document.getElementById(4).value +
         document.getElementById(5).value +
         document.getElementById(6).value;
+      document.getElementById(1).value = "";
+      document.getElementById(2).value = "";
+      document.getElementById(3).value = "";
+      document.getElementById(4).value = "";
+      document.getElementById(5).value = "";
+      document.getElementById(6).value = "";
       props.login(code);
     }
   };
