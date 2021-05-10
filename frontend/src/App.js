@@ -1,3 +1,4 @@
+import {PinInput} from "./component/PinInput/PinInput"
 import "./App.css";
 
 function App() {
@@ -5,6 +6,8 @@ function App() {
     <div className="App">
     <div className="App__main">
       <div className="App__title">&nbsp;kinkograph</div> 
+      <PinInput/>
+      <div className="spacer"></div> 
     </div>
     </div>
   );

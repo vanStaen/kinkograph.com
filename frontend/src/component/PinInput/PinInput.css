@@ -1,0 +1,17 @@
+.PinInput__input{ 
+  width: 200px;
+  margin-left: 15px;
+  font-size: 30px;
+  letter-spacing: 17px;
+  color: white;
+  background-color: transparent;
+  border: 0px solid red;
+} 
+
+.PinInput__input:focus{ 
+  border: 0px solid red;
+} 
+
+textarea:focus, input:focus{
+    outline: none;
+}
