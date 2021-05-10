@@ -13,16 +13,14 @@
   background-color: #282c34;
   background-image: url("img/diaboli.jpg");
   background-size: cover;
+  background-position:center center;
 }
 
-.App__tittle {
-    min-height: 100vh; /* Fallback for browsers that do not support Custom Properties */
-    min-height: calc(var(--vh, 1vh) * 100);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #282c34;
-    background-image: url("img/diaboli.jpg");
-    background-size: cover;
+.App__title {
+  justify-content: center;
+  font-size: 25px;
+  color: rgba(255, 255, 255, 1);
+  margin: 0 0 15em 0;
+  font-weight: 200;
+  letter-spacing: 17px;
   }
