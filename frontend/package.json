@@ -16,7 +16,7 @@
     "prebuild": "rm -rf ../build",
     "build": "npm i; react-scripts build",
     "postbuild": "mv build ../",
-    "test": "react-scripts test",
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": [
