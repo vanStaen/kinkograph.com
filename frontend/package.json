@@ -13,9 +13,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "prebuild": "rm -rf ../build",
+    "build": "npm i; react-scripts build",
+    "postbuild": "mv build ../",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
