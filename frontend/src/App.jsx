@@ -16,11 +16,11 @@ const App = () => {
         {access ? (
           <Gallery />
         ) : (
-          <>
+          <div className="App__flex">
             <div className="spacer"></div>
             <div className="App__title">&nbsp;kinkograph</div>
             <PinInput login={login} />
-          </>
+          </div>
         )}
       </div>
     </div>

@@ -6,13 +6,17 @@
 .App__main {
   min-height: 100vh; /* Fallback for browsers that do not support Custom Properties */
   min-height: calc(var(--vh, 1vh) * 100);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   background-color: #282c34;
   background-image: url("img/diaboli.png");
   background-size: cover;
   background-position:center center;
+}
+
+.App__flex{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .App__title {
@@ -26,11 +30,4 @@
 
 .spacer {
   margin: 0 0 17em 0;
-  }   
-
-.gallery {
-  padding-top: 2em;
-  border: 1px solid red;
-  width: 100%;
-  text-align: center;
   }   
