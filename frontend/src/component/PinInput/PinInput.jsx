@@ -35,8 +35,8 @@ export const PinInput = (props) => {
           document.getElementById(5).value = "";
           document.getElementById(6).value = "";
           setLastFiledInput(1);
-        }, 1000);
-        props.login(code);
+          props.login(code);
+        }, 500);
       }
     }
   });
