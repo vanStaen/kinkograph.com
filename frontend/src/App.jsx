@@ -6,8 +6,9 @@ import "./App.css";
 const App = () => {
   const [access, setAccess] = useState(false);
   const login = (code) => {
-    console.log(code);
-    setAccess(true);
+    if (code === "555666") {
+      setAccess(true);
+    }
   };
 
   return (
