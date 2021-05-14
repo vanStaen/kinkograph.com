@@ -49,8 +49,8 @@
     grid-column-end: span 3;
   }
   .item__square {
-    grid-row-end: span 2;
-    grid-column-end: span 2;
+    grid-row-end: span 3;
+    grid-column-end: span 3;
   }
   .item__portrait {
     grid-row-end: span 3;
