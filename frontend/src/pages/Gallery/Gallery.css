@@ -19,15 +19,11 @@
   grid-row-start: auto;
   background-size: cover;
   background-position: center;
+  cursor: pointer;
 }
 
-.item:after {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+.item:hover {
+  opacity: .5;
 }
 
 .item__landscape {
