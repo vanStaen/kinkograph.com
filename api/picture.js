@@ -14,16 +14,10 @@ client.connect(err => {
     }
 })
 
-// GET all data from user
+// GET all pictures from user
 router.get("/", async (req, res) => {
-    if (!req.isAuth) {
-        res.status(401).json({
-            error: "Unauthorized",
-        });
-        return;
-    }
     try {
-        const user = await client.query(`SELECT * FROM users WHERE userid='${req.userId}'`);
+        const user = await client.query(`SELECT * FROM pictures`);
         res.status(201).json(user.rows);
     } catch (err) {
         res.status(400).json({
@@ -32,10 +26,10 @@ router.get("/", async (req, res) => {
     }
 });
 
-// PATCH single user from daily (based on userId)
+// POST picture (based on Id)
 router.post("/", async (req, res) => {
     try {
-        const createQuery = `INSERT INTO public.users(userid, name, picurl, activities) VALUES(${req.body.userid}, ${req.body.name}, ${req.body.picurl}, ${req.body.activities});`;
+        const createQuery = `INSERT INTO public.pictures(id, url, tags) VALUES(${req.picDd}, ${req.body.url}, ${req.body.tags});`;
         await client.query(createQuery);
         res.status(200).json({
             success: `User created.`,
@@ -47,14 +41,8 @@ router.post("/", async (req, res) => {
     }
 });
 
-// PATCH single user from daily (based on userId)
+// PATCH picture (based on Id)
 router.patch("/", async (req, res) => {
-    if (!req.isAuth) {
-        res.status(401).json({
-            error: "Unauthorized",
-        });
-        return;
-    }
     let updateField = '';
     if (req.body.name) {
         updateField = updateField + "name='" + req.body.name + "',";
@@ -66,7 +54,7 @@ router.patch("/", async (req, res) => {
         updateField = updateField + "activities='" + req.body.activities + "',";
     }
     const updateFieldEdited = updateField.slice(0, -1) // delete the last comma
-    const updateQuery = `UPDATE users SET ${updateFieldEdited} WHERE userid='${req.userId}'`;
+    const updateQuery = `UPDATE pictures SET ${updateFieldEdited} WHERE id='${req.picId}'`;
     try {
         const udpate = await client.query(updateQuery);
         if (udpate.rowCount > 0) {
@@ -88,7 +76,7 @@ router.patch("/", async (req, res) => {
 // DELETE user from table
 router.delete("/", async (req, res) => {
     try {
-        const deleteUser = `DELETE FROM users WHERE userid='${req.userId}'`;
+        const deleteUser = `DELETE FROM  WHERE id='${req.picId}'`;
         await client.query(deleteUser);
         res.status(201).json({ success: `User with id #${req.userId} was deleted.` });
     } catch (err) {
@@ -97,6 +85,5 @@ router.delete("/", async (req, res) => {
         });
     }
 });
-
 
 module.exports = router;
