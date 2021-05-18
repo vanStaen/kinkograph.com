@@ -8,6 +8,7 @@
   - [ ] Endpoint to verify code
 - [ ] Upload formular
 - [ ] Tagging interface
+- [ ] Disclaimer/about from landing-page
 
 ## Completed ✓
 
