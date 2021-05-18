@@ -3,6 +3,7 @@ const AWS = require("aws-sdk");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
 const router = express.Router();
+const fs = require("fs");
 const { Client } = require("pg");
 
 const resizeImage = require("../helpers/resizeImage");
@@ -76,8 +77,8 @@ router.post(
           // If file, upload to S3
           try {
             const thumbUrlLocal = await resizeImage(imageUrl, nameImageThumb, 240, 60)
-            const UrlThumbS3 = await uploadFileFromUrlToS3(thumbUrlLocal, nameImageThumb);
             const mediumUrlLocal = await resizeImage(imageUrl, nameImageMedium, 750, 60);
+            const UrlThumbS3 = await uploadFileFromUrlToS3(thumbUrlLocal, nameImageThumb);
             const UrlMediumbS3 = await uploadFileFromUrlToS3(mediumUrlLocal, nameImageMedium)
             await deleteLocalFile(nameImageMedium);
             await deleteLocalFile(nameImageThumb);
