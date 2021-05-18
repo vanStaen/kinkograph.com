@@ -76,12 +76,19 @@ router.post(
           const nameImageMedium = "m_" + req.file.key;
           // If file, upload to S3
           try {
-            const thumbUrlLocal = await resizeImage(imageUrl, nameImageThumb, 240, 60)
-            const mediumUrlLocal = await resizeImage(imageUrl, nameImageMedium, 750, 60);
-            const UrlThumbS3 = await uploadFileFromUrlToS3(thumbUrlLocal, nameImageThumb);
-            const UrlMediumbS3 = await uploadFileFromUrlToS3(mediumUrlLocal, nameImageMedium)
-            await deleteLocalFile(nameImageMedium);
-            await deleteLocalFile(nameImageThumb);
+            const [thumbUrlLocal, mediumUrlLocal] = await Promise.all([
+              resizeImage(imageUrl, nameImageThumb, 240, 60),
+              resizeImage(imageUrl, nameImageMedium, 750, 60),
+            ]);
+            const [UrlThumbS3, UrlMediumbS3] = await Promise.all([
+              uploadFileFromUrlToS3(thumbUrlLocal, nameImageThumb),
+              uploadFileFromUrlToS3(mediumUrlLocal, nameImageMedium),
+            ]);
+            // Delete locally store files
+            await Promise.all([
+              deleteLocalFile(nameImageMedium),
+              deleteLocalFile(nameImageThumb),
+            ]);
             // Return file name and file url to client
             return res.status(200).json({
               imageOriginalName: imageOriginalName,
