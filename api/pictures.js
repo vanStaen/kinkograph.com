@@ -3,7 +3,6 @@ const AWS = require("aws-sdk");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
 const router = express.Router();
-const fs = require("fs");
 const { Client } = require("pg");
 
 const resizeImage = require("../helpers/resizeImage");
