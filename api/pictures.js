@@ -57,12 +57,11 @@ const uploadS3 = multer({
   fileFilter: fileFilter,
 }).single("file");
 
-
 // POST single file object to s3
 router.post(
   "/",
   (req, res) => {
-    uploadS3(req, res, (error) => {
+    uploadS3(req, res, async (error) => {
       if (error) {
         console.log("Upload s3, error: ", error);
         res.json({ error: error });
@@ -71,54 +70,30 @@ router.post(
         if (req.file === undefined) {
           res.json({ Error: "No File Selected" });
         } else {
-          // If Success
           const imageOriginalName = req.file.originalname;
           const imageUrl = req.file.location;
           const nameImageThumb = "t_" + req.file.key;
           const nameImageMedium = "m_" + req.file.key;
-          // Create Thumbnail
-          resizeImage(imageUrl, nameImageThumb, 240, 60)
-          .then((thumbUrlLocal) => {
-              fs.watch(thumbUrlLocal, () => {
-                uploadFileFromUrlToS3(thumbUrlLocal, nameImageThumb)
-                .then((UrlThumbS3) => {
-                    resizeImage(imageUrl, nameImageMedium, 750, 60)
-                    .then((mediumUrlLocal) => {
-                        fs.watch(mediumUrlLocal, () => {
-                          uploadFileFromUrlToS3(mediumUrlLocal, nameImageMedium)
-                            .then((UrlMediumbS3) => {
-                              // Return file name and file url to client
-                              return res.status(200).json({
-                                imageOriginalName: imageOriginalName,
-                                imageUrl: imageUrl,
-                                thumbUrl: UrlThumbS3,
-                                mediumUrl: UrlMediumbS3,
-                              });
-                            })
-                            .then(() => {
-                              deleteLocalFile(nameImageMedium);
-                            })
-                            .catch((err) => {
-                              console.log(err);
-                              return res.status(400).json({ error: err });
-                            });
-                        });
-                      })
-                      .catch((err) => {
-                        console.log(err);
-                        return res.status(400).json({ error: err });
-                      });
-                })
-                .then(() => {
-                  deleteLocalFile(nameImageThumb);
-                })
-                .catch((err) => {
-                  console.log(err);
-                  return res.status(400).json({ error: err });
-                });
-              });
-            }
-          );
+          // If file, upload to S3
+          try {
+            const thumbUrlLocal = await resizeImage(imageUrl, nameImageThumb, 240, 60)
+            const UrlThumbS3 = await uploadFileFromUrlToS3(thumbUrlLocal, nameImageThumb);
+            const mediumUrlLocal = await resizeImage(imageUrl, nameImageMedium, 750, 60);
+            const UrlMediumbS3 = await uploadFileFromUrlToS3(mediumUrlLocal, nameImageMedium)
+            await deleteLocalFile(nameImageMedium);
+            await deleteLocalFile(nameImageThumb);
+            // Return file name and file url to client
+            return res.status(200).json({
+              imageOriginalName: imageOriginalName,
+              imageUrl: imageUrl,
+              thumbUrl: UrlThumbS3,
+              mediumUrl: UrlMediumbS3,
+            });
+          }
+          catch (err) {
+            console.log(err);
+            return res.status(400).json({ error: err });
+          };         
         }
       }
     });
