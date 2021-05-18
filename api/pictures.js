@@ -84,13 +84,19 @@ router.post(
               uploadFileFromUrlToS3(thumbUrlLocal, nameImageThumb),
               uploadFileFromUrlToS3(mediumUrlLocal, nameImageMedium),
             ]);
-            // Delete locally store files
+            // Delete locally stored files
             await Promise.all([
               deleteLocalFile(nameImageMedium),
               deleteLocalFile(nameImageThumb),
             ]);
+
+            // Add picture to db: 
+            const createQuery = `INSERT INTO pictures (url_original, url_thumb, url_med) VALUES (${imageUrl}, ${UrlThumbS3}, ${UrlMediumbS3});`;
+            await client.query(createQuery);
+
             // Return file name and file url to client
             return res.status(200).json({
+              message: "Upload success!",
               imageOriginalName: imageOriginalName,
               imageUrl: imageUrl,
               thumbUrl: UrlThumbS3,
@@ -109,32 +115,28 @@ router.post(
 
 // DELETE single file object from s3 (based on key)
 router.delete("/:id", async (req, res) => {
-  if (!req.isAuth) {
-    res.status(401).json({
-      error: "Unauthorized",
-    });
-    return;
-  }
   try {
-    const params = { Bucket: process.env.S3_BUCKET_ID, Key: req.params.id };
-    s3.deleteObject(params, function (err, data) {
-      const paramsThumb = {
-        Bucket: process.env.S3_BUCKET_ID,
-        Key: "t_" + req.params.id,
-      };
-      s3.deleteObject(paramsThumb, function (err, data) {
-        res.status(204).json({});
-        //console.log(`Object id ${req.params.id} has been deleted`);
-      });
-    });
+    const params = { 
+      Bucket: process.env.S3_BUCKET_ID, 
+      Key: req.params.id 
+    };
+    const paramsThumb = {
+      Bucket: process.env.S3_BUCKET_ID,
+      Key: "t_" + req.params.id,
+    };
+    await Promise.all([    
+      s3.deleteObject(params, function (err, data) {}),
+      s3.deleteObject(paramsThumb, function (err, data) {}),
+    ]);
+    const deleteUser = `DELETE FROM pictures WHERE id='${req.picId}';`;
+    await client.query(deleteUser);
+    res.status(200).json({ success: `User with id #${req.userId} was deleted.` });
   } catch (err) {
     res.status(400).json({
       error: `${err}`,
     });
   }
 });
-
-
 
 
 // GET all pictures from user
@@ -149,64 +151,5 @@ router.get("/", async (req, res) => {
     }
 });
 
-/* POST picture (based on Id)
-router.post("/", async (req, res) => {
-    try {
-        const createQuery = `INSERT INTO public.pictures(id, url, tags) VALUES(${req.picDd}, ${req.body.url}, ${req.body.tags});`;
-        await client.query(createQuery);
-        res.status(200).json({
-            success: `User created.`,
-        });
-    } catch (error) {
-        res.status(400).json({
-            error: `${err}`,
-        });
-    }
-});
-
-// PATCH picture (based on Id)
-router.patch("/", async (req, res) => {
-    let updateField = '';
-    if (req.body.name) {
-        updateField = updateField + "name='" + req.body.name + "',";
-    }
-    if (req.body.picurl) {
-        updateField = updateField + "picurl='" + req.body.picurl + "',";
-    }
-    if (req.body.activities) {
-        updateField = updateField + "activities='" + req.body.activities + "',";
-    }
-    const updateFieldEdited = updateField.slice(0, -1) // delete the last comma
-    const updateQuery = `UPDATE pictures SET ${updateFieldEdited} WHERE id='${req.picId}'`;
-    try {
-        const udpate = await client.query(updateQuery);
-        if (udpate.rowCount > 0) {
-            res.status(200).json({
-                success: `User updated.`,
-            });
-        } else {
-            res.status(400).json({
-                error: `No User found with id#${req.params.id}`,
-            });
-        }
-    } catch (err) {
-        res.status(400).json({
-            error: `${err}`,
-        });
-    }
-});
-
-// DELETE user from table
-router.delete("/", async (req, res) => {
-    try {
-        const deleteUser = `DELETE FROM  WHERE id='${req.picId}'`;
-        await client.query(deleteUser);
-        res.status(201).json({ success: `User with id #${req.userId} was deleted.` });
-    } catch (err) {
-        res.status(400).json({
-            error: `${err})`,
-        });
-    }
-}); */
 
 module.exports = router;
