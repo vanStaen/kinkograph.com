@@ -61,10 +61,6 @@ const uploadS3 = multer({
 // POST single file object to s3
 router.post(
   "/",
-  async (req, res, next) => {
-    if (!req.isAuth) return res.status(401).json({ error: "Unauthenticated" });
-    next();
-  },
   (req, res) => {
     uploadS3(req, res, (error) => {
       if (error) {

@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, "build")));
 app.get('/', (req, res) => { res.sendFile(path.join(__dirname, "build", "index.html")); });
 
 // Router to API endpoints
-app.use("/picture", require("./api/picture"));
+app.use("/pictures", require("./api/pictures"));
 app.use("/login", require("./api/login"));
 
 // Listen on a port
