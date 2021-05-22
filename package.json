@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "start-client": "react-scripts start",
-    "devfr": "cd frontend/; npm start; cd ../;",
+    "devfr": "cd frontend/; npm i; npm start; cd ../;",
     "test": "cd frontend/; npm run test; cd ../;",
     "dev": "forever -c \"nodemon --exitcrash\" index.js",
     "log": "heroku logs --tail",
