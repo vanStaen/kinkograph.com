@@ -12,7 +12,8 @@
     "log": "heroku logs --tail",
     "version": "heroku --version; git --version",
     "buildfe": "cd frontend/; npm run build; cd ../; git add -A; git commit -a -m \"deploy frontend Build\"; git push;",
-    "deploy": "npm i; npm run buildfe; heroku git:remote -a kinkograph; git push heroku main"
+    "deploy": "npm i; npm run buildfe; heroku git:remote -a kinkograph; git push heroku main",
+    "killAll": "killall -9 node"
   },
   "repository": {
     "type": "git",

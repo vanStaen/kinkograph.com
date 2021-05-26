@@ -23,7 +23,6 @@
     display: table-cell;
     vertical-align: middle;
     text-align: center;
-    width: 85vw;
     height: 75vh;
 }
 
@@ -41,7 +40,6 @@
 
 .form-upload-hint {
     font-size: 14px;
-    margin-bottom: 5em;
 }
 
 .form-upload-text {
@@ -50,14 +48,35 @@
     color: #fff;
 }
 
-.Uploader__container {
-    min-height: 100vh;
-    min-height: calc(var(--vh, 1vh) * 100);
+.Uploader__formContainer {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.Uploader__formContent {
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 100vh;
+}
+
+.Uploader__missingContainer {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+.Uploader__missingContent {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50vw;
+    height: 100vh;
 }
 
 .Uploader__spinner {

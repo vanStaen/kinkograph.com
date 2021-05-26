@@ -1,9 +1,8 @@
 import axios from "axios";
 
-export const getPictures = async () => {
-
+export const getTagsMissing = async () => {
   const response = await axios({
-    url: process.env.REACT_APP_API_URL + `/pictures/all/`,
+    url: process.env.REACT_APP_API_URL + `/pictures/tagsmissing`,
     method: "GET",
   });
 

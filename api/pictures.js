@@ -141,7 +141,7 @@ router.delete("/:id", async (req, res) => {
 
 
 // GET all pictures
-router.get("/", async (req, res) => {
+router.get("/all/", async (req, res) => {
   try {
     const pictures = await client.query(`SELECT * FROM pictures`);
     res.status(201).json(pictures.rows);
@@ -161,6 +161,18 @@ router.post("/duplicate/", async (req, res) => {
 
   try {
     const pictures = await client.query(`SELECT * FROM pictures ${filter}`);
+    res.status(201).json(pictures.rows);
+  } catch (err) {
+    res.status(400).json({
+      error: `${err})`,
+    });
+  }
+});
+
+// GET all pictures
+router.get("/tagsmissing/", async (req, res) => {
+  try {
+    const pictures = await client.query(`SELECT * FROM pictures WHERE tags_missing=true`);
     res.status(201).json(pictures.rows);
   } catch (err) {
     res.status(400).json({
