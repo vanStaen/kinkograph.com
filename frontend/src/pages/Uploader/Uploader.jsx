@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { PictureOutlined, LoadingOutlined } from '@ant-design/icons';
 import { notification } from 'antd';
 
-
 import { postPicture } from './postPicture';
+import { getDuplicate } from './getDuplicate';
 
 import "./Uploader.css";
 
@@ -13,8 +13,18 @@ export const Uploader = () => {
     const fileSelectHandler = async (event) => {
         setIsUploading(true);
         if (event.target.files[0]) {
-            //TODO: Check if not already in DB
-            await submitHandler(event.target.files[0]);
+            const name = event.target.files[0].name.split(".")[0];
+            const alreadyIn = await getDuplicate(name);
+            console.log(alreadyIn);
+            if (alreadyIn.length === 0) {
+                await submitHandler(event.target.files[0]);
+            } else {
+                notification.warning({
+                    message: `Dupplicate? `,
+                    description: `There is already a file named ${event.target.files[0].name}`,
+                })
+                setIsUploading(false);
+            }
         } else {
             setIsUploading(false);
         }

@@ -140,11 +140,28 @@ router.delete("/:id", async (req, res) => {
 });
 
 
-// GET all pictures from user
+// GET all pictures
 router.get("/", async (req, res) => {
   try {
-    const user = await client.query(`SELECT * FROM pictures`);
-    res.status(201).json(user.rows);
+    const pictures = await client.query(`SELECT * FROM pictures`);
+    res.status(201).json(pictures.rows);
+  } catch (err) {
+    res.status(400).json({
+      error: `${err})`,
+    });
+  }
+});
+
+
+// POST, check if a picture is already in db
+router.post("/duplicate/", async (req, res) => {
+
+  const filter = `WHERE original_name='${req.body.name}'`;
+  console.log("filter", req.body.name);
+
+  try {
+    const pictures = await client.query(`SELECT * FROM pictures ${filter}`);
+    res.status(201).json(pictures.rows);
   } catch (err) {
     res.status(400).json({
       error: `${err})`,

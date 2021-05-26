@@ -6,7 +6,7 @@
   - [x] password input
   - [ ] Endpoint to verify code
 - [ ] Upload formular
-  - [ ] Check if picture already in db
+  - [x] Check if picture already in db
   - [ ] After upload : Tag and Pic format
 - [ ] Show pic in Gallery
 - [ ] Tagging interface
