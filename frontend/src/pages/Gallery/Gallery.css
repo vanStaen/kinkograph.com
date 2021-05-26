@@ -23,7 +23,7 @@
 }
 
 .item:hover {
-  opacity: .5;
+  filter: brightness(50%), blur(4px);
 }
 
 .item__landscape {
@@ -39,6 +39,10 @@
 .item__portrait {
   grid-row-end: span 2;
   grid-column-end: span 2;
+}
+
+.Gallery__spinner {
+  font-size: 10vh;
 }
 
 @media screen and (min-width: 768px) {

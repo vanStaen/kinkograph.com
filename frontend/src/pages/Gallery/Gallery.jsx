@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
+import { LoadingOutlined } from '@ant-design/icons';
 import { getPictures } from "./getPictures";
 
 import "./Gallery.css";
@@ -22,19 +23,23 @@ export const Gallery = () => {
   }, [fetchPictures]);
 
   return (
-    <div className="grid">
+    <div>
       { isLoading ?
-        "loading" :
-        pictures.map(picture => {
-          return (
-            <div
-              className={`item ${picture.format}`}
-              style={{ backgroundImage: `url("${picture.url_thumb}")` }}
-              key={picture.id}
-            >
-              {picture.tag}
-            </div>)
-        })
+        <div className="App__flex">
+          <LoadingOutlined className="Gallery__spinner" />
+        </div> :
+        <div className="grid">{
+          pictures.map(picture => {
+            return (
+              <div
+                className={`item ${picture.format}`}
+                style={{ backgroundImage: `url("${picture.url_thumb}")` }}
+                key={picture.id}
+              >
+                {picture.tag}
+              </div>)
+          })}
+        </div>
       }
     </div>
   );
