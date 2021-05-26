@@ -1,9 +1,8 @@
 import React, { Fragment, useState } from "react";
-import { notification, Spin } from 'antd';
-
-import axios from "axios";
-
 import { CameraOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
+
+import { postPicture } from './postPicture';
 
 import "./Uploader.css";
 
@@ -12,20 +11,11 @@ export const Uploader = () => {
 
     const fileSelectHandler = async (event) => {
         setIsUploading(true);
-        submitHandler(event.target.files[0]);
+        await submitHandler(event.target.files[0]);
     }
 
     const submitHandler = async (file) => {
-        const formData = new FormData();
-        formData.append('file', file);
-        try {
-            const res = await axios.post(process.env.REACT_APP_API_URL_UPLOAD, formData)
-            notification.success({ message: `File uploaded successfully.`, placement: "bottomRight", });
-            console.log('Success!', res.data);
-        } catch (err) {
-            notification.error({ message: `File upload failed.`, placement: "bottomRight", });
-            console.log(err)
-        }
+        await postPicture(file);
         setIsUploading(false);
     }
 
