@@ -1,0 +1,49 @@
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inputfile+label {
+    color: rgba(0, 0, 0, 0.85);
+    background: #fafafa;
+    border: 1px dashed #d9d9d9;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: border-color 0.3s;
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    cursor: pointer;
+    font-feature-settings: 'tnum', "tnum";
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    width: 240px;
+    height: 385px;
+}
+
+.inputfile:focus+label, .inputfile+label:hover {
+    border: 1px dashed #999;
+}
+
+.form-upload-drag-icon {
+    color: #8e9e95;
+    font-size: 48px;
+    margin-bottom: 0 !important;
+}
+
+.form-upload-hint {
+    color: rgba(0, 0, 0, 0.45);
+    font-size: 14px;
+}
+
+.form-upload-text {
+    margin: 0 0 4px;
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 16px;
+}
