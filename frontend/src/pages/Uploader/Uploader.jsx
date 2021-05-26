@@ -1,6 +1,7 @@
-import React, { Fragment, useState } from "react";
-import { CameraOutlined } from '@ant-design/icons';
-import { Spin } from 'antd';
+import React, { useState } from "react";
+import { PictureOutlined, LoadingOutlined } from '@ant-design/icons';
+import { notification } from 'antd';
+
 
 import { postPicture } from './postPicture';
 
@@ -11,19 +12,27 @@ export const Uploader = () => {
 
     const fileSelectHandler = async (event) => {
         setIsUploading(true);
-        await submitHandler(event.target.files[0]);
+        if (event.target.files[0]) {
+            //TODO: Check if not already in DB
+            await submitHandler(event.target.files[0]);
+        } else {
+            setIsUploading(false);
+        }
     }
 
     const submitHandler = async (file) => {
-        await postPicture(file);
+        const result = await postPicture(file);
+        notification[result]({
+            message: `Upload ${result}`,
+            description: `File: ${file.name}`,
+        });
         setIsUploading(false);
     }
 
     return (
-        <Fragment>
+        <div className="Uploader__container">
             <form
                 onSubmit={submitHandler}
-                style={{ marginBottom: "30px" }}
             >
                 <input
                     type="file"
@@ -34,19 +43,21 @@ export const Uploader = () => {
                 />
                 {isUploading ?
                     (<label htmlFor="file">
-                        <Spin size="large" />
+                        <LoadingOutlined className="Uploader__spinner" />
+                        <p className="form-upload-text">
+                            Loading
+                        </p>
                     </label>) :
                     (<label htmlFor="file">
                         <p className="form-upload-drag-icon">
-                            <CameraOutlined />
+                            <PictureOutlined />
                         </p>
-                        <p className="form-upload-text">Create Look</p>
                         <p className="form-upload-hint">
-                            Start with a photo <br />
-            Click, or drag here a file
-          </p>
+                            Click, or drag here a file <br />
+                                Allowed are jpg and png file only
+                        </p>
                     </label>)}
             </form>
-        </Fragment >
+        </div >
     );
 };

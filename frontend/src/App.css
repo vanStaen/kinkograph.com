@@ -1,3 +1,4 @@
+@import "~antd/dist/antd.css";
 .App {
   font-size: min(calc(7px + 2vmin), 25px);
   color: white;
