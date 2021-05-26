@@ -1,22 +1,26 @@
 .App {
-	font-size: min(calc(7px + 2vmin), 25px);
+  font-size: min(calc(7px + 2vmin), 25px);
   color: white;
 }
 
 .App__main {
-  min-height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  min-height: 100vh;
+  /* Fallback for browsers that do not support Custom Properties */
   min-height: calc(var(--vh, 1vh) * 100);
   background-color: #282c34;
   background-image: url("img/diaboli.png");
   background-size: cover;
-  background-position:center center;
+  background-position: center center;
 }
 
-.App__flex{
+.App__flex {
+  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .App__title {
@@ -26,8 +30,8 @@
   margin: 0 0 1em 0;
   font-weight: 200;
   letter-spacing: 17px;
-  }
+}
 
 .spacer {
-  margin: 0 0 17em 0;
-  }   
+  padding: 0 0 5em 0;
+}

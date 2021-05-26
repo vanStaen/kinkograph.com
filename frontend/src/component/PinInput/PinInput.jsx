@@ -1,4 +1,5 @@
-import { React, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+
 import "./PinInput.css";
 
 export const PinInput = (props) => {
