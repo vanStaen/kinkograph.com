@@ -29,7 +29,7 @@ export const Gallery = () => {
           return (
             <div
               className={`item ${picture.format}`}
-              style={{ backgroundImage: `url("${picture.url_med}")` }}
+              style={{ backgroundImage: `url("${picture.url_thumb}")` }}
             >
               {picture.tag}
             </div>)
