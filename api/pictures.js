@@ -16,9 +16,9 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; // This bypasses the SSL verificat
 
 // Connect to Postgres 
 client.connect(err => {
-    if (err) {
-        console.error('connection error', err.stack)
-    }
+  if (err) {
+    console.error('connection error', err.stack)
+  }
 })
 
 // Limits size of 10MB
@@ -69,7 +69,8 @@ router.post(
         if (req.file === undefined) {
           res.json({ Error: "No File Selected" });
         } else {
-          const imageOriginalName = req.file.originalname;
+          const imageOriginalName = req.file.originalname.split('.')[0];
+          const imageOriginalType = req.file.originalname.split('.')[1];
           const imageUrl = req.file.location;
           const nameImageThumb = "t_" + req.file.key;
           const nameImageMedium = "m_" + req.file.key;
@@ -90,13 +91,14 @@ router.post(
             ]);
 
             // Add picture to db: 
-            const createQuery = `INSERT INTO pictures (url_original, url_thumb, url_med) VALUES (${imageUrl}, ${UrlThumbS3}, ${UrlMediumbS3});`;
+            const createQuery = `INSERT INTO pictures (url_original, url_thumb, url_med, original_name, original_type) VALUES ('${imageUrl}', '${UrlThumbS3}', '${UrlMediumbS3}', '${imageOriginalName}', '${imageOriginalType}');`;
             await client.query(createQuery);
 
             // Return file name and file url to client
             return res.status(200).json({
               message: "Upload success!",
               imageOriginalName: imageOriginalName,
+              imageOriginalType: imageOriginalType,
               imageUrl: imageUrl,
               thumbUrl: UrlThumbS3,
               mediumUrl: UrlMediumbS3,
@@ -105,7 +107,7 @@ router.post(
           catch (err) {
             console.log(err);
             return res.status(400).json({ error: err });
-          };         
+          };
         }
       }
     });
@@ -115,17 +117,17 @@ router.post(
 // DELETE single file object from s3 (based on key)
 router.delete("/:id", async (req, res) => {
   try {
-    const params = { 
-      Bucket: process.env.S3_BUCKET_ID, 
-      Key: req.params.id 
+    const params = {
+      Bucket: process.env.S3_BUCKET_ID,
+      Key: req.params.id
     };
     const paramsThumb = {
       Bucket: process.env.S3_BUCKET_ID,
       Key: "t_" + req.params.id,
     };
-    await Promise.all([    
-      s3.deleteObject(params, function (err, data) {}),
-      s3.deleteObject(paramsThumb, function (err, data) {}),
+    await Promise.all([
+      s3.deleteObject(params, function (err, data) { }),
+      s3.deleteObject(paramsThumb, function (err, data) { }),
     ]);
     const deleteUser = `DELETE FROM pictures WHERE id='${req.picId}';`;
     await client.query(deleteUser);
@@ -140,14 +142,14 @@ router.delete("/:id", async (req, res) => {
 
 // GET all pictures from user
 router.get("/", async (req, res) => {
-    try {
-        const user = await client.query(`SELECT * FROM pictures`);
-        res.status(201).json(user.rows);
-    } catch (err) {
-        res.status(400).json({
-            error: `${err})`,
-        });
-    }
+  try {
+    const user = await client.query(`SELECT * FROM pictures`);
+    res.status(201).json(user.rows);
+  } catch (err) {
+    res.status(400).json({
+      error: `${err})`,
+    });
+  }
 });
 
 

@@ -2,7 +2,6 @@ import React, { Fragment, useState } from "react";
 import { notification, Spin } from 'antd';
 
 import axios from "axios";
-import moment from 'moment';
 
 import { CameraOutlined } from '@ant-design/icons';
 
@@ -19,60 +18,15 @@ export const Uploader = () => {
     const submitHandler = async (file) => {
         const formData = new FormData();
         formData.append('file', file);
-
-        async function postNewLook(requestBody) {
-
-            const response = await axios({
-                url: process.env.REACT_APP_API_URL,
-                method: "POST",
-                data: requestBody,
-            });
-            if ((response.status !== 200) & (response.status !== 201)) {
-                notification.error({ message: `Unauthenticated!`, placement: "bottomRight", });
-                throw new Error("Unauthenticated!");
-            }
-            const newLook = await response.data;
-            return newLook;
-        }
-
         try {
             const res = await axios.post(process.env.REACT_APP_API_URL_UPLOAD, formData)
-            // Create Look entry
-            const mediaUrl = res.data.imageUrl
-            const mediaUrlThumb = res.data.thumbUrl
-            const mediaUrlMedium = res.data.mediumUrl
-            const title = moment().format('DD.MM.YYYY');
-            const requestBody = {
-                query: `
-                mutation {
-                    createLook(
-                      lookInput: { mediaUrl: "${mediaUrl}", 
-                                   mediaUrlThumb: "${mediaUrlThumb}",
-                                   mediaUrlMedium: "${mediaUrlMedium}",
-                                   title: "${title}" }
-                    ) {
-                      _id
-                    }
-                  }
-                  `
-            };
-            // post new Look
-            postNewLook(requestBody)
-                .then(() => {
-                    notification.success({ message: `File uploaded successfully.`, placement: "bottomRight", });
-                    // retrigger parent component rendering
-                    console.log('Success!');
-                }
-                ).catch(error => {
-                    notification.error({ message: `File upload failed.`, placement: "bottomRight", });
-                    console.log(error.message);
-                });
-            setIsUploading(false);
+            notification.success({ message: `File uploaded successfully.`, placement: "bottomRight", });
+            console.log('Success!', res.data);
         } catch (err) {
             notification.error({ message: `File upload failed.`, placement: "bottomRight", });
-            setIsUploading(false);
             console.log(err)
         }
+        setIsUploading(false);
     }
 
     return (
