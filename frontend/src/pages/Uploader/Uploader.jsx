@@ -2,15 +2,19 @@ import React, { useState, useEffect, useCallback } from "react";
 import { PictureOutlined, LoadingOutlined } from '@ant-design/icons';
 import { notification } from 'antd';
 
+import { EditPictures } from './EditPictures';
 import { postPicture } from './postPicture';
 import { getDuplicate } from './getDuplicate';
 import { getTagsMissing } from './getTagsMissing';
 
 import "./Uploader.css";
 
+const SIZE_PICTURE_MISSING_TAG = 150;
+
 export const Uploader = () => {
     const [isUploading, setIsUploading] = useState(false);
     const [picsTagsMissing, setPicsTagsMissing] = useState([]);
+    const [limit, setLimit] = useState(undefined);
 
     const fileSelectHandler = useCallback(async (event) => {
         setIsUploading(true);
@@ -34,16 +38,31 @@ export const Uploader = () => {
 
     const fetchPicsTagsMissing = useCallback(async () => {
         try {
-            const picsTagsMissing = await getTagsMissing();
+            const limit = await calculateMissingTagPicLimit();
+            console.log(limit)
+            const picsTagsMissing = await getTagsMissing(limit);
             setPicsTagsMissing(picsTagsMissing);
         } catch (err) {
             console.log(err);
         }
+    }, [limit]);
+
+    const calculateMissingTagPicLimit = useCallback(() => {
+        const pageWidth = window.innerWidth;
+        const missingPicContainerWidth = Math.floor(pageWidth * 0.4);
+        const numOfPicFittingInContainer = Math.floor(missingPicContainerWidth / (SIZE_PICTURE_MISSING_TAG + 30)) * 3;
+        console.log(pageWidth, missingPicContainerWidth, numOfPicFittingInContainer);
+        setLimit(numOfPicFittingInContainer);
+        return numOfPicFittingInContainer;
     }, []);
 
     useEffect(() => {
-        fetchPicsTagsMissing();
-    }, [fetchPicsTagsMissing]);
+        fetchPicsTagsMissing(limit);
+        window.addEventListener("resize", calculateMissingTagPicLimit);
+        return () => {
+            window.removeEventListener("resize", calculateMissingTagPicLimit);
+        };
+    }, [fetchPicsTagsMissing, calculateMissingTagPicLimit]);
 
     const submitHandler = useCallback(async (file) => {
         const result = await postPicture(file);
@@ -98,8 +117,10 @@ export const Uploader = () => {
                 < div className="Uploader__missingContainer">
                     <div className="Uploader__missingContent">
                         {picsTagsMissing.map(picture => {
-                            return <img src={picture.url_thumb} alt={picture.id} width="150" height="150" />
-
+                            return <EditPictures
+                                picture={picture}
+                                size={SIZE_PICTURE_MISSING_TAG}
+                            />
                         })
                         }
                     </div>

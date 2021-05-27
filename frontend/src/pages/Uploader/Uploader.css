@@ -66,17 +66,30 @@
 .Uploader__missingContainer {
     position: absolute;
     top: 0px;
-    right: 0px;
+    right: 10vw;
 }
 
 .Uploader__missingContent {
+    padding-top: 12.5vh;
+    display: inline-block;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 50vw;
+    width: 40vw;
     height: 100vh;
+}
+
+.Uploader__missingPicture {
+    display: inline-block;
+    position: relative;
+    margin: 15px;
+    cursor: pointer;
+}
+
+.Uploader__missingPictureOverText {
+    position: absolute;
+    top: 55px;
+    left: 65px;
+    font-size: 28px;
+    z-index: 10;
 }
 
 .Uploader__spinner {

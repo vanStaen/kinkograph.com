@@ -23,7 +23,7 @@
 }
 
 .item:hover {
-  filter: brightness(50%), blur(4px);
+  filter: brightness(50%) blur(4px);
 }
 
 .item__landscape {

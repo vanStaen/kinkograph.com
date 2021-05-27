@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const getTagsMissing = async () => {
+export const getTagsMissing = async (limit) => {
   const response = await axios({
-    url: process.env.REACT_APP_API_URL + `/pictures/tagsmissing`,
+    url: process.env.REACT_APP_API_URL + `/pictures/tagsmissing/${limit}`,
     method: "GET",
   });
 
