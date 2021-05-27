@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Drawer, Select } from 'antd';
 
 import './EditDrawer.css';
 
 export const EditDrawer = (props) => {
+    const [format, setFormat] = useState(props.picture.format);
 
-    const handleFormatChange = () => {
-        console.log('Format changed');
+    const handleFormatChange = (value) => {
+        setFormat(value);
     }
 
     const { Option } = Select;
@@ -33,7 +34,7 @@ export const EditDrawer = (props) => {
         >
             <div className="Drawer__font">Format:</div>
             <Select
-                defaultValue={props.picture.format}
+                defaultValue={format}
                 style={{ width: '100%' }}
                 onChange={handleFormatChange}>
                 <Option value="item__square">Square</Option>
@@ -53,8 +54,9 @@ export const EditDrawer = (props) => {
             >
                 {children}
             </Select>
-
-
+            <br />
+            <br />
+            {format}
         </Drawer>
     )
 }

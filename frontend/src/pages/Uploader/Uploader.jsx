@@ -22,7 +22,6 @@ export const Uploader = () => {
         if (event.target.files[0]) {
             const name = event.target.files[0].name.split(".")[0];
             const alreadyIn = await getDuplicate(name);
-            console.log(alreadyIn);
             if (alreadyIn.length === 0) {
                 await submitHandler(event.target.files[0]);
             } else {
@@ -40,7 +39,6 @@ export const Uploader = () => {
     const fetchPicsTagsMissing = useCallback(async () => {
         try {
             const limit = await calculateMissingTagPicLimit();
-            console.log(limit)
             const picsTagsMissing = await getTagsMissing(limit);
             setPicsTagsMissing(picsTagsMissing);
         } catch (err) {
@@ -52,7 +50,6 @@ export const Uploader = () => {
         const pageWidth = window.innerWidth;
         const missingPicContainerWidth = Math.floor(pageWidth * 0.4);
         const numOfPicFittingInContainer = Math.floor(missingPicContainerWidth / (SIZE_PICTURE_MISSING_TAG + 30)) * 3;
-        console.log(pageWidth, missingPicContainerWidth, numOfPicFittingInContainer);
         setLimit(numOfPicFittingInContainer);
         return numOfPicFittingInContainer;
     }, []);
