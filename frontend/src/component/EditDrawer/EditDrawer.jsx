@@ -113,7 +113,7 @@ export const EditDrawer = (props) => {
                 key={props.picture.id}
             ></div>
             <div className="Drawer__buttonContainer">
-                <div className="Drawer__button">
+                <div className={tags.length < 1 ? "Drawer__buttonDisabled" : "Drawer__button"}>
                     <SaveOutlined /> &nbsp; Save & Show
                 </div>
             </div>

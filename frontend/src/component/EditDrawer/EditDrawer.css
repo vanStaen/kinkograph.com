@@ -33,6 +33,29 @@
     text-align: center;
 }
 
+.Drawer__button:hover {
+    color: #000;
+    background: rgba(255, 255, 255, .5);
+    border: 1px solid rgba(0, 0, 0, .75);
+    cursor: pointer;
+}
+
+.Drawer__buttonDisabled {
+    position: relative;
+    border-radius: 2px;
+    font-weight: 200;
+    opacity: .75;
+    letter-spacing: 2px;
+    padding: 0px 11px;
+    line-height: 30px;
+    color: rgba(255, 255, 255, .15);
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(255, 255, 255, .05);
+    cursor: not-allowed;
+    width: 100%;
+    text-align: center;
+}
+
 .Drawer__buttonContainer {
     position: absolute;
     bottom: 0px;
