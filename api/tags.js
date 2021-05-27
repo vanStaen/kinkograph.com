@@ -30,8 +30,8 @@ router.get("/", async (req, res) => {
 // POST new tag in DB
 router.post("/", async (req, res) => {
   try {
-    const pictures = await client.query(`INSERT INTO public.tags(tag_name) VALUES ('${req.body.tag}');`);
-    res.status(201).json(pictures.rows);
+    await client.query(`INSERT INTO public.tags(tag_name) VALUES ('${req.body.tag_name}');`);
+    res.status(201).json(`${req.body.tag_name} was added to the table 'tags'`);
   } catch (err) {
     res.status(400).json({
       error: `${err})`,

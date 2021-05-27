@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Drawer, Select, Button } from 'antd';
+import { Drawer, Select } from 'antd';
 import { SaveOutlined } from '@ant-design/icons';
 
+import { capitalizeFirstLetter } from '../../helpers/capitalizeFirstLetter';
 import { getTags } from './getTags';
+import { postTag } from './postTag';
 
 import './EditDrawer.css';
 
 export const EditDrawer = (props) => {
     const [format, setFormat] = useState(props.picture.format);
+    const [tags, setTags] = useState([]);
     const [allTags, setAllTags] = useState([]);
     const { Option } = Select;
 
@@ -28,8 +31,26 @@ export const EditDrawer = (props) => {
         setFormat(value);
     }
 
-    const handleChange = (value) => {
-        console.log(`selected ${value}`);
+    const handleTagChange = async (value) => {
+        const addedTag = value.map(newTag => {
+            const index = tags.findIndex(tag => tag === newTag);
+            if (index < 0) {
+                return capitalizeFirstLetter(newTag);
+            }
+            return undefined;
+        })
+        if (addedTag !== undefined) {
+            const indexAllTags = allTags.findIndex(tag => tag.tag_name === addedTag);
+            if (indexAllTags < 0) {
+                await postTag(addedTag);
+                console.log(`Add ${addedTag} to the tag list.`)
+            }
+        }
+        const valueCleaned = value.map(oldTag => {
+            return capitalizeFirstLetter(oldTag);
+        });
+        console.log(valueCleaned)
+        setTags(valueCleaned);
     }
 
     const sizeFormat = (format) => {
@@ -71,11 +92,11 @@ export const EditDrawer = (props) => {
                 allowClear={false}
                 style={{ width: '100%' }}
                 placeholder="Add some tags"
-                onChange={handleChange}
+                onChange={handleTagChange}
             >
                 {
                     allTags.map((tag) => {
-                        return <Option key={tag.tag_id}>{tag.tag_name}</Option>
+                        return <Option key={tag.tag_name}>{tag.tag_name}</Option>
                     })
                 }
             </Select>

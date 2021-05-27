@@ -121,6 +121,7 @@ export const Uploader = () => {
                                 picture={picture}
                                 size={SIZE_PICTURE_MISSING_TAG}
                                 setShowUploader={setShowUploader}
+                                key={picture.id}
                             />
                         })
                         }
