@@ -155,10 +155,7 @@ router.get("/all/", async (req, res) => {
 
 // POST, check if a picture is already in db
 router.post("/duplicate/", async (req, res) => {
-
   const filter = `WHERE original_name='${req.body.name}'`;
-  console.log("filter", req.body.name);
-
   try {
     const pictures = await client.query(`SELECT * FROM pictures ${filter}`);
     res.status(201).json(pictures.rows);
