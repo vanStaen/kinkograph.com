@@ -92,7 +92,7 @@ export const EditDrawer = (props) => {
             ></div>
             <div className="Drawer__buttonContainer">
                 <div className="Drawer__button">
-                    <SaveOutlined />
+                    <SaveOutlined /> &nbsp; Save & Show
                 </div>
             </div>
 
