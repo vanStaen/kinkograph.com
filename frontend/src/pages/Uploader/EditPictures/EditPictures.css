@@ -1,0 +1,15 @@
+.EditPictures__missingPicture {
+    display: inline-block;
+    position: relative;
+    margin: 15px;
+    cursor: pointer;
+    border: 2px solid rgba(0, 0, 0, .5);
+}
+
+.EditPictures__missingPictureOverText {
+    position: absolute;
+    top: 55px;
+    left: 65px;
+    font-size: 28px;
+    z-index: 10;
+}

@@ -1,0 +1,13 @@
+.Drawer__Title {
+    font-weight: 200;
+    opacity: .75;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.Drawer__font {
+    font-weight: 200;
+    opacity: .5;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}

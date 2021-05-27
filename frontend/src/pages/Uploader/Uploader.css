@@ -77,21 +77,6 @@
     height: 100vh;
 }
 
-.Uploader__missingPicture {
-    display: inline-block;
-    position: relative;
-    margin: 15px;
-    cursor: pointer;
-}
-
-.Uploader__missingPictureOverText {
-    position: absolute;
-    top: 55px;
-    left: 65px;
-    font-size: 28px;
-    z-index: 10;
-}
-
 .Uploader__spinner {
     font-size: 15vh;
 }

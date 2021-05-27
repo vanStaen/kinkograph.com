@@ -1,9 +1,9 @@
 import React, { Fragment, useState } from "react";
 import { EditOutlined } from '@ant-design/icons';
 
-import { EditDrawer } from './EditDrawer';
+import { EditDrawer } from '../EditDrawer/EditDrawer';
 
-import "./Uploader.css";
+import "./EditPictures.css";
 
 export const EditPictures = (props) => {
     const [showEdit, setShowEdit] = useState(false);
@@ -13,7 +13,7 @@ export const EditPictures = (props) => {
         setShowEdit(hover);
         const element = document.getElementById(props.picture.id);
         if (hover) {
-            element.style.filter = "brightness(50%) blur(4px)";
+            element.style.filter = "brightness(50%) blur(2px)";
         } else {
             element.style.filter = "brightness(100%) blur(0px)";
         }
@@ -37,10 +37,10 @@ export const EditPictures = (props) => {
             hideDrawer={hideDrawer}
             showDrawer={showDrawer}
         />
-        <div className="Uploader__missingPicture">
+        <div className="EditPictures__missingPicture">
             {showEdit &&
                 <div
-                    className="Uploader__missingPictureOverText"
+                    className="EditPictures__missingPictureOverText"
                     onMouseEnter={() => mouseHoverHandler(true)}
                     onMouseLeave={() => mouseHoverHandler(false)}
                     onClick={clickHandler}
@@ -49,7 +49,6 @@ export const EditPictures = (props) => {
                 </div>}
             <img
                 id={props.picture.id}
-                className="Uploader__missingPictureImg"
                 src={props.picture.url_thumb}
                 alt={props.picture.id}
                 width={props.size}

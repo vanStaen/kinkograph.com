@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { PictureOutlined, LoadingOutlined } from '@ant-design/icons';
 import { notification } from 'antd';
 
-import { EditPictures } from './EditPictures';
+import { EditPictures } from './EditPictures/EditPictures';
 import { postPicture } from './postPicture';
 import { getDuplicate } from './getDuplicate';
 import { getTagsMissing } from './getTagsMissing';
