@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { EditOutlined } from '@ant-design/icons';
-import { Drawer } from 'antd';
+
+import { EditDrawer } from './EditDrawer';
 
 import "./Uploader.css";
 
@@ -19,20 +20,23 @@ export const EditPictures = (props) => {
     }
 
     const clickHandler = () => {
+        setTimeout(function () {
+            props.setShowUploader(false);
+        }, 300);
         setShowDrawer(true);
     }
 
+    const hideDrawer = () => {
+        props.setShowUploader(true);
+        setShowDrawer(false);
+    }
+
     return <Fragment>
-        <Drawer
-            title={`Picture id#${props.picture.id}`}
-            placement="left"
-            closable={true}
-            onClose={() => setShowDrawer(false)}
-            visible={showDrawer}
-            key={`drawer${props.picture.id}`}
-        >
-            {props.picture.format}
-        </Drawer>
+        <EditDrawer
+            picture={props.picture}
+            hideDrawer={hideDrawer}
+            showDrawer={showDrawer}
+        />
         <div className="Uploader__missingPicture">
             {showEdit &&
                 <div

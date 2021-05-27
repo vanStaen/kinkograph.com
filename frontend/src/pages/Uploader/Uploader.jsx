@@ -14,6 +14,7 @@ const SIZE_PICTURE_MISSING_TAG = 150;
 export const Uploader = () => {
     const [isUploading, setIsUploading] = useState(false);
     const [picsTagsMissing, setPicsTagsMissing] = useState([]);
+    const [showUploader, setShowUploader] = useState(true);
     const [limit, setLimit] = useState(undefined);
 
     const fileSelectHandler = useCallback(async (event) => {
@@ -77,42 +78,43 @@ export const Uploader = () => {
     return (
         <div className="Uploader__container">
             <div className="Uploader__formContainer">
-                <div
-                    className="Uploader__formContent"
-                    style={picsTagsMissing.length ? { width: "50vw" } : { width: "100vw" }}>
-                    <form
-                        onSubmit={submitHandler}
-                    >
-                        <input
-                            type="file"
-                            className="inputfile"
-                            name="inputfile"
-                            id="file"
-                            onChange={fileSelectHandler}
-                        />
-                        {isUploading ?
-                            (<label
-                                htmlFor="file"
-                                style={picsTagsMissing.length ? { width: "35vw" } : { width: "75vw" }}
-                            >
-                                <LoadingOutlined className="Uploader__spinner" />
-                                <p className="form-upload-text">
-                                    Loading
+                {showUploader &&
+                    <div
+                        className="Uploader__formContent"
+                        style={picsTagsMissing.length ? { width: "50vw" } : { width: "100vw" }}>
+                        <form
+                            onSubmit={submitHandler}
+                        >
+                            <input
+                                type="file"
+                                className="inputfile"
+                                name="inputfile"
+                                id="file"
+                                onChange={fileSelectHandler}
+                            />
+                            {isUploading ?
+                                (<label
+                                    htmlFor="file"
+                                    style={picsTagsMissing.length ? { width: "35vw" } : { width: "75vw" }}
+                                >
+                                    <LoadingOutlined className="Uploader__spinner" />
+                                    <p className="form-upload-text">
+                                        Loading
                         </p>
-                            </label>) :
-                            (<label htmlFor="file"
-                                style={picsTagsMissing.length ? { width: "35vw" } : { width: "75vw" }}
-                            >
-                                <p className="form-upload-drag-icon">
-                                    <PictureOutlined />
-                                </p>
-                                <p className="form-upload-hint">
-                                    Click, or drag here a file <br />
-                                    <i>jpg and png file only</i>
-                                </p>
-                            </label>)}
-                    </form>
-                </div>
+                                </label>) :
+                                (<label htmlFor="file"
+                                    style={picsTagsMissing.length ? { width: "35vw" } : { width: "75vw" }}
+                                >
+                                    <p className="form-upload-drag-icon">
+                                        <PictureOutlined />
+                                    </p>
+                                    <p className="form-upload-hint">
+                                        Click, or drag here a file <br />
+                                        <i>jpg and png file only</i>
+                                    </p>
+                                </label>)}
+                        </form>
+                    </div>}
             </div>
             {picsTagsMissing.length > 0 &&
                 < div className="Uploader__missingContainer">
@@ -121,6 +123,7 @@ export const Uploader = () => {
                             return <EditPictures
                                 picture={picture}
                                 size={SIZE_PICTURE_MISSING_TAG}
+                                setShowUploader={setShowUploader}
                             />
                         })
                         }
