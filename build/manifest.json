@@ -1,0 +1,15 @@
+{
+  "short_name": "kinkograph",
+  "name": "Kinkograph",
+  "icons": [
+    {
+      "src": "black-heart-shaped.png",
+      "type": "image/png",
+      "sizes": "24x24"
+    }
+  ],
+  "start_url": "www.kinkograph.com",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#000000"
+}
