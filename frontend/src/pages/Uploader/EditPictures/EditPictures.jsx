@@ -26,9 +26,10 @@ export const EditPictures = (props) => {
         setShowDrawer(true);
     }
 
-    const hideDrawer = () => {
+    const hideDrawer = (needReload = false) => {
         props.setShowUploader(true);
         setShowDrawer(false);
+        if (needReload) { props.reload(); };
     }
 
     return <Fragment>

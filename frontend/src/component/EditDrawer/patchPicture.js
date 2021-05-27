@@ -1,14 +1,15 @@
 import axios from "axios";
 
-export const postTag = async (tag_name) => {
+export const patchPicture = async (tags, format, id) => {
 
     const requestBody = {
-        "tag_name": tag_name,
+        "tags": JSON.stringify(tags),
+        "format": format
     };
 
     const response = await axios({
-        url: process.env.REACT_APP_API_URL + `/tags/`,
-        method: "POST",
+        url: process.env.REACT_APP_API_URL + `/pictures/${id}`,
+        method: "PATCH",
         data: requestBody,
     });
 

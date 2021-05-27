@@ -178,5 +178,18 @@ router.get("/tagsmissing/:limit", async (req, res) => {
   }
 });
 
+// PATCH picture based in ID
+router.patch("/:id", async (req, res) => {
+  try {
+    console.log(`UPDATE pictures SET tags='${req.body.tags}', format='${req.body.format}', tags_missing=false WHERE id=${req.params.id}`);
+    await client.query(`UPDATE pictures SET tags='${req.body.tags}', format='${req.body.format}', tags_missing=false WHERE id=${req.params.id}`);
+    res.status(201).json(`Picture with id #${req.params.id} was udpated`);
+  } catch (err) {
+    res.status(400).json({
+      error: `${err})`,
+    });
+  }
+});
+
 
 module.exports = router;

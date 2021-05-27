@@ -55,7 +55,7 @@ export const Uploader = () => {
     }, []);
 
     useEffect(() => {
-        fetchPicsTagsMissing(limit);
+        fetchPicsTagsMissing();
         window.addEventListener("resize", calculateMissingTagPicLimit);
         return () => {
             window.removeEventListener("resize", calculateMissingTagPicLimit);
@@ -122,6 +122,7 @@ export const Uploader = () => {
                                 size={SIZE_PICTURE_MISSING_TAG}
                                 setShowUploader={setShowUploader}
                                 key={picture.id}
+                                reload={fetchPicsTagsMissing}
                             />
                         })
                         }

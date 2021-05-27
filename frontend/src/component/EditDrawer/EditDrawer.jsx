@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Drawer, Select } from 'antd';
 import { SaveOutlined } from '@ant-design/icons';
 
 import { capitalizeFirstLetter } from '../../helpers/capitalizeFirstLetter';
 import { getTags } from './getTags';
 import { postTag } from './postTag';
+import { patchPicture } from './patchPicture';
 
 import './EditDrawer.css';
 
@@ -14,14 +15,14 @@ export const EditDrawer = (props) => {
     const [allTags, setAllTags] = useState([]);
     const { Option } = Select;
 
-    const fetchAllTags = async () => {
+    const fetchAllTags = useCallback(async () => {
         try {
             const fetchedTags = await getTags();
             setAllTags(fetchedTags)
         } catch (err) {
             console.log(err);
         }
-    }
+    }, [])
 
     useEffect(() => {
         fetchAllTags();
@@ -29,9 +30,9 @@ export const EditDrawer = (props) => {
 
     const handleFormatChange = (value) => {
         setFormat(value);
-    }
+    };
 
-    const handleTagChange = async (value) => {
+    const handleTagChange = useCallback(async (value) => {
         let addedTag = undefined;
         value.map(newTag => {
             const index = tags.findIndex(tag => tag === capitalizeFirstLetter(newTag));
@@ -44,17 +45,16 @@ export const EditDrawer = (props) => {
             const indexAllTags = allTags.findIndex(tag => tag.tag_name === addedTag);
             if (indexAllTags < 0) {
                 await postTag(addedTag);
-                console.log(`Add ${addedTag} to the tag list.`)
+                console.log(`Add ${addedTag} to the lists of tags.`)
             }
         }
         const valueCleaned = value.map(oldTag => {
             return capitalizeFirstLetter(oldTag);
         });
-        console.log(valueCleaned)
         setTags(valueCleaned);
-    }
+    }, []);
 
-    const sizeFormat = (format) => {
+    const sizeFormat = useCallback((format) => {
         if (format === "item__portrait") {
             return { width: "40%", heigth: "60%" }
         } else if (format === "item__landscape") {
@@ -64,7 +64,12 @@ export const EditDrawer = (props) => {
         } else {
             console.log(`Error, format ${format} is unknown.`)
         }
-    }
+    }, []);
+
+    const submitHandler = useCallback(async () => {
+        await patchPicture(tags, format, props.picture.id);
+        props.hideDrawer(true);
+    }, []);
 
     return (
         <Drawer
@@ -87,6 +92,17 @@ export const EditDrawer = (props) => {
             </Select>
             <br />
             <br />
+            <div className="Drawer__font">Preview:</div>
+            <div
+                className="Drawer_picture"
+                style={{
+                    backgroundImage: `url("${props.picture.url_med}")`,
+                    width: sizeFormat(format).width, paddingTop: sizeFormat(format).heigth
+                }}
+                key={props.picture.id}
+            ></div>
+            <br />
+            <br />
             <div className="Drawer__font">Tags:</div>
             <Select
                 mode="tags"
@@ -103,17 +119,10 @@ export const EditDrawer = (props) => {
             </Select>
             <br />
             <br />
-            <div className="Drawer__font">Preview:</div>
-            <div
-                className="Drawer_picture"
-                style={{
-                    backgroundImage: `url("${props.picture.url_med}")`,
-                    width: sizeFormat(format).width, paddingTop: sizeFormat(format).heigth
-                }}
-                key={props.picture.id}
-            ></div>
             <div className="Drawer__buttonContainer">
-                <div className={tags.length < 1 ? "Drawer__buttonDisabled" : "Drawer__button"}>
+                <div
+                    className={tags.length < 1 ? "Drawer__buttonDisabled" : "Drawer__button"}
+                    onClick={submitHandler}>
                     <SaveOutlined /> &nbsp; Save & Show
                 </div>
             </div>
