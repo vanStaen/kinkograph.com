@@ -107,7 +107,7 @@ export const EditDrawer = (props) => {
             <div
                 className="Drawer_picture"
                 style={{
-                    backgroundImage: `url("${props.picture.url_thumb}")`,
+                    backgroundImage: `url("${props.picture.url_med}")`,
                     width: sizeFormat(format).width, paddingTop: sizeFormat(format).heigth
                 }}
                 key={props.picture.id}
@@ -118,6 +118,6 @@ export const EditDrawer = (props) => {
                 </div>
             </div>
 
-        </Drawer>
+        </Drawer >
     )
 }
