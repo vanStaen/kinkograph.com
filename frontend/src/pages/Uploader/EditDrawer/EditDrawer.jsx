@@ -1,26 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Drawer, Select } from 'antd';
+
+import { getTags } from './getTags';
 
 import './EditDrawer.css';
 
 export const EditDrawer = (props) => {
     const [format, setFormat] = useState(props.picture.format);
+    const [allTags, setAllTags] = useState([]);
+    const { Option } = Select;
+
+    const fetchAllTags = async () => {
+        try {
+            const fetchedTags = await getTags();
+            setAllTags(fetchedTags)
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    useEffect(() => {
+        fetchAllTags();
+    }, [fetchAllTags])
 
     const handleFormatChange = (value) => {
         setFormat(value);
     }
 
-    const { Option } = Select;
-
-    const children = [];
-    for (let i = 10; i < 36; i++) {
-        children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
-    }
-
     function handleChange(value) {
         console.log(`selected ${value}`);
     }
-
 
     return (
         <Drawer
@@ -49,10 +58,13 @@ export const EditDrawer = (props) => {
                 allowClear={false}
                 style={{ width: '100%' }}
                 placeholder="Add some tags"
-                defaultValue={['a10', 'c12']}
                 onChange={handleChange}
             >
-                {children}
+                {
+                    allTags.map((tag) => {
+                        return <Option key={tag.tag_id}>{tag.tag_name}</Option>
+                    })
+                }
             </Select>
             <br />
             <br />

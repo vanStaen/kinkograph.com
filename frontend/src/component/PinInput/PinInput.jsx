@@ -5,6 +5,11 @@ import "./PinInput.css";
 export const PinInput = (props) => {
   const [lastFiledInput, setLastFiledInput] = useState(1);
 
+  // TODO: 
+  // alert(window.navigator.userAgent)
+  // https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
+  // touchdevice
+
   const keyDownListener = useCallback((event) => {
     event.preventDefault();
     const keyPressed = event.key.toLowerCase();

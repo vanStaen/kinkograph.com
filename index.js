@@ -23,8 +23,9 @@ app.use((req, res, next) => {
 });
 
 // Router to API endpoints
-app.use("/pictures", require("./api/pictures"));
 app.use("/login", require("./api/login"));
+app.use("/pictures", require("./api/pictures"));
+app.use("/tags", require("./api/tags"));
 
 // Set up for React
 app.use(express.static(path.join(__dirname, "build")));
