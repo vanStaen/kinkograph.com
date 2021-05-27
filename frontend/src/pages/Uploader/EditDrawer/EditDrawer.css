@@ -11,3 +11,32 @@
     letter-spacing: 2px;
     margin-bottom: 10px;
 }
+
+.Drawer_picture {
+    background-size: cover;
+    background-position: center;
+}
+
+.Drawer__button {
+    position: relative;
+    border-radius: 2px;
+    font-weight: 200;
+    opacity: .75;
+    letter-spacing: 2px;
+    padding: 0px 11px;
+    line-height: 30px;
+    color: #fff;
+    background: rgba(255, 255, 255, .25);
+    border: 1px solid rgba(255, 255, 255, .5);
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+}
+
+.Drawer__buttonContainer {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    padding: 0 24px 24px 24px;
+    width: 100%;
+}

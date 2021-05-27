@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Drawer, Select } from 'antd';
+import { Drawer, Select, Button } from 'antd';
+import { SaveOutlined } from '@ant-design/icons';
 
 import { getTags } from './getTags';
 
@@ -27,8 +28,20 @@ export const EditDrawer = (props) => {
         setFormat(value);
     }
 
-    function handleChange(value) {
+    const handleChange = (value) => {
         console.log(`selected ${value}`);
+    }
+
+    const sizeFormat = (format) => {
+        if (format === "item__portrait") {
+            return { width: "40%", heigth: "60%" }
+        } else if (format === "item__landscape") {
+            return { width: "60%", heigth: "40%" }
+        } else if (format === "item__square") {
+            return { width: "60%", heigth: "60%" }
+        } else {
+            console.log(`Error, format ${format} is unknown.`)
+        }
     }
 
     return (
@@ -68,7 +81,21 @@ export const EditDrawer = (props) => {
             </Select>
             <br />
             <br />
-            {format}
+            <div className="Drawer__font">Preview:</div>
+            <div
+                className="Drawer_picture"
+                style={{
+                    backgroundImage: `url("${props.picture.url_thumb}")`,
+                    width: sizeFormat(format).width, paddingTop: sizeFormat(format).heigth
+                }}
+                key={props.picture.id}
+            ></div>
+            <div className="Drawer__buttonContainer">
+                <div className="Drawer__button">
+                    <SaveOutlined />
+                </div>
+            </div>
+
         </Drawer>
     )
 }

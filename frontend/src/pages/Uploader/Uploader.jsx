@@ -49,7 +49,7 @@ export const Uploader = () => {
     const calculateMissingTagPicLimit = useCallback(() => {
         const pageWidth = window.innerWidth;
         const missingPicContainerWidth = Math.floor(pageWidth * 0.4);
-        const numOfPicFittingInContainer = Math.floor(missingPicContainerWidth / (SIZE_PICTURE_MISSING_TAG + 30)) * 3;
+        const numOfPicFittingInContainer = Math.floor(missingPicContainerWidth / (SIZE_PICTURE_MISSING_TAG + 34)) * 3;
         setLimit(numOfPicFittingInContainer);
         return numOfPicFittingInContainer;
     }, []);
