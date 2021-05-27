@@ -70,6 +70,7 @@ export const Uploader = () => {
             message: `Upload ${result}`,
             description: `File: ${file.name}`,
         });
+        fetchPicsTagsMissing(limit);
         setIsUploading(false);
     }, []);
 
