@@ -34,7 +34,7 @@ export const EditDrawer = (props) => {
     const handleTagChange = async (value) => {
         let addedTag = undefined;
         value.map(newTag => {
-            const index = tags.findIndex(tag => tag === newTag);
+            const index = tags.findIndex(tag => tag === capitalizeFirstLetter(newTag));
             if (index < 0) {
                 addedTag = capitalizeFirstLetter(newTag);
             }
