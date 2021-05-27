@@ -1,12 +1,12 @@
 {
 	"info": {
 		"_postman_id": "a63197b2-947f-4207-bc25-e3432df14c82",
-		"name": "Kinkograph",
+		"name": "Kinkograph.com",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "localhost/pictures",
+			"name": "localhost:5009/pictures",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {}
 			},
@@ -53,6 +53,48 @@
 					]
 				},
 				"description": "Post request : new user (format Json)\nTo localserver on port 5000"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5009/pictures",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5009/pictures/all/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"pictures",
+						"all",
+						""
+					]
+				},
+				"description": "GET request : list of all users\nTo localserver on port 5000\n"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5009/tags",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5009/tags",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"tags"
+					]
+				},
+				"description": "GET request : list of all users\nTo localserver on port 5000\n"
 			},
 			"response": []
 		}
