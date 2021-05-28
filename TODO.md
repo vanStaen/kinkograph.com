@@ -2,7 +2,6 @@
 
 ## Backlog:
 
-- [ ] Reload gallery after succesful edit
 - [ ] Show ! on pic w/o tags
 - [ ] Landing first page
   - [x] password input

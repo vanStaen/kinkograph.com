@@ -34,7 +34,10 @@ export const Gallery = () => {
           pictures.map(picture => {
             return (
               <PictureThumb
-                picture={picture} />
+                picture={picture}
+                reload={fetchPictures}
+                key={picture.id}
+              />
             )
           })}
         </div>

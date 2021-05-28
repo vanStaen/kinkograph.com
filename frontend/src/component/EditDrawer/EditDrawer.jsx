@@ -24,10 +24,10 @@ export const EditDrawer = (props) => {
     }
   }, []);
 
-  const hideDrawer = (needReload = false) => {
+  const hideDrawer = (needReload) => {
     props.setShowUploader && props.setShowUploader(true);
     props.setShowDrawer(false);
-    //if (needReload) { props.reload(); };
+    if (needReload) { props.reload(); };
   }
 
   useEffect(() => {
@@ -89,7 +89,7 @@ export const EditDrawer = (props) => {
       }
       placement="left"
       closable={true}
-      onClose={hideDrawer}
+      onClose={() => hideDrawer(false)}
       visible={props.showDrawer}
       key={`drawer${props.picture.id}`}
       width="42.5%"
