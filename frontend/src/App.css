@@ -47,3 +47,7 @@
 .anticon-close, .ant-drawer-title {
   color: #E1E1E1;
 }
+
+.ant-select-dropdown {
+  background-color: rgba(255,255,255, .75) !important;
+}

@@ -30,8 +30,13 @@ router.get("/", async (req, res) => {
 // POST new tag in DB
 router.post("/", async (req, res) => {
   try {
-    await client.query(`INSERT INTO public.tags(tag_name) VALUES ('${req.body.tag_name}');`);
-    res.status(201).json(`${req.body.tag_name} was added to the table 'tags'`);
+    const checkIfTagsExist = await client.query(`SELECT * FROM tags WHERE tag_name='${req.body.tag_name}'`);
+    if (checkIfTagsExist.rows.length > 0) {
+      res.status(201).json({ value: 'failed', message: `${req.body.tag_name} was already in the table 'tags'` });
+    } else {
+      await client.query(`INSERT INTO public.tags(tag_name) VALUES ('${req.body.tag_name}');`);
+      res.status(201).json({ value: 'success', message: `${req.body.tag_name} was added to the table 'tags'` });
+    };
   } catch (err) {
     res.status(400).json({
       error: `${err})`,

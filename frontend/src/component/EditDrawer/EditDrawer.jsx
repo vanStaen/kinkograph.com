@@ -34,7 +34,7 @@ export const EditDrawer = (props) => {
 
   const handleTagChange = useCallback(async (value) => {
     let addedTag = undefined;
-    value.map((newTag) => {
+    await value.map((newTag) => {
       const index = tags.findIndex(
         (tag) => tag === capitalizeFirstLetter(newTag)
       );
@@ -45,18 +45,20 @@ export const EditDrawer = (props) => {
     });
     if (addedTag !== undefined) {
       const indexAllTags = allTags.findIndex(
-        (tag) => tag.tag_name === addedTag
+        (tag) => tag.tag_name === capitalizeFirstLetter(addedTag)
       );
       if (indexAllTags < 0) {
-        await postTag(addedTag);
-        console.log(`Add ${addedTag} to the lists of tags.`);
+        const result = await postTag(addedTag);
+        if (result.value = 'success') {
+          console.log(`Add ${addedTag} to the lists of tags.`);
+        };
       }
     }
     const valueCleaned = value.map((oldTag) => {
       return capitalizeFirstLetter(oldTag);
     });
     setTags(valueCleaned);
-  }, []);
+  }, [allTags]);
 
   const sizeFormat = useCallback((format) => {
     if (format === "item__portrait") {
@@ -122,7 +124,7 @@ export const EditDrawer = (props) => {
         onChange={handleTagChange}
       >
         {allTags.map((tag) => {
-          return <Option key={tag.tag_name}>{tag.tag_name}</Option>;
+          return <Option key={capitalizeFirstLetter(tag.tag_name)}>{capitalizeFirstLetter(tag.tag_name)}</Option>;
         })}
       </Select>
       <br />
