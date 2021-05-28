@@ -1,2 +1,2 @@
 # kinkograph.com
-Kinky Photo-templates
+Private photo gallery
