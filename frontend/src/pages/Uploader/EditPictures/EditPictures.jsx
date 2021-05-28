@@ -26,17 +26,13 @@ export const EditPictures = (props) => {
         setShowDrawer(true);
     }
 
-    const hideDrawer = (needReload = false) => {
-        props.setShowUploader(true);
-        setShowDrawer(false);
-        if (needReload) { props.reload(); };
-    }
-
     return <Fragment>
         <EditDrawer
             picture={props.picture}
-            hideDrawer={hideDrawer}
             showDrawer={showDrawer}
+            setShowDrawer={setShowDrawer}
+            reload={props.reload}
+            setShowUploader={props.setShowUploader}
         />
         <div className="EditPictures__missingPicture">
             {showEdit &&

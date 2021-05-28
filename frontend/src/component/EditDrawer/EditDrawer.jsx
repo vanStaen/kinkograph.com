@@ -24,8 +24,17 @@ export const EditDrawer = (props) => {
     }
   }, []);
 
+  const hideDrawer = (needReload = false) => {
+    props.setShowUploader && props.setShowUploader(true);
+    props.setShowDrawer(false);
+    //if (needReload) { props.reload(); };
+  }
+
   useEffect(() => {
     fetchAllTags();
+    if (JSON.parse(props.picture.tags) !== null) {
+      setTags(JSON.parse(props.picture.tags));
+    }
   }, [fetchAllTags]);
 
   const handleFormatChange = (value) => {
@@ -68,7 +77,7 @@ export const EditDrawer = (props) => {
     });
     //Path picture
     await patchPicture(tags, format, props.picture.id);
-    props.hideDrawer(true);
+    hideDrawer(true);
   }, [tags, allTags, format, patchPicture, postTag]);
 
   return (
@@ -80,7 +89,7 @@ export const EditDrawer = (props) => {
       }
       placement="left"
       closable={true}
-      onClose={props.hideDrawer}
+      onClose={hideDrawer}
       visible={props.showDrawer}
       key={`drawer${props.picture.id}`}
       width="42.5%"
@@ -116,6 +125,7 @@ export const EditDrawer = (props) => {
         style={{ width: "100%" }}
         placeholder="Add some tags"
         onChange={handleTagChange}
+        defaultValue={JSON.parse(props.picture.tags)}
       >
         {allTags.map((tag) => {
           return <Option key={capitalizeFirstLetter(tag.tag_name)}>{capitalizeFirstLetter(tag.tag_name)}</Option>;

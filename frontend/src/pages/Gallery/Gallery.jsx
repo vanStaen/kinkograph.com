@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { LoadingOutlined } from '@ant-design/icons';
+
+import { PictureThumb } from '../../component/PictureThumb/PictureThumb'
 import { getPictures } from "./getPictures";
 
 import "./Gallery.css";
@@ -31,13 +33,9 @@ export const Gallery = () => {
         <div className="grid">{
           pictures.map(picture => {
             return (
-              <div
-                className={`item ${picture.format}`}
-                style={{ backgroundImage: `url("${picture.url_thumb}")` }}
-                key={picture.id}
-              >
-                {picture.tag}
-              </div>)
+              <PictureThumb
+                picture={picture} />
+            )
           })}
         </div>
       }
