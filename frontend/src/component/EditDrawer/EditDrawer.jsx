@@ -33,32 +33,11 @@ export const EditDrawer = (props) => {
   };
 
   const handleTagChange = useCallback(async (value) => {
-    let addedTag = undefined;
-    await value.map((newTag) => {
-      const index = tags.findIndex(
-        (tag) => tag === capitalizeFirstLetter(newTag)
-      );
-      if (index < 0) {
-        addedTag = capitalizeFirstLetter(newTag);
-      }
-      return undefined;
-    });
-    if (addedTag !== undefined) {
-      const indexAllTags = allTags.findIndex(
-        (tag) => tag.tag_name === capitalizeFirstLetter(addedTag)
-      );
-      if (indexAllTags < 0) {
-        const result = await postTag(addedTag);
-        if (result.value = 'success') {
-          console.log(`Add ${addedTag} to the lists of tags.`);
-        };
-      }
-    }
     const valueCleaned = value.map((oldTag) => {
       return capitalizeFirstLetter(oldTag);
     });
     setTags(valueCleaned);
-  }, [allTags]);
+  }, []);
 
   const sizeFormat = useCallback((format) => {
     if (format === "item__portrait") {
@@ -70,12 +49,27 @@ export const EditDrawer = (props) => {
     } else {
       console.log(`Error, format ${format} is unknown.`);
     }
-  }, []);
+  }, [format]);
 
   const submitHandler = useCallback(async () => {
+    //Add new Tags to db
+    await tags.map(async (newTag) => {
+      const index = allTags.findIndex(
+        (tag) => tag === capitalizeFirstLetter(newTag)
+      );
+      if (index < 0) {
+        //New Tag not found in db
+        const result = await postTag(newTag);
+        if (result.value === 'success') {
+          console.log(`${newTag} was added to the lists of tags.`);
+        };
+      }
+      return undefined;
+    });
+    //Path picture
     await patchPicture(tags, format, props.picture.id);
     props.hideDrawer(true);
-  }, []);
+  }, [tags, allTags, format, patchPicture, postTag]);
 
   return (
     <Drawer
