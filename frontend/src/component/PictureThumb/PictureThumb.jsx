@@ -19,8 +19,7 @@ export const PictureThumb = (props) => {
                 key={props.picture.id}
                 onClick={() => setShowDrawer(true)}
             >
-                {props.picture.tags === "[]" && "TAGS MISSING"}
-
+                {!props.picture.tags && "TAGS MISSING"}
             </div>
         </Fragment>)
 } 
