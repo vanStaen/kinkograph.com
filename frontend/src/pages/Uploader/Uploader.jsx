@@ -31,7 +31,7 @@ export const Uploader = () => {
         await submitHandler(event.target.files[0]);
       } else {
         notification.warning({
-          message: `Dupplicate? `,
+          message: `Duplicate? `,
           description: `There is already a file named '${event.target.files[0].name}'`,
         });
         setIsUploading(false);
@@ -70,6 +70,7 @@ export const Uploader = () => {
   }, [fetchPicsTagsMissing, calculateMissingTagPicLimit]);
 
   const submitHandler = useCallback(async (file) => {
+    console.log(file);
     const result = await postPicture(file);
     notification[result]({
       message: `Upload ${result}`,
@@ -95,12 +96,29 @@ export const Uploader = () => {
     e.preventDefault();
     e.stopPropagation();
   };
-  const handleDrop = (e) => {
+  const handleDrop = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    const numberOfFiles = e.dataTransfer.files.length;
+    const objectOfFiles = e.dataTransfer.files;
+    const numberOfFiles = objectOfFiles.length;
     for (let i = 0; i < numberOfFiles; i++) {
-      console.log(e.dataTransfer.files[i]);
+      setIsUploading(true);
+      if (objectOfFiles[i]) {
+        const file = objectOfFiles[i];
+        const name = file.name.split(".")[0];
+        const alreadyIn = await getDuplicate(name);
+        if (alreadyIn.length === 0) {
+          await submitHandler(file);
+        } else {
+          notification.warning({
+            message: `Duplicate? `,
+            description: `There is already a file named '${name}'`,
+          });
+          setIsUploading(false);
+        }
+      } else {
+        setIsUploading(false);
+      }
     }
   };
 
