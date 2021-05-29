@@ -35,11 +35,12 @@ export const Uploader = () => {
           message: `Duplicate? `,
           description: `There is already a file named '${event.target.files[0].name}'`,
         });
-        setIsUploading(false);
       }
-    } else {
-      setIsUploading(false);
     }
+    setIsUploading(false);
+    setTimeout(() => {
+      fetchPicsTagsMissing(limit);
+    }, 500);
   }, []);
 
   const fetchPicsTagsMissing = useCallback(async () => {
@@ -76,10 +77,6 @@ export const Uploader = () => {
       message: `Upload ${result}`,
       description: `File: ${file.name}`,
     });
-    setTimeout(() => {
-      fetchPicsTagsMissing(limit);
-      setIsUploading(false);
-    }, 500);
   }, []);
 
   const handleDragEnter = (e) => {
@@ -121,6 +118,9 @@ export const Uploader = () => {
     }
     setUploadProgress([0, 0]);
     setIsUploading(false);
+    setTimeout(() => {
+      fetchPicsTagsMissing(limit);
+    }, 1000);
   };
 
   return (

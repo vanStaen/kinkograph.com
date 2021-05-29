@@ -74,6 +74,7 @@ router.post(
           const imageUrl = req.file.location;
           const nameImageThumb = "t_" + req.file.key;
           const nameImageMedium = "m_" + req.file.key;
+          const key = req.file.key;
           // If file, upload to S3
           try {
             const [thumbUrlLocal, mediumUrlLocal] = await Promise.all([
@@ -91,13 +92,13 @@ router.post(
             ]);
 
             // Add picture to db: 
-            const createQuery = `INSERT INTO pictures (url_original, url_thumb, url_med, original_name, original_type) VALUES ('${imageUrl}', '${UrlThumbS3}', '${UrlMediumbS3}', '${imageOriginalName}', '${imageOriginalType}');`;
+            const createQuery = `INSERT INTO pictures (url_original, url_thumb, url_med, original_name, original_type, key) VALUES ('${imageUrl}', '${UrlThumbS3}', '${UrlMediumbS3}', '${imageOriginalName}', '${imageOriginalType}', '${key}');`;
             await client.query(createQuery);
 
             // Return file name and file url to client
             return res.status(200).json({
               message: "Upload success!",
-              id: req.file.key,
+              key: key,
               imageOriginalName: imageOriginalName,
               imageOriginalType: imageOriginalType,
               imageUrl: imageUrl,
@@ -116,23 +117,38 @@ router.post(
 );
 
 // DELETE single file object from s3 (based on key)
-router.delete("/:id", async (req, res) => {
+router.delete("/:key", async (req, res) => {
   try {
     const params = {
       Bucket: process.env.S3_BUCKET_ID,
-      Key: req.params.id
+      Key: req.params.key
     };
     const paramsThumb = {
       Bucket: process.env.S3_BUCKET_ID,
-      Key: "t_" + req.params.id,
+      Key: "t_" + req.params.key,
     };
+    const paramsMedium = {
+      Bucket: process.env.S3_BUCKET_ID,
+      Key: "m_" + req.params.key,
+    };
+    console.log(params);
     await Promise.all([
-      s3.deleteObject(params, function (err, data) { }),
-      s3.deleteObject(paramsThumb, function (err, data) { }),
+      s3.deleteObject(params, function (err, data) { 
+        if (err) console.log(err, err.stack);  // error
+        else     console.log(data);            // deleted
+      }),
+      s3.deleteObject(paramsThumb, function (err, data) {
+        if (err) console.log(err, err.stack);  // error
+        else     console.log(data);            // deleted
+       }),
+      s3.deleteObject(paramsMedium, function (err, data) {
+        if (err) console.log(err, err.stack);  // error
+        else     console.log(data);            // deleted
+       }),
     ]);
-    const deleteUser = `DELETE FROM pictures WHERE id='${req.picId}';`;
+    const deleteUser = `DELETE FROM pictures WHERE key='${req.params.key}';`;
     await client.query(deleteUser);
-    res.status(200).json({ success: `User with id #${req.userId} was deleted.` });
+    res.status(200).json({ success: `User with id #${req.params.key} was deleted.` });
   } catch (err) {
     res.status(400).json({
       error: `${err}`,

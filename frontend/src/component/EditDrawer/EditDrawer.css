@@ -18,6 +18,7 @@
 }
 
 .Drawer__button {
+    margin-top: 11px;
     position: relative;
     border-radius: 2px;
     font-weight: 200;
@@ -37,10 +38,10 @@
     color: #000;
     background: rgba(255, 255, 255, .5);
     border: 1px solid rgba(0, 0, 0, .75);
-    cursor: pointer;
 }
 
 .Drawer__buttonDisabled {
+    margin-top: 11px;
     position: relative;
     border-radius: 2px;
     font-weight: 200;
@@ -54,6 +55,29 @@
     cursor: not-allowed;
     width: 100%;
     text-align: center;
+}
+
+.Drawer__buttonConfirmAction {
+    margin-top: 11px;
+    position: relative;
+    border-radius: 2px;
+    font-weight: 200;
+    opacity: .75;
+    letter-spacing: 2px;
+    padding: 0px 11px;
+    line-height: 30px;
+    color: #fff;
+    background: rgba(255, 0, 0, 0.5);
+    border: 1px solid rgb(80, 0, 0);
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+}
+
+.Drawer__buttonConfirmAction:hover {
+    background: rgba(255, 0, 0, 0.85);
+    border: 1px solid rgba(255, 255, 255, .75);
+    font-weight: 500;
 }
 
 .Drawer__buttonContainer {

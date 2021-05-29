@@ -1,11 +1,16 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, Fragment } from "react";
 import { Drawer, Select } from "antd";
-import { SaveOutlined } from "@ant-design/icons";
+import {
+  SaveOutlined,
+  DeleteOutlined,
+  QuestionOutlined,
+} from "@ant-design/icons";
 
 import { capitalizeFirstLetter } from "../../helpers/capitalizeFirstLetter";
 import { getTags } from "./getTags";
 import { postTag } from "./postTag";
 import { patchPicture } from "./patchPicture";
+import { deletePicture } from "./deletePicture";
 
 import "./EditDrawer.css";
 
@@ -13,6 +18,7 @@ export const EditDrawer = (props) => {
   const [format, setFormat] = useState(props.picture.format);
   const [tags, setTags] = useState([]);
   const [allTags, setAllTags] = useState([]);
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const { Option } = Select;
 
   const fetchAllTags = useCallback(async () => {
@@ -27,8 +33,10 @@ export const EditDrawer = (props) => {
   const hideDrawer = (needReload) => {
     props.setShowUploader && props.setShowUploader(true);
     props.setShowDrawer(false);
-    if (needReload) { props.reload(); };
-  }
+    if (needReload) {
+      props.reload();
+    }
+  };
 
   useEffect(() => {
     fetchAllTags();
@@ -48,17 +56,20 @@ export const EditDrawer = (props) => {
     setTags(valueCleaned);
   }, []);
 
-  const sizeFormat = useCallback((format) => {
-    if (format === "item__portrait") {
-      return { width: "40%", heigth: "60%" };
-    } else if (format === "item__landscape") {
-      return { width: "60%", heigth: "40%" };
-    } else if (format === "item__square") {
-      return { width: "60%", heigth: "60%" };
-    } else {
-      console.log(`Error, format ${format} is unknown.`);
-    }
-  }, [format]);
+  const sizeFormat = useCallback(
+    (format) => {
+      if (format === "item__portrait") {
+        return { width: "40%", heigth: "60%" };
+      } else if (format === "item__landscape") {
+        return { width: "60%", heigth: "40%" };
+      } else if (format === "item__square") {
+        return { width: "60%", heigth: "60%" };
+      } else {
+        console.log(`Error, format ${format} is unknown.`);
+      }
+    },
+    [format]
+  );
 
   const submitHandler = useCallback(async () => {
     //Add new Tags to db
@@ -69,9 +80,9 @@ export const EditDrawer = (props) => {
       if (index < 0) {
         //New Tag not found in db
         const result = await postTag(newTag);
-        if (result.value === 'success') {
+        if (result.value === "success") {
           console.log(`${newTag} was added to the lists of tags.`);
-        };
+        }
       }
       return undefined;
     });
@@ -79,6 +90,22 @@ export const EditDrawer = (props) => {
     await patchPicture(tags, format, props.picture.id);
     hideDrawer(true);
   }, [tags, allTags, format, patchPicture, postTag]);
+
+  const deleteHandler = useCallback(
+    async (key) => {
+      if (confirmDelete === true) {
+        //Path picture
+        await deletePicture(key);
+        hideDrawer(true);
+      } else {
+        setConfirmDelete(true);
+        setTimeout(() => {
+          setConfirmDelete(false);
+        }, 2000);
+      }
+    },
+    [confirmDelete, deletePicture]
+  );
 
   return (
     <Drawer
@@ -117,7 +144,6 @@ export const EditDrawer = (props) => {
         key={props.picture.id}
       />
       <br />
-      <br />
       <div className="Drawer__font">Tags:</div>
       <Select
         mode="tags"
@@ -128,7 +154,11 @@ export const EditDrawer = (props) => {
         defaultValue={JSON.parse(props.picture.tags)}
       >
         {allTags.map((tag) => {
-          return <Option key={capitalizeFirstLetter(tag.tag_name)}>{capitalizeFirstLetter(tag.tag_name)}</Option>;
+          return (
+            <Option key={capitalizeFirstLetter(tag.tag_name)}>
+              {capitalizeFirstLetter(tag.tag_name)}
+            </Option>
+          );
         })}
       </Select>
       <br />
@@ -141,6 +171,24 @@ export const EditDrawer = (props) => {
           onClick={submitHandler}
         >
           <SaveOutlined /> &nbsp; Save & Show
+        </div>
+        <div
+          className={
+            confirmDelete ? "Drawer__buttonConfirmAction" : "Drawer__button"
+          }
+          onClick={() => deleteHandler(props.picture.key)}
+        >
+          {confirmDelete ? (
+            <Fragment>
+              <DeleteOutlined /> ARE YOU SURE
+              <QuestionOutlined />
+            </Fragment>
+          ) : (
+            <Fragment>
+              <DeleteOutlined />
+              &nbsp; Delete
+            </Fragment>
+          )}
         </div>
       </div>
     </Drawer>
