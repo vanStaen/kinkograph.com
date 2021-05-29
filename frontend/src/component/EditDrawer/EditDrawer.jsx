@@ -170,7 +170,7 @@ export const EditDrawer = (props) => {
           }
           onClick={submitHandler}
         >
-          <SaveOutlined /> &nbsp; Save & Show
+          <SaveOutlined /> &nbsp; Save
         </div>
         <div
           className={

@@ -43,9 +43,11 @@
 }
 
 .form-upload-text {
-    margin: 1em;
-    font-size: 1em;
+    margin: 1.6em;
+    font-size: 1.2em;
     color: #fff;
+    font-weight: 200;
+    letter-spacing: 2px;
 }
 
 .Uploader__formContainer {
@@ -78,5 +80,5 @@
 }
 
 .Uploader__spinner {
-    font-size: 15vh;
+    font-size: 10vh;
 }
