@@ -97,6 +97,7 @@ router.post(
             // Return file name and file url to client
             return res.status(200).json({
               message: "Upload success!",
+              id: req.file.key,
               imageOriginalName: imageOriginalName,
               imageOriginalType: imageOriginalType,
               imageUrl: imageUrl,
