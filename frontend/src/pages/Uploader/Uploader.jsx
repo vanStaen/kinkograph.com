@@ -20,6 +20,7 @@ export const Uploader = () => {
   const [isDragDroping, setIsDragDroping] = useState(false);
   const [picsTagsMissing, setPicsTagsMissing] = useState([]);
   const [showUploader, setShowUploader] = useState(true);
+  const [uploadProgress, setUploadProgress] = useState([0, 0]);
   const [limit, setLimit] = useState(undefined);
 
   const fileSelectHandler = useCallback(async (event) => {
@@ -70,7 +71,6 @@ export const Uploader = () => {
   }, [fetchPicsTagsMissing, calculateMissingTagPicLimit]);
 
   const submitHandler = useCallback(async (file) => {
-    console.log(file);
     const result = await postPicture(file);
     notification[result]({
       message: `Upload ${result}`,
@@ -101,8 +101,10 @@ export const Uploader = () => {
     e.stopPropagation();
     const objectOfFiles = e.dataTransfer.files;
     const numberOfFiles = objectOfFiles.length;
+    setUploadProgress([0, numberOfFiles]);
     for (let i = 0; i < numberOfFiles; i++) {
       setIsUploading(true);
+      setUploadProgress([i, numberOfFiles]);
       if (objectOfFiles[i]) {
         const file = objectOfFiles[i];
         const name = file.name.split(".")[0];
@@ -114,12 +116,11 @@ export const Uploader = () => {
             message: `Duplicate? `,
             description: `There is already a file named '${name}'`,
           });
-          setIsUploading(false);
         }
-      } else {
-        setIsUploading(false);
       }
     }
+    setUploadProgress([0, 0]);
+    setIsUploading(false);
   };
 
   return (
@@ -150,7 +151,13 @@ export const Uploader = () => {
                   }
                 >
                   <LoadingOutlined className="Uploader__spinner" />
-                  <p className="form-upload-text">Loading</p>
+                  {uploadProgress[1] ? (
+                    <p className="form-upload-text">
+                      {uploadProgress[0]} of {uploadProgress[1]}
+                    </p>
+                  ) : (
+                    <p className="form-upload-text">Loading</p>
+                  )}
                 </label>
               ) : (
                 <label
