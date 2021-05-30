@@ -134,16 +134,16 @@ router.delete("/:key", async (req, res) => {
     console.log(params);
     await Promise.all([
       s3.deleteObject(params, function (err, data) { 
-        if (err) console.log(err, err.stack);  // error
-        else     console.log(data);            // deleted
+        //if (err) console.log(err, err.stack);  // error
+        //else     console.log(data);            // deleted
       }),
       s3.deleteObject(paramsThumb, function (err, data) {
-        if (err) console.log(err, err.stack);  // error
-        else     console.log(data);            // deleted
+        //if (err) console.log(err, err.stack);  // error
+        //else     console.log(data);            // deleted
        }),
       s3.deleteObject(paramsMedium, function (err, data) {
-        if (err) console.log(err, err.stack);  // error
-        else     console.log(data);            // deleted
+        //if (err) console.log(err, err.stack);  // error
+        //else     console.log(data);            // deleted
        }),
     ]);
     const deleteUser = `DELETE FROM pictures WHERE key='${req.params.key}';`;
@@ -194,7 +194,6 @@ router.get("/tagsmissing/:limit", async (req, res) => {
     });
   }
 });
-
 
 
 // GET COUNT all pictures with missing tag
