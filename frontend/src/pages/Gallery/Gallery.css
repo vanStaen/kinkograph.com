@@ -1,53 +1,52 @@
-.grid {
-  display: grid;
-  grid-gap: 12px;
-  grid-template-columns: repeat(auto-fit, minmax(25px, 1fr));
-  grid-auto-rows: 25px;
-  grid-auto-flow: row dense;
-  padding: 20px;
-  background-color: rgba(0, 0, 0, 0.75);
-  min-height: calc((var(--vh, 1vh) * 100));
+.gallery__main {
+  background-color: rgba(0,0,0,.85);
+  padding: 15px;
+  /* Prevent vertical gaps */
+  line-height: 0;
+  -webkit-column-count: 5;
+  -webkit-column-gap:   0px;
+  -moz-column-count:    5;
+  -moz-column-gap:      0px;
+  column-count:         5;
+  column-gap:           0px;
 }
 
-.item {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  box-sizing: border-box;
-  grid-column-start: auto;
-  grid-row-start: auto;
-  background-size: cover;
-  background-position: center;
-  cursor: pointer;
-}
-
-.item:hover {
-  filter: brightness(50%) blur(2px);
-}
-
-.item__landscape,
-.item__square,
-.item__portrait {
-  grid-row-end: span 5;
-  grid-column-end: span 5;
+.gallery__main img {
+ /* Just in case there are inline attributes */
+ width: 100% !important;
+ height: auto !important;
+ border: 10px solid transparent;
 }
 
 .Gallery__spinner {
   font-size: 10vh;
 }
 
-@media screen and (min-width: 600px) {
-  .item__landscape {
-    grid-row-end: span 7;
-    grid-column-end: span 10;
-  }
-  .item__square {
-    grid-row-end: span 7;
-    grid-column-end: span 7;
-  }
-  .item__portrait {
-    grid-row-end: span 7;
-    grid-column-end: span 5;
-  }
+@media (max-width: 1200px) {
+ .gallery__main {
+ -moz-column-count:    4;
+ -webkit-column-count: 4;
+ column-count:         4;
+ }
+}
+@media (max-width: 1000px) {
+ .gallery__main {
+ -moz-column-count:    3;
+ -webkit-column-count: 3;
+ column-count:         3;
+ }
+}
+@media (max-width: 800px) {
+ .gallery__main {
+ -moz-column-count:    2;
+ -webkit-column-count: 2;
+ column-count:         2;
+ }
+}
+@media (max-width: 400px) {
+ .gallery__main {
+ -moz-column-count:    1;
+ -webkit-column-count: 1;
+ column-count:         1;
+ }
 }

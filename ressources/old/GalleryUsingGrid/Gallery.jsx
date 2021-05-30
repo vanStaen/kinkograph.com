@@ -31,18 +31,18 @@ export const Gallery = () => {
           <LoadingOutlined className="Gallery__spinner" />
         </div>
       ) : (
-          <div className="gallery__main">
-            {pictures.map((picture) => {
-              return (
-                <PictureThumb
-                  picture={picture}
-                  reload={fetchPictures}
-                  key={picture.id}
-                />
-              );
-            })}
-          </div>
-        )}
+        <div className="grid">
+          {pictures.map((picture) => {
+            return (
+              <PictureThumb
+                picture={picture}
+                reload={fetchPictures}
+                key={picture.id}
+              />
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

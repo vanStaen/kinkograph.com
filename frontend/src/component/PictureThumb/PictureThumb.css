@@ -1,0 +1,27 @@
+.picture {
+    cursor: pointer;
+}
+
+.picture:hover {
+    filter: brightness(50%) grayscale(100%);
+  }
+
+.picture__container {
+    position: relative;
+    top: 0px;
+}
+
+.picture__tagMissing {
+    position: absolute;
+    top: 50%;
+    text-align: center;
+    width: 100%;
+    font-weight: 200;
+    opacity: .5;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.picture__bluryGray{
+    filter: grayscale(100%) brightness(25%);
+}
