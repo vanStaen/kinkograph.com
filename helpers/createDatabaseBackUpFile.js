@@ -35,8 +35,11 @@ const writeBackupFile = async () => {
         const month = today.getMonth() + 1; //Start from 0
         const day = today.getDate();
         const databasePictureContent = await fetchDatabaseContent('pictures');
-        filename = `picture_db_${day}${month}${year}.json`;
-        fs.writeFileSync(`../ressources/db_backups/${filename}`, JSON.stringify(databasePictureContent));
+        const databaseTagsContent = await fetchDatabaseContent('tags');
+        filenamePic = `picture_db_${day}${month}${year}.json`;
+        filenameTag = `tag_db_${day}${month}${year}.json`;
+        fs.writeFileSync(`../ressources/db_backups/${filenamePic}`, JSON.stringify(databasePictureContent));
+        fs.writeFileSync(`../ressources/db_backups/${filenameTag}`, JSON.stringify(databaseTagsContent));
     } catch (err) {
         console.log({ error: `${err})`, });
     }
