@@ -1,10 +1,9 @@
 import axios from "axios";
 
-export const patchPicture = async (tags, format, id) => {
+export const patchPicture = async (tags, id) => {
 
     const requestBody = {
-        "tags": JSON.stringify(tags),
-        "format": format
+        "tags": JSON.stringify(tags)
     };
 
     const response = await axios({

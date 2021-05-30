@@ -15,7 +15,6 @@ import { deletePicture } from "./deletePicture";
 import "./EditDrawer.css";
 
 export const EditDrawer = (props) => {
-  const [format, setFormat] = useState(props.picture.format);
   const [tags, setTags] = useState([]);
   const [allTags, setAllTags] = useState([]);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -45,31 +44,12 @@ export const EditDrawer = (props) => {
     }
   }, [fetchAllTags]);
 
-  const handleFormatChange = (value) => {
-    setFormat(value);
-  };
-
   const handleTagChange = useCallback(async (value) => {
     const valueCleaned = value.map((oldTag) => {
       return capitalizeFirstLetter(oldTag);
     });
     setTags(valueCleaned);
   }, []);
-
-  const sizeFormat = useCallback(
-    (format) => {
-      if (format === "item__portrait") {
-        return { width: "60%", heigth: "80%" };
-      } else if (format === "item__landscape") {
-        return { width: "100%", heigth: "60%" };
-      } else if (format === "item__square") {
-        return { width: "80%", heigth: "75%" };
-      } else {
-        console.log(`Error, format ${format} is unknown.`);
-      }
-    },
-    [format]
-  );
 
   const submitHandler = useCallback(async () => {
     //Add new Tags to db
@@ -87,9 +67,9 @@ export const EditDrawer = (props) => {
       return undefined;
     });
     //Path picture
-    await patchPicture(tags, format, props.picture.id);
+    await patchPicture(tags, props.picture.id);
     hideDrawer(true);
-  }, [tags, allTags, format, patchPicture, postTag]);
+  }, [tags, allTags, patchPicture, postTag]);
 
   const deleteHandler = useCallback(
     async (key) => {
@@ -121,28 +101,15 @@ export const EditDrawer = (props) => {
       key={`drawer${props.picture.id}`}
       width="42.5%"
     >
-      <div className="Drawer__font">Format:</div>
-      <Select
-        defaultValue={format}
-        style={{ width: "100%" }}
-        onChange={handleFormatChange}
-      >
-        <Option value="item__square">Square</Option>
-        <Option value="item__portrait">Portrait</Option>
-        <Option value="item__landscape">Landscape</Option>
-      </Select>
-      <br />
-      <br />
       <div className="Drawer__font">Preview:</div>
-      <div
+      <img
         className="Drawer_picture"
-        style={{
-          backgroundImage: `url("${props.picture.url_med}")`,
-          width: sizeFormat(format).width,
-          paddingTop: sizeFormat(format).heigth,
-        }}
+        src={props.picture.url_med}
+        alt={props.picture.id}
         key={props.picture.id}
+        height={window.innerHeight / 2.2}
       />
+      <br />
       <br />
       <div className="Drawer__font">Tags:</div>
       <Select
@@ -188,11 +155,11 @@ export const EditDrawer = (props) => {
               <QuestionOutlined />
             </Fragment>
           ) : (
-            <Fragment>
-              <DeleteOutlined />
+              <Fragment>
+                <DeleteOutlined />
               &nbsp; Delete
-            </Fragment>
-          )}
+              </Fragment>
+            )}
         </div>
       </div>
     </Drawer>

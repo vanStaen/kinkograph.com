@@ -14,13 +14,13 @@ export const PictureThumb = (props) => {
                 setShowDrawer={setShowDrawer}
                 reload={props.reload}
             />
-            <div className="picture__container">
+            <div className="picture__container"
+                onClick={() => setShowDrawer(true)}>
                 <img
                     className={`picture ${!props.picture.tags && "picture__bluryGray"}`}
                     src={props.picture.url_thumb}
                     alt={props.picture.id}
                     key={props.picture.id}
-                    onClick={() => setShowDrawer(true)}
                 />
                 <div className="picture__tagMissing">{!props.picture.tags && "TAGS MISSING"}</div>
             </div>
