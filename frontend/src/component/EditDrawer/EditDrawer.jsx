@@ -63,7 +63,7 @@ export const EditDrawer = (props) => {
       } else if (format === "item__landscape") {
         return { width: "100%", heigth: "60%" };
       } else if (format === "item__square") {
-        return { width: "80%", heigth: "70%" };
+        return { width: "80%", heigth: "75%" };
       } else {
         console.log(`Error, format ${format} is unknown.`);
       }

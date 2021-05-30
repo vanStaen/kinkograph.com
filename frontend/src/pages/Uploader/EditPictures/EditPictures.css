@@ -23,5 +23,5 @@
 }
 
 .EditPictures__bluryGray{
-    filter: grayscale(100%) brightness(50%) blur(2px);
+    filter: grayscale(100%) brightness(25%) blur(2px);
 }

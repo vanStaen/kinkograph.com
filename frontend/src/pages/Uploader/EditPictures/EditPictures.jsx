@@ -10,7 +10,7 @@ export const EditPictures = (props) => {
   const [showDrawer, setShowDrawer] = useState(false);
 
   const mouseHoverHandler = (hover) => {
-    if (props.totalMissingTag) {
+    if (props.totalMissingTag === null) {
       setShowEdit(hover);
       const element = document.getElementById(props.picture.id);
       if (hover) {
