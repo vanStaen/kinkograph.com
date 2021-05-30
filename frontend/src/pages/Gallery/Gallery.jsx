@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { LoadingOutlined } from '@ant-design/icons';
+import { LoadingOutlined } from "@ant-design/icons";
 
-import { PictureThumb } from '../../component/PictureThumb/PictureThumb'
+import { PictureThumb } from "../../component/PictureThumb/PictureThumb";
 import { getPictures } from "./getPictures";
 
 import "./Gallery.css";
@@ -12,7 +12,7 @@ export const Gallery = () => {
 
   const fetchPictures = useCallback(async () => {
     try {
-      const pictures = await getPictures();
+      const pictures = await getPictures(100);
       setPictures(pictures);
     } catch (err) {
       console.log(err);
@@ -26,22 +26,23 @@ export const Gallery = () => {
 
   return (
     <div>
-      { isLoading ?
+      {isLoading ? (
         <div className="App__flex">
           <LoadingOutlined className="Gallery__spinner" />
-        </div> :
-        <div className="grid">{
-          pictures.map(picture => {
+        </div>
+      ) : (
+        <div className="grid">
+          {pictures.map((picture) => {
             return (
               <PictureThumb
                 picture={picture}
                 reload={fetchPictures}
                 key={picture.id}
               />
-            )
+            );
           })}
         </div>
-      }
+      )}
     </div>
   );
 };
