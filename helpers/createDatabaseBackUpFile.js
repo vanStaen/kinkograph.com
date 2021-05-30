@@ -18,9 +18,9 @@ client.connect(err => {
 })
 
 // Fetch content from db
-const fetchDatabaseContent = async () => {
+const fetchDatabaseContent = async (table) => {
     try {
-        const pictures = await client.query('SELECT * FROM pictures;');
+        const pictures = await client.query(`SELECT * FROM ${table};`);
         return pictures.rows;
     } catch (err) {
         console.log({ error: `${err})`, });
@@ -34,9 +34,9 @@ const writeBackupFile = async () => {
         const year = today.getFullYear();
         const month = today.getMonth() + 1; //Start from 0
         const day = today.getDate();
-        const databaseContent = await fetchDatabaseContent();
-        filename = `songbook_db_${day}${month}${year}.json`;
-        fs.writeFileSync(`../ressources/db_backups/${filename}`, JSON.stringify(databaseContent));
+        const databasePictureContent = await fetchDatabaseContent('pictures');
+        filename = `picture_db_${day}${month}${year}.json`;
+        fs.writeFileSync(`../ressources/db_backups/${filename}`, JSON.stringify(databasePictureContent));
     } catch (err) {
         console.log({ error: `${err})`, });
     }
