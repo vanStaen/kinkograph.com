@@ -59,11 +59,11 @@ export const EditDrawer = (props) => {
   const sizeFormat = useCallback(
     (format) => {
       if (format === "item__portrait") {
-        return { width: "40%", heigth: "60%" };
+        return { width: "60%", heigth: "80%" };
       } else if (format === "item__landscape") {
-        return { width: "60%", heigth: "40%" };
+        return { width: "100%", heigth: "60%" };
       } else if (format === "item__square") {
-        return { width: "60%", heigth: "60%" };
+        return { width: "80%", heigth: "70%" };
       } else {
         console.log(`Error, format ${format} is unknown.`);
       }
@@ -151,7 +151,11 @@ export const EditDrawer = (props) => {
         style={{ width: "100%" }}
         placeholder="Add some tags"
         onChange={handleTagChange}
-        defaultValue={JSON.parse(props.picture.tags)}
+        defaultValue={
+          props.picture.tags !== null
+            ? JSON.parse(props.picture.tags)
+            : undefined
+        }
       >
         {allTags.map((tag) => {
           return (
