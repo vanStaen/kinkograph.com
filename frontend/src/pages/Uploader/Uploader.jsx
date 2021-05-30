@@ -9,7 +9,7 @@ import { notification } from "antd";
 import { EditPictures } from "./EditPictures/EditPictures";
 import { postPicture } from "./postPicture";
 import { getDuplicate } from "./getDuplicate";
-import { getTagsMissing } from "./getTagsMissing";
+import { getTagsMissing, getTagsMissingCountAll } from "./getTagsMissing";
 
 import "./Uploader.css";
 
@@ -22,6 +22,7 @@ export const Uploader = () => {
   const [showUploader, setShowUploader] = useState(true);
   const [uploadProgress, setUploadProgress] = useState([0, 0]);
   const [limit, setLimit] = useState(undefined);
+  const [missingCountAll, setMissingCountAll] = useState(null);
 
   const fileSelectHandler = useCallback(async (event) => {
     setIsUploading(true);
@@ -53,6 +54,16 @@ export const Uploader = () => {
     }
   }, [limit]);
 
+  const fetchTagsMissingCountAll = useCallback(async () => {
+    try {
+      const count = await getTagsMissingCountAll();
+      const countMinusLimit = count - limit;
+      setMissingCountAll(countMinusLimit);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [limit, getTagsMissingCountAll]);
+
   const calculateMissingTagPicLimit = useCallback(() => {
     const pageWidth = window.innerWidth;
     const pageHeight = window.innerHeight;
@@ -67,6 +78,7 @@ export const Uploader = () => {
 
   useEffect(() => {
     fetchPicsTagsMissing();
+    fetchTagsMissingCountAll();
     window.addEventListener("resize", calculateMissingTagPicLimit);
     return () => {
       window.removeEventListener("resize", calculateMissingTagPicLimit);
@@ -205,7 +217,7 @@ export const Uploader = () => {
       {picsTagsMissing.length > 0 && (
         <div className="Uploader__missingContainer">
           <div className="Uploader__missingContent">
-            {picsTagsMissing.map((picture) => {
+            {picsTagsMissing.map((picture, index) => {
               return (
                 <EditPictures
                   picture={picture}
@@ -213,6 +225,7 @@ export const Uploader = () => {
                   setShowUploader={setShowUploader}
                   key={picture.id}
                   reload={fetchPicsTagsMissing}
+                  totalMissingTag={index + 1 === limit ? missingCountAll : null}
                 />
               );
             })}

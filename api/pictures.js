@@ -183,11 +183,25 @@ router.post("/duplicate/", async (req, res) => {
   }
 });
 
-// GET all pictures
+// GET all pictures with missing tag
 router.get("/tagsmissing/:limit", async (req, res) => {
   try {
     const pictures = await client.query(`SELECT * FROM pictures WHERE tags_missing=true LIMIT ${req.params.limit} `);
     res.status(201).json(pictures.rows);
+  } catch (err) {
+    res.status(400).json({
+      error: `${err})`,
+    });
+  }
+});
+
+
+
+// GET COUNT all pictures with missing tag
+router.get("/tagsmissingcount/", async (req, res) => {
+  try {
+    const result = await client.query(`SELECT COUNT(id) FROM pictures WHERE tags_missing=true;`);
+    res.status(201).json(result.rows);
   } catch (err) {
     res.status(400).json({
       error: `${err})`,
