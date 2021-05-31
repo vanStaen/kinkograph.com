@@ -3,7 +3,6 @@
 ## Backlog:
 
 - [ ] Show ! on pic w/o tags
-- [ ] Lazy loading (limit on SQL query)
 - [ ] Landing first page
   - [x] password input
   - [ ] Endpoint to verify code

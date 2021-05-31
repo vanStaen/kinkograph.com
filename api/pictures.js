@@ -160,7 +160,7 @@ router.delete("/:key", async (req, res) => {
 // GET all pictures
 router.get("/all/:limit", async (req, res) => {
   try {
-    const pictures = await client.query(`SELECT * FROM pictures LIMIT ${req.params.limit}`);
+    const pictures = await client.query(`SELECT * FROM pictures WHERE tags_missing=false LIMIT ${req.params.limit}`);
     res.status(201).json(pictures.rows);
   } catch (err) {
     res.status(400).json({
