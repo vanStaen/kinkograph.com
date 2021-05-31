@@ -131,7 +131,6 @@ router.delete("/:key", async (req, res) => {
       Bucket: process.env.S3_BUCKET_ID,
       Key: "m_" + req.params.key,
     };
-    console.log(params);
     await Promise.all([
       s3.deleteObject(params, function (err, data) {
         //if (err) console.log(err, err.stack);  // error
