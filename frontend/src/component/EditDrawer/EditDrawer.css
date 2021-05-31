@@ -13,8 +13,9 @@
 }
 
 .Drawer_picture {
-    background-size: cover;
-    background-position: center;
+    display: block;
+    width: auto;
+    height: auto;
 }
 
 .Drawer__button {

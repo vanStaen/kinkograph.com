@@ -107,7 +107,7 @@ export const EditDrawer = (props) => {
         src={props.picture.url_med}
         alt={props.picture.id}
         key={props.picture.id}
-        height={window.innerHeight / 2.2}
+        style={{ maxWidth: "100%", maxHeight: window.innerHeight / 2.5 }}
       />
       <br />
       <br />
@@ -155,11 +155,11 @@ export const EditDrawer = (props) => {
               <QuestionOutlined />
             </Fragment>
           ) : (
-              <Fragment>
-                <DeleteOutlined />
+            <Fragment>
+              <DeleteOutlined />
               &nbsp; Delete
-              </Fragment>
-            )}
+            </Fragment>
+          )}
         </div>
       </div>
     </Drawer>
