@@ -44,6 +44,16 @@ export const Uploader = () => {
     }, 500);
   }, []);
 
+  const fetchTagsMissingCountAll = useCallback(async () => {
+    try {
+      const count = await getTagsMissingCountAll();
+      const countMinusLimit = count - limit;
+      setMissingCountAll(countMinusLimit);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [limit, getTagsMissingCountAll]);
+
   const fetchPicsTagsMissing = useCallback(async () => {
     try {
       const limit = await calculateMissingTagPicLimit();
@@ -54,16 +64,6 @@ export const Uploader = () => {
       console.log(err);
     }
   }, [limit, fetchTagsMissingCountAll]);
-
-  const fetchTagsMissingCountAll = useCallback(async () => {
-    try {
-      const count = await getTagsMissingCountAll();
-      const countMinusLimit = count - limit;
-      setMissingCountAll(countMinusLimit);
-    } catch (err) {
-      console.log(err);
-    }
-  }, [limit, getTagsMissingCountAll]);
 
   const calculateMissingTagPicLimit = useCallback(() => {
     const pageWidth = window.innerWidth;

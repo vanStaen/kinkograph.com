@@ -31,7 +31,8 @@ const fileFilter = (req, file, callback) => {
   if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
     callback(null, true);
   } else {
-    console.log("Wrong format!");
+    //console.log("Wrong format!");
+    callback(null, false);
   }
 };
 
