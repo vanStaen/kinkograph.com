@@ -86,7 +86,7 @@ export const GalleryOverlay = observer((props) => {
         onDoubleClick={() => alert("DoubleCLick")}
       >
         <div className="gallery__pictureHover">
-          <div className="gallery__pictureWatermark">KINKOGRAPH.COM</div>
+          <div className="gallery__pictureWatermark">KINKOGRAPH</div>
         </div>
         {selected && (
           <img

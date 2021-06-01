@@ -2,13 +2,13 @@
 
 ## Backlog:
 
-- [ ] Show ! on pic w/o tags
+- [ ] Pagination 
+  - [x] Pagination in Gallery
+  - [ ] Pagination in Overlay
+  - [ ] All stored in mobX
 - [ ] Landing first page
   - [x] password input
   - [ ] Endpoint to verify code
-- [ ] Upload formular
-  - [x] Check if picture already in db
-  - [ ] After upload : Tag and Pic format
 - [ ] Disclaimer/about from landing-page
 
 ## Completed ✓
@@ -20,3 +20,6 @@
 - [x] Show pic in Gallery
 - [x] Tagging interface
 - [x] SQL Paggination
+- [x] Upload formular
+  - [x] Check if picture already in db
+  - [x] After upload : Tag and Pic format
