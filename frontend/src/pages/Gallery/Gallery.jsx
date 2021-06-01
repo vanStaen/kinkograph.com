@@ -9,11 +9,12 @@ import "./Gallery.css";
 export const Gallery = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [pictures, setPictures] = useState([]);
-  const limit = useRef(1000);
+  const limit = useRef(100);
+  const showMissing = true;
 
   const fetchPictures = useCallback(async () => {
     try {
-      const pictures = await getPictures(limit.current);
+      const pictures = await getPictures(limit.current, showMissing);
       setPictures(pictures);
     } catch (err) {
       console.log(err);
@@ -24,6 +25,12 @@ export const Gallery = () => {
   useEffect(() => {
     fetchPictures();
   }, [fetchPictures]);
+
+  const nextPageHandler = () => {
+    const newLimit = limit.current + 50;
+    limit.current = newLimit;
+    fetchPictures(newLimit);
+  };
 
   /*const scrollHandler = async () => {
     let scrollMaxY =
@@ -51,16 +58,26 @@ export const Gallery = () => {
           <LoadingOutlined className="Gallery__spinner" />
         </div>
       ) : (
-        <div className="gallery__main">
-          {pictures.map((picture) => {
-            return (
-              <PictureThumb
-                picture={picture}
-                reload={fetchPictures}
-                key={picture.id}
-              />
-            );
-          })}
+        <div className="gallery">
+          <div className="gallery__main">
+            {pictures.map((picture) => {
+              return (
+                <PictureThumb
+                  picture={picture}
+                  reload={fetchPictures}
+                  key={picture.id}
+                />
+              );
+            })}
+          </div>
+          <div className="gallery__next">
+            <div className="gallery__nextTextContainer">
+              Previous |{" "}
+              <span className="gallery__nextText" onClick={nextPageHandler}>
+                Next
+              </span>
+            </div>
+          </div>
         </div>
       )}
     </div>

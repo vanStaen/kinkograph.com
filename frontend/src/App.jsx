@@ -1,9 +1,5 @@
-import React, { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
+import React, { Fragment, useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { PinInput } from "./component/PinInput/PinInput";
 import { Gallery } from "./pages/Gallery/Gallery";
@@ -28,15 +24,17 @@ const App = () => {
               <Uploader />
             </Route>
             <Route path="/">
-              {access ? (
-                <Gallery />
-              ) : (
-                  <div className="App__flex">
+              <div className="App__flex">
+                {access ? (
+                  <Gallery />
+                ) : (
+                  <Fragment>
                     <div className="App__title">&nbsp;kinkograph</div>
                     <PinInput login={login} />
                     <div className="spacer"></div>
-                  </div>
+                  </Fragment>
                 )}
+              </div>
             </Route>
           </Switch>
         </div>
