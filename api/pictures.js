@@ -190,7 +190,7 @@ router.post("/page/", async (req, res) => {
     }
     const query = `SELECT * FROM pictures 
                     WHERE tags_missing=false
-                    ORDER BY id
+                    ORDER BY id ASC
                     OFFSET ${offSet} ROWS
                     FETCH NEXT ${pageSize} ROWS ONLY`;
     const pictures = await client.query(query);
