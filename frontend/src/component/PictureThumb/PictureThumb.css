@@ -1,5 +1,5 @@
-.picture:hover {
-    filter: brightness(50%) grayscale(100%);
+.picture {
+    transition: filter 0.3s linear;
   }
 
 .picture__container {
@@ -18,6 +18,17 @@
     letter-spacing: 2px;
     margin-bottom: 10px;
     font-size: 0.7em;
+}
+
+.picture__tagShow {
+    position: absolute;
+    top: 42%;
+    width: 100%;
+    text-align: center;
+    font-size: 1.5em;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s linear;
 }
 
 .picture__bluryGray{
