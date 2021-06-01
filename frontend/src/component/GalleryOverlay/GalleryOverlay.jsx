@@ -24,13 +24,22 @@ export const GalleryOverlay = observer((props) => {
   const keyDownHandler = useCallback((event) => {
     event.preventDefault();
     const keyPressed = event.key.toLowerCase();
-
+    const nextButton = document.getElementById(`nextButton`);
+    const previousButton = document.getElementById(`previousButton`);
     if (throttling.current === false) {
       throttling.current = true;
       if (keyPressed === "arrowdown" || keyPressed === "arrowright") {
+        nextButton.style.backgroundColor = "rgba(255,255,255,.15)";
         overlayStore.changeSelected(true);
+        setTimeout(() => {
+          nextButton.style.backgroundColor = "rgba(255,255,255, 0)";
+        }, 100);
       } else if (keyPressed === "arrowup" || keyPressed === "arrowleft") {
+        previousButton.style.backgroundColor = "rgba(255,255,255,.15)";
         overlayStore.changeSelected(false);
+        setTimeout(() => {
+          previousButton.style.backgroundColor = "rgba(255,255,255, 0)";
+        }, 100);
       }
       setTimeout(() => {
         throttling.current = false;
@@ -55,6 +64,7 @@ export const GalleryOverlay = observer((props) => {
       ></div>
       <div
         className="gallery__columnLeft"
+        id="previousButton"
         onClick={() => {
           overlayStore.changeSelected(false);
         }}
@@ -63,6 +73,7 @@ export const GalleryOverlay = observer((props) => {
       </div>
       <div
         className="gallery__columnRight"
+        id="nextButton"
         onMouseEnter={() => mouseHoverHandler(true)}
         onMouseLeave={() => mouseHoverHandler(false)}
         onClick={() => {
