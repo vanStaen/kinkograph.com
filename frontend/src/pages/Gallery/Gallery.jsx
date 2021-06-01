@@ -32,6 +32,7 @@ export const Gallery = observer(() => {
         lastPageReached.current = false;
       }
       setPictures(pictures);
+      overlayStore.setAllPictures(pictures);
     } catch (err) {
       console.log(err);
     }
@@ -66,7 +67,7 @@ export const Gallery = observer(() => {
           {overlayStore.showOverlay && <GalleryOverlay />}
           <div className="gallery">
             <div className="gallery__main">
-              {pictures.map((picture) => {
+              {pictures.map((picture, index) => {
                 return (
                   <PictureThumb
                     picture={picture}

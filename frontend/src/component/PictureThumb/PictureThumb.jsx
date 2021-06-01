@@ -19,11 +19,16 @@ export const PictureThumb = (props) => {
     }
   };
 
+  const clickHandler = () => {
+    overlayStore.setShowOverlay(true);
+    overlayStore.setSelected(props.picture);
+  };
+
   return (
     <Fragment>
       <div
         className="picture__container"
-        onClick={() => overlayStore.setShowOverlay(true)}
+        onClick={clickHandler}
         onMouseEnter={() => mouseHoverHandler(true)}
         onMouseLeave={() => mouseHoverHandler(false)}
       >

@@ -19,7 +19,6 @@ export const getPictures = async (limit, showMissing) => {
 
 };
 
-
 export const getPicturesPerPage = async (pageNumber, pageSize) => {
 
   const requestBody = {
