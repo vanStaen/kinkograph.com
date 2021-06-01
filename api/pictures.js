@@ -32,7 +32,6 @@ const fileFilter = (req, file, callback) => {
     callback(null, true);
   } else {
     console.log("Wrong format!");
-    callback(null, true);
   }
 };
 
