@@ -2,54 +2,49 @@ import React, { useRef, useEffect, useState, useCallback } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 
 import { PictureThumb } from "../../component/PictureThumb/PictureThumb";
-import { getPictures } from "./getPictures";
+import { getPicturesPerPage } from "./getPictures";
 
 import "./Gallery.css";
+
+const PAGE_SIZE = 100;
 
 export const Gallery = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [pictures, setPictures] = useState([]);
-  const limit = useRef(100);
-  const showMissing = true;
+  const pageNumber = useRef(1);
+  const lastPageReached = useRef(false);
 
   const fetchPictures = useCallback(async () => {
     try {
-      const pictures = await getPictures(limit.current, showMissing);
+      const pictures = await getPicturesPerPage(pageNumber.current, PAGE_SIZE);
+      if (pictures.length < PAGE_SIZE) {
+        lastPageReached.current = true;
+      } else {
+        lastPageReached.current = false;
+      }
       setPictures(pictures);
     } catch (err) {
       console.log(err);
     }
     setIsLoading(false);
-  }, [getPictures]);
+  }, [getPicturesPerPage]);
 
   useEffect(() => {
     fetchPictures();
   }, [fetchPictures]);
 
-  const nextPageHandler = () => {
-    const newLimit = limit.current + 50;
-    limit.current = newLimit;
-    fetchPictures(newLimit);
-  };
-
-  /*const scrollHandler = async () => {
-    let scrollMaxY =
-      document.documentElement.scrollHeight -
-      document.documentElement.clientHeight;
-    if (window.scrollY > scrollMaxY * 0.8) {
-      console.log("80% of scroll reached!");
-      const newLimit = limit.current + 50;
-      limit.current = newLimit;
-      await fetchPictures(newLimit);
+  const nextPageHandler = (next) => {
+    setIsLoading(true);
+    if (next) {
+      const nextPage = pageNumber.current + 1;
+      pageNumber.current = nextPage;
+      fetchPictures(nextPage);
+    } else {
+      const previousPage = pageNumber.current - 1;
+      pageNumber.current = previousPage;
+      fetchPictures(previousPage);
     }
-  };*/
-
-  /*useEffect(() => {
-    document.addEventListener("scroll", scrollHandler);
-    return () => {
-      document.removeEventListener("scroll", scrollHandler);
-    };
-  }, [scrollHandler]);*/
+  };
 
   return (
     <div>
@@ -72,10 +67,27 @@ export const Gallery = () => {
           </div>
           <div className="gallery__next">
             <div className="gallery__nextTextContainer">
-              Previous |{" "}
-              <span className="gallery__nextText" onClick={nextPageHandler}>
-                Next
-              </span>
+              {pageNumber.current === 1 ? (
+                "Previous"
+              ) : (
+                <span
+                  className="gallery__nextText"
+                  onClick={() => nextPageHandler(false)}
+                >
+                  Previous
+                </span>
+              )}
+              {" | "}
+              {lastPageReached.current ? (
+                "Next"
+              ) : (
+                <span
+                  className="gallery__nextText"
+                  onClick={() => nextPageHandler(true)}
+                >
+                  Next
+                </span>
+              )}
             </div>
           </div>
         </div>

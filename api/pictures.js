@@ -9,17 +9,19 @@ const resizeImage = require("../helpers/resizeImage");
 const uploadFileFromUrlToS3 = require("../helpers/uploadFileFromUrlToS3");
 const deleteLocalFile = require("../helpers/deleteLocalFile");
 
-
 // Init Postgres
-const client = new Client({ connectionString: process.env.DATABASE_URL, ssl: true })
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
+});
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; // This bypasses the SSL verification
 
-// Connect to Postgres 
-client.connect(err => {
+// Connect to Postgres
+client.connect((err) => {
   if (err) {
-    console.error('connection error', err.stack)
+    console.error("connection error", err.stack);
   }
-})
+});
 
 // Limits size of 10MB
 const sizeLimits = { fileSize: 1024 * 1024 * 10 };
@@ -57,71 +59,67 @@ const uploadS3 = multer({
 }).single("file");
 
 // POST single file object to s3
-router.post(
-  "/",
-  (req, res) => {
-    uploadS3(req, res, async (error) => {
-      if (error) {
-        console.log("Upload s3, error: ", error);
-        res.json({ error: error });
+router.post("/", (req, res) => {
+  uploadS3(req, res, async (error) => {
+    if (error) {
+      console.log("Upload s3, error: ", error);
+      res.json({ error: error });
+    } else {
+      // If File not found
+      if (req.file === undefined) {
+        res.json({ Error: "No File Selected" });
       } else {
-        // If File not found
-        if (req.file === undefined) {
-          res.json({ Error: "No File Selected" });
-        } else {
-          const imageOriginalName = req.file.originalname.split('.')[0];
-          const imageOriginalType = req.file.originalname.split('.')[1];
-          const imageUrl = req.file.location;
-          const nameImageThumb = "t_" + req.file.key;
-          const nameImageMedium = "m_" + req.file.key;
-          const key = req.file.key;
-          // If file, upload to S3
-          try {
-            const [thumbUrlLocal, mediumUrlLocal] = await Promise.all([
-              resizeImage(imageUrl, nameImageThumb, 240, 60),
-              resizeImage(imageUrl, nameImageMedium, 750, 60),
-            ]);
-            const [UrlThumbS3, UrlMediumbS3] = await Promise.all([
-              uploadFileFromUrlToS3(thumbUrlLocal, nameImageThumb),
-              uploadFileFromUrlToS3(mediumUrlLocal, nameImageMedium),
-            ]);
-            // Delete locally stored files
-            await Promise.all([
-              deleteLocalFile(nameImageMedium),
-              deleteLocalFile(nameImageThumb),
-            ]);
+        const imageOriginalName = req.file.originalname.split(".")[0];
+        const imageOriginalType = req.file.originalname.split(".")[1];
+        const imageUrl = req.file.location;
+        const nameImageThumb = "t_" + req.file.key;
+        const nameImageMedium = "m_" + req.file.key;
+        const key = req.file.key;
+        // If file, upload to S3
+        try {
+          const [thumbUrlLocal, mediumUrlLocal] = await Promise.all([
+            resizeImage(imageUrl, nameImageThumb, 240, 60),
+            resizeImage(imageUrl, nameImageMedium, 750, 60),
+          ]);
+          const [UrlThumbS3, UrlMediumbS3] = await Promise.all([
+            uploadFileFromUrlToS3(thumbUrlLocal, nameImageThumb),
+            uploadFileFromUrlToS3(mediumUrlLocal, nameImageMedium),
+          ]);
+          // Delete locally stored files
+          await Promise.all([
+            deleteLocalFile(nameImageMedium),
+            deleteLocalFile(nameImageThumb),
+          ]);
 
-            // Add picture to db: 
-            const createQuery = `INSERT INTO pictures (url_original, url_thumb, url_med, original_name, original_type, key) VALUES ('${imageUrl}', '${UrlThumbS3}', '${UrlMediumbS3}', '${imageOriginalName}', '${imageOriginalType}', '${key}');`;
-            await client.query(createQuery);
+          // Add picture to db:
+          const createQuery = `INSERT INTO pictures (url_original, url_thumb, url_med, original_name, original_type, key) VALUES ('${imageUrl}', '${UrlThumbS3}', '${UrlMediumbS3}', '${imageOriginalName}', '${imageOriginalType}', '${key}');`;
+          await client.query(createQuery);
 
-            // Return file name and file url to client
-            return res.status(200).json({
-              message: "Upload success!",
-              key: key,
-              imageOriginalName: imageOriginalName,
-              imageOriginalType: imageOriginalType,
-              imageUrl: imageUrl,
-              thumbUrl: UrlThumbS3,
-              mediumUrl: UrlMediumbS3,
-            });
-          }
-          catch (err) {
-            console.log(err);
-            return res.status(400).json({ error: err });
-          };
+          // Return file name and file url to client
+          return res.status(200).json({
+            message: "Upload success!",
+            key: key,
+            imageOriginalName: imageOriginalName,
+            imageOriginalType: imageOriginalType,
+            imageUrl: imageUrl,
+            thumbUrl: UrlThumbS3,
+            mediumUrl: UrlMediumbS3,
+          });
+        } catch (err) {
+          console.log(err);
+          return res.status(400).json({ error: err });
         }
       }
-    });
-  }
-);
+    }
+  });
+});
 
 // DELETE single file object from s3 (based on key)
 router.delete("/:key", async (req, res) => {
   try {
     const params = {
       Bucket: process.env.S3_BUCKET_ID,
-      Key: req.params.key
+      Key: req.params.key,
     };
     const paramsThumb = {
       Bucket: process.env.S3_BUCKET_ID,
@@ -147,7 +145,9 @@ router.delete("/:key", async (req, res) => {
     ]);
     const deleteUser = `DELETE FROM pictures WHERE key='${req.params.key}';`;
     await client.query(deleteUser);
-    res.status(200).json({ success: `User with id #${req.params.key} was deleted.` });
+    res
+      .status(200)
+      .json({ success: `User with id #${req.params.key} was deleted.` });
   } catch (err) {
     res.status(400).json({
       error: `${err}`,
@@ -155,15 +155,20 @@ router.delete("/:key", async (req, res) => {
   }
 });
 
-
 // GET all pictures
 router.get("/all/:limit/:showMissing", async (req, res) => {
   try {
     let showMissing = "WHERE tags_missing=false";
+    let setLimit = `LIMIT ${req.params.limit}`;
     if (req.params.showMissing) {
-      showMissing="";
+      showMissing = "";
     }
-    const pictures = await client.query(`SELECT * FROM pictures ${showMissing} LIMIT ${req.params.limit}`);
+    if (req.params.limit === "0") {
+      setLimit = "";
+    }
+    const pictures = await client.query(
+      `SELECT * FROM pictures ${showMissing} ${setLimit}`
+    );
     res.status(201).json(pictures.rows);
   } catch (err) {
     res.status(400).json({
@@ -172,6 +177,30 @@ router.get("/all/:limit/:showMissing", async (req, res) => {
   }
 });
 
+// POST all pictures, with pagination and filter
+router.post("/page/", async (req, res) => {
+  try {
+    const pageNumber = req.body.pageNumber;
+    const pageSize = req.body.pageSize;
+    const offSet = pageSize * (pageNumber - 1);
+    let listOfFilter = ``;
+    if (req.body.filter) {
+      //TODO
+      listOfFilter = req.body.filter;
+    }
+    const query = `SELECT * FROM pictures 
+                    WHERE tags_missing=false
+                    ORDER BY id
+                    OFFSET ${offSet} ROWS
+                    FETCH NEXT ${pageSize} ROWS ONLY`;
+    const pictures = await client.query(query);
+    res.status(201).json(pictures.rows);
+  } catch (err) {
+    res.status(400).json({
+      error: `${err})`,
+    });
+  }
+});
 
 // POST, check if a picture is already in db
 router.post("/duplicate/", async (req, res) => {
@@ -189,7 +218,9 @@ router.post("/duplicate/", async (req, res) => {
 // GET all pictures with missing tag
 router.get("/tagsmissing/:limit", async (req, res) => {
   try {
-    const pictures = await client.query(`SELECT * FROM pictures WHERE tags_missing=true LIMIT ${req.params.limit} `);
+    const pictures = await client.query(
+      `SELECT * FROM pictures WHERE tags_missing=true LIMIT ${req.params.limit} `
+    );
     res.status(201).json(pictures.rows);
   } catch (err) {
     res.status(400).json({
@@ -198,11 +229,12 @@ router.get("/tagsmissing/:limit", async (req, res) => {
   }
 });
 
-
 // GET COUNT all pictures with missing tag
 router.get("/tagsmissingcount/", async (req, res) => {
   try {
-    const result = await client.query(`SELECT COUNT(id) FROM pictures WHERE tags_missing=true;`);
+    const result = await client.query(
+      `SELECT COUNT(id) FROM pictures WHERE tags_missing=true;`
+    );
     res.status(201).json(result.rows);
   } catch (err) {
     res.status(400).json({
@@ -214,7 +246,9 @@ router.get("/tagsmissingcount/", async (req, res) => {
 // PATCH picture based in ID
 router.patch("/:id", async (req, res) => {
   try {
-    await client.query(`UPDATE pictures SET tags='${req.body.tags}', tags_missing=false WHERE id=${req.params.id}`);
+    await client.query(
+      `UPDATE pictures SET tags='${req.body.tags}', tags_missing=false WHERE id=${req.params.id}`
+    );
     res.status(201).json(`Picture with id #${req.params.id} was udpated`);
   } catch (err) {
     res.status(400).json({
@@ -222,6 +256,5 @@ router.patch("/:id", async (req, res) => {
     });
   }
 });
-
 
 module.exports = router;

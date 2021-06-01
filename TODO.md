@@ -9,7 +9,6 @@
 - [ ] Upload formular
   - [x] Check if picture already in db
   - [ ] After upload : Tag and Pic format
-- [ ] Tagging interface
 - [ ] Disclaimer/about from landing-page
 
 ## Completed ✓
@@ -19,3 +18,5 @@
 - [x] Create Upload endpoint (to AWS S3)
 - [x] Create PostGresQL Database 
 - [x] Show pic in Gallery
+- [x] Tagging interface
+- [x] SQL Paggination
