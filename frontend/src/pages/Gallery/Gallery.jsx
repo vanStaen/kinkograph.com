@@ -14,7 +14,6 @@ export const Gallery = () => {
   const fetchPictures = useCallback(async () => {
     try {
       const pictures = await getPictures(limit.current);
-      console.log(limit.current);
       setPictures(pictures);
     } catch (err) {
       console.log(err);

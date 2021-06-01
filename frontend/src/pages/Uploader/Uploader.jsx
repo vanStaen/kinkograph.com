@@ -48,11 +48,12 @@ export const Uploader = () => {
     try {
       const limit = await calculateMissingTagPicLimit();
       const picsTagsMissing = await getTagsMissing(limit);
+      await fetchTagsMissingCountAll();
       setPicsTagsMissing(picsTagsMissing);
     } catch (err) {
       console.log(err);
     }
-  }, [limit]);
+  }, [limit, fetchTagsMissingCountAll]);
 
   const fetchTagsMissingCountAll = useCallback(async () => {
     try {
@@ -78,7 +79,6 @@ export const Uploader = () => {
 
   useEffect(() => {
     fetchPicsTagsMissing();
-    fetchTagsMissingCountAll();
     window.addEventListener("resize", calculateMissingTagPicLimit);
     return () => {
       window.removeEventListener("resize", calculateMissingTagPicLimit);
