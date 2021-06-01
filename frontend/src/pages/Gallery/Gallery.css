@@ -1,7 +1,7 @@
 .gallery {
   min-height: 100vh;
   max-width: 1600px;
-  position:relative;
+  position: relative;
   background-color: rgba(0,0,0,.85);
 }
 

@@ -1,12 +1,10 @@
-import React, { useState, Fragment } from "react";
+import React, { Fragment } from "react";
 import { FullscreenOutlined } from "@ant-design/icons";
 
-import { EditDrawer } from "../EditDrawer/EditDrawer";
+import { overlayStore } from "../../store/overlayStore";
 import "./PictureThumb.css";
 
 export const PictureThumb = (props) => {
-  const [showDrawer, setShowDrawer] = useState(false);
-
   const mouseHoverHandler = (hover) => {
     const element = document.getElementById(`tag_${props.picture.id}`);
     const picture = document.getElementById(`pic_${props.picture.id}`);
@@ -23,15 +21,9 @@ export const PictureThumb = (props) => {
 
   return (
     <Fragment>
-      <EditDrawer
-        picture={props.picture}
-        showDrawer={showDrawer}
-        setShowDrawer={setShowDrawer}
-        reload={props.reload}
-      />
       <div
         className="picture__container"
-        onClick={() => setShowDrawer(true)}
+        onClick={() => overlayStore.setShowOverlay(true)}
         onMouseEnter={() => mouseHoverHandler(true)}
         onMouseLeave={() => mouseHoverHandler(false)}
       >

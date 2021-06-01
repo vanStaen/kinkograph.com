@@ -1,14 +1,23 @@
-import React, { useRef, useEffect, useState, useCallback } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  useCallback,
+  Fragment,
+} from "react";
 import { LoadingOutlined } from "@ant-design/icons";
+import { observer } from "mobx-react";
 
+import { overlayStore } from "../../store/overlayStore";
 import { PictureThumb } from "../../component/PictureThumb/PictureThumb";
+import { GalleryOverlay } from "../../component/GalleryOverlay/GalleryOverlay";
 import { getPicturesPerPage } from "./getPictures";
 
 import "./Gallery.css";
 
 const PAGE_SIZE = 100;
 
-export const Gallery = () => {
+export const Gallery = observer(() => {
   const [isLoading, setIsLoading] = useState(true);
   const [pictures, setPictures] = useState([]);
   const pageNumber = useRef(1);
@@ -53,48 +62,51 @@ export const Gallery = () => {
           <LoadingOutlined className="Gallery__spinner" />
         </div>
       ) : (
-        <div className="gallery">
-          <div className="gallery__main">
-            {pictures.map((picture) => {
-              return (
-                <PictureThumb
-                  picture={picture}
-                  reload={fetchPictures}
-                  key={picture.id}
-                />
-              );
-            })}
-          </div>
-          <div className="gallery__next">
-            <div className="gallery__nextTextContainer">
-              {pageNumber.current === 1 ? (
-                "Previous"
-              ) : (
-                <span
-                  className="gallery__nextText"
-                  onClick={() => nextPageHandler(false)}
-                >
-                  Previous
-                </span>
-              )}
-              {" | "}
-              {lastPageReached.current ? (
-                "Next"
-              ) : (
-                <span
-                  className="gallery__nextText"
-                  onClick={() => nextPageHandler(true)}
-                >
-                  Next
-                </span>
-              )}
+        <Fragment>
+          {overlayStore.showOverlay && <GalleryOverlay />}
+          <div className="gallery">
+            <div className="gallery__main">
+              {pictures.map((picture) => {
+                return (
+                  <PictureThumb
+                    picture={picture}
+                    reload={fetchPictures}
+                    key={picture.id}
+                  />
+                );
+              })}
+            </div>
+            <div className="gallery__next">
+              <div className="gallery__nextTextContainer">
+                {pageNumber.current === 1 ? (
+                  "Previous"
+                ) : (
+                  <span
+                    className="gallery__nextText"
+                    onClick={() => nextPageHandler(false)}
+                  >
+                    Previous
+                  </span>
+                )}
+                {" | "}
+                {lastPageReached.current ? (
+                  "Next"
+                ) : (
+                  <span
+                    className="gallery__nextText"
+                    onClick={() => nextPageHandler(true)}
+                  >
+                    Next
+                  </span>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        </Fragment>
       )}
     </div>
   );
-};
+});
 
 /*
 <div className="item item__landscape">item__landscape</div>
