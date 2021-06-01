@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const getPictures = async (limit) => {
+export const getPictures = async (limit, showMissing) => {
 
   const response = await axios({
-    url: process.env.REACT_APP_API_URL + `/pictures/all/${limit}`,
+    url: process.env.REACT_APP_API_URL + `/pictures/all/${limit}/${showMissing}`,
     method: "GET",
   });
 

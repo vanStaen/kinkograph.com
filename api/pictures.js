@@ -157,9 +157,13 @@ router.delete("/:key", async (req, res) => {
 
 
 // GET all pictures
-router.get("/all/:limit", async (req, res) => {
+router.get("/all/:limit/:showMissing", async (req, res) => {
   try {
-    const pictures = await client.query(`SELECT * FROM pictures WHERE tags_missing=false LIMIT ${req.params.limit}`);
+    let showMissing = "WHERE tags_missing=false";
+    if (req.params.showMissing) {
+      showMissing="";
+    }
+    const pictures = await client.query(`SELECT * FROM pictures ${showMissing} LIMIT ${req.params.limit}`);
     res.status(201).json(pictures.rows);
   } catch (err) {
     res.status(400).json({
