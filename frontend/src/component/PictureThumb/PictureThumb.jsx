@@ -44,6 +44,7 @@ export const PictureThumb = (props) => {
         </div>
         <div id={`tag_${props.picture.id}`} className="picture__tagShow">
           <FullscreenOutlined />
+          <div className="picture__id">#{props.picture.id}</div>
         </div>
       </div>
     </Fragment>
