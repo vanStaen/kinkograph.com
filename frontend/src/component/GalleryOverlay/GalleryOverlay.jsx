@@ -173,6 +173,15 @@ export const GalleryOverlay = observer((props) => {
             key={selected.id}
           />
         )}
+        {selected && (
+          <div className="gallery__tags">
+            {JSON.parse(selected.tags).map((tag) => (
+              <Fragment>
+                <span>#{tag}</span>&nbsp;
+              </Fragment>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

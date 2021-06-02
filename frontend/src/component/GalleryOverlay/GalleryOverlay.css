@@ -151,6 +151,22 @@
   opacity: .7;
 }
 
+.gallery__tags{
+  width: 100%;
+  font-weight: 200;
+  letter-spacing: 2px;
+  font-size: .6em;
+  opacity: .7;
+  text-align: left;
+  padding-top: .3em;
+}
+
+.gallery__tags span{
+  color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: .1em .1em .2em .1em;
+}
+
 .gallery__heart{
   position: absolute;
   font-size: 1em;
