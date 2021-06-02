@@ -71,6 +71,9 @@ export const Gallery = observer(() => {
       {isLoading ? (
         <div className="App__flex">
           <LoadingOutlined className="Gallery__spinner" />
+          <div className="gallery__spinnerText">
+            Loading <br />Page {pageNumber.current}
+          </div>
         </div>
       ) : (
           <Fragment>
