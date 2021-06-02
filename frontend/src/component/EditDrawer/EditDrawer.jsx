@@ -52,23 +52,25 @@ export const EditDrawer = (props) => {
   }, []);
 
   const submitHandler = useCallback(async () => {
-    //Add new Tags to db
-    await tags.map(async (newTag) => {
-      const index = allTags.findIndex(
-        (tag) => tag === capitalizeFirstLetter(newTag)
-      );
-      if (index < 0) {
-        //New Tag not found in db
-        const result = await postTag(newTag);
-        if (result.value === "success") {
-          console.log(`${newTag} was added to the lists of tags.`);
+    if (tags.length > 0) {
+      //Add new Tags to db
+      await tags.map(async (newTag) => {
+        const index = allTags.findIndex(
+          (tag) => tag === capitalizeFirstLetter(newTag)
+        );
+        if (index < 0) {
+          //New Tag not found in db
+          const result = await postTag(newTag);
+          if (result.value === "success") {
+            console.log(`${newTag} was added to the lists of tags.`);
+          }
         }
-      }
-      return undefined;
-    });
-    //Path picture
-    await patchPicture(tags, props.picture.id);
-    hideDrawer(true);
+        return undefined;
+      });
+      //Path picture
+      await patchPicture(tags, props.picture.id);
+      hideDrawer(true);
+    }
   }, [tags, allTags, patchPicture, postTag]);
 
   const deleteHandler = useCallback(
