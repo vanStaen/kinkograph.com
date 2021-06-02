@@ -10,6 +10,15 @@
   - [x] password input
   - [ ] Endpoint to verify code
 - [ ] Disclaimer/about from landing-page
+- [ ] Filtering
+  - [ ] Fitler link from overlay Accessible
+- [ ] Profil showing favorites
+- [ ] Spinner on loading Overlay Fotos 
+- [ ] Admin
+  - [x] Upload Form
+  - [x] Add Tag after upload
+  - [ ] Manage Tag
+  - [ ] Overview User and Favorite
 
 ## Completed ✓
 
@@ -20,6 +29,3 @@
 - [x] Show pic in Gallery
 - [x] Tagging interface
 - [x] SQL Paggination
-- [x] Upload formular
-  - [x] Check if picture already in db
-  - [x] After upload : Tag and Pic format
