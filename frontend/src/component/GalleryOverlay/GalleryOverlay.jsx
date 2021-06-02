@@ -1,10 +1,4 @@
-import React, {
-  Fragment,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { Fragment, useCallback, useEffect, useRef } from "react";
 import {
   LeftOutlined,
   RightOutlined,
@@ -152,8 +146,14 @@ export const GalleryOverlay = observer((props) => {
           <div className="gallery__action">
             {isFavorite ? (
               <Fragment>
-                <span style={{ fontSize: ".75em" }}>❤️</span> Marked as
-                favorite!
+                <span
+                  role="img"
+                  aria-label="heart"
+                  style={{ fontSize: ".75em" }}
+                >
+                  ❤️
+                </span>{" "}
+                Marked as favorite!
               </Fragment>
             ) : (
               "Doubleclick/Enter to mark as favorite."
