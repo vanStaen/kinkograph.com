@@ -67,21 +67,44 @@ export const Gallery = observer(() => {
     }
   };
 
-  const keyDownHandler = useCallback((event) => {
-    event.preventDefault();
-    const keyPressed = event.key.toLowerCase();
-    if (throttling.current === false) {
-      throttling.current = true;
-      if (keyPressed === "arrowright" && !lastPageReached.current) {
-        nextPageHandler(true);
-      } else if (keyPressed === "arrowleft" && pageNumber.current > 1) {
-        nextPageHandler(false);
-      }
-      setTimeout(() => {
-        throttling.current = false;
-      }, 100);
+  const scroll = (direction) => {
+    const eightyPerCentOfHeight = window.innerHeight * 0.8;
+    const scrollPositionY = window.scrollY;
+    let scrollToPositionY;
+    if (direction === "down") {
+      scrollToPositionY = scrollPositionY + eightyPerCentOfHeight;
+    } else if (direction === "up") {
+      scrollToPositionY = Math.max(scrollPositionY - eightyPerCentOfHeight, 0);
     }
-  }, []);
+    window.scroll({
+      top: scrollToPositionY,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const keyDownHandler = useCallback(
+    (event) => {
+      event.preventDefault();
+      const keyPressed = event.key.toLowerCase();
+      if (throttling.current === false) {
+        throttling.current = true;
+        if (keyPressed === "arrowright" && !lastPageReached.current) {
+          nextPageHandler(true);
+        } else if (keyPressed === "arrowleft" && pageNumber.current > 1) {
+          nextPageHandler(false);
+        } else if (keyPressed === "arrowdown") {
+          scroll("down");
+        } else if (keyPressed === "arrowup") {
+          scroll("up");
+        }
+        setTimeout(() => {
+          throttling.current = false;
+        }, 100);
+      }
+    },
+    [scroll]
+  );
 
   useEffect(() => {
     document.addEventListener("keydown", keyDownHandler);
