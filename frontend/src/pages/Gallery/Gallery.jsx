@@ -85,22 +85,24 @@ export const Gallery = observer(() => {
 
   const keyDownHandler = useCallback(
     (event) => {
-      event.preventDefault();
-      const keyPressed = event.key.toLowerCase();
-      if (throttling.current === false) {
-        throttling.current = true;
-        if (keyPressed === "arrowright" && !lastPageReached.current) {
-          nextPageHandler(true);
-        } else if (keyPressed === "arrowleft" && pageNumber.current > 1) {
-          nextPageHandler(false);
-        } else if (keyPressed === "arrowdown") {
-          scroll("down");
-        } else if (keyPressed === "arrowup") {
-          scroll("up");
+      if (!overlayStore.showOverlay) {
+        event.preventDefault();
+        const keyPressed = event.key.toLowerCase();
+        if (throttling.current === false) {
+          throttling.current = true;
+          if (keyPressed === "arrowright" && !lastPageReached.current) {
+            nextPageHandler(true);
+          } else if (keyPressed === "arrowleft" && pageNumber.current > 1) {
+            nextPageHandler(false);
+          } else if (keyPressed === "arrowdown") {
+            scroll("down");
+          } else if (keyPressed === "arrowup") {
+            scroll("up");
+          }
+          setTimeout(() => {
+            throttling.current = false;
+          }, 100);
         }
-        setTimeout(() => {
-          throttling.current = false;
-        }, 100);
       }
     },
     [scroll]
@@ -118,7 +120,7 @@ export const Gallery = observer(() => {
       {isLoading ? (
         <div className="App__flex">
           <LoadingOutlined className="Gallery__spinner" />
-          <div className="gallery__spinnerText">Loading</div>
+          <div className="gallery__spinnerText">loading</div>
         </div>
       ) : (
         <Fragment>

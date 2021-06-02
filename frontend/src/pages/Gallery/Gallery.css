@@ -35,6 +35,7 @@
   letter-spacing: 2px;
   margin-bottom: 25px;
   font-size: .7em;
+  opacity: .25;
 }
 
 .gallery__next{
