@@ -29,6 +29,14 @@
   font-size: 10vh;
 }
 
+.gallery__spinnerText {
+  margin-top: 20px;
+  font-weight: 200;
+  letter-spacing: 2px;
+  margin-bottom: 25px;
+  font-size: .7em;
+}
+
 .gallery__next{
   color: rgba(255,255,255, .25);
   position: absolute;
