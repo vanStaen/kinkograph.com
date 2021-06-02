@@ -116,7 +116,7 @@
 }
 
 .overlay__picture {
-  max-width: 80vw;
+  max-width: 75vw;
   max-height: 80vh;
   display: block;
   user-select: none;

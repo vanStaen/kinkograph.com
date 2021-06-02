@@ -14,7 +14,7 @@ import {
 } from "@ant-design/icons";
 import { observer } from "mobx-react";
 
-import { overlayStore } from "../../store/overlayStore";
+import { pictureStore } from "../../store/pictureStore";
 import { userStore } from "../../store/userStore";
 
 import "./GalleryOverlay.css";
@@ -22,7 +22,7 @@ import "./GalleryOverlay.css";
 export const GalleryOverlay = observer((props) => {
   const [isLoading, setIsLoading] = useState(true);
   const throttling = useRef(false);
-  const selected = overlayStore.allPictures[overlayStore.selected];
+  const selected = pictureStore.allPictures[pictureStore.selected];
   const indexInSelected = userStore.favorites.findIndex(
     (pictureId) => pictureId === selected.id
   );
@@ -94,20 +94,20 @@ export const GalleryOverlay = observer((props) => {
         throttling.current = true;
         if (keyPressed === "arrowdown" || keyPressed === "arrowright") {
           nextButton.style.backgroundColor = "rgba(255,255,255,.15)";
-          overlayStore.changeSelected(true);
+          pictureStore.changeSelected(true);
           setTimeout(() => {
             nextButton.style.backgroundColor = "rgba(255,255,255, 0)";
           }, 100);
         } else if (keyPressed === "arrowup" || keyPressed === "arrowleft") {
           previousButton.style.backgroundColor = "rgba(255,255,255,.15)";
-          overlayStore.changeSelected(false);
+          pictureStore.changeSelected(false);
           setTimeout(() => {
             previousButton.style.backgroundColor = "rgba(255,255,255, 0)";
           }, 100);
         } else if (keyPressed === "enter") {
           doubleClickHandler(selected.id);
         } else if (keyPressed === "escape") {
-          overlayStore.setShowOverlay(false);
+          pictureStore.setShowOverlay(false);
         }
         setTimeout(() => {
           throttling.current = false;
@@ -129,14 +129,14 @@ export const GalleryOverlay = observer((props) => {
       <div
         className="overlay__background"
         onClick={() => {
-          overlayStore.setShowOverlay(false);
+          pictureStore.setShowOverlay(false);
         }}
       ></div>
       <div
         className="overlay__columnLeft"
         id="previousButton"
         onClick={() => {
-          overlayStore.changeSelected(false);
+          pictureStore.changeSelected(false);
         }}
       >
         <LeftOutlined />
@@ -147,7 +147,7 @@ export const GalleryOverlay = observer((props) => {
         onMouseEnter={() => mouseHoverHandler(true)}
         onMouseLeave={() => mouseHoverHandler(false)}
         onClick={() => {
-          overlayStore.changeSelected(true);
+          pictureStore.changeSelected(true);
         }}
       >
         <RightOutlined />
@@ -156,7 +156,7 @@ export const GalleryOverlay = observer((props) => {
         className="overlay__closeButton"
         id="closeButton"
         onClick={() => {
-          overlayStore.setShowOverlay(false);
+          pictureStore.setShowOverlay(false);
         }}
       >
         <CloseOutlined />

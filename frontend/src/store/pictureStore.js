@@ -1,6 +1,6 @@
 import { action, makeObservable, observable } from "mobx";
 
-export class OverlayStore {
+export class PictureStore {
   showOverlay = false;
   allPictures = [];
   selected = null;
@@ -52,4 +52,4 @@ export class OverlayStore {
   };
 }
 
-export const overlayStore = new OverlayStore();
+export const pictureStore = new PictureStore();

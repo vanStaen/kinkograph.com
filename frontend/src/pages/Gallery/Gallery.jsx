@@ -8,7 +8,7 @@ import React, {
 import { LoadingOutlined } from "@ant-design/icons";
 import { observer } from "mobx-react";
 
-import { overlayStore } from "../../store/overlayStore";
+import { pictureStore } from "../../store/pictureStore";
 import { PictureThumb } from "../../component/PictureThumb/PictureThumb";
 import { GalleryOverlay } from "../../component/GalleryOverlay/GalleryOverlay";
 import { getPicturesPerPage } from "./getPictures";
@@ -42,7 +42,7 @@ export const Gallery = observer(() => {
         lastPageReached.current = false;
       }
       await Promise.all(pictures.map((picture) => loadImage(picture)));
-      overlayStore.setAllPictures(pictures);
+      pictureStore.setAllPictures(pictures);
       setPictures(pictures);
     } catch (err) {
       console.log(err);
@@ -88,7 +88,7 @@ export const Gallery = observer(() => {
 
   const keyDownHandler = useCallback(
     (event) => {
-      if (!overlayStore.showOverlay) {
+      if (!pictureStore.showOverlay) {
         event.preventDefault();
         const keyPressed = event.key.toLowerCase();
         if (throttling.current === false) {
@@ -127,7 +127,7 @@ export const Gallery = observer(() => {
         </div>
       ) : (
         <Fragment>
-          {overlayStore.showOverlay && <GalleryOverlay />}
+          {pictureStore.showOverlay && <GalleryOverlay />}
           <div className="gallery">
             <div className="gallery__main">
               {pictures.map((picture, index) => {

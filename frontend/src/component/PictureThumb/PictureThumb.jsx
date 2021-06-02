@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { FullscreenOutlined } from "@ant-design/icons";
 
-import { overlayStore } from "../../store/overlayStore";
+import { pictureStore } from "../../store/pictureStore";
 import "./PictureThumb.css";
 
 export const PictureThumb = (props) => {
@@ -20,8 +20,8 @@ export const PictureThumb = (props) => {
   };
 
   const clickHandler = () => {
-    overlayStore.setShowOverlay(true);
-    overlayStore.setSelected(props.picture);
+    pictureStore.setShowOverlay(true);
+    pictureStore.setSelected(props.picture);
   };
 
   return (
