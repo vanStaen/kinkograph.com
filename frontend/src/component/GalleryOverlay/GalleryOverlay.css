@@ -135,14 +135,14 @@
 }
 
 .gallery__info {
-  width: 50%;
+  width: 15%;
   padding-left: .3em;
   display: inline-block;
   text-align: left;
 }
 
 .gallery__action {
-  width: 50%;
+  width: 85%;
   padding-right: .3em;
   display: inline-block;
   text-align: right;
@@ -162,7 +162,12 @@
 .gallery__tags span{
   color: rgba(255, 255, 255, 0.5);
   background-color: rgba(0, 0, 0, 0.5);
-  padding: .1em .1em .2em .1em;
+  padding: .1em .2em .2em .2em;
+  cursor: pointer;
+}
+
+.gallery__tags span:hover{
+  color: rgba(255, 255, 255, 1);
 }
 
 .gallery__heart{
