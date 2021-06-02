@@ -5,47 +5,50 @@ import "./PinInput.css";
 export const PinInput = (props) => {
   const [lastFiledInput, setLastFiledInput] = useState(1);
 
-  // TODO: 
+  // TODO:
   // alert(window.navigator.userAgent)
   // https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
   // touchdevice
 
-  const keyDownListener = useCallback((event) => {
-    event.preventDefault();
-    const keyPressed = event.key.toLowerCase();
-    if (keyPressed === "backspace") {
-      if (lastFiledInput > 1) {
-        document.getElementById(lastFiledInput - 1).value = "";
-        setLastFiledInput(lastFiledInput - 1);
-      }
-    } else if (keyPressed.length > 1) {
-      // console.log(keyPressed);
-    } else {
-      document.getElementById(lastFiledInput).value = keyPressed;
-      setLastFiledInput(lastFiledInput + 1);
-      if (lastFiledInput + 1 === 7) {
-        setLastFiledInput(1);
-        const code =
-          document.getElementById(1).value +
-          document.getElementById(2).value +
-          document.getElementById(3).value +
-          document.getElementById(4).value +
-          document.getElementById(5).value +
-          document.getElementById(6).value;
-        setTimeout(() => {
-          document.getElementById(1).focus();
-          document.getElementById(1).value = "";
-          document.getElementById(2).value = "";
-          document.getElementById(3).value = "";
-          document.getElementById(4).value = "";
-          document.getElementById(5).value = "";
-          document.getElementById(6).value = "";
+  const keyDownListener = useCallback(
+    (event) => {
+      event.preventDefault();
+      const keyPressed = event.key.toLowerCase();
+      if (keyPressed === "backspace") {
+        if (lastFiledInput > 1) {
+          document.getElementById(lastFiledInput - 1).value = "";
+          setLastFiledInput(lastFiledInput - 1);
+        }
+      } else if (keyPressed.length > 1) {
+        // console.log(keyPressed);
+      } else {
+        document.getElementById(lastFiledInput).value = keyPressed;
+        setLastFiledInput(lastFiledInput + 1);
+        if (lastFiledInput + 1 === 7) {
           setLastFiledInput(1);
-          props.login(code);
-        }, 500);
+          const code =
+            document.getElementById(1).value +
+            document.getElementById(2).value +
+            document.getElementById(3).value +
+            document.getElementById(4).value +
+            document.getElementById(5).value +
+            document.getElementById(6).value;
+          setTimeout(() => {
+            document.getElementById(1).focus();
+            document.getElementById(1).value = "";
+            document.getElementById(2).value = "";
+            document.getElementById(3).value = "";
+            document.getElementById(4).value = "";
+            document.getElementById(5).value = "";
+            document.getElementById(6).value = "";
+            setLastFiledInput(1);
+            props.login(code);
+          }, 500);
+        }
       }
-    }
-  });
+    },
+    [props, lastFiledInput]
+  );
 
   const clickHandler = (e) => {
     const inputID = parseInt(e.target.id, 10);

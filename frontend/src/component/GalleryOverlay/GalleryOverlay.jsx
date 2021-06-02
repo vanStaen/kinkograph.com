@@ -55,31 +55,34 @@ export const GalleryOverlay = observer((props) => {
     }
   };
 
-  const doubleClickHandler = (id) => {
-    const heart = document.getElementById(`heart`);
-    const unheart = document.getElementById(`unheart`);
-    if (!isFavorite) {
-      heart.style.visibility = "visible";
-      heart.style.opacity = 0.5;
-      heart.style.fontSize = "50em";
-      setTimeout(() => {
-        heart.style.visibility = "hidden";
-        heart.style.opacity = 0;
-        heart.style.fontSize = "1em";
-      }, 500);
-      userStore.addToFavorite(id);
-    } else {
-      unheart.style.visibility = "visible";
-      unheart.style.opacity = 0.5;
-      unheart.style.fontSize = "30em";
-      setTimeout(() => {
-        unheart.style.visibility = "hidden";
-        unheart.style.opacity = 0;
-        unheart.style.fontSize = "1em";
-      }, 500);
-      userStore.deleteFromFavorite(id);
-    }
-  };
+  const doubleClickHandler = useCallback(
+    (id) => {
+      const heart = document.getElementById(`heart`);
+      const unheart = document.getElementById(`unheart`);
+      if (!isFavorite) {
+        heart.style.visibility = "visible";
+        heart.style.opacity = 0.5;
+        heart.style.fontSize = "50em";
+        setTimeout(() => {
+          heart.style.visibility = "hidden";
+          heart.style.opacity = 0;
+          heart.style.fontSize = "1em";
+        }, 500);
+        userStore.addToFavorite(id);
+      } else {
+        unheart.style.visibility = "visible";
+        unheart.style.opacity = 0.5;
+        unheart.style.fontSize = "30em";
+        setTimeout(() => {
+          unheart.style.visibility = "hidden";
+          unheart.style.opacity = 0;
+          unheart.style.fontSize = "1em";
+        }, 500);
+        userStore.deleteFromFavorite(id);
+      }
+    },
+    [isFavorite]
+  );
 
   const keyDownHandler = useCallback(
     (event) => {

@@ -24,24 +24,12 @@ export const Uploader = () => {
   const [limit, setLimit] = useState(undefined);
   const [missingCountAll, setMissingCountAll] = useState(null);
 
-  const fileSelectHandler = useCallback(async (event) => {
-    setIsUploading(true);
-    if (event.target.files[0]) {
-      const name = event.target.files[0].name.split(".")[0];
-      const alreadyIn = await getDuplicate(name);
-      if (alreadyIn.length === 0) {
-        await submitHandler(event.target.files[0]);
-      } else {
-        notification.warning({
-          message: `Duplicate? `,
-          description: `There is already a file named '${event.target.files[0].name}'`,
-        });
-      }
-    }
-    setIsUploading(false);
-    setTimeout(() => {
-      fetchPicsTagsMissing(limit);
-    }, 500);
+  const submitHandler = useCallback(async (file) => {
+    const result = await postPicture(file);
+    notification[result]({
+      message: `Upload ${result}`,
+      description: `File: ${file.name}`,
+    });
   }, []);
 
   const fetchTagsMissingCountAll = useCallback(async () => {
@@ -52,18 +40,7 @@ export const Uploader = () => {
     } catch (err) {
       console.log(err);
     }
-  }, [limit, getTagsMissingCountAll]);
-
-  const fetchPicsTagsMissing = useCallback(async () => {
-    try {
-      const limit = await calculateMissingTagPicLimit();
-      const picsTagsMissing = await getTagsMissing(limit);
-      await fetchTagsMissingCountAll();
-      setPicsTagsMissing(picsTagsMissing);
-    } catch (err) {
-      console.log(err);
-    }
-  }, [limit, fetchTagsMissingCountAll]);
+  }, [limit]);
 
   const calculateMissingTagPicLimit = useCallback(() => {
     const pageWidth = window.innerWidth;
@@ -77,6 +54,40 @@ export const Uploader = () => {
     return numOfPicFittingInContainer;
   }, []);
 
+  const fetchPicsTagsMissing = useCallback(async () => {
+    try {
+      const limit = await calculateMissingTagPicLimit();
+      const picsTagsMissing = await getTagsMissing(limit);
+      await fetchTagsMissingCountAll();
+      setPicsTagsMissing(picsTagsMissing);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [fetchTagsMissingCountAll, calculateMissingTagPicLimit]);
+
+  const fileSelectHandler = useCallback(
+    async (event) => {
+      setIsUploading(true);
+      if (event.target.files[0]) {
+        const name = event.target.files[0].name.split(".")[0];
+        const alreadyIn = await getDuplicate(name);
+        if (alreadyIn.length === 0) {
+          await submitHandler(event.target.files[0]);
+        } else {
+          notification.warning({
+            message: `Duplicate? `,
+            description: `There is already a file named '${event.target.files[0].name}'`,
+          });
+        }
+      }
+      setIsUploading(false);
+      setTimeout(() => {
+        fetchPicsTagsMissing(limit);
+      }, 500);
+    },
+    [fetchPicsTagsMissing, limit, submitHandler]
+  );
+
   useEffect(() => {
     fetchPicsTagsMissing();
     window.addEventListener("resize", calculateMissingTagPicLimit);
@@ -84,14 +95,6 @@ export const Uploader = () => {
       window.removeEventListener("resize", calculateMissingTagPicLimit);
     };
   }, [fetchPicsTagsMissing, calculateMissingTagPicLimit]);
-
-  const submitHandler = useCallback(async (file) => {
-    const result = await postPicture(file);
-    notification[result]({
-      message: `Upload ${result}`,
-      description: `File: ${file.name}`,
-    });
-  }, []);
 
   const handleDragEnter = (e) => {
     e.preventDefault();

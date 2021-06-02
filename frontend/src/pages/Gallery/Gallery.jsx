@@ -48,26 +48,29 @@ export const Gallery = observer(() => {
       console.log(err);
     }
     setIsLoading(false);
-  }, [getPicturesPerPage]);
+  }, []);
 
   useEffect(() => {
     fetchPictures();
   }, [fetchPictures]);
 
-  const nextPageHandler = (next) => {
-    setIsLoading(true);
-    if (next) {
-      const nextPage = pageNumber.current + 1;
-      pageNumber.current = nextPage;
-      fetchPictures(nextPage);
-    } else {
-      const previousPage = pageNumber.current - 1;
-      pageNumber.current = previousPage;
-      fetchPictures(previousPage);
-    }
-  };
+  const nextPageHandler = useCallback(
+    (next) => {
+      setIsLoading(true);
+      if (next) {
+        const nextPage = pageNumber.current + 1;
+        pageNumber.current = nextPage;
+        fetchPictures(nextPage);
+      } else {
+        const previousPage = pageNumber.current - 1;
+        pageNumber.current = previousPage;
+        fetchPictures(previousPage);
+      }
+    },
+    [fetchPictures]
+  );
 
-  const scroll = (direction) => {
+  const scroll = useCallback((direction) => {
     const eightyPerCentOfHeight = window.innerHeight * 0.8;
     const scrollPositionY = window.scrollY;
     let scrollToPositionY;
@@ -81,7 +84,7 @@ export const Gallery = observer(() => {
       left: 0,
       behavior: "smooth",
     });
-  };
+  }, []);
 
   const keyDownHandler = useCallback(
     (event) => {
@@ -105,7 +108,7 @@ export const Gallery = observer(() => {
         }
       }
     },
-    [scroll]
+    [scroll, nextPageHandler]
   );
 
   useEffect(() => {

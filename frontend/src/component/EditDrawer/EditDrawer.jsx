@@ -29,20 +29,23 @@ export const EditDrawer = (props) => {
     }
   }, []);
 
-  const hideDrawer = (needReload) => {
-    props.setShowUploader && props.setShowUploader(true);
-    props.setShowDrawer(false);
-    if (needReload) {
-      props.reload();
-    }
-  };
+  const hideDrawer = useCallback(
+    (needReload) => {
+      props.setShowUploader && props.setShowUploader(true);
+      props.setShowDrawer(false);
+      if (needReload) {
+        props.reload();
+      }
+    },
+    [props]
+  );
 
   useEffect(() => {
     fetchAllTags();
     if (JSON.parse(props.picture.tags) !== null) {
       setTags(JSON.parse(props.picture.tags));
     }
-  }, [fetchAllTags]);
+  }, [fetchAllTags, props.picture.tags]);
 
   const handleTagChange = useCallback(async (value) => {
     const valueCleaned = value.map((oldTag) => {
@@ -71,7 +74,7 @@ export const EditDrawer = (props) => {
       await patchPicture(tags, props.picture.id);
       hideDrawer(true);
     }
-  }, [tags, allTags, patchPicture, postTag]);
+  }, [tags, allTags, hideDrawer, props.picture.id]);
 
   const deleteHandler = useCallback(
     async (key) => {
@@ -86,7 +89,7 @@ export const EditDrawer = (props) => {
         }, 2000);
       }
     },
-    [confirmDelete, deletePicture]
+    [confirmDelete, hideDrawer]
   );
 
   return (
