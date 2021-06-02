@@ -15,14 +15,9 @@ import { getPicturesPerPage } from "./getPictures";
 
 import "./Gallery.css";
 
-const PAGE_SIZE = 100;
-
 export const Gallery = observer(() => {
   const [isLoading, setIsLoading] = useState(true);
-  const [pictures, setPictures] = useState([]);
   const throttling = useRef(false);
-  const pageNumber = useRef(1);
-  const lastPageReached = useRef(false);
 
   const loadImage = (image) => {
     return new Promise((resolve, reject) => {
@@ -35,15 +30,17 @@ export const Gallery = observer(() => {
 
   const fetchPictures = useCallback(async () => {
     try {
-      const pictures = await getPicturesPerPage(pageNumber.current, PAGE_SIZE);
-      if (pictures.length < PAGE_SIZE) {
-        lastPageReached.current = true;
+      const pictures = await getPicturesPerPage(
+        pictureStore.pageNumber,
+        pictureStore.PAGE_SIZE
+      );
+      if (pictures.length < pictureStore.PAGE_SIZE) {
+        pictureStore.lastPageReached = true;
       } else {
-        lastPageReached.current = false;
+        pictureStore.lastPageReached = false;
       }
       await Promise.all(pictures.map((picture) => loadImage(picture)));
       pictureStore.setAllPictures(pictures);
-      setPictures(pictures);
     } catch (err) {
       console.log(err);
     }
@@ -58,12 +55,12 @@ export const Gallery = observer(() => {
     (next) => {
       setIsLoading(true);
       if (next) {
-        const nextPage = pageNumber.current + 1;
-        pageNumber.current = nextPage;
+        const nextPage = pictureStore.pageNumber + 1;
+        pictureStore.setPageNumber(nextPage);
         fetchPictures(nextPage);
       } else {
-        const previousPage = pageNumber.current - 1;
-        pageNumber.current = previousPage;
+        const previousPage = pictureStore.pageNumber - 1;
+        pictureStore.setPageNumber(previousPage);
         fetchPictures(previousPage);
       }
     },
@@ -93,9 +90,12 @@ export const Gallery = observer(() => {
         const keyPressed = event.key.toLowerCase();
         if (throttling.current === false) {
           throttling.current = true;
-          if (keyPressed === "arrowright" && !lastPageReached.current) {
+          if (keyPressed === "arrowright" && !pictureStore.lastPageReached) {
             nextPageHandler(true);
-          } else if (keyPressed === "arrowleft" && pageNumber.current > 1) {
+          } else if (
+            keyPressed === "arrowleft" &&
+            pictureStore.pageNumber > 1
+          ) {
             nextPageHandler(false);
           } else if (keyPressed === "arrowdown") {
             scroll("down");
@@ -130,7 +130,7 @@ export const Gallery = observer(() => {
           {pictureStore.showOverlay && <GalleryOverlay />}
           <div className="gallery">
             <div className="gallery__main">
-              {pictures.map((picture, index) => {
+              {pictureStore.allPictures.map((picture, index) => {
                 return (
                   <PictureThumb
                     picture={picture}
@@ -142,7 +142,7 @@ export const Gallery = observer(() => {
             </div>
             <div className="gallery__next">
               <div className="gallery__nextTextContainer">
-                {pageNumber.current === 1 ? (
+                {pictureStore.pageNumber === 1 ? (
                   "Previous"
                 ) : (
                   <span
@@ -153,7 +153,7 @@ export const Gallery = observer(() => {
                   </span>
                 )}
                 {" | "}
-                {lastPageReached.current ? (
+                {pictureStore.lastPageReached ? (
                   "Next"
                 ) : (
                   <span

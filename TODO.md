@@ -5,7 +5,7 @@
 - [ ] Pagination 
   - [x] Pagination in Gallery
   - [ ] Pagination in Overlay
-  - [ ] All stored in mobX
+  - [x] All stored in mobX
 - [ ] Landing first page
   - [x] password input
   - [ ] Endpoint to verify code

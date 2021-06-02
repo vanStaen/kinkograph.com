@@ -1,21 +1,39 @@
 import { action, makeObservable, observable } from "mobx";
 
 export class PictureStore {
+
+  PAGE_SIZE = 100;
+
+  pageNumber = 1;
+  lastPageReached = false;
+
   showOverlay = false;
   allPictures = [];
   selected = null;
 
   constructor() {
     makeObservable(this, {
+      pageNumber: observable,
+      setPageNumber: action,
+      lastPageReached: observable,
+      setLastPageReached: action,
       showOverlay: observable,
-      selected: observable,
-      allPictures: observable,
       setShowOverlay: action,
+      selected: observable,
       setSelected: action,
-      setAllPictures: action,
       changeSelected: action,
+      allPictures: observable,
+      setAllPictures: action,
     });
   }
+
+  setPageNumber = (pageNumber) => {
+    this.pageNumber = pageNumber;
+  };
+
+  setLastPageReached = (lastPageReached) => {
+    this.lastPageReached = lastPageReached;
+  };
 
   setShowOverlay = (showOverlay) => {
     this.showOverlay = showOverlay;
