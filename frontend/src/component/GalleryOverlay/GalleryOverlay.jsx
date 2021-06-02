@@ -1,9 +1,16 @@
-import React, { Fragment, useCallback, useEffect, useRef } from "react";
+import React, {
+  Fragment,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   LeftOutlined,
   RightOutlined,
   CloseOutlined,
   HeartFilled,
+  LoadingOutlined,
 } from "@ant-design/icons";
 import { observer } from "mobx-react";
 
@@ -13,12 +20,29 @@ import { userStore } from "../../store/userStore";
 import "./GalleryOverlay.css";
 
 export const GalleryOverlay = observer((props) => {
+  const [isLoading, setIsLoading] = useState(true);
   const throttling = useRef(false);
   const selected = overlayStore.allPictures[overlayStore.selected];
   const indexInSelected = userStore.favorites.findIndex(
     (pictureId) => pictureId === selected.id
   );
   const isFavorite = indexInSelected >= 0;
+
+  const loadImage = async (image) => {
+    setIsLoading(true);
+    const isloaded = new Promise((resolve, reject) => {
+      const loadImg = new Image();
+      loadImg.src = image;
+      loadImg.onload = () => resolve(image.url);
+      loadImg.onerror = (err) => reject(err);
+    });
+    await isloaded;
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    selected && loadImage(selected.url_med);
+  }, [selected]);
 
   const mouseHoverHandler = (hover) => {
     const closeButton = document.getElementById(`closeButton`);
@@ -98,15 +122,15 @@ export const GalleryOverlay = observer((props) => {
   }, [keyDownHandler]);
 
   return (
-    <div className="gallery__overlay">
+    <div className="overlay__overlay">
       <div
-        className="gallery__background"
+        className="overlay__background"
         onClick={() => {
           overlayStore.setShowOverlay(false);
         }}
       ></div>
       <div
-        className="gallery__columnLeft"
+        className="overlay__columnLeft"
         id="previousButton"
         onClick={() => {
           overlayStore.changeSelected(false);
@@ -115,7 +139,7 @@ export const GalleryOverlay = observer((props) => {
         <LeftOutlined />
       </div>
       <div
-        className="gallery__columnRight"
+        className="overlay__columnRight"
         id="nextButton"
         onMouseEnter={() => mouseHoverHandler(true)}
         onMouseLeave={() => mouseHoverHandler(false)}
@@ -126,7 +150,7 @@ export const GalleryOverlay = observer((props) => {
         <RightOutlined />
       </div>
       <div
-        className="gallery__closeButton"
+        className="overlay__closeButton"
         id="closeButton"
         onClick={() => {
           overlayStore.setShowOverlay(false);
@@ -135,54 +159,58 @@ export const GalleryOverlay = observer((props) => {
         <CloseOutlined />
       </div>
 
-      <div
-        className="gallery__pictureContainer"
-        onDoubleClick={() => {
-          doubleClickHandler(selected.id);
-        }}
-      >
-        <div className="gallery__infoAction">
-          {selected && <div className="gallery__info">#{selected.id}</div>}
-          <div className="gallery__action">
-            {isFavorite ? (
-              <Fragment>
-                <span
-                  role="img"
-                  aria-label="heart"
-                  style={{ fontSize: ".75em" }}
-                >
-                  ❤️
-                </span>{" "}
-                Marked as favorite!
-              </Fragment>
-            ) : (
-              "Doubleclick/Enter to mark as favorite."
-            )}
+      {isLoading ? (
+        <LoadingOutlined className="overlay__spinner" />
+      ) : (
+        <div
+          className="overlay__pictureContainer"
+          onDoubleClick={() => {
+            doubleClickHandler(selected.id);
+          }}
+        >
+          <div className="overlay__infoAction">
+            {selected && <div className="overlay__info">#{selected.id}</div>}
+            <div className="overlay__action">
+              {isFavorite ? (
+                <Fragment>
+                  <span
+                    role="img"
+                    aria-label="heart"
+                    style={{ fontSize: ".75em" }}
+                  >
+                    ❤️
+                  </span>{" "}
+                  Marked as favorite!
+                </Fragment>
+              ) : (
+                "Doubleclick/Enter to mark as favorite."
+              )}
+            </div>
           </div>
-        </div>
-        <div className="gallery__pictureHover">
-          <div className="gallery__pictureWatermark">KINKOGRAPH</div>
-          <HeartFilled id="heart" className="gallery__heart" />
-          <CloseOutlined id="unheart" className="gallery__heart" />
-        </div>
-        {selected && (
-          <img
-            className="gallery__picture"
-            src={selected.url_med}
-            alt={selected.id}
-            key={selected.id}
-          />
-        )}
-        {selected && (
-          <div className="gallery__tags">
-            {JSON.parse(selected.tags).map((tag) => (
-              <Fragment>
-                <span>#{tag}</span>&nbsp;
-              </Fragment>
-            ))}
+          <div className="overlay__pictureHover">
+            <div className="overlay__pictureWatermark">KINKOGRAPH</div>
+            <HeartFilled id="heart" className="overlay__heart" />
+            <CloseOutlined id="unheart" className="overlay__heart" />
           </div>
-        )}
-      </div>
+          {selected && (
+            <img
+              className="overlay__picture"
+              src={selected.url_med}
+              alt={selected.id}
+              key={selected.id}
+            />
+          )}
+          {selected && (
+            <div className="overlay__tags">
+              {JSON.parse(selected.tags).map((tag) => (
+                <Fragment>
+                  <span>#{tag}</span>&nbsp;
+                </Fragment>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 });
