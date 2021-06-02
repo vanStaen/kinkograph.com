@@ -23,6 +23,15 @@ export const Gallery = observer(() => {
   const pageNumber = useRef(1);
   const lastPageReached = useRef(false);
 
+  const loadImage = image => {
+    return new Promise((resolve, reject) => {
+      const loadImg = new Image();
+      loadImg.src = image.url_thumb;
+      loadImg.onload = () => resolve(image.url);
+      loadImg.onerror = err => reject(err);
+    })
+  }
+
   const fetchPictures = useCallback(async () => {
     try {
       const pictures = await getPicturesPerPage(pageNumber.current, PAGE_SIZE);
@@ -31,8 +40,9 @@ export const Gallery = observer(() => {
       } else {
         lastPageReached.current = false;
       }
-      setPictures(pictures);
+      await Promise.all(pictures.map(picture => loadImage(picture)));
       overlayStore.setAllPictures(pictures);
+      setPictures(pictures);
     } catch (err) {
       console.log(err);
     }
@@ -63,48 +73,48 @@ export const Gallery = observer(() => {
           <LoadingOutlined className="Gallery__spinner" />
         </div>
       ) : (
-        <Fragment>
-          {overlayStore.showOverlay && <GalleryOverlay />}
-          <div className="gallery">
-            <div className="gallery__main">
-              {pictures.map((picture, index) => {
-                return (
-                  <PictureThumb
-                    picture={picture}
-                    reload={fetchPictures}
-                    key={picture.id}
-                  />
-                );
-              })}
-            </div>
-            <div className="gallery__next">
-              <div className="gallery__nextTextContainer">
-                {pageNumber.current === 1 ? (
-                  "Previous"
-                ) : (
-                  <span
-                    className="gallery__nextText"
-                    onClick={() => nextPageHandler(false)}
-                  >
-                    Previous
-                  </span>
-                )}
-                {" | "}
-                {lastPageReached.current ? (
-                  "Next"
-                ) : (
-                  <span
-                    className="gallery__nextText"
-                    onClick={() => nextPageHandler(true)}
-                  >
-                    Next
-                  </span>
-                )}
+          <Fragment>
+            {overlayStore.showOverlay && <GalleryOverlay />}
+            <div className="gallery">
+              <div className="gallery__main">
+                {pictures.map((picture, index) => {
+                  return (
+                    <PictureThumb
+                      picture={picture}
+                      reload={fetchPictures}
+                      key={picture.id}
+                    />
+                  );
+                })}
+              </div>
+              <div className="gallery__next">
+                <div className="gallery__nextTextContainer">
+                  {pageNumber.current === 1 ? (
+                    "Previous"
+                  ) : (
+                      <span
+                        className="gallery__nextText"
+                        onClick={() => nextPageHandler(false)}
+                      >
+                        Previous
+                      </span>
+                    )}
+                  {" | "}
+                  {lastPageReached.current ? (
+                    "Next"
+                  ) : (
+                      <span
+                        className="gallery__nextText"
+                        onClick={() => nextPageHandler(true)}
+                      >
+                        Next
+                      </span>
+                    )}
+                </div>
               </div>
             </div>
-          </div>
-        </Fragment>
-      )}
+          </Fragment>
+        )}
     </div>
   );
 });
