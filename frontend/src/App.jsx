@@ -20,7 +20,7 @@ const App = () => {
       <div className="App">
         <div className="App__main">
           <Switch>
-            <Route path="/upload">
+            <Route path="/admin">
               <Uploader />
             </Route>
             <Route path="/">
