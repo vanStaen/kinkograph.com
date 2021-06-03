@@ -35,9 +35,9 @@ export const Gallery = observer(() => {
         pictureStore.PAGE_SIZE
       );
       if (pictures.length < pictureStore.PAGE_SIZE) {
-        pictureStore.lastPageReached = true;
+        pictureStore.setLastPageReached(true);
       } else {
-        pictureStore.lastPageReached = false;
+        pictureStore.setLastPageReached(false);
       }
       await Promise.all(pictures.map((picture) => loadImage(picture)));
       pictureStore.setAllPictures(pictures);

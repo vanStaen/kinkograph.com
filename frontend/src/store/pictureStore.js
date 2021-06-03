@@ -1,7 +1,38 @@
 import { action, makeObservable, observable } from "mobx";
 
-export class PictureStore {
+import { getPicturesPerPage } from "../pages/Gallery/getPictures";
 
+const fetchPictures = async () => {
+  try {
+    const pictures = await getPicturesPerPage(
+      pictureStore.pageNumber,
+      pictureStore.PAGE_SIZE
+    );
+    if (pictures.length < pictureStore.PAGE_SIZE) {
+      pictureStore.lastPageReached = true;
+    } else {
+      pictureStore.lastPageReached = false;
+    }
+    pictureStore.setAllPictures(pictures);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const nextPageHandler = (
+  async (next) => {
+    if (next) {
+      const nextPage = pictureStore.pageNumber + 1;
+      pictureStore.setPageNumber(nextPage);
+      await fetchPictures(nextPage);
+    } else {
+      const previousPage = pictureStore.pageNumber - 1;
+      pictureStore.setPageNumber(previousPage);
+      await fetchPictures(previousPage);
+    }
+  });
+
+export class PictureStore {
   PAGE_SIZE = 100;
 
   pageNumber = 1;
@@ -39,21 +70,22 @@ export class PictureStore {
     this.showOverlay = showOverlay;
   };
 
-  changeSelected = (next) => {
+  changeSelected = async (next) => {
     const selected = this.selected;
     const maxSelectable = this.allPictures.length - 1;
     if (next) {
       if (selected === maxSelectable) {
-        //TODO
-        console.log("Last one of the batch");
+        await nextPageHandler(true);
+        this.selected = 0;
       } else {
         this.selected = selected + 1;
       }
-    } else {if (selected === 0) {
-        //TODO
-        console.log("First one of the batch");
+    } else {
+      if (selected === 0) {
+        await nextPageHandler(false);
+        this.selected = maxSelectable;
       } else {
-      this.selected = selected - 1;
+        this.selected = selected - 1;
       }
     }
   };

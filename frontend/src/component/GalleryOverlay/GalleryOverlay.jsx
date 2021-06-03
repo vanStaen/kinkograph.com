@@ -27,6 +27,11 @@ export const GalleryOverlay = observer((props) => {
     (pictureId) => pictureId === selected.id
   );
   const isFavorite = indexInSelected >= 0;
+  const isFirstPicFirstPage =
+    pictureStore.pageNumber === 1 && pictureStore.selected === 0;
+  const isLastPicLastPage =
+    pictureStore.lastPageReached &&
+    pictureStore.allPictures.length === pictureStore.selected + 1;
 
   const loadImage = async (image) => {
     setIsLoading(true);
@@ -92,13 +97,19 @@ export const GalleryOverlay = observer((props) => {
       const previousButton = document.getElementById(`previousButton`);
       if (throttling.current === false) {
         throttling.current = true;
-        if (keyPressed === "arrowdown" || keyPressed === "arrowright") {
+        if (
+          (keyPressed === "arrowdown" || keyPressed === "arrowright") &&
+          !isLastPicLastPage
+        ) {
           nextButton.style.backgroundColor = "rgba(255,255,255,.15)";
           pictureStore.changeSelected(true);
           setTimeout(() => {
             nextButton.style.backgroundColor = "rgba(255,255,255, 0)";
           }, 100);
-        } else if (keyPressed === "arrowup" || keyPressed === "arrowleft") {
+        } else if (
+          (keyPressed === "arrowup" || keyPressed === "arrowleft") &&
+          !isFirstPicFirstPage
+        ) {
           previousButton.style.backgroundColor = "rgba(255,255,255,.15)";
           pictureStore.changeSelected(false);
           setTimeout(() => {
@@ -132,26 +143,30 @@ export const GalleryOverlay = observer((props) => {
           pictureStore.setShowOverlay(false);
         }}
       ></div>
-      <div
-        className="overlay__columnLeft"
-        id="previousButton"
-        onClick={() => {
-          pictureStore.changeSelected(false);
-        }}
-      >
-        <LeftOutlined />
-      </div>
-      <div
-        className="overlay__columnRight"
-        id="nextButton"
-        onMouseEnter={() => mouseHoverHandler(true)}
-        onMouseLeave={() => mouseHoverHandler(false)}
-        onClick={() => {
-          pictureStore.changeSelected(true);
-        }}
-      >
-        <RightOutlined />
-      </div>
+      {!isFirstPicFirstPage && (
+        <div
+          className="overlay__columnLeft"
+          id="previousButton"
+          onClick={() => {
+            pictureStore.changeSelected(false);
+          }}
+        >
+          <LeftOutlined />
+        </div>
+      )}
+      {!isLastPicLastPage && (
+        <div
+          className="overlay__columnRight"
+          id="nextButton"
+          onMouseEnter={() => mouseHoverHandler(true)}
+          onMouseLeave={() => mouseHoverHandler(false)}
+          onClick={() => {
+            pictureStore.changeSelected(true);
+          }}
+        >
+          <RightOutlined />
+        </div>
+      )}
       <div
         className="overlay__closeButton"
         id="closeButton"
@@ -161,7 +176,6 @@ export const GalleryOverlay = observer((props) => {
       >
         <CloseOutlined />
       </div>
-
       {isLoading ? (
         <LoadingOutlined className="overlay__spinner" />
       ) : (
@@ -200,7 +214,7 @@ export const GalleryOverlay = observer((props) => {
               className="overlay__picture"
               src={selected.url_med}
               alt={selected.id}
-              key={selected.id}
+              key={`img__${selected.id}`}
             />
           )}
           {selected && (
