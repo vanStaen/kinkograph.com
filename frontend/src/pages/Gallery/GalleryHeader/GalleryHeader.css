@@ -1,0 +1,43 @@
+.galleryHeader__main {
+  padding: 15px 25px 0 25px;
+}
+
+.galleryHeader__BigFont {
+  letter-spacing: 2px;
+  font-weight: 400;
+  font-size: 0.7em;
+}
+
+.galleryHeader__SmallFont {
+  letter-spacing: 2px;
+  font-weight: 200;
+  font-size: 0.5em;
+}
+
+.galleryHeader__left {
+  vertical-align: top;
+  display: inline-block;
+  width: 25%;
+  text-align: left;
+}
+
+.galleryHeader__center {
+  vertical-align: middle;
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+  letter-spacing: 2px;
+  font-weight: 200;
+  font-size: 0.7em;
+}
+
+.galleryHeader__right {
+  vertical-align: top;
+  display: inline-block;
+  width: 25%;
+  text-align: right;
+}
+
+.opacitied {
+  opacity: .3;
+}

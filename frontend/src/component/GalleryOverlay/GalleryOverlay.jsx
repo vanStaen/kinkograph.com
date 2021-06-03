@@ -221,7 +221,10 @@ export const GalleryOverlay = observer((props) => {
             <div className="overlay__tags">
               {JSON.parse(selected.tags).map((tag) => (
                 <Fragment>
-                  <span>#{tag}</span>&nbsp;
+                  <span onClick={() => pictureStore.addFilter(tag)}>
+                    #{tag}
+                  </span>
+                  &nbsp;
                 </Fragment>
               ))}
             </div>

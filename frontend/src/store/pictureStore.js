@@ -19,18 +19,17 @@ const fetchPictures = async () => {
   }
 };
 
-const nextPageHandler = (
-  async (next) => {
-    if (next) {
-      const nextPage = pictureStore.pageNumber + 1;
-      pictureStore.setPageNumber(nextPage);
-      await fetchPictures(nextPage);
-    } else {
-      const previousPage = pictureStore.pageNumber - 1;
-      pictureStore.setPageNumber(previousPage);
-      await fetchPictures(previousPage);
-    }
-  });
+const nextPageHandler = async (next) => {
+  if (next) {
+    const nextPage = pictureStore.pageNumber + 1;
+    pictureStore.setPageNumber(nextPage);
+    await fetchPictures(nextPage);
+  } else {
+    const previousPage = pictureStore.pageNumber - 1;
+    pictureStore.setPageNumber(previousPage);
+    await fetchPictures(previousPage);
+  }
+};
 
 export class PictureStore {
   PAGE_SIZE = 100;
@@ -42,6 +41,7 @@ export class PictureStore {
   allPictures = [];
   selected = null;
   totalPictures = 0;
+  filter = [];
 
   constructor() {
     makeObservable(this, {
@@ -58,6 +58,9 @@ export class PictureStore {
       setAllPictures: action,
       totalPictures: observable,
       setTotalPictures: action,
+      filter: observable,
+      addFilter: action,
+      deleteFilter: action,
     });
   }
 
@@ -107,6 +110,16 @@ export class PictureStore {
   setTotalPictures = (totalPictures) => {
     this.totalPictures = totalPictures;
   };
+
+  addFilter = (filter) => {
+    this.filter.push(filter);
+  };
+  
+  deleteFilter = (filter) => {
+    const index = this.filter.findIndex((element) => element === filter);
+    this.filter.splice(index, 1);
+  };
+
 
 }
 

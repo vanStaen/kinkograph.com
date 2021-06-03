@@ -109,19 +109,3 @@
  column-count:         1;
  }
 }
-
-.gallery__header {
-  padding: 15px 25px 0 25px;
-  text-align: right;
-  letter-spacing: 2px;
-}
-
-.gallery__headerBigFont {
-  font-weight: 300;
-  font-size: .7em;
-}
-
-.gallery__headerSmallFont {
-  font-weight: 200;
-  font-size: .5em;
-}

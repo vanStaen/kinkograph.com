@@ -12,6 +12,7 @@ import { pictureStore } from "../../store/pictureStore";
 import { PictureThumb } from "../../component/PictureThumb/PictureThumb";
 import { GalleryOverlay } from "../../component/GalleryOverlay/GalleryOverlay";
 import { getPicturesPerPage, getTotalPictures } from "./getPictures";
+import { GalleryHeader } from "./GalleryHeader/GalleryHeader";
 
 import "./Gallery.css";
 
@@ -131,21 +132,7 @@ export const Gallery = observer(() => {
         <Fragment>
           {pictureStore.showOverlay && <GalleryOverlay />}
           <div className="gallery">
-            <div className="gallery__header">
-              <div className="gallery__headerRight">
-                <div className="gallery__headerBigFont">
-                  Page {pictureStore.pageNumber}
-                </div>
-                <div className="gallery__headerSmallFont">
-                  {(pictureStore.pageNumber - 1) * pictureStore.PAGE_SIZE + 1}-
-                  {Math.min(
-                    pictureStore.pageNumber * pictureStore.PAGE_SIZE,
-                    pictureStore.totalPictures
-                  )}{" "}
-                  of {pictureStore.totalPictures}
-                </div>
-              </div>
-            </div>
+            <GalleryHeader />
             <div className="gallery__main">
               {pictureStore.allPictures.map((picture, index) => {
                 return (
