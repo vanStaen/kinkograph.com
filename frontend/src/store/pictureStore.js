@@ -42,6 +42,7 @@ export class PictureStore {
   selected = null;
   totalPictures = 0;
   filter = [];
+  isGalleryLoading = true;
 
   constructor() {
     makeObservable(this, {
@@ -61,6 +62,8 @@ export class PictureStore {
       filter: observable,
       addFilter: action,
       deleteFilter: action,
+      isGalleryLoading: observable,
+      setIsGalleryLoading: action,
     });
   }
 
@@ -114,13 +117,15 @@ export class PictureStore {
   addFilter = (filter) => {
     this.filter.push(filter);
   };
-  
+
   deleteFilter = (filter) => {
     const index = this.filter.findIndex((element) => element === filter);
     this.filter.splice(index, 1);
   };
 
-
+  setIsGalleryLoading = (isGalleryLoading) => {
+    this.isGalleryLoading = isGalleryLoading;
+  };
 }
 
 export const pictureStore = new PictureStore();

@@ -1,10 +1,4 @@
-import React, {
-  useRef,
-  useEffect,
-  useState,
-  useCallback,
-  Fragment,
-} from "react";
+import React, { useRef, useEffect, useCallback, Fragment } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import { observer } from "mobx-react";
 
@@ -17,7 +11,6 @@ import { GalleryHeader } from "./GalleryHeader/GalleryHeader";
 import "./Gallery.css";
 
 export const Gallery = observer(() => {
-  const [isLoading, setIsLoading] = useState(true);
   const throttling = useRef(false);
 
   const loadImage = (image) => {
@@ -47,7 +40,7 @@ export const Gallery = observer(() => {
     } catch (err) {
       console.log(err);
     }
-    setIsLoading(false);
+    pictureStore.setIsGalleryLoading(false);
   }, []);
 
   useEffect(() => {
@@ -56,7 +49,7 @@ export const Gallery = observer(() => {
 
   const nextPageHandler = useCallback(
     (next) => {
-      setIsLoading(true);
+      pictureStore.setIsGalleryLoading(true);
       if (next) {
         const nextPage = pictureStore.pageNumber + 1;
         pictureStore.setPageNumber(nextPage);
@@ -122,8 +115,9 @@ export const Gallery = observer(() => {
   }, [keyDownHandler]);
 
   return (
-    <div>
-      {isLoading ? (
+    <div className="gallery">
+      <GalleryHeader />
+      {pictureStore.isGalleryLoading ? (
         <div className="App__flex">
           <LoadingOutlined className="Gallery__spinner" />
           <div className="gallery__spinnerText">loading</div>
@@ -131,8 +125,7 @@ export const Gallery = observer(() => {
       ) : (
         <Fragment>
           {pictureStore.showOverlay && <GalleryOverlay />}
-          <div className="gallery">
-            <GalleryHeader />
+          <div>
             <div className="gallery__main">
               {pictureStore.allPictures.map((picture, index) => {
                 return (

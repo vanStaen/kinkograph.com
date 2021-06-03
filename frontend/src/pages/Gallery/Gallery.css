@@ -1,11 +1,17 @@
 .gallery {
   min-height: 100vh;
-  max-width: 1600px;
+  min-width: 100vw;
   position: relative;
   background-color: rgba(0,0,0,.85);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .gallery__main {
+  max-width: 1600px;
   padding: 5px 15px 15px 15px;
   padding-bottom: 50px;
   /* Prevent vertical gaps */

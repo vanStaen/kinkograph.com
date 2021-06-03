@@ -128,6 +128,11 @@ export const GalleryOverlay = observer((props) => {
     [selected, doubleClickHandler, isFirstPicFirstPage, isLastPicLastPage]
   );
 
+  const tagClickHander = (tag) => {
+    pictureStore.setShowOverlay(false);
+    pictureStore.addFilter(tag);
+  };
+
   useEffect(() => {
     document.addEventListener("keydown", keyDownHandler);
     return () => {
@@ -221,9 +226,7 @@ export const GalleryOverlay = observer((props) => {
             <div className="overlay__tags">
               {JSON.parse(selected.tags).map((tag) => (
                 <Fragment>
-                  <span onClick={() => pictureStore.addFilter(tag)}>
-                    #{tag}
-                  </span>
+                  <span onClick={() => tagClickHander(tag)}>#{tag}</span>
                   &nbsp;
                 </Fragment>
               ))}

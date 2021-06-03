@@ -1,10 +1,13 @@
 .galleryHeader__main {
   padding: 15px 25px 0 25px;
+  color: rgba(255, 255, 255, 0.75);
+  width: 100vw;
+  max-width: 1600px;
 }
 
 .galleryHeader__BigFont {
   letter-spacing: 2px;
-  font-weight: 400;
+  font-weight: 200;
   font-size: 0.7em;
 }
 
@@ -38,6 +41,16 @@
   text-align: right;
 }
 
-.opacitied {
-  opacity: .3;
+.galleryHeader__favorite {
+  cursor: pointer;
+}
+
+.galleryHeader__favorite:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.kinkograph__title {
+  color: rgba(10, 10, 10, 1);
+  font-weight: 500;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
 }

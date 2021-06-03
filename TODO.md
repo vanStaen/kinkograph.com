@@ -16,6 +16,10 @@
   - [ ] Fitlering Shown in header
   - [ ] Fitler link from overlay Accessible
 - [ ] Profil showing favorites
+  - [x] Store Favorite in MobX
+  - [ ] Show Favorite count in header
+  - [ ] Store Favorite on DB
+  - [ ] Show List of favorites 
 - [ ] Admin
   - [x] Upload Form
   - [x] Tagging interface
