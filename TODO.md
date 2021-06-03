@@ -3,20 +3,22 @@
 ## Backlog:
 
 - [ ] Pagination 
+  - [x] SQL Paggination
   - [x] Pagination in Gallery
-  - [ ] Pagination in Overlay
+  - [x] Pagination in Overlay
   - [x] All stored in mobX
+  - [ ] Show Pagination in a header
 - [ ] Landing first page
   - [x] password input
   - [ ] Endpoint to verify code
 - [ ] Disclaimer/about from landing-page
 - [ ] Filtering
+  - [ ] Fitlering Shown in header
   - [ ] Fitler link from overlay Accessible
 - [ ] Profil showing favorites
-- [ ] Spinner on loading Overlay Fotos 
 - [ ] Admin
   - [x] Upload Form
-  - [x] Add Tag after upload
+  - [x] Tagging interface
   - [ ] Manage Tag
   - [ ] Overview User and Favorite
 
@@ -26,6 +28,4 @@
 - [x] CSS grid-based Gallery 
 - [x] Create Upload endpoint (to AWS S3)
 - [x] Create PostGresQL Database 
-- [x] Show pic in Gallery
-- [x] Tagging interface
-- [x] SQL Paggination
+- [x] Design Gallery + Overlay

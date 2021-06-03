@@ -125,7 +125,7 @@ export const GalleryOverlay = observer((props) => {
         }, 100);
       }
     },
-    [selected, doubleClickHandler]
+    [selected, doubleClickHandler, isFirstPicFirstPage, isLastPicLastPage]
   );
 
   useEffect(() => {
