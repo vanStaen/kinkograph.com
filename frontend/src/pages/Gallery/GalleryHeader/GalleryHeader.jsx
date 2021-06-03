@@ -23,10 +23,10 @@ export const GalleryHeader = observer(() => {
         ) : (
           <Fragment>
             <div className="galleryHeader__BigFont galleryHeader__favorite">
-              Hello Clément,
+              Hello {userStore.user.name},
             </div>
             <div className="galleryHeader__SmallFont">
-              What inspire you today?
+              What will inspire you today?
             </div>
           </Fragment>
         )}

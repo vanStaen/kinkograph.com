@@ -1,10 +1,16 @@
 import React, { Fragment } from "react";
 import { FullscreenOutlined } from "@ant-design/icons";
+import { observer } from "mobx-react";
 
 import { pictureStore } from "../../store/pictureStore";
+import { userStore } from "../../store/userStore";
 import "./PictureThumb.css";
 
-export const PictureThumb = (props) => {
+export const PictureThumb = observer((props) => {
+  const isFavorite = userStore.favorites.findIndex(
+    (id) => id === props.picture.id
+  );
+
   const mouseHoverHandler = (hover) => {
     const element = document.getElementById(`tag_${props.picture.id}`);
     const picture = document.getElementById(`pic_${props.picture.id}`);
@@ -34,7 +40,9 @@ export const PictureThumb = (props) => {
       >
         <img
           id={`pic_${props.picture.id}`}
-          className={`picture ${!props.picture.tags && "picture__bluryGray"}`}
+          className={`picture 
+          ${!props.picture.tags && "picture__bluryGray"} 
+          ${isFavorite >= 0 && "halo"} `}
           src={props.picture.url_thumb}
           alt={props.picture.id}
           key={props.picture.id}
@@ -49,4 +57,4 @@ export const PictureThumb = (props) => {
       </div>
     </Fragment>
   );
-};
+});

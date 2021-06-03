@@ -28,7 +28,10 @@
  /* Just in case there are inline attributes */
  width: 100% !important;
  height: auto !important;
- border: 10px solid transparent;
+}
+
+.gallery__picSpacer {
+  border: 10px solid transparent;
 }
 
 .Gallery__spinner {
