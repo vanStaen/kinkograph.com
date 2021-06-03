@@ -6,7 +6,7 @@
 }
 
 .gallery__main {
-  padding: 15px;
+  padding: 5px 15px 15px 15px;
   padding-bottom: 50px;
   /* Prevent vertical gaps */
   line-height: 0;
