@@ -8,7 +8,7 @@ import { Uploader } from "./pages/Uploader/Uploader";
 import "./App.css";
 
 const App = () => {
-  const [access, setAccess] = useState(false);
+  const [access, setAccess] = useState(true);
   const login = (code) => {
     if (code === "555666") {
       setAccess(true);
