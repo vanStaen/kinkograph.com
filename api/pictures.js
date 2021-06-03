@@ -188,13 +188,30 @@ router.post("/page/", async (req, res) => {
       //TODO
       listOfFilter = req.body.filter;
     }
-    const query = `SELECT * FROM pictures 
+    const selectQuery = `SELECT * FROM pictures 
                     WHERE tags_missing=false
                     ORDER BY id ASC
                     OFFSET ${offSet} ROWS
                     FETCH NEXT ${pageSize} ROWS ONLY`;
-    const pictures = await client.query(query);
+    const pictures = await client.query(selectQuery);
     res.status(201).json(pictures.rows);
+  } catch (err) {
+    res.status(400).json({
+      error: `${err})`,
+    });
+  }
+});
+
+// POST: Get Total of pictures filter  filter
+router.post("/total/", async (req, res) => {
+  try {
+    if (req.body.filter) {
+      //TODO
+      listOfFilter = req.body.filter;
+    }
+    const countTotalQuery = `SELECT COUNT(id) FROM pictures WHERE tags_missing=false;`;
+    const totalPictures = await client.query(countTotalQuery);
+    res.status(201).json(totalPictures.rows);
   } catch (err) {
     res.status(400).json({
       error: `${err})`,

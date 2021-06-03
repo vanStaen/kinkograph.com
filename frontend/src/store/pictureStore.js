@@ -41,6 +41,7 @@ export class PictureStore {
   showOverlay = false;
   allPictures = [];
   selected = null;
+  totalPictures = 0;
 
   constructor() {
     makeObservable(this, {
@@ -55,6 +56,8 @@ export class PictureStore {
       changeSelected: action,
       allPictures: observable,
       setAllPictures: action,
+      totalPictures: observable,
+      setTotalPictures: action,
     });
   }
 
@@ -100,6 +103,11 @@ export class PictureStore {
   setAllPictures = (allPictures) => {
     this.allPictures = allPictures;
   };
+
+  setTotalPictures = (totalPictures) => {
+    this.totalPictures = totalPictures;
+  };
+
 }
 
 export const pictureStore = new PictureStore();
