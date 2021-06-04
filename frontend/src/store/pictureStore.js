@@ -144,18 +144,18 @@ export class PictureStore {
     this.totalPictures = totalPictures;
   };
 
-  addFilter = (filter) => {
-    this.filter.push(filter);
-    this.pageNumber = 1;
-    this.galleryLoading = true;
-    this.fetchPictures();
+  addFilter = async (filter) => {
+    await this.filter.push(filter);
+    pictureStore.setIsGalleryLoading(true);
+    pictureStore.setPageNumber(1);
+    pictureStore.fetchPictures();
   };
 
   setFilter = (filter) => {
     this.filter = filter;
-    this.pageNumber = 1;
-    this.galleryLoading = true;
-    this.fetchPictures();
+    this.setIsGalleryLoading(true);
+    this.setPageNumber(1);
+    pictureStore.fetchPictures();
   };
 
   setIsGalleryLoading = (isGalleryLoading) => {
