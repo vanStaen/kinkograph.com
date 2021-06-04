@@ -186,7 +186,7 @@ router.post("/page/", async (req, res) => {
     let filters = '';
     if (req.body.filter) {
       const array = req.body.filter;
-      array.forEach(filter => filters = filters + `AND tags LIKE '%${filter}%' `);
+      array.forEach(filter => filters = filters + `AND tags LIKE '%"${filter}"%' `);
     }
     const selectQuery = 
     `SELECT * FROM pictures WHERE tags_missing=false ${filters} 
@@ -206,7 +206,7 @@ router.post("/total/", async (req, res) => {
     let filters = '';
     if (req.body.filter) {
       const array = req.body.filter;
-      array.forEach(filter => filters = filters + `AND tags LIKE '%${filter}%' `);
+      array.forEach(filter => filters = filters + `AND tags LIKE '%"${filter}"%' `);
     }
     const countTotalQuery = `SELECT COUNT(id) FROM pictures WHERE tags_missing=false ${filters};`;
     const totalPictures = await client.query(countTotalQuery);
