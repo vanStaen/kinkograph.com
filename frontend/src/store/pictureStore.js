@@ -1,34 +1,17 @@
 import { action, makeObservable, observable } from "mobx";
 
-import { getPicturesPerPage } from "../pages/Gallery/getPictures";
+import {
+  getPicturesPerPage,
+  getTotalPictures,
+} from "../pages/Gallery/getPictures";
 
-const fetchPictures = async () => {
-  try {
-    const pictures = await getPicturesPerPage(
-      pictureStore.pageNumber,
-      pictureStore.PAGE_SIZE
-    );
-    if (pictures.length < pictureStore.PAGE_SIZE) {
-      pictureStore.lastPageReached = true;
-    } else {
-      pictureStore.lastPageReached = false;
-    }
-    pictureStore.setAllPictures(pictures);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-const nextPageHandler = async (next) => {
-  if (next) {
-    const nextPage = pictureStore.pageNumber + 1;
-    pictureStore.setPageNumber(nextPage);
-    await fetchPictures(nextPage);
-  } else {
-    const previousPage = pictureStore.pageNumber - 1;
-    pictureStore.setPageNumber(previousPage);
-    await fetchPictures(previousPage);
-  }
+const loadImage = (image) => {
+  return new Promise((resolve, reject) => {
+    const loadImg = new Image();
+    loadImg.src = image.url_thumb;
+    loadImg.onload = () => resolve(image.url);
+    loadImg.onerror = (err) => reject(err);
+  });
 };
 
 export class PictureStore {
@@ -42,8 +25,8 @@ export class PictureStore {
   totalPictures = 0;
   filter = [];
   isGalleryLoading = true;
-  galleryNeedsRefresh = false;
-  showFilterSelect= false;
+  galleryNeedsRefresh = true;
+  showFilterSelect = false;
 
   constructor() {
     makeObservable(this, {
@@ -70,8 +53,44 @@ export class PictureStore {
       setGalleryNeedsRefresh: action,
       showFilterSelect: observable,
       setShowFilterSelect: action,
+      fetchPictures: action,
+      nextPageHandler: action,
     });
   }
+
+  fetchPictures = async () => {
+    try {
+      const pictures = await getPicturesPerPage(
+        pictureStore.pageNumber,
+        pictureStore.PAGE_SIZE,
+        pictureStore.filter
+      );
+      const totalPictures = await getTotalPictures(pictureStore.filter);
+      if (pictures.length < pictureStore.PAGE_SIZE) {
+        pictureStore.setLastPageReached(true);
+      } else {
+        pictureStore.setLastPageReached(false);
+      }
+      await Promise.all(pictures.map((picture) => loadImage(picture)));
+      pictureStore.setAllPictures(pictures);
+      pictureStore.setTotalPictures(totalPictures);
+    } catch (err) {
+      console.log(err);
+    }
+    pictureStore.setIsGalleryLoading(false);
+  };
+
+  nextPageHandler = async (next) => {
+    if (next) {
+      const nextPage = this.pageNumber + 1;
+      this.pageNumber = nextPage;
+      await this.fetchPictures(nextPage);
+    } else {
+      const previousPage = this.pageNumber - 1;
+      this.pageNumber = previousPage;
+      await this.fetchPictures(previousPage);
+    }
+  };
 
   setPageNumber = (pageNumber) => {
     this.pageNumber = pageNumber;
@@ -90,14 +109,14 @@ export class PictureStore {
     const maxSelectable = this.allPictures.length - 1;
     if (next) {
       if (selected === maxSelectable) {
-        await nextPageHandler(true);
+        await this.nextPageHandler(true);
         this.selected = 0;
       } else {
         this.selected = selected + 1;
       }
     } else {
       if (selected === 0) {
-        await nextPageHandler(false);
+        await this.nextPageHandler(false);
         this.selected = maxSelectable;
       } else {
         this.selected = selected - 1;
@@ -122,20 +141,20 @@ export class PictureStore {
 
   addFilter = (filter) => {
     this.filter.push(filter);
-    pictureStore.setPageNumber(1);
+    this.pageNumber = 1;
   };
 
   deleteFilter = (filter) => {
     const index = this.filter.findIndex((element) => element === filter);
     this.filter.splice(index, 1);
-    pictureStore.setPageNumber(1);
+    this.pageNumber = 1;
   };
 
   setFilter = (filter) => {
     this.filter = filter;
-    pictureStore.setPageNumber(1);
-    pictureStore.setIsGalleryLoading(true);
-    pictureStore.setGalleryNeedsRefresh(true);
+    this.pageNumber = 1;
+    this.galleryLoading = true;
+    this.galleryNeedsRefresh = true;
   };
 
   setIsGalleryLoading = (isGalleryLoading) => {
@@ -149,7 +168,6 @@ export class PictureStore {
   setShowFilterSelect = (showFilterSelect) => {
     this.showFilterSelect = showFilterSelect;
   };
-
 }
 
 export const pictureStore = new PictureStore();

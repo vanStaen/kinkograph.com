@@ -5,7 +5,6 @@ import { observer } from "mobx-react";
 import { pictureStore } from "../../store/pictureStore";
 import { PictureThumb } from "../../component/PictureThumb/PictureThumb";
 import { GalleryOverlay } from "../../component/GalleryOverlay/GalleryOverlay";
-import { getPicturesPerPage, getTotalPictures } from "./getPictures";
 import { GalleryHeader } from "./GalleryHeader/GalleryHeader";
 
 import "./Gallery.css";
@@ -13,64 +12,13 @@ import "./Gallery.css";
 export const Gallery = observer(() => {
   const throttling = useRef(false);
 
-  const loadImage = (image) => {
-    return new Promise((resolve, reject) => {
-      const loadImg = new Image();
-      loadImg.src = image.url_thumb;
-      loadImg.onload = () => resolve(image.url);
-      loadImg.onerror = (err) => reject(err);
-    });
-  };
-
-  const fetchPictures = useCallback(async () => {
-    try {
-      const pictures = await getPicturesPerPage(
-        pictureStore.pageNumber,
-        pictureStore.PAGE_SIZE,
-        pictureStore.filter
-      );
-      const totalPictures = await getTotalPictures(pictureStore.filter);
-      if (pictures.length < pictureStore.PAGE_SIZE) {
-        pictureStore.setLastPageReached(true);
-      } else {
-        pictureStore.setLastPageReached(false);
-      }
-      await Promise.all(pictures.map((picture) => loadImage(picture)));
-      pictureStore.setAllPictures(pictures);
-      pictureStore.setTotalPictures(totalPictures);
-    } catch (err) {
-      console.log(err);
-    }
-    pictureStore.setIsGalleryLoading(false);
-  }, []);
-
-  useEffect(() => {
-    fetchPictures();
-  }, [fetchPictures]);
-
   useEffect(() => {
     if (pictureStore.galleryNeedsRefresh) {
-      fetchPictures();
+      pictureStore.fetchPictures();
       pictureStore.setGalleryNeedsRefresh(false);
     }
     // eslint-disable-next-line
-  }, [fetchPictures, pictureStore.galleryNeedsRefresh]);
-
-  const nextPageHandler = useCallback(
-    (next) => {
-      pictureStore.setIsGalleryLoading(true);
-      if (next) {
-        const nextPage = pictureStore.pageNumber + 1;
-        pictureStore.setPageNumber(nextPage);
-        fetchPictures(nextPage);
-      } else {
-        const previousPage = pictureStore.pageNumber - 1;
-        pictureStore.setPageNumber(previousPage);
-        fetchPictures(previousPage);
-      }
-    },
-    [fetchPictures]
-  );
+  }, [pictureStore.galleryNeedsRefresh]);
 
   const scroll = useCallback((direction) => {
     const eightyPerCentOfHeight = window.innerHeight * 0.8;
@@ -103,13 +51,13 @@ export const Gallery = observer(() => {
             throttling.current = true;
             if (keyPressed === "arrowright" && !pictureStore.lastPageReached) {
               pictureStore.setShowFilterSelect(false);
-              nextPageHandler(true);
+              pictureStore.nextPageHandler(true);
             } else if (
               keyPressed === "arrowleft" &&
               pictureStore.pageNumber > 1
             ) {
               pictureStore.setShowFilterSelect(false);
-              nextPageHandler(false);
+              pictureStore.nextPageHandler(false);
             } else if (keyPressed === "arrowdown") {
               scroll("down");
             } else if (keyPressed === "arrowup") {
@@ -122,7 +70,7 @@ export const Gallery = observer(() => {
         }
       }
     },
-    [scroll, nextPageHandler]
+    [scroll]
   );
 
   useEffect(() => {
@@ -148,11 +96,7 @@ export const Gallery = observer(() => {
               {pictureStore.allPictures.map((picture, index) => {
                 return (
                   <div className="gallery__picSpacer">
-                    <PictureThumb
-                      picture={picture}
-                      reload={fetchPictures}
-                      key={picture.id}
-                    />
+                    <PictureThumb picture={picture} key={picture.id} />
                   </div>
                 );
               })}
@@ -164,7 +108,7 @@ export const Gallery = observer(() => {
                 ) : (
                   <span
                     className="gallery__nextText"
-                    onClick={() => nextPageHandler(false)}
+                    onClick={() => pictureStore.nextPageHandler(false)}
                   >
                     Previous
                   </span>
@@ -175,7 +119,7 @@ export const Gallery = observer(() => {
                 ) : (
                   <span
                     className="gallery__nextText"
-                    onClick={() => nextPageHandler(true)}
+                    onClick={() => pictureStore.nextPageHandler(true)}
                   >
                     Next
                   </span>
