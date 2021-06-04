@@ -20,14 +20,14 @@
 .galleryHeader__left {
   vertical-align: top;
   display: inline-block;
-  width: 25%;
+  width: 30%;
   text-align: left;
 }
 
 .galleryHeader__center {
   vertical-align: middle;
   display: inline-block;
-  width: 50%;
+  width: 40%;
   text-align: center;
   letter-spacing: 2px;
   font-weight: 200;
@@ -37,7 +37,7 @@
 .galleryHeader__right {
   vertical-align: top;
   display: inline-block;
-  width: 25%;
+  width: 30%;
   text-align: right;
 }
 
@@ -49,8 +49,17 @@
   color: rgba(255, 255, 255, 1);
 }
 
-.kinkograph__title {
-  color: rgba(10, 10, 10, 1);
-  font-weight: 500;
-  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
+.galleryHeader__setFilter{
+  font-size: 0.8em;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+
+.galleryHeader__setFilter:hover{
+  color: rgba(255, 255, 255, .75);
+}
+
+.galleryHeader__wordFilter {
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);  
 }

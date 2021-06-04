@@ -36,7 +36,6 @@ export class PictureStore {
 
   pageNumber = 1;
   lastPageReached = false;
-
   showOverlay = false;
   allPictures = [];
   selected = null;
@@ -44,6 +43,7 @@ export class PictureStore {
   filter = [];
   isGalleryLoading = true;
   galleryNeedsRefresh = false;
+  showFilterSelect= false;
 
   constructor() {
     makeObservable(this, {
@@ -63,10 +63,13 @@ export class PictureStore {
       filter: observable,
       addFilter: action,
       deleteFilter: action,
+      setFilter: action,
       isGalleryLoading: observable,
       setIsGalleryLoading: action,
       galleryNeedsRefresh: observable,
       setGalleryNeedsRefresh: action,
+      showFilterSelect: observable,
+      setShowFilterSelect: action,
     });
   }
 
@@ -126,6 +129,12 @@ export class PictureStore {
     this.filter.splice(index, 1);
   };
 
+  setFilter = (filter) => {
+    this.filter = filter;
+    pictureStore.setIsGalleryLoading(true);
+    pictureStore.setGalleryNeedsRefresh(true);
+  };
+
   setIsGalleryLoading = (isGalleryLoading) => {
     this.isGalleryLoading = isGalleryLoading;
   };
@@ -133,6 +142,11 @@ export class PictureStore {
   setGalleryNeedsRefresh = (galleryNeedsRefresh) => {
     this.galleryNeedsRefresh = galleryNeedsRefresh;
   };
+
+  setShowFilterSelect = (showFilterSelect) => {
+    this.showFilterSelect = showFilterSelect;
+  };
+
 }
 
 export const pictureStore = new PictureStore();

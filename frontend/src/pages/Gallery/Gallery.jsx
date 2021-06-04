@@ -90,26 +90,35 @@ export const Gallery = observer(() => {
 
   const keyDownHandler = useCallback(
     (event) => {
-      if (!pictureStore.showOverlay) {
+      const keyPressed = event.key.toLowerCase();
+      if (
+        keyPressed === "arrowright" ||
+        keyPressed === "arrowleft" ||
+        keyPressed === "arrowdown" ||
+        keyPressed === "arrowup"
+      ) {
         event.preventDefault();
-        const keyPressed = event.key.toLowerCase();
-        if (throttling.current === false) {
-          throttling.current = true;
-          if (keyPressed === "arrowright" && !pictureStore.lastPageReached) {
-            nextPageHandler(true);
-          } else if (
-            keyPressed === "arrowleft" &&
-            pictureStore.pageNumber > 1
-          ) {
-            nextPageHandler(false);
-          } else if (keyPressed === "arrowdown") {
-            scroll("down");
-          } else if (keyPressed === "arrowup") {
-            scroll("up");
+        if (!pictureStore.showOverlay) {
+          if (throttling.current === false) {
+            throttling.current = true;
+            if (keyPressed === "arrowright" && !pictureStore.lastPageReached) {
+              pictureStore.setShowFilterSelect(false);
+              nextPageHandler(true);
+            } else if (
+              keyPressed === "arrowleft" &&
+              pictureStore.pageNumber > 1
+            ) {
+              pictureStore.setShowFilterSelect(false);
+              nextPageHandler(false);
+            } else if (keyPressed === "arrowdown") {
+              scroll("down");
+            } else if (keyPressed === "arrowup") {
+              scroll("up");
+            }
+            setTimeout(() => {
+              throttling.current = false;
+            }, 100);
           }
-          setTimeout(() => {
-            throttling.current = false;
-          }, 100);
         }
       }
     },

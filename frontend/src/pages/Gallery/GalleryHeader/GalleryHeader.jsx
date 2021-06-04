@@ -22,6 +22,18 @@ export const GalleryHeader = observer(() => {
     }
   }, []);
 
+  const handleTagChange = useCallback(async (fitlerArray) => {
+    const fitlerArrayCleaned = fitlerArray.map((tag) => {
+      return capitalizeFirstLetter(tag);
+    });
+    console.log(fitlerArrayCleaned);
+    pictureStore.setFilter(fitlerArrayCleaned);
+  }, []);
+
+  const handleClickFilterTitle = () => {
+    pictureStore.setShowFilterSelect(true);
+  };
+
   useEffect(() => {
     fetchAllTags();
   }, [fetchAllTags]);
@@ -51,18 +63,14 @@ export const GalleryHeader = observer(() => {
         )}
       </div>
       <div className="galleryHeader__center">
-        {pictureStore.filter.length === 0 ? (
-          <div className="kinkograph__title">kinkograph</div>
-        ) : (
+        {pictureStore.filter.length > 0 || pictureStore.showFilterSelect ? (
           <Select
             mode="multiple"
-            allowClear
             style={{ width: "100%" }}
-            placeholder="Please select"
+            placeholder="Select a filter"
             defaultValue={pictureStore.filter}
-            onChange={() => {
-              console.log("Hello");
-            }}
+            onChange={handleTagChange}
+            className="galleryHeader__selectFilter"
           >
             {allTags.map((tag) => {
               return (
@@ -72,6 +80,15 @@ export const GalleryHeader = observer(() => {
               );
             })}
           </Select>
+        ) : (
+          <div
+            className="galleryHeader__setFilter"
+            onClick={handleClickFilterTitle}
+          >
+            &#123;click here to{" "}
+            <span className="galleryHeader__wordFilter">filter</span> the
+            results&#125;
+          </div>
         )}
       </div>
       <div className="galleryHeader__right">
