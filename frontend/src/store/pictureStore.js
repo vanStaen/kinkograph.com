@@ -47,7 +47,6 @@ export class PictureStore {
       setTotalPictures: action,
       filter: observable,
       addFilter: action,
-      deleteFilter: action,
       setFilter: action,
       isGalleryLoading: observable,
       setIsGalleryLoading: action,
@@ -86,6 +85,7 @@ export class PictureStore {
   };
 
   nextPageHandler = async (next) => {
+    this.isGalleryLoading = true;
     if (next) {
       const nextPage = this.pageNumber + 1;
       this.pageNumber = nextPage;
@@ -147,19 +147,15 @@ export class PictureStore {
   addFilter = (filter) => {
     this.filter.push(filter);
     this.pageNumber = 1;
-  };
-
-  deleteFilter = (filter) => {
-    const index = this.filter.findIndex((element) => element === filter);
-    this.filter.splice(index, 1);
-    this.pageNumber = 1;
+    this.galleryLoading = true;
+    this.fetchPictures();
   };
 
   setFilter = (filter) => {
     this.filter = filter;
     this.pageNumber = 1;
     this.galleryLoading = true;
-    this.galleryNeedsRefresh = true;
+    this.fetchPictures();
   };
 
   setIsGalleryLoading = (isGalleryLoading) => {

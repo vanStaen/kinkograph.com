@@ -12,10 +12,10 @@ export const GalleryHeader = observer(() => {
   const { Option } = Select;
 
   const handleTagChange = useCallback(async (fitlerArray) => {
+    pictureStore.setIsGalleryLoading(true);
     const fitlerArrayCleaned = fitlerArray.map((tag) => {
       return capitalizeFirstLetter(tag);
     });
-    console.log(fitlerArrayCleaned);
     pictureStore.setFilter(fitlerArrayCleaned);
   }, []);
 

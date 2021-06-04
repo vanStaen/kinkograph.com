@@ -20,7 +20,7 @@ import { userStore } from "../../store/userStore";
 
 import "./GalleryOverlay.css";
 
-export const GalleryOverlay = observer((props) => {
+export const GalleryOverlay = observer(() => {
   const [isLoading, setIsLoading] = useState(true);
   const throttling = useRef(false);
   const selected = pictureStore.allPictures[pictureStore.selected];
@@ -131,9 +131,7 @@ export const GalleryOverlay = observer((props) => {
 
   const tagClickHander = (tag) => {
     pictureStore.setShowOverlay(false);
-    pictureStore.setIsGalleryLoading(true);
     pictureStore.addFilter(tag);
-    pictureStore.setGalleryNeedsRefresh(true);
   };
 
   useEffect(() => {
