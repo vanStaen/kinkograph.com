@@ -1,12 +1,31 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useCallback, useEffect } from "react";
 import { observer } from "mobx-react";
+import { Select } from "antd";
 
 import { pictureStore } from "../../../store/pictureStore";
 import { userStore } from "../../../store/userStore";
+import { capitalizeFirstLetter } from "../../../helpers/capitalizeFirstLetter";
+import { getTags } from "../../../component/EditDrawer/getTags";
 
 import "./GalleryHeader.css";
 
 export const GalleryHeader = observer(() => {
+  const [allTags, setAllTags] = useState([]);
+  const { Option } = Select;
+
+  const fetchAllTags = useCallback(async () => {
+    try {
+      const fetchedTags = await getTags();
+      setAllTags(fetchedTags);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchAllTags();
+  }, [fetchAllTags]);
+
   return (
     <div className="galleryHeader__main">
       <div className="galleryHeader__left">
@@ -35,7 +54,24 @@ export const GalleryHeader = observer(() => {
         {pictureStore.filter.length === 0 ? (
           <div className="kinkograph__title">kinkograph</div>
         ) : (
-          pictureStore.filter.map((filter) => <span>#{filter} </span>)
+          <Select
+            mode="multiple"
+            allowClear
+            style={{ width: "100%" }}
+            placeholder="Please select"
+            defaultValue={pictureStore.filter}
+            onChange={() => {
+              console.log("Hello");
+            }}
+          >
+            {allTags.map((tag) => {
+              return (
+                <Option key={capitalizeFirstLetter(tag.tag_name)}>
+                  {capitalizeFirstLetter(tag.tag_name)}
+                </Option>
+              );
+            })}
+          </Select>
         )}
       </div>
       <div className="galleryHeader__right">

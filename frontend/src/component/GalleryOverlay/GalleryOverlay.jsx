@@ -130,6 +130,7 @@ export const GalleryOverlay = observer((props) => {
 
   const tagClickHander = (tag) => {
     pictureStore.setShowOverlay(false);
+    pictureStore.setIsGalleryLoading(true);
     pictureStore.addFilter(tag);
     pictureStore.setGalleryNeedsRefresh(true);
   };
