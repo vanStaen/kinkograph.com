@@ -48,7 +48,7 @@ router.post("/filter/", async (req, res) => {
         if (findIndex < 0 && isInFilter < 0) {allTagsFromFilter.push(tag)};
       });
     });
-    res.status(201).json(allTagsFromFilter);
+    res.status(201).json(allTagsFromFilter.sort());
   } catch (err) {
     res.status(400).json({
       error: `${err})`,
