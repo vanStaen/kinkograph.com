@@ -183,13 +183,13 @@ router.post("/page/", async (req, res) => {
     const pageNumber = req.body.pageNumber;
     const pageSize = req.body.pageSize;
     const offSet = pageSize * (pageNumber - 1);
-    let listOfFilter = ``;
+    let filters = '';
     if (req.body.filter) {
-      //TODO
-      listOfFilter = req.body.filter;
+      const array = req.body.filter;
+      array.forEach(filter => filters = filters + `AND tags LIKE '%${filter}%' `);
     }
     const selectQuery = `SELECT * FROM pictures 
-                    WHERE tags_missing=false
+                    WHERE tags_missing=false ${filters}
                     ORDER BY id ASC
                     OFFSET ${offSet} ROWS
                     FETCH NEXT ${pageSize} ROWS ONLY`;
@@ -202,14 +202,16 @@ router.post("/page/", async (req, res) => {
   }
 });
 
-// POST: Get Total of pictures filter  filter
+// POST: Get Total of pictures, with filter
 router.post("/total/", async (req, res) => {
   try {
+    let filters = '';
     if (req.body.filter) {
-      //TODO
-      listOfFilter = req.body.filter;
+      const array = req.body.filter;
+      array.forEach(filter => filters = filters + `AND tags LIKE '%${filter}%' `);
     }
-    const countTotalQuery = `SELECT COUNT(id) FROM pictures WHERE tags_missing=false;`;
+    const countTotalQuery = `SELECT COUNT(id) FROM pictures WHERE tags_missing=false ${filters};`;
+    console.log(countTotalQuery);
     const totalPictures = await client.query(countTotalQuery);
     res.status(201).json(totalPictures.rows);
   } catch (err) {
