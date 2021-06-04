@@ -44,7 +44,7 @@ export const GalleryHeader = observer(() => {
           <span style={{ fontSize: "0.7em" }}>
             {" "}
             /{" "}
-            {Math.floor(pictureStore.totalPictures / pictureStore.PAGE_SIZE, 0)}
+            {Math.ceil(pictureStore.totalPictures / pictureStore.PAGE_SIZE, 0)}
           </span>
         </div>
         <div className="galleryHeader__SmallFont">

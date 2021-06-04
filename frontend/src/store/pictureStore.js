@@ -43,6 +43,7 @@ export class PictureStore {
   totalPictures = 0;
   filter = [];
   isGalleryLoading = true;
+  galleryNeedsRefresh = false;
 
   constructor() {
     makeObservable(this, {
@@ -64,6 +65,8 @@ export class PictureStore {
       deleteFilter: action,
       isGalleryLoading: observable,
       setIsGalleryLoading: action,
+      galleryNeedsRefresh: observable,
+      setGalleryNeedsRefresh: action,
     });
   }
 
@@ -125,6 +128,10 @@ export class PictureStore {
 
   setIsGalleryLoading = (isGalleryLoading) => {
     this.isGalleryLoading = isGalleryLoading;
+  };
+
+  setGalleryNeedsRefresh = (galleryNeedsRefresh) => {
+    this.galleryNeedsRefresh = galleryNeedsRefresh;
   };
 }
 

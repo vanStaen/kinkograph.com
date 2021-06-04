@@ -188,11 +188,9 @@ router.post("/page/", async (req, res) => {
       const array = req.body.filter;
       array.forEach(filter => filters = filters + `AND tags LIKE '%${filter}%' `);
     }
-    const selectQuery = `SELECT * FROM pictures 
-                    WHERE tags_missing=false ${filters}
-                    ORDER BY id ASC
-                    OFFSET ${offSet} ROWS
-                    FETCH NEXT ${pageSize} ROWS ONLY`;
+    const selectQuery = 
+    `SELECT * FROM pictures WHERE tags_missing=false ${filters} 
+    ORDER BY id ASC OFFSET ${offSet} ROWS FETCH NEXT ${pageSize} ROWS ONLY`;
     const pictures = await client.query(selectQuery);
     res.status(201).json(pictures.rows);
   } catch (err) {
@@ -211,7 +209,6 @@ router.post("/total/", async (req, res) => {
       array.forEach(filter => filters = filters + `AND tags LIKE '%${filter}%' `);
     }
     const countTotalQuery = `SELECT COUNT(id) FROM pictures WHERE tags_missing=false ${filters};`;
-    console.log(countTotalQuery);
     const totalPictures = await client.query(countTotalQuery);
     res.status(201).json(totalPictures.rows);
   } catch (err) {

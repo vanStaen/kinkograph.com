@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getPictures = async (limit, showMissing) => {
 
-  const response = await axios({
+    const response = await axios({
     url: process.env.REACT_APP_API_URL + `/pictures/all/${limit}/${showMissing}`,
     method: "GET",
   });
@@ -19,12 +19,12 @@ export const getPictures = async (limit, showMissing) => {
 
 };
 
-export const getPicturesPerPage = async (pageNumber, pageSize) => {
+export const getPicturesPerPage = async (pageNumber, pageSize, filter = "") => {
 
-  // TODO: Add filter
   const requestBody = {
     "pageNumber": pageNumber,
     "pageSize": pageSize,
+    "filter": filter,
   };
 
   const response = await axios({
@@ -46,19 +46,16 @@ export const getPicturesPerPage = async (pageNumber, pageSize) => {
 };
 
 
-export const getTotalPictures = async () => {
+export const getTotalPictures = async (filter = "") => {
 
-  // TODO: 
-  /*const requestBody = {
-    "pageNumber": pageNumber,
-    "pageSize": pageSize,
-    "filter": filter
-  };*/
+  const requestBody = {
+    "filter": filter,
+  };
 
   const response = await axios({
       url: process.env.REACT_APP_API_URL + `/pictures/total/`,
       method: "POST",
-      //data: requestBody,
+      data: requestBody,
   });
 
   if ((response.status !== 200) & (response.status !== 201)) {

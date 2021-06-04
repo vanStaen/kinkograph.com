@@ -131,6 +131,7 @@ export const GalleryOverlay = observer((props) => {
   const tagClickHander = (tag) => {
     pictureStore.setShowOverlay(false);
     pictureStore.addFilter(tag);
+    pictureStore.setGalleryNeedsRefresh(true);
   };
 
   useEffect(() => {

@@ -26,9 +26,10 @@ export const Gallery = observer(() => {
     try {
       const pictures = await getPicturesPerPage(
         pictureStore.pageNumber,
-        pictureStore.PAGE_SIZE
+        pictureStore.PAGE_SIZE,
+        pictureStore.filter
       );
-      const totalPictures = await getTotalPictures();
+      const totalPictures = await getTotalPictures(pictureStore.filter);
       if (pictures.length < pictureStore.PAGE_SIZE) {
         pictureStore.setLastPageReached(true);
       } else {
@@ -46,6 +47,14 @@ export const Gallery = observer(() => {
   useEffect(() => {
     fetchPictures();
   }, [fetchPictures]);
+
+  useEffect(() => {
+    if (pictureStore.galleryNeedsRefresh) {
+      fetchPictures();
+      pictureStore.setGalleryNeedsRefresh(false);
+    }
+    // eslint-disable-next-line
+  }, [fetchPictures, pictureStore.galleryNeedsRefresh]);
 
   const nextPageHandler = useCallback(
     (next) => {
