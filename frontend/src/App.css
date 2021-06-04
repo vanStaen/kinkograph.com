@@ -78,12 +78,6 @@
 .ant-select-selection-search {
   color: #fff !important;
 }
-.anticon-close {
-  color: rgba(0,0,0, .33) !important;
-}
-.anticon-close:hover {
-  color: rgba(0,0,0, 1) !important;
-}
 
 /* Tooltip custom */
 .ant-tooltip {

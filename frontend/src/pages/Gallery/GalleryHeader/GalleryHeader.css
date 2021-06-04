@@ -34,6 +34,13 @@
   font-size: 0.7em;
 }
 
+.galleryHeader__center .anticon-close {
+  color: rgba(0,0,0, .33) !important;
+}
+.galleryHeader__center .anticon-close:hover {
+  color: rgba(0,0,0, 1) !important;
+}
+
 .galleryHeader__right {
   vertical-align: top;
   display: inline-block;

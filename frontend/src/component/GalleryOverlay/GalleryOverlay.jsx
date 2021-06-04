@@ -13,6 +13,7 @@ import {
   LoadingOutlined,
 } from "@ant-design/icons";
 import { observer } from "mobx-react";
+import { Tooltip } from "antd";
 
 import { pictureStore } from "../../store/pictureStore";
 import { userStore } from "../../store/userStore";
@@ -174,15 +175,26 @@ export const GalleryOverlay = observer((props) => {
           <RightOutlined />
         </div>
       )}
-      <div
-        className="overlay__closeButton"
-        id="closeButton"
-        onClick={() => {
-          pictureStore.setShowOverlay(false);
-        }}
+      <Tooltip
+        placement="bottomLeft"
+        title={
+          <span>
+            <b>TIP: </b> The keys ← and → will let you navigate through the
+            pictures. You can use the <i>esc</i> key, or click outside the
+            picture to go back to the gallery.
+          </span>
+        }
       >
-        <CloseOutlined />
-      </div>
+        <div
+          className="overlay__closeButton"
+          id="closeButton"
+          onClick={() => {
+            pictureStore.setShowOverlay(false);
+          }}
+        >
+          <CloseOutlined />
+        </div>
+      </Tooltip>
       {isLoading ? (
         <LoadingOutlined className="overlay__spinner" />
       ) : (
