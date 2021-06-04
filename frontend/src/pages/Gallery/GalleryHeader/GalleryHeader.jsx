@@ -47,7 +47,15 @@ export const GalleryHeader = observer(() => {
           </Fragment>
         )}
       </div>
-      <div className="galleryHeader__center">
+      <div
+        className="galleryHeader__center"
+        onFocus={() => {
+          pictureStore.setIsTagInputActive(true);
+        }}
+        onBlur={() => {
+          pictureStore.setIsTagInputActive(false);
+        }}
+      >
         {pictureStore.filter.length > 0 || pictureStore.showFilterSelect ? (
           <Select
             mode="multiple"

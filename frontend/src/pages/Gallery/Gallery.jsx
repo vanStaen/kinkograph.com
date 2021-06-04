@@ -46,7 +46,7 @@ export const Gallery = observer(() => {
         keyPressed === "arrowup"
       ) {
         event.preventDefault();
-        if (!pictureStore.showOverlay) {
+        if (!pictureStore.showOverlay && !pictureStore.isTagInputActive) {
           if (throttling.current === false) {
             throttling.current = true;
             if (keyPressed === "arrowright" && !pictureStore.lastPageReached) {

@@ -29,6 +29,7 @@ export class PictureStore {
   galleryNeedsRefresh = true;
   showFilterSelect = false;
   tags = [];
+  isTagInputActive = false;
 
   constructor() {
     makeObservable(this, {
@@ -57,6 +58,8 @@ export class PictureStore {
       fetchPictures: action,
       nextPageHandler: action,
       tags: observable,
+      isTagInputActive: observable,
+      setIsTagInputActive: action,
     });
   }
 
@@ -169,6 +172,10 @@ export class PictureStore {
   setShowFilterSelect = (showFilterSelect) => {
     this.showFilterSelect = showFilterSelect;
   };
+
+  setIsTagInputActive = (isTagInputActive) => {
+    this.isTagInputActive = isTagInputActive;
+  }
 }
 
 export const pictureStore = new PictureStore();
