@@ -122,15 +122,18 @@ export class PictureStore {
 
   addFilter = (filter) => {
     this.filter.push(filter);
+    pictureStore.setPageNumber(1);
   };
 
   deleteFilter = (filter) => {
     const index = this.filter.findIndex((element) => element === filter);
     this.filter.splice(index, 1);
+    pictureStore.setPageNumber(1);
   };
 
   setFilter = (filter) => {
     this.filter = filter;
+    pictureStore.setPageNumber(1);
     pictureStore.setIsGalleryLoading(true);
     pictureStore.setGalleryNeedsRefresh(true);
   };

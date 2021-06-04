@@ -40,17 +40,20 @@
   padding: 0 0 6em 0;
 }
 
+
+/* Drawer custom */
 .ant-drawer-content, .ant-drawer-header {
   background-color: rgba(44, 44, 44, .75);
   /* 282c34 vs 43464D */
   border-bottom: 1px solid #2C2C2C;
   color: #E1E1E1 !important;
 }
-
 .anticon-close, .ant-drawer-title {
   color: #E1E1E1;
 }
 
+
+/* Select custom */
 .ant-select-selector {
   color: #000 !important;
   background-color: rgba(255,255,255, .05) !important;
@@ -59,24 +62,38 @@
   border-left: 1px !important;
   border-color: rgba(255,255,255, .5) !important;
 }
-
 .ant-select-item{
   color: #fff !important;
 }
-
 .ant-select-item-option-active{
   color: #000 !important;
 }
-
 .ant-select-item-option-selected {
   color: #fff !important;
   background-color: rgba(100,100,100, .75) !important;
 }
-
 .ant-select-dropdown {
   background-color: rgba(0,0,0, .75) !important;
 }
-
 .ant-select-selection-search {
   color: #fff !important;
+}
+.anticon-close {
+  color: rgba(0,0,0, .33) !important;
+}
+.anticon-close:hover {
+  color: rgba(0,0,0, 1) !important;
+}
+
+/* Tooltip custom */
+.ant-tooltip {
+  color: rgba(255, 255, 255, .75) !important;
+}
+.ant-tooltip-inner {
+  color: #000 !important;
+  background-color: rgba(255, 255, 255, .85) !important;
+}
+.ant-tooltip-arrow-content {
+  border: 1px solid #FFF !important;
+  background-color: rgba(255, 255, 255, .8) !important;
 }

@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useCallback, useEffect } from "react";
 import { observer } from "mobx-react";
-import { Select } from "antd";
+import { Select, Tooltip } from "antd";
 
 import { pictureStore } from "../../../store/pictureStore";
 import { userStore } from "../../../store/userStore";
@@ -92,22 +92,37 @@ export const GalleryHeader = observer(() => {
         )}
       </div>
       <div className="galleryHeader__right">
-        <div className="galleryHeader__BigFont">
-          <b>Page {pictureStore.pageNumber}</b>
-          <span style={{ fontSize: "0.7em" }}>
-            {" "}
-            /{" "}
-            {Math.ceil(pictureStore.totalPictures / pictureStore.PAGE_SIZE, 0)}
-          </span>
-        </div>
-        <div className="galleryHeader__SmallFont">
-          {(pictureStore.pageNumber - 1) * pictureStore.PAGE_SIZE + 1}-
-          {Math.min(
-            pictureStore.pageNumber * pictureStore.PAGE_SIZE,
-            pictureStore.totalPictures
-          )}{" "}
-          of {pictureStore.totalPictures}
-        </div>
+        <Tooltip
+          placement="bottomRight"
+          title={
+            <span>
+              <b>TIP: </b>You can use the arrows of your keyboard to navigate
+              through the pages, and/or scroll the page.
+            </span>
+          }
+        >
+          <div className="galleryHeader__pageInfo">
+            <div className="galleryHeader__BigFont">
+              <b>Page {pictureStore.pageNumber}</b>
+              <span style={{ fontSize: "0.7em" }}>
+                {" "}
+                /{" "}
+                {Math.ceil(
+                  pictureStore.totalPictures / pictureStore.PAGE_SIZE,
+                  0
+                )}
+              </span>
+            </div>
+            <div className="galleryHeader__SmallFont">
+              {(pictureStore.pageNumber - 1) * pictureStore.PAGE_SIZE + 1}-
+              {Math.min(
+                pictureStore.pageNumber * pictureStore.PAGE_SIZE,
+                pictureStore.totalPictures
+              )}{" "}
+              of {pictureStore.totalPictures}
+            </div>
+          </div>
+        </Tooltip>
       </div>
     </div>
   );

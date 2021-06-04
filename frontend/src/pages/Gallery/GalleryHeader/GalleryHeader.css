@@ -41,6 +41,10 @@
   text-align: right;
 }
 
+.galleryHeader__pageInfo{
+  display: inline-block;
+}
+
 .galleryHeader__favorite {
   cursor: pointer;
 }
