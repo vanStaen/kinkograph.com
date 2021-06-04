@@ -4,7 +4,8 @@ import {
   getPicturesPerPage,
   getTotalPictures,
 } from "../pages/Gallery/getPictures";
-
+import { getFilteredTags } from '../component/EditDrawer/getTags'
+ 
 const loadImage = (image) => {
   return new Promise((resolve, reject) => {
     const loadImg = new Image();
@@ -27,6 +28,7 @@ export class PictureStore {
   isGalleryLoading = true;
   galleryNeedsRefresh = true;
   showFilterSelect = false;
+  tags = [];
 
   constructor() {
     makeObservable(this, {
@@ -55,29 +57,32 @@ export class PictureStore {
       setShowFilterSelect: action,
       fetchPictures: action,
       nextPageHandler: action,
+      tags: observable,
     });
   }
 
   fetchPictures = async () => {
     try {
       const pictures = await getPicturesPerPage(
-        pictureStore.pageNumber,
-        pictureStore.PAGE_SIZE,
-        pictureStore.filter
+        this.pageNumber,
+        this.PAGE_SIZE,
+        this.filter
       );
-      const totalPictures = await getTotalPictures(pictureStore.filter);
-      if (pictures.length < pictureStore.PAGE_SIZE) {
-        pictureStore.setLastPageReached(true);
+      const totalPictures = await getTotalPictures(this.filter);
+      if (pictures.length < this.PAGE_SIZE) {
+        this.lastPageReached = true;
       } else {
-        pictureStore.setLastPageReached(false);
+        this.lastPageReached = false;
       }
+      const tags = await getFilteredTags(this.filter)
       await Promise.all(pictures.map((picture) => loadImage(picture)));
-      pictureStore.setAllPictures(pictures);
-      pictureStore.setTotalPictures(totalPictures);
+      this.tags = tags;
+      this.setAllPictures(pictures);
+      this.setTotalPictures(totalPictures);
     } catch (err) {
       console.log(err);
     }
-    pictureStore.setIsGalleryLoading(false);
+    this.isGalleryLoading = false;
   };
 
   nextPageHandler = async (next) => {

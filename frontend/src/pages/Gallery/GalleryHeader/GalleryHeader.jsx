@@ -1,26 +1,15 @@
-import React, { Fragment, useState, useCallback, useEffect } from "react";
+import React, { Fragment, useCallback } from "react";
 import { observer } from "mobx-react";
 import { Select, Tooltip } from "antd";
 
 import { pictureStore } from "../../../store/pictureStore";
 import { userStore } from "../../../store/userStore";
 import { capitalizeFirstLetter } from "../../../helpers/capitalizeFirstLetter";
-import { getTags } from "../../../component/EditDrawer/getTags";
 
 import "./GalleryHeader.css";
 
 export const GalleryHeader = observer(() => {
-  const [allTags, setAllTags] = useState([]);
   const { Option } = Select;
-
-  const fetchAllTags = useCallback(async () => {
-    try {
-      const fetchedTags = await getTags();
-      setAllTags(fetchedTags);
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
 
   const handleTagChange = useCallback(async (fitlerArray) => {
     const fitlerArrayCleaned = fitlerArray.map((tag) => {
@@ -33,10 +22,6 @@ export const GalleryHeader = observer(() => {
   const handleClickFilterTitle = () => {
     pictureStore.setShowFilterSelect(true);
   };
-
-  useEffect(() => {
-    fetchAllTags();
-  }, [fetchAllTags]);
 
   return (
     <div className="galleryHeader__main">
@@ -72,10 +57,10 @@ export const GalleryHeader = observer(() => {
             onChange={handleTagChange}
             className="galleryHeader__selectFilter"
           >
-            {allTags.map((tag) => {
+            {pictureStore.tags.map((tag) => {
               return (
-                <Option key={capitalizeFirstLetter(tag.tag_name)}>
-                  {capitalizeFirstLetter(tag.tag_name)}
+                <Option key={capitalizeFirstLetter(tag)}>
+                  {capitalizeFirstLetter(tag)}
                 </Option>
               );
             })}
