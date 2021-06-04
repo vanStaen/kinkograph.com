@@ -81,8 +81,8 @@ export const GalleryHeader = observer(() => {
           placement="bottomRight"
           title={
             <span>
-              <b>TIP: </b>You can use the arrows of your keyboard to navigate
-              through the pages, and/or scroll the page.
+              <b>TIP: </b>You can use the ← and → keys to navigate through the
+              pages, and the ↑ and ↓ keys to scroll the page.
             </span>
           }
         >
