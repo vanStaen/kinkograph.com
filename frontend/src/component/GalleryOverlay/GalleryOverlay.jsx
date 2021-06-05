@@ -74,7 +74,7 @@ export const GalleryOverlay = observer(() => {
           heart.style.opacity = 0;
           heart.style.fontSize = "1em";
         }, 500);
-        userStore.addToFavorite(id);
+        userStore.addToFavorites(id);
       } else {
         unheart.style.visibility = "visible";
         unheart.style.opacity = 0.5;
@@ -84,7 +84,7 @@ export const GalleryOverlay = observer(() => {
           unheart.style.opacity = 0;
           unheart.style.fontSize = "1em";
         }, 500);
-        userStore.deleteFromFavorite(id);
+        userStore.deleteFromFavorites(id);
       }
     },
     [isFavorite]

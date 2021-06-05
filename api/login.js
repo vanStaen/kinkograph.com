@@ -36,39 +36,39 @@ router.post("/", async (req, res) => {
 
     if (result.rows < 1) {
       return res.status(400).json({ error: `User does not exist!` });
+    } else {
+      const user = result.rows[0];
+      const isValid = await bcrypt.compare(password, user.pwd);
+
+      if (!isValid) {
+        return res.status(400).json({ error: `Password is incorrect!` });
+      }
+
+      const accessToken = await jsonwebtoken.sign(
+        { userId: user.id },
+        process.env.AUTH_SECRET_KEY,
+        { expiresIn: "15m" }
+      );
+
+      const refreshToken = await jsonwebtoken.sign(
+        { userId: user.id },
+        process.env.AUTH_SECRET_KEY_REFRESH,
+        { expiresIn: "7d" }
+      );
+
+      // TODO
+      /* Add refresh token to db
+      const newToken = {
+        token: refreshToken,
+        userId: user.id
+      }; */
+
+      res.status(200).json({
+        userId: user.id,
+        token: accessToken,
+        refreshToken: refreshToken,
+      });
     }
-
-    const user = result.rows[0];
-    const isValid = await bcrypt.compare(password, user.pwd);
-
-    if (!isValid) {
-      return res.status(400).json({ error: `Password is incorrect!` });
-    }
-
-    const accessToken = await jsonwebtoken.sign(
-      { userId: user.id },
-      process.env.AUTH_SECRET_KEY,
-      { expiresIn: "15m" }
-    );
-
-    const refreshToken = await jsonwebtoken.sign(
-      { userId: user.id },
-      process.env.AUTH_SECRET_KEY_REFRESH,
-      { expiresIn: "7d" }
-    );
-
-    // TODO
-    /* Add refresh token to db
-    const newToken = {
-      token: refreshToken,
-      userId: user.id
-    }; */
-
-    res.status(200).json({
-      userId: user.id,
-      token: accessToken,
-      refreshToken: refreshToken,
-    });
   } catch (err) {
     res.status(400).json({
       error: `${err})`,
@@ -94,34 +94,33 @@ router.post("/code", async (req, res) => {
         res.status(401).json({
           error: "User not found",
         });
+      } else {
+        const user = access.rows[0];
+        const accessToken = await jsonwebtoken.sign(
+          { userId: user.id },
+          process.env.AUTH_SECRET_KEY,
+          { expiresIn: "15m" }
+        );
+
+        const refreshToken = await jsonwebtoken.sign(
+          { userId: user.id },
+          process.env.AUTH_SECRET_KEY_REFRESH,
+          { expiresIn: "7d" }
+        );
+
+        // TODO
+        /* Add refresh token to db
+        const newToken = {
+          token: refreshToken,
+          userId: user.id
+        }; */
+
+        res.status(200).json({
+          userId: user.id,
+          token: accessToken,
+          refreshToken: refreshToken,
+        });
       }
-
-      const user = access.rows[0];
-
-      const accessToken = await jsonwebtoken.sign(
-        { userId: user.id },
-        process.env.AUTH_SECRET_KEY,
-        { expiresIn: "15m" }
-      );
-
-      const refreshToken = await jsonwebtoken.sign(
-        { userId: user.id },
-        process.env.AUTH_SECRET_KEY_REFRESH,
-        { expiresIn: "7d" }
-      );
-
-      // TODO
-      /* Add refresh token to db
-    const newToken = {
-      token: refreshToken,
-      userId: user.id
-    }; */
-
-      res.status(200).json({
-        userId: user.id,
-        token: accessToken,
-        refreshToken: refreshToken,
-      });
     }
   } catch (err) {
     res.status(400).json({

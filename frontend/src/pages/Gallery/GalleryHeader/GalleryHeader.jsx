@@ -39,7 +39,7 @@ export const GalleryHeader = observer(() => {
         ) : (
           <Fragment>
             <div className="galleryHeader__BigFont galleryHeader__favorite">
-              Hello {userStore.user.name},
+              Hello {userStore.name},
             </div>
             <div className="galleryHeader__SmallFont">
               What will inspire you today?

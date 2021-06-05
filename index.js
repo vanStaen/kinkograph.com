@@ -24,6 +24,7 @@ app.use((req, res, next) => {
 
 // Router to API endpoints
 app.use("/login", require("./api/login"));
+app.use("/user", require("./api/user"));
 app.use("/pictures", require("./api/pictures"));
 app.use("/tags", require("./api/tags"));
 
