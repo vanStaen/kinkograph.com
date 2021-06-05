@@ -17,7 +17,7 @@
 - [ ] Profil showing favorites
   - [x] Store Favorite in MobX
   - [x] Show Favorite count in header
-  - [ ] Store Favorite on DB
+  - [x] Store Favorite on DB
   - [ ] Show List of favorites 
 - [ ] Admin
   - [x] Upload Form

@@ -129,7 +129,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"pageNumber\": 1,\n    \"pageSize\": 100,\n    \"filter\": [\"Erotica\", \"Arty\"]\n}"
+					"raw": "{\n    \"pageNumber\": 1,\n    \"pageSize\": 100,\n    \"filter\": [\"Arty\"]\n}"
 				},
 				"url": {
 					"raw": "http://localhost:5009/pictures/page",
@@ -144,26 +144,6 @@
 					]
 				},
 				"description": "Post request : new user (format Json)\nTo localserver on port 5000"
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:5009/tags",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5009/tags",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5009",
-					"path": [
-						"tags"
-					]
-				},
-				"description": "GET request : list of all users\nTo localserver on port 5000\n"
 			},
 			"response": []
 		},
@@ -197,6 +177,57 @@
 			"response": []
 		},
 		{
+			"name": "localhost:5009/tags/filter",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"filter\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5009/tags/filter/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"tags",
+						"filter",
+						""
+					]
+				},
+				"description": "GET request : list of all users\nTo localserver on port 5000\n"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5009/tags",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5009/tags",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"tags"
+					]
+				},
+				"description": "GET request : list of all users\nTo localserver on port 5000\n"
+			},
+			"response": []
+		},
+		{
 			"name": "localhost:5009/pictures/tagsmissing/count/",
 			"request": {
 				"method": "GET",
@@ -212,6 +243,87 @@
 						"pictures",
 						"tagsmissingcount",
 						""
+					]
+				},
+				"description": "GET request : list of all users\nTo localserver on port 5000\n"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5009/login/code",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"code\": \"159753\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5009/login/code",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"login",
+						"code"
+					]
+				},
+				"description": "GET request : list of all users\nTo localserver on port 5000\n"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5009/user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5009/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"user"
+					]
+				},
+				"description": "GET request : list of all users\nTo localserver on port 5000\n"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5009/user/favorites",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"favorites\":  \"[134, 179]\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5009/user/favorites",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"user",
+						"favorites"
 					]
 				},
 				"description": "GET request : list of all users\nTo localserver on port 5000\n"

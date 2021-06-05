@@ -1,5 +1,6 @@
 import { action, makeObservable, observable } from "mobx";
 import { getUserInfo } from "./calls/getUserInfo";
+import { postUserFavorites } from "./calls/postUserFavorites";
 
 export class UserStore {
   favorites = [];
@@ -40,11 +41,13 @@ export class UserStore {
     if (index < 0) {
       this.favorites.push(id);
     }
+    postUserFavorites(this.favorites);
   };
 
   deleteFromFavorites = (id) => {
     const index = this.favorites.findIndex((pictureId) => pictureId === id);
     this.favorites.splice(index, 1);
+    postUserFavorites(this.favorites);
   };
 
   setIsGuest = (isGuest) => {
