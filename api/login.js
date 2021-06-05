@@ -81,7 +81,7 @@ router.post("/code", async (req, res) => {
   try {
     const code = req.body.code;
     if (code === process.env.ACCESS_CODE_GUEST) {
-      res.status(201).json({
+      res.status(200).json({
         userId: "guest",
         token: null,
         refreshToken: null,

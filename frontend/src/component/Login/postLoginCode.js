@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const postTag = async (code) => {
+export const postLoginCode = async (code) => {
 
     const requestBody = {
         "code": code,
@@ -20,5 +20,5 @@ export const postTag = async (code) => {
         }
     }
 
-    return response.data;
+    return response;
 };

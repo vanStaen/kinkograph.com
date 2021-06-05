@@ -3,6 +3,8 @@ import { action, makeObservable, observable } from "mobx";
 export class UserStore {
   user = { name: "there" };
   favorites = [];
+  isGuest = true;
+  hasAccess = false;
 
   constructor() {
     makeObservable(this, {
@@ -10,6 +12,10 @@ export class UserStore {
       favorites: observable,
       addToFavorite: action,
       deleteFromFavorite: action,
+      isGuest: observable,
+      setIsGuest: action,
+      hasAccess: observable,
+      setHasAccess: action,
     });
   }
 
@@ -23,6 +29,14 @@ export class UserStore {
   deleteFromFavorite = (id) => {
     const index = this.favorites.findIndex((pictureId) => pictureId === id);
     this.favorites.splice(index, 1);
+  };
+
+  setIsGuest = (isGuest) => {
+    this.isGuest = isGuest;
+  };
+
+  setHasAccess = (hasAccess) => {
+    this.hasAccess = hasAccess;
   };
 }
 

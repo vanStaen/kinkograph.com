@@ -1,17 +1,25 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { observer } from "mobx-react";
 
 import { PinInput } from "./component/PinInput/PinInput";
 import { Gallery } from "./pages/Gallery/Gallery";
 import { Uploader } from "./pages/Uploader/Uploader";
+import { userStore } from "./store/userStore";
+import { postLoginCode } from "./component/Login/postLoginCode";
 
 import "./App.css";
 
-const App = () => {
-  const [access, setAccess] = useState(false);
-  const login = (code) => {
-    if (code === "555666") {
-      setAccess(true);
+const App = observer(() => {
+  const login = async (code) => {
+    const res = await postLoginCode(code);
+    if (res.status === 200) {
+      if (res.data.userId === "guest") {
+        userStore.setIsGuest(true);
+      } else {
+        userStore.setIsGuest(false);
+      }
+      userStore.setHasAccess(true);
     }
   };
 
@@ -25,7 +33,7 @@ const App = () => {
             </Route>
             <Route path="/">
               <div className="App__flex">
-                {access ? (
+                {userStore.hasAccess ? (
                   <Gallery />
                 ) : (
                   <Fragment>
@@ -41,6 +49,6 @@ const App = () => {
       </div>
     </Router>
   );
-};
+});
 
 export default App;
