@@ -1,5 +1,5 @@
 import { action, makeObservable, observable } from "mobx";
-import { getUserInfo } from "../component/Login/getUserInfo";
+import { getUserInfo } from "./calls/getUserInfo";
 
 export class UserStore {
   favorites = [];

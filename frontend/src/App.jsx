@@ -6,7 +6,7 @@ import { PinInput } from "./component/PinInput/PinInput";
 import { Gallery } from "./pages/Gallery/Gallery";
 import { Uploader } from "./pages/Uploader/Uploader";
 import { userStore } from "./store/userStore";
-import { postLoginCode } from "./component/Login/postLoginCode";
+import { postLoginCode } from "./store/calls/postLoginCode";
 
 import "./App.css";
 
