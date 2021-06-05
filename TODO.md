@@ -4,10 +4,19 @@
 - [ ] Landing first page
   - [x] password input
   - [ ] Endpoint to verify code
+  - [ ] Login through user form
+- [ ] Auth Management 
+  - [ ] Middelware in Backend
+  - [ ] Storing Token As cookie
+  - [ ] Refresh Tokens -> Token
+  - [ ] Axios interceptor
+  - [ ] IsAuth on endpoints
+  - [ ] Logout function
+- [ ] Axios interceptor
 - [ ] Disclaimer/about from landing-page
 - [ ] Profil showing favorites
   - [x] Store Favorite in MobX
-  - [ ] Show Favorite count in header
+  - [x] Show Favorite count in header
   - [ ] Store Favorite on DB
   - [ ] Show List of favorites 
 - [ ] Admin
