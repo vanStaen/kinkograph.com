@@ -32,14 +32,14 @@ router.post("/", async (req, res) => {
       });
     }
     const password = req.body.password;
-    const user = await client.query(`SELECT id, pwd FROM users ${filter}`);
-    console.log(`SELECT id, pwd FROM users ${filter}`);
+    const result = await client.query(`SELECT id, pwd FROM users ${filter}`);
 
-    if (user.rows < 1) {
+    if (result.rows < 1) {
       return res.status(400).json({ error: `User does not exist!` });
     }
 
-    const isValid = await bcrypt.compare(password, user.rows[0].pwd);
+    const user = result.rows[0];
+    const isValid = await bcrypt.compare(password, user.pwd);
 
     if (!isValid) {
       return res.status(400).json({ error: `Password is incorrect!` });
@@ -95,6 +95,8 @@ router.post("/code", async (req, res) => {
           error: "User not found",
         });
       }
+
+      const user = access.rows[0];
 
       const accessToken = await jsonwebtoken.sign(
         { userId: user.id },
