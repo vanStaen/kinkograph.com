@@ -5,11 +5,11 @@ export class UserStore {
   favorites = [];
   isGuest = true;
   hasAccess = false;
-  userId = null;
   email = null;
   infos = null;
   name = "there";
   username = null;
+  isAdmin = false;
 
   constructor() {
     makeObservable(this, {
@@ -20,9 +20,7 @@ export class UserStore {
       isGuest: observable,
       setIsGuest: action,
       hasAccess: observable,
-      setHasAccess: action,
-      userId: observable,
-      setUserId: action,
+      setHasAccess: action,     
       fetchuserData: action,
       setEmail: action,
       email: observable,
@@ -32,6 +30,8 @@ export class UserStore {
       name: observable,
       setUsername: action,
       username: observable,
+      isAdmin: observable,
+      setIsAdmin: action,
     });
   }
 
@@ -55,10 +55,6 @@ export class UserStore {
     this.hasAccess = hasAccess;
   };
 
-  setUserId = (userId) => {
-    this.userId = userId;
-  };
-
   setEmail = (email) => {
     this.email = email;
   };
@@ -79,13 +75,22 @@ export class UserStore {
     this.favorites = favorites;
   };
 
+  setIsAdmin = (isAdmin) => {
+    this.isAdmin = isAdmin;
+  };
+
   fetchuserData = async () => {
     const userData = await getUserInfo();
     userStore.setEmail(userData.email);
-    if (userData.favorites) {userStore.setFavorites(userData.favorites)};
     userStore.setInfos(userData.infos);
     userStore.setName(userData.name);
     userStore.setUsername(userData.username);
+    if (userData.favorites) {
+      userStore.setFavorites(userData.favorites);
+    }
+    if (userData.is_admin) {
+      userStore.setIsAdmin(userData.is_admin);
+    }
   };
 }
 

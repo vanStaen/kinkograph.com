@@ -17,7 +17,6 @@ const App = observer(() => {
       if (res.data.userId === "guest") {
         userStore.setIsGuest(true);
       } else {
-        userStore.setUserId(res.data.userId);
         userStore.setIsGuest(false);
         userStore.fetchuserData();
       }
