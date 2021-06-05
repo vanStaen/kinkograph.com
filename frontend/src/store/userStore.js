@@ -86,7 +86,7 @@ export class UserStore {
     userStore.setName(userData.name);
     userStore.setUsername(userData.username);
     if (userData.favorites) {
-      userStore.setFavorites(userData.favorites);
+      userStore.setFavorites(JSON.parse(userData.favorites));
     }
     if (userData.is_admin) {
       userStore.setIsAdmin(userData.is_admin);

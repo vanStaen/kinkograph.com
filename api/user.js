@@ -30,4 +30,20 @@ router.get("/", async (req, res) => {
   }
 });
 
+
+// POST store Favorites
+router.post("/favorites", async (req, res) => {
+    try {
+      // TODO : get user filter from Auth middelware
+      const query = `UPDATE users SET favorites='${req.body.favorites}' WHERE id=1`
+      console.log(query);
+      const user = await client.query(query);
+      res.status(201).json({"message" : "Success! Favorites have been saved."});
+    } catch (err) {
+      res.status(400).json({
+        error: `${err})`,
+      });
+    }
+  });
+
 module.exports = router;
