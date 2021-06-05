@@ -1,20 +1,10 @@
 # Watchlist
 
 ## Backlog:
-
-- [ ] Pagination 
-  - [x] SQL Paggination
-  - [x] Pagination in Gallery
-  - [x] Pagination in Overlay
-  - [x] All stored in mobX
-  - [ ] Show Pagination in a header
 - [ ] Landing first page
   - [x] password input
   - [ ] Endpoint to verify code
 - [ ] Disclaimer/about from landing-page
-- [ ] Filtering
-  - [ ] Fitlering Shown in header
-  - [ ] Fitler link from overlay Accessible
 - [ ] Profil showing favorites
   - [x] Store Favorite in MobX
   - [ ] Show Favorite count in header
@@ -33,3 +23,12 @@
 - [x] Create Upload endpoint (to AWS S3)
 - [x] Create PostGresQL Database 
 - [x] Design Gallery + Overlay
+- [ ] - [x] Pagination 
+  - [x] SQL Paggination
+  - [x] Pagination in Gallery
+  - [x] Pagination in Overlay
+  - [x] All stored in mobX
+  - [x] Show Pagination in a header
+- [x] Filtering
+  - [x] Fitlering Shown in header
+  - [x] Fitler link from overlay Accessible

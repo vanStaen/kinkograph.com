@@ -19,17 +19,17 @@ export class PictureStore {
   PAGE_SIZE = 100;
 
   pageNumber = 1;
+  totalPictures = 0;
+  selected = null;
   lastPageReached = false;
   showOverlay = false;
-  allPictures = [];
-  selected = null;
-  totalPictures = 0;
-  filter = [];
   isGalleryLoading = true;
   galleryNeedsRefresh = true;
   showFilterSelect = false;
-  tags = [];
   isTagInputActive = false;
+  allPictures = [];
+  tags = [];
+  filter = [];
 
   constructor() {
     makeObservable(this, {

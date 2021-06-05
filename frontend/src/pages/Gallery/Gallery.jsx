@@ -51,13 +51,13 @@ export const Gallery = observer(() => {
             throttling.current = true;
             if (keyPressed === "arrowright" && !pictureStore.lastPageReached) {
               pictureStore.setShowFilterSelect(false);
-              pictureStore.nextPageHandler(true);
+              nextPageLocalHandler(true);
             } else if (
               keyPressed === "arrowleft" &&
               pictureStore.pageNumber > 1
             ) {
               pictureStore.setShowFilterSelect(false);
-              pictureStore.nextPageHandler(false);
+              nextPageLocalHandler(false);
             } else if (keyPressed === "arrowdown") {
               scroll("down");
             } else if (keyPressed === "arrowup") {
@@ -72,6 +72,15 @@ export const Gallery = observer(() => {
     },
     [scroll]
   );
+
+  const nextPageLocalHandler = async (value) => {
+    await pictureStore.nextPageHandler(value);
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
 
   useEffect(() => {
     document.addEventListener("keydown", keyDownHandler);
@@ -108,7 +117,7 @@ export const Gallery = observer(() => {
                 ) : (
                   <span
                     className="gallery__nextText"
-                    onClick={() => pictureStore.nextPageHandler(false)}
+                    onClick={() => nextPageLocalHandler(false)}
                   >
                     Previous
                   </span>
@@ -119,7 +128,7 @@ export const Gallery = observer(() => {
                 ) : (
                   <span
                     className="gallery__nextText"
-                    onClick={() => pictureStore.nextPageHandler(true)}
+                    onClick={() => nextPageLocalHandler(true)}
                   >
                     Next
                   </span>
