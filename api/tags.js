@@ -1,7 +1,7 @@
 const express = require("express");
-const AWS = require("aws-sdk");
 const router = express.Router();
 const { Client } = require("pg");
+const _ = require('lodash/core');
 
 // Init Postgres
 const client = new Client({
@@ -31,24 +31,33 @@ router.get("/", async (req, res) => {
 
 // POST return tags conresponding to a filter
 router.post("/filter/", async (req, res) => {
-  try {
+
+ try {
     let filters = "";
     const arrayFilter = req.body.filter;
     arrayFilter.forEach(
-        (filter) => (filters = filters + `AND tags LIKE '%"${filter}"%' `)
-      );
+      (filter) => (filters = filters + `AND tags LIKE '%"${filter}"%' `)
+    );
     const selectTagsQuery = `SELECT tags FROM pictures WHERE tags_missing=false ${filters} `;
     const tagsFilter = await client.query(selectTagsQuery);
     const allTagsFromFilter = [];
     tagsFilter.rows.forEach((row) => {
       const tags = JSON.parse(row.tags);
       tags.forEach((tag) => {
-        const findIndex = allTagsFromFilter.findIndex(e => e === tag);
-        const isInFilter = arrayFilter.findIndex(e => e === tag);
-        if (findIndex < 0 && isInFilter < 0) {allTagsFromFilter.push(tag)};
+        const findIndex = allTagsFromFilter.findIndex((e) => e.tag === tag);
+        const isInFilter = arrayFilter.findIndex((e) => e.tag === tag);
+        if (isInFilter < 0) {
+          if (findIndex < 0) {
+            allTagsFromFilter.push({ tag: tag, occur: 1 });
+          } else {
+            const increment = allTagsFromFilter[findIndex].occur + 1;
+            allTagsFromFilter[findIndex].occur = increment;
+          }
+        }
       });
     });
-    res.status(201).json(allTagsFromFilter.sort());
+    const allTagsFromFilterSorted = _.sortBy( allTagsFromFilter, 'tag' );;
+    res.status(201).json(allTagsFromFilterSorted);
   } catch (err) {
     res.status(400).json({
       error: `${err})`,
@@ -63,22 +72,18 @@ router.post("/", async (req, res) => {
       `SELECT * FROM tags WHERE tag_name='${req.body.tag_name}'`
     );
     if (checkIfTagsExist.rows.length > 0) {
-      res
-        .status(201)
-        .json({
-          value: "failed",
-          message: `${req.body.tag_name} was already in the table 'tags'`,
-        });
+      res.status(201).json({
+        value: "failed",
+        message: `${req.body.tag_name} was already in the table 'tags'`,
+      });
     } else {
       await client.query(
         `INSERT INTO public.tags(tag_name) VALUES ('${req.body.tag_name}');`
       );
-      res
-        .status(201)
-        .json({
-          value: "success",
-          message: `${req.body.tag_name} was added to the table 'tags'`,
-        });
+      res.status(201).json({
+        value: "success",
+        message: `${req.body.tag_name} was added to the table 'tags'`,
+      });
     }
   } catch (err) {
     res.status(400).json({

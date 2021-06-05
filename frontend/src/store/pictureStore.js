@@ -4,8 +4,8 @@ import {
   getPicturesPerPage,
   getTotalPictures,
 } from "../pages/Gallery/getPictures";
-import { getFilteredTags } from '../component/EditDrawer/getTags'
- 
+import { getFilteredTags } from "../component/EditDrawer/getTags";
+
 const loadImage = (image) => {
   return new Promise((resolve, reject) => {
     const loadImg = new Image();
@@ -58,6 +58,7 @@ export class PictureStore {
       fetchPictures: action,
       nextPageHandler: action,
       tags: observable,
+      setTags: action,
       isTagInputActive: observable,
       setIsTagInputActive: action,
     });
@@ -72,23 +73,24 @@ export class PictureStore {
       );
       const totalPictures = await getTotalPictures(this.filter);
       if (pictures.length < this.PAGE_SIZE) {
-        this.lastPageReached = true;
+        pictureStore.setLastPageReached(true);
       } else {
-        this.lastPageReached = false;
+        pictureStore.setLastPageReached(false);
       }
-      const tags = await getFilteredTags(this.filter)
+      const tags = await getFilteredTags(this.filter);
       await Promise.all(pictures.map((picture) => loadImage(picture)));
-      this.tags = tags;
+      pictureStore.setTags(tags);
+
       this.setAllPictures(pictures);
       this.setTotalPictures(totalPictures);
     } catch (err) {
       console.log(err);
     }
-    this.isGalleryLoading = false;
+    pictureStore.setIsGalleryLoading(false);
   };
 
   nextPageHandler = async (next) => {
-    this.isGalleryLoading = true;
+    pictureStore.setIsGalleryLoading(true);
     if (next) {
       const nextPage = this.pageNumber + 1;
       this.pageNumber = nextPage;
@@ -133,10 +135,7 @@ export class PictureStore {
   };
 
   setSelected = async (selected) => {
-    const index = await this.allPictures.findIndex(
-      (pic) => pic.id === selected.id
-    );
-    this.selected = index;
+    this.selected = selected;
   };
 
   setAllPictures = (allPictures) => {
@@ -156,7 +155,7 @@ export class PictureStore {
 
   setFilter = (filter) => {
     this.filter = filter;
-    this.setIsGalleryLoading(true);
+    pictureStore.setIsGalleryLoading(true);
     this.setPageNumber(1);
     pictureStore.fetchPictures();
   };
@@ -175,7 +174,11 @@ export class PictureStore {
 
   setIsTagInputActive = (isTagInputActive) => {
     this.isTagInputActive = isTagInputActive;
-  }
+  };
+
+  setTags = (tags) => {
+    this.tags = tags;
+  };
 }
 
 export const pictureStore = new PictureStore();

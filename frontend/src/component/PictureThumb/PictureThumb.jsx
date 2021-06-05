@@ -27,7 +27,10 @@ export const PictureThumb = observer((props) => {
 
   const clickHandler = () => {
     pictureStore.setShowOverlay(true);
-    pictureStore.setSelected(props.picture);
+    const index = pictureStore.allPictures.findIndex(
+      (pic) => pic.id === props.picture.id
+    );
+    pictureStore.setSelected(index);
   };
 
   return (

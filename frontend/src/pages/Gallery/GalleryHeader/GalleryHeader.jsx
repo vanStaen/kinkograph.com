@@ -64,11 +64,14 @@ export const GalleryHeader = observer(() => {
             defaultValue={pictureStore.filter}
             onChange={handleTagChange}
             className="galleryHeader__selectFilter"
+            optionLabelProp="label"
           >
             {pictureStore.tags.map((tag) => {
               return (
-                <Option key={capitalizeFirstLetter(tag)}>
-                  {capitalizeFirstLetter(tag)}
+                <Option value={tag.tag} label={tag.tag}>
+                  <div className="demo-option-label-item">
+                    {tag.tag} <span className="light">({tag.occur})</span>
+                  </div>
                 </Option>
               );
             })}
