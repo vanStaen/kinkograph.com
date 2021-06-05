@@ -1,10 +1,7 @@
 import { action, makeObservable, observable } from "mobx";
-
-import {
-  getPicturesPerPage,
-  getTotalPictures,
-} from "../pages/Gallery/getPictures";
 import { getFilteredTags } from "../component/EditDrawer/getTags";
+import { getPicturesPerPage, getTotalPictures} from "../pages/Gallery/getPictures";
+
 
 const loadImage = (image) => {
   return new Promise((resolve, reject) => {
