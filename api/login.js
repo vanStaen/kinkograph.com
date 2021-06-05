@@ -2,9 +2,24 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jsonwebtoken = require("jsonwebtoken");
+const { Client } = require("pg");
+
+// Init Postgres
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
+});
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; // This bypasses the SSL verification
+
+// Connect to Postgres
+client.connect((err) => {
+  if (err) {
+    console.error("connection error", err.stack);
+  }
+});
 
 // Check if login data sent are correct
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     let filter = "";
     if (req.body.email) {
@@ -17,7 +32,8 @@ router.get("/", async (req, res) => {
       });
     }
     const password = req.body.password;
-    const user = await client.query(`SELECT id, pwd FROM users`);
+    const user = await client.query(`SELECT id, pwd FROM users ${filter}`);
+    console.log(`SELECT id, pwd FROM users ${filter}`);
 
     if (user.rows < 1) {
       return res.status(400).json({ error: `User does not exist!` });
@@ -53,7 +69,6 @@ router.get("/", async (req, res) => {
       token: accessToken,
       refreshToken: refreshToken,
     });
-
   } catch (err) {
     res.status(400).json({
       error: `${err})`,
@@ -62,14 +77,18 @@ router.get("/", async (req, res) => {
 });
 
 // Check if code used for Login is correct
-router.get("/code", async (req, res) => {
+router.post("/code", async (req, res) => {
   try {
     const code = req.body.code;
-    if (code === process.env.ACCESS_CODE) {
-      res.status(201).json({ user: "Guest" });
+    if (code === process.env.ACCESS_CODE_GUEST) {
+      res.status(201).json({
+        userId: "guest",
+        token: null,
+        refreshToken: null,
+      });
     } else {
       const access = await client.query(
-        `SELECT * FROM users WHERE access_code=${code}`
+        `SELECT * FROM users WHERE access_code='${code}'`
       );
       if (access.rows < 1) {
         res.status(401).json({
@@ -102,7 +121,6 @@ router.get("/code", async (req, res) => {
         refreshToken: refreshToken,
       });
     }
-
   } catch (err) {
     res.status(400).json({
       error: `${err})`,
@@ -112,20 +130,20 @@ router.get("/code", async (req, res) => {
 
 // DEL Logout
 router.delete("/", async (req, res) => {
-    if (!req.body.refreshToken) {
-      return res.status(401).json({ error: `No refresh token was provided` });
-    }
-    const refreshToken = req.body.refreshToken;
-    
-    //TODO
-    /* const deleteToken = await Token.deleteOne({ token: refreshToken });
+  if (!req.body.refreshToken) {
+    return res.status(401).json({ error: `No refresh token was provided` });
+  }
+  const refreshToken = req.body.refreshToken;
+
+  //TODO
+  /* const deleteToken = await Token.deleteOne({ token: refreshToken });
   
     if (deleteToken.deletedCount === 0) {
       return res.status(401).json({ error: `Refresh token not found in db!` });
     }*/
-  
-    // Html resp code 204 return no content
-    res.status(204).json();
-  });
+
+  // Html resp code 204 return no content
+  res.status(204).json();
+});
 
 module.exports = router;
