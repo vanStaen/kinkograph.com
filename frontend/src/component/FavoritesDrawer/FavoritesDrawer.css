@@ -1,0 +1,90 @@
+.FavoritesDrawer__Title {
+    font-weight: 200;
+    opacity: .75;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.FavoritesDrawer__font {
+    font-weight: 200;
+    opacity: .5;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.FavoritesDrawer_picture {
+    display: block;
+    width: auto;
+    height: auto;
+}
+
+.FavoritesDrawer__button {
+    margin-top: 11px;
+    position: relative;
+    border-radius: 2px;
+    font-weight: 200;
+    opacity: .75;
+    letter-spacing: 2px;
+    padding: 0px 11px;
+    line-height: 30px;
+    color: #fff;
+    background: rgba(255, 255, 255, .25);
+    border: 1px solid rgba(255, 255, 255, .5);
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+}
+
+.FavoritesDrawer__button:hover {
+    color: #000;
+    background: rgba(255, 255, 255, .5);
+    border: 1px solid rgba(0, 0, 0, .75);
+}
+
+.FavoritesDrawer__buttonDisabled {
+    margin-top: 11px;
+    position: relative;
+    border-radius: 2px;
+    font-weight: 200;
+    opacity: .75;
+    letter-spacing: 2px;
+    padding: 0px 11px;
+    line-height: 30px;
+    color: rgba(255, 255, 255, .15);
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(255, 255, 255, .05);
+    cursor: not-allowed;
+    width: 100%;
+    text-align: center;
+}
+
+.FavoritesDrawer__buttonConfirmAction {
+    margin-top: 11px;
+    position: relative;
+    border-radius: 2px;
+    font-weight: 200;
+    opacity: .75;
+    letter-spacing: 2px;
+    padding: 0px 11px;
+    line-height: 30px;
+    color: #fff;
+    background: rgba(255, 0, 0, 0.5);
+    border: 1px solid rgb(80, 0, 0);
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+}
+
+.FavoritesDrawer__buttonConfirmAction:hover {
+    background: rgba(255, 0, 0, 0.85);
+    border: 1px solid rgba(255, 255, 255, .75);
+    font-weight: 500;
+}
+
+.FavoritesDrawer__buttonContainer {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    padding: 0 24px 24px 24px;
+    width: 100%;
+}

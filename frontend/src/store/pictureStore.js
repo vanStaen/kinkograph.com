@@ -20,6 +20,7 @@ export class PictureStore {
   selected = null;
   lastPageReached = false;
   showOverlay = false;
+  showFavorites = false;
   isGalleryLoading = true;
   galleryNeedsRefresh = true;
   showFilterSelect = false;
@@ -58,6 +59,8 @@ export class PictureStore {
       setTags: action,
       isTagInputActive: observable,
       setIsTagInputActive: action,
+      showFavorites: observable,
+      setShowFavorites: action,
     });
   }
 
@@ -176,6 +179,11 @@ export class PictureStore {
   setTags = (tags) => {
     this.tags = tags;
   };
+
+  setShowFavorites = (showFavorites) => {
+    this.showFavorites = showFavorites;
+  };
+
 }
 
 export const pictureStore = new PictureStore();

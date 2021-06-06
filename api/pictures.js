@@ -183,13 +183,14 @@ router.post("/page/", async (req, res) => {
     const pageNumber = req.body.pageNumber;
     const pageSize = req.body.pageSize;
     const offSet = pageSize * (pageNumber - 1);
-    let filters = '';
+    let filters = "";
     if (req.body.filter) {
       const array = req.body.filter;
-      array.forEach(filter => filters = filters + `AND tags LIKE '%"${filter}"%' `);
+      array.forEach(
+        (filter) => (filters = filters + `AND tags LIKE '%"${filter}"%' `)
+      );
     }
-    const selectQuery = 
-    `SELECT * FROM pictures WHERE tags_missing=false ${filters} 
+    const selectQuery = `SELECT * FROM pictures WHERE tags_missing=false ${filters} 
     ORDER BY id ASC OFFSET ${offSet} ROWS FETCH NEXT ${pageSize} ROWS ONLY`;
     const pictures = await client.query(selectQuery);
     res.status(201).json(pictures.rows);
@@ -203,10 +204,12 @@ router.post("/page/", async (req, res) => {
 // POST: Get Total of pictures, with filter
 router.post("/total/", async (req, res) => {
   try {
-    let filters = '';
+    let filters = "";
     if (req.body.filter) {
       const array = req.body.filter;
-      array.forEach(filter => filters = filters + `AND tags LIKE '%"${filter}"%' `);
+      array.forEach(
+        (filter) => (filters = filters + `AND tags LIKE '%"${filter}"%' `)
+      );
     }
     const countTotalQuery = `SELECT COUNT(id) FROM pictures WHERE tags_missing=false ${filters};`;
     const totalPictures = await client.query(countTotalQuery);
@@ -273,14 +276,15 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-
 // POST: Get of favorites pictures
 router.post("/favorites/", async (req, res) => {
   try {
     let favFilter = "WHERE ";
     const fav = req.body.favorites;
-    fav.forEach((e) => {favFilter = favFilter + `id=${e} OR `})
-    const favFilterCleaned = favFilter.slice(0, -4) // delete the last " OR "
+    fav.forEach((e) => {
+      favFilter = favFilter + `id=${e} OR `;
+    });
+    const favFilterCleaned = favFilter.slice(0, -4); // delete the last " OR "
     const getFavQuery = `SELECT * FROM pictures ${favFilterCleaned};`;
     const favPictures = await client.query(getFavQuery);
     res.status(201).json(favPictures.rows);

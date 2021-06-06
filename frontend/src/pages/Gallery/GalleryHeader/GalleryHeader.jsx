@@ -23,12 +23,19 @@ export const GalleryHeader = observer(() => {
     pictureStore.setShowFilterSelect(true);
   };
 
+  const handleClickShowFavoritesDrawer = () => {
+    pictureStore.setShowFavorites(true);
+  };
+
   return (
     <div className="galleryHeader__main">
       <div className="galleryHeader__left">
         {userStore.favorites.length ? (
           <Fragment>
-            <div className="galleryHeader__BigFont galleryHeader__favorite">
+            <div
+              className="galleryHeader__BigFont galleryHeader__favorite"
+              onClick={handleClickShowFavoritesDrawer}
+            >
               {userStore.favorites.length} picture
               {userStore.favorites.length > 1 && "s"}
             </div>

@@ -8,6 +8,7 @@ import { GalleryOverlay } from "../../component/GalleryOverlay/GalleryOverlay";
 import { GalleryHeader } from "./GalleryHeader/GalleryHeader";
 
 import "./Gallery.css";
+import { FavoritesDrawer } from "../../component/FavoritesDrawer/FavoritesDrawer";
 
 export const Gallery = observer(() => {
   const throttling = useRef(false);
@@ -92,6 +93,7 @@ export const Gallery = observer(() => {
   return (
     <div className="gallery">
       <GalleryHeader />
+      <FavoritesDrawer />
       {pictureStore.isGalleryLoading ? (
         <div className="App__flex">
           <LoadingOutlined className="Gallery__spinner" />

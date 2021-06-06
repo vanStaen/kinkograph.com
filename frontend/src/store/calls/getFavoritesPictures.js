@@ -20,6 +20,6 @@ export const getFavoritesPictures = async (favorites) => {
     }
   }
 
-  return response.data[0].count;
+  return response.data;
   
 };
