@@ -129,7 +129,7 @@ router.post("/code", async (req, res) => {
 router.delete("/", async (req, res) => {
 
   //TODO id
-  const deleteTokensQuery = `DELETE FROM public.token WHERE user_id=1;`;
+  const deleteTokensQuery = `DELETE FROM public.token WHERE user_id=${req.userId}`;
   await client.query(deleteTokensQuery);
     
   // Html resp code 204 return no content

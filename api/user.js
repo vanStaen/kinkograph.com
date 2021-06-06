@@ -19,9 +19,17 @@ client.connect((err) => {
 
 // GET all tags
 router.get("/", async (req, res) => {
+
+  if (!req.isAuth) {
+    res.status(401).json({
+      error: "Unauthorized",
+    });
+    return;
+  }
+
   try {
     // TODO : get user filter from Auth middelware
-    const user = await client.query(`SELECT * FROM users WHERE id=1`);
+    const user = await client.query(`SELECT * FROM users WHERE id=${req.userId}`);
     res.status(201).json(user.rows);
   } catch (err) {
     res.status(400).json({
@@ -33,9 +41,17 @@ router.get("/", async (req, res) => {
 
 // POST store Favorites
 router.post("/favorites", async (req, res) => {
+
+  if (!req.isAuth) {
+    res.status(401).json({
+      error: "Unauthorized",
+    });
+    return;
+  }
+
     try {
       // TODO : get user filter from Auth middelware
-      const query = `UPDATE users SET favorites='${req.body.favorites}' WHERE id=1`
+      const query = `UPDATE users SET favorites='${req.body.favorites}' WHERE id=${req.userId}`
       console.log(query);
       const user = await client.query(query);
       res.status(201).json({"message" : "Success! Favorites have been saved."});

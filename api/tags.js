@@ -19,6 +19,14 @@ client.connect((err) => {
 
 // GET all tags
 router.get("/", async (req, res) => {
+
+  if (!req.isAuth) {
+    res.status(401).json({
+      error: "Unauthorized",
+    });
+    return;
+  }
+  
   try {
     const tags = await client.query(`SELECT * FROM tags ORDER BY tag_name ASC`);
     res.status(201).json(tags.rows);
@@ -31,6 +39,13 @@ router.get("/", async (req, res) => {
 
 // POST return tags conresponding to a filter
 router.post("/filter/", async (req, res) => {
+
+  if (!req.isAuth) {
+    res.status(401).json({
+      error: "Unauthorized",
+    });
+    return;
+  }
 
  try {
     let filters = "";
@@ -67,6 +82,14 @@ router.post("/filter/", async (req, res) => {
 
 // POST new tag in DB
 router.post("/", async (req, res) => {
+
+  if (!req.isAuth) {
+    res.status(401).json({
+      error: "Unauthorized",
+    });
+    return;
+  }
+
   try {
     const checkIfTagsExist = await client.query(
       `SELECT * FROM tags WHERE tag_name='${req.body.tag_name}'`
