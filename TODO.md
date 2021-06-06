@@ -3,22 +3,16 @@
 ## Backlog:
 - [ ] Landing first page
   - [x] password input
-  - [ ] Endpoint to verify code
+  - [x] Endpoint to verify code
   - [ ] Login through user form
 - [ ] Auth Management 
-  - [ ] Middelware in Backend
-  - [ ] Storing Token As cookie
-  - [ ] Refresh Tokens -> Token
-  - [ ] Axios interceptor
-  - [ ] IsAuth on endpoints
+  - [x] Middelware in Backend
+  - [x] Storing Token As cookie
+  - [ ] Refresh Token -> Token
+  - [x] Axios interceptor
+  - [x] IsAuth on endpoints
   - [ ] Logout function
-- [ ] Axios interceptor
 - [ ] Disclaimer/about from landing-page
-- [ ] Profil showing favorites
-  - [x] Store Favorite in MobX
-  - [x] Show Favorite count in header
-  - [x] Store Favorite on DB
-  - [ ] Show List of favorites 
 - [ ] Admin
   - [x] Upload Form
   - [x] Tagging interface
@@ -41,3 +35,8 @@
 - [x] Filtering
   - [x] Fitlering Shown in header
   - [x] Fitler link from overlay Accessible
+- [x] Profil showing favorites
+  - [x] Store Favorite in MobX
+  - [x] Show Favorite count in header
+  - [x] Store Favorite on DB
+  - [x] Show List of favorites 

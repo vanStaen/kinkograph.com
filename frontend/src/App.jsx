@@ -7,6 +7,7 @@ import { Uploader } from "./pages/Uploader/Uploader";
 import { authStore } from "./store/authStore";
 import { Login } from "./component/Login/Login";
 
+import "./helpers/axiosInterceptor";
 import "./App.css";
 
 const App = observer(() => {

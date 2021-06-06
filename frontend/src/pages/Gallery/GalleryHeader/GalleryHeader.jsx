@@ -46,9 +46,19 @@ export const GalleryHeader = observer(() => {
           </Fragment>
         ) : (
           <Fragment>
-            <div className="galleryHeader__BigFont galleryHeader__favorite">
-              Hello {userStore.name},
-            </div>
+            <Tooltip
+              placement="bottomLeft"
+              title={
+                <span>
+                  <b>TIP: </b>Mark some pictures as your favorites: Then we will
+                  both have a close look at how use those for us.
+                </span>
+              }
+            >
+              <div className="galleryHeader__BigFont galleryHeader__favorite">
+                Hello {userStore.name},
+              </div>
+            </Tooltip>
             <div className="galleryHeader__SmallFont">
               What will inspire you today?
             </div>

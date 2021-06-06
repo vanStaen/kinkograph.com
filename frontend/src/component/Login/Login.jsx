@@ -8,7 +8,6 @@ import { PinInput } from "../PinInput/PinInput";
 export const Login = () => {
   const checkLogin = async (code) => {
     const res = await postLoginCode(code);
-    console.log(res.data);
     if (res.status === 200) {
       if (res.data.userId === "guest") {
         authStore.setIsGuest(true);
