@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Client } = require("pg");
-const _ = require('lodash/core');
+const _ = require("lodash/core");
 
 // Init Postgres
 const client = new Client({
@@ -19,14 +19,12 @@ client.connect((err) => {
 
 // GET all tags
 router.get("/", async (req, res) => {
-
   if (!req.isAuth) {
     res.status(401).json({
       error: "Unauthorized",
     });
     return;
   }
-  
   try {
     const tags = await client.query(`SELECT * FROM tags ORDER BY tag_name ASC`);
     res.status(201).json(tags.rows);
@@ -39,15 +37,7 @@ router.get("/", async (req, res) => {
 
 // POST return tags conresponding to a filter
 router.post("/filter/", async (req, res) => {
-
-  if (!req.isAuth) {
-    res.status(401).json({
-      error: "Unauthorized",
-    });
-    return;
-  }
-
- try {
+  try {
     let filters = "";
     const arrayFilter = req.body.filter;
     arrayFilter.forEach(
@@ -71,7 +61,7 @@ router.post("/filter/", async (req, res) => {
         }
       });
     });
-    const allTagsFromFilterSorted = _.sortBy( allTagsFromFilter, 'tag' );;
+    const allTagsFromFilterSorted = _.sortBy(allTagsFromFilter, "tag");
     res.status(201).json(allTagsFromFilterSorted);
   } catch (err) {
     res.status(400).json({
@@ -82,14 +72,12 @@ router.post("/filter/", async (req, res) => {
 
 // POST new tag in DB
 router.post("/", async (req, res) => {
-
   if (!req.isAuth) {
     res.status(401).json({
       error: "Unauthorized",
     });
     return;
   }
-
   try {
     const checkIfTagsExist = await client.query(
       `SELECT * FROM tags WHERE tag_name='${req.body.tag_name}'`
