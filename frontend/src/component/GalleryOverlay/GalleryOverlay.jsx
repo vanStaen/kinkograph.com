@@ -63,28 +63,30 @@ export const GalleryOverlay = observer(() => {
 
   const doubleClickHandler = useCallback(
     (id) => {
-      const heart = document.getElementById(`heart`);
-      const unheart = document.getElementById(`unheart`);
-      if (!isFavorite) {
-        heart.style.visibility = "visible";
-        heart.style.opacity = 0.5;
-        heart.style.fontSize = "50em";
-        setTimeout(() => {
-          heart.style.visibility = "hidden";
-          heart.style.opacity = 0;
-          heart.style.fontSize = "1em";
-        }, 500);
-        userStore.addToFavorites(id);
-      } else {
-        unheart.style.visibility = "visible";
-        unheart.style.opacity = 0.5;
-        unheart.style.fontSize = "30em";
-        setTimeout(() => {
-          unheart.style.visibility = "hidden";
-          unheart.style.opacity = 0;
-          unheart.style.fontSize = "1em";
-        }, 500);
-        userStore.deleteFromFavorites(id);
+      if (!userStore.isGuest) {
+        const heart = document.getElementById(`heart`);
+        const unheart = document.getElementById(`unheart`);
+        if (!isFavorite) {
+          heart.style.visibility = "visible";
+          heart.style.opacity = 0.5;
+          heart.style.fontSize = "50em";
+          setTimeout(() => {
+            heart.style.visibility = "hidden";
+            heart.style.opacity = 0;
+            heart.style.fontSize = "1em";
+          }, 500);
+          userStore.addToFavorites(id);
+        } else {
+          unheart.style.visibility = "visible";
+          unheart.style.opacity = 0.5;
+          unheart.style.fontSize = "30em";
+          setTimeout(() => {
+            unheart.style.visibility = "hidden";
+            unheart.style.opacity = 0;
+            unheart.style.fontSize = "1em";
+          }, 500);
+          userStore.deleteFromFavorites(id);
+        }
       }
     },
     [isFavorite]
@@ -204,23 +206,26 @@ export const GalleryOverlay = observer(() => {
         >
           <div className="overlay__infoAction">
             {selected && <div className="overlay__info">#{selected.id}</div>}
+
             <div className="overlay__action">
-              {isFavorite ? (
-                <Fragment>
-                  <span
-                    role="img"
-                    aria-label="heart"
-                    style={{ fontSize: ".75em" }}
-                  >
-                    ❤️
-                  </span>{" "}
-                  Marked as favorite!
-                </Fragment>
-              ) : (
-                "Doubleclick/Enter to mark as favorite."
-              )}
+              {!userStore.isGuest &&
+                (isFavorite ? (
+                  <Fragment>
+                    <span
+                      role="img"
+                      aria-label="heart"
+                      style={{ fontSize: ".75em" }}
+                    >
+                      ❤️
+                    </span>{" "}
+                    Marked as favorite!
+                  </Fragment>
+                ) : (
+                  "Doubleclick/Enter to mark as favorite."
+                ))}
             </div>
           </div>
+
           <div className="overlay__pictureHover">
             <div className="overlay__pictureWatermark">KINKOGRAPH</div>
             <HeartFilled id="heart" className="overlay__heart" />
