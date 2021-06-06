@@ -12,6 +12,8 @@ import { FavoritesDrawer } from "../../component/FavoritesDrawer/FavoritesDrawer
 
 export const Gallery = observer(() => {
   const throttling = useRef(false);
+  const onlyOnePage =
+    pictureStore.pageNumber === 1 && pictureStore.lastPageReached;
 
   useEffect(() => {
     if (pictureStore.galleryNeedsRefresh) {
@@ -112,31 +114,33 @@ export const Gallery = observer(() => {
                 );
               })}
             </div>
-            <div className="gallery__next">
-              <div className="gallery__nextTextContainer">
-                {pictureStore.pageNumber === 1 ? (
-                  "Previous"
-                ) : (
-                  <span
-                    className="gallery__nextText"
-                    onClick={() => nextPageLocalHandler(false)}
-                  >
-                    Previous
-                  </span>
-                )}
-                {" | "}
-                {pictureStore.lastPageReached ? (
-                  "Next"
-                ) : (
-                  <span
-                    className="gallery__nextText"
-                    onClick={() => nextPageLocalHandler(true)}
-                  >
-                    Next
-                  </span>
-                )}
+            {!onlyOnePage && (
+              <div className="gallery__next">
+                <div className="gallery__nextTextContainer">
+                  {pictureStore.pageNumber === 1 ? (
+                    "Previous"
+                  ) : (
+                    <span
+                      className="gallery__nextText"
+                      onClick={() => nextPageLocalHandler(false)}
+                    >
+                      Previous
+                    </span>
+                  )}
+                  {" | "}
+                  {pictureStore.lastPageReached ? (
+                    "Next"
+                  ) : (
+                    <span
+                      className="gallery__nextText"
+                      onClick={() => nextPageLocalHandler(true)}
+                    >
+                      Next
+                    </span>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </Fragment>
       )}
