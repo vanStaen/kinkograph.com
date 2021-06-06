@@ -273,4 +273,22 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
+
+// POST: Get of favorites pictures
+router.post("/favorites/", async (req, res) => {
+  try {
+    let favFilter = "WHERE ";
+    const fav = req.body.favorites;
+    fav.forEach((e) => {favFilter = favFilter + `id=${e} OR `})
+    const favFilterCleaned = favFilter.slice(0, -4) // delete the last " OR "
+    const getFavQuery = `SELECT * FROM pictures ${favFilterCleaned};`;
+    const favPictures = await client.query(getFavQuery);
+    res.status(201).json(favPictures.rows);
+  } catch (err) {
+    res.status(400).json({
+      error: `${err})`,
+    });
+  }
+});
+
 module.exports = router;
