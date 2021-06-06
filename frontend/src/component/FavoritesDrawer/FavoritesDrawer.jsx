@@ -13,7 +13,12 @@ export const FavoritesDrawer = observer(() => {
 
   return (
     <Drawer
-      title={<span className="FavoritesDrawer__Title">Your Favorites</span>}
+      title={
+        <span className="FavoritesDrawer__Title">
+          Your {favoriteStore.favoritesId.length} favorite
+          {favoriteStore.favoritesId.length > 1 && "s"}
+        </span>
+      }
       placement="left"
       closable={true}
       onClose={() => hideDrawer(false)}
@@ -27,16 +32,15 @@ export const FavoritesDrawer = observer(() => {
         <div>
           {favoriteStore.favoriteObject.map((e) => {
             return (
-              <img
-                className="FavoritesDrawer_picture"
-                src={e.url_med}
-                alt={e.id}
-                key={e.id}
-                style={{
-                  maxWidth: "100%",
-                  maxHeight: window.innerHeight / 2.5,
-                }}
-              />
+              <div className="FavoritesDrawer__pictureContainer">
+                #{e.id}
+                <img
+                  className="FavoritesDrawer__picture"
+                  src={e.url_med}
+                  alt={e.id}
+                  key={e.id}
+                />
+              </div>
             );
           })}
         </div>
