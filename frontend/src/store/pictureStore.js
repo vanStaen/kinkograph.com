@@ -1,6 +1,6 @@
 import { action, makeObservable, observable } from "mobx";
-import { getFilteredTags } from "../component/EditDrawer/getTags";
-import { getPicturesPerPage, getTotalPictures} from "../pages/Gallery/getPictures";
+import { getFilteredTags } from "./calls/getTags";
+import { getPicturesPerPage, getTotalPictures} from "./calls/getPictures";
 
 
 const loadImage = (image) => {

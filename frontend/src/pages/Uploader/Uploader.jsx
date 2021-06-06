@@ -7,9 +7,12 @@ import {
 import { notification } from "antd";
 
 import { EditPictures } from "./EditPictures/EditPictures";
-import { postPicture } from "./postPicture";
-import { getDuplicate } from "./getDuplicate";
-import { getTagsMissing, getTagsMissingCountAll } from "./getTagsMissing";
+import { postPicture } from "../../store/calls/postPicture";
+import { getDuplicate } from "../../store/calls/getDuplicate";
+import {
+  getTagsMissing,
+  getTagsMissingCountAll,
+} from "../../store/calls/getTagsMissing";
 
 import "./Uploader.css";
 

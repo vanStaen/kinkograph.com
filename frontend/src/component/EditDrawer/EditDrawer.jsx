@@ -7,10 +7,10 @@ import {
 } from "@ant-design/icons";
 
 import { capitalizeFirstLetter } from "../../helpers/capitalizeFirstLetter";
-import { getTags } from "./getTags";
-import { postTag } from "./postTag";
-import { patchPicture } from "./patchPicture";
-import { deletePicture } from "./deletePicture";
+import { getTags } from "../../store/calls/getTags";
+import { postTag } from "../../store/calls/postTag";
+import { patchPicture } from "../../store/calls/patchPicture";
+import { deletePicture } from "../../store/calls/deletePicture";
 
 import "./EditDrawer.css";
 
