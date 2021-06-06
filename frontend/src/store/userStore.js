@@ -1,9 +1,9 @@
 import { action, makeObservable, observable } from "mobx";
+
 import { getUserInfo } from "./calls/getUserInfo";
-import { postUserFavorites } from "./calls/postUserFavorites";
+import { favoriteStore } from "./favoriteStore";
 
 export class UserStore {
-  favorites = [];
   isGuest = true;
   hasAccess = false;
   email = null;
@@ -14,14 +14,10 @@ export class UserStore {
 
   constructor() {
     makeObservable(this, {
-      favorites: observable,
-      addToFavorites: action,
-      setFavorites: action,
-      deleteFromFavorites: action,
       isGuest: observable,
       setIsGuest: action,
       hasAccess: observable,
-      setHasAccess: action,     
+      setHasAccess: action,
       fetchuserData: action,
       setEmail: action,
       email: observable,
@@ -35,20 +31,6 @@ export class UserStore {
       setIsAdmin: action,
     });
   }
-
-  addToFavorites = (id) => {
-    const index = this.favorites.findIndex((pictureId) => pictureId === id);
-    if (index < 0) {
-      this.favorites.push(id);
-    }
-    postUserFavorites(this.favorites);
-  };
-
-  deleteFromFavorites = (id) => {
-    const index = this.favorites.findIndex((pictureId) => pictureId === id);
-    this.favorites.splice(index, 1);
-    postUserFavorites(this.favorites);
-  };
 
   setIsGuest = (isGuest) => {
     this.isGuest = isGuest;
@@ -74,10 +56,6 @@ export class UserStore {
     this.username = username;
   };
 
-  setFavorites = (favorites) => {
-    this.favorites = favorites;
-  };
-
   setIsAdmin = (isAdmin) => {
     this.isAdmin = isAdmin;
   };
@@ -89,7 +67,7 @@ export class UserStore {
     userStore.setName(userData.name);
     userStore.setUsername(userData.username);
     if (userData.favorites) {
-      userStore.setFavorites(JSON.parse(userData.favorites));
+      favoriteStore.setFavoritesId(JSON.parse(userData.favorites));
     }
     if (userData.is_admin) {
       userStore.setIsAdmin(userData.is_admin);

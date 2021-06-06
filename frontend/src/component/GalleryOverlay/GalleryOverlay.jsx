@@ -17,6 +17,7 @@ import { Tooltip } from "antd";
 
 import { pictureStore } from "../../store/pictureStore";
 import { userStore } from "../../store/userStore";
+import { favoriteStore } from "../../store/favoriteStore";
 
 import "./GalleryOverlay.css";
 
@@ -24,7 +25,7 @@ export const GalleryOverlay = observer(() => {
   const [isLoading, setIsLoading] = useState(true);
   const throttling = useRef(false);
   const selected = pictureStore.allPictures[pictureStore.selected];
-  const indexInSelected = userStore.favorites.findIndex(
+  const indexInSelected = favoriteStore.favoritesId.findIndex(
     (pictureId) => pictureId === selected.id
   );
   const isFavorite = indexInSelected >= 0;
@@ -75,7 +76,7 @@ export const GalleryOverlay = observer(() => {
             heart.style.opacity = 0;
             heart.style.fontSize = "1em";
           }, 500);
-          userStore.addToFavorites(id);
+          favoriteStore.addToFavoritesId(id);
         } else {
           unheart.style.visibility = "visible";
           unheart.style.opacity = 0.5;
@@ -85,7 +86,7 @@ export const GalleryOverlay = observer(() => {
             unheart.style.opacity = 0;
             unheart.style.fontSize = "1em";
           }, 500);
-          userStore.deleteFromFavorites(id);
+          favoriteStore.deleteFromFavoritesId(id);
         }
       }
     },

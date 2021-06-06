@@ -4,6 +4,7 @@ import { Select, Tooltip } from "antd";
 
 import { pictureStore } from "../../../store/pictureStore";
 import { userStore } from "../../../store/userStore";
+import { favoriteStore } from "../../../store/favoriteStore";
 import { capitalizeFirstLetter } from "../../../helpers/capitalizeFirstLetter";
 
 import "./GalleryHeader.css";
@@ -24,23 +25,23 @@ export const GalleryHeader = observer(() => {
   };
 
   const handleClickShowFavoritesDrawer = () => {
-    pictureStore.setShowFavorites(true);
+    favoriteStore.setShowFavorites(true);
   };
 
   return (
     <div className="galleryHeader__main">
       <div className="galleryHeader__left">
-        {userStore.favorites.length ? (
+        {favoriteStore.favoritesId.length ? (
           <Fragment>
             <div
               className="galleryHeader__BigFont galleryHeader__favorite"
               onClick={handleClickShowFavoritesDrawer}
             >
-              {userStore.favorites.length} picture
-              {userStore.favorites.length > 1 && "s"}
+              {favoriteStore.favoritesId.length} picture
+              {favoriteStore.favoritesId.length > 1 && "s"}
             </div>
             <div className="galleryHeader__SmallFont">
-              marked as favorite{userStore.favorites.length > 1 && "s"}
+              marked as favorite{favoriteStore.favoritesId.length > 1 && "s"}
             </div>
           </Fragment>
         ) : (

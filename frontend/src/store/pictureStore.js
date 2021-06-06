@@ -1,7 +1,7 @@
 import { action, makeObservable, observable } from "mobx";
-import { getFilteredTags } from "./calls/getTags";
-import { getPicturesPerPage, getTotalPictures} from "./calls/getPictures";
 
+import { getFilteredTags } from "./calls/getTags";
+import { getPicturesPerPage, getTotalPictures } from "./calls/getPictures";
 
 const loadImage = (image) => {
   return new Promise((resolve, reject) => {
@@ -20,7 +20,6 @@ export class PictureStore {
   selected = null;
   lastPageReached = false;
   showOverlay = false;
-  showFavorites = false;
   isGalleryLoading = true;
   galleryNeedsRefresh = true;
   showFilterSelect = false;
@@ -59,8 +58,6 @@ export class PictureStore {
       setTags: action,
       isTagInputActive: observable,
       setIsTagInputActive: action,
-      showFavorites: observable,
-      setShowFavorites: action,
     });
   }
 
@@ -178,10 +175,6 @@ export class PictureStore {
 
   setTags = (tags) => {
     this.tags = tags;
-  };
-
-  setShowFavorites = (showFavorites) => {
-    this.showFavorites = showFavorites;
   };
 
 }

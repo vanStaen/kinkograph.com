@@ -3,11 +3,12 @@ import { FullscreenOutlined } from "@ant-design/icons";
 import { observer } from "mobx-react";
 
 import { pictureStore } from "../../store/pictureStore";
-import { userStore } from "../../store/userStore";
+import { favoriteStore } from "../../store/favoriteStore";
+
 import "./PictureThumb.css";
 
 export const PictureThumb = observer((props) => {
-  const isFavorite = userStore.favorites.findIndex(
+  const isFavorite = favoriteStore.favoritesId.findIndex(
     (id) => id === props.picture.id
   );
 
