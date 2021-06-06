@@ -114,6 +114,40 @@
 			"response": []
 		},
 		{
+			"name": "localhost:5009/pictures/favorites",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n    \"favorites\": [\"2\", \"251\"]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5009/pictures/favorites",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"pictures",
+						"favorites"
+					]
+				},
+				"description": "Post request : new user (format Json)\nTo localserver on port 5000"
+			},
+			"response": []
+		},
+		{
 			"name": "localhost:5009/pictures/page",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {}
@@ -250,7 +284,37 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5009/login/code",
+			"name": "localhost:5009/login/",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5009/login/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"login",
+						""
+					]
+				},
+				"description": "GET request : list of all users\nTo localserver on port 5000\n"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5009/login/code Copy",
 			"request": {
 				"method": "POST",
 				"header": [],

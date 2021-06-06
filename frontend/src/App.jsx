@@ -4,7 +4,7 @@ import { observer } from "mobx-react";
 
 import { Gallery } from "./pages/Gallery/Gallery";
 import { Uploader } from "./pages/Uploader/Uploader";
-import { userStore } from "./store/userStore";
+import { authStore } from "./store/authStore";
 import { Login } from "./component/Login/Login";
 
 import "./App.css";
@@ -20,7 +20,7 @@ const App = observer(() => {
             </Route>
             <Route path="/">
               <div className="App__flex">
-                {userStore.hasAccess ? (
+                {authStore.hasAccess ? (
                   <Gallery />
                 ) : (
                   <Fragment>

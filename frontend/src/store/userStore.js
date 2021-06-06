@@ -4,8 +4,6 @@ import { getUserInfo } from "./calls/getUserInfo";
 import { favoriteStore } from "./favoriteStore";
 
 export class UserStore {
-  isGuest = true;
-  hasAccess = false;
   email = null;
   infos = null;
   name = "there";
@@ -14,10 +12,6 @@ export class UserStore {
 
   constructor() {
     makeObservable(this, {
-      isGuest: observable,
-      setIsGuest: action,
-      hasAccess: observable,
-      setHasAccess: action,
       fetchuserData: action,
       setEmail: action,
       email: observable,
@@ -31,14 +25,6 @@ export class UserStore {
       setIsAdmin: action,
     });
   }
-
-  setIsGuest = (isGuest) => {
-    this.isGuest = isGuest;
-  };
-
-  setHasAccess = (hasAccess) => {
-    this.hasAccess = hasAccess;
-  };
 
   setEmail = (email) => {
     this.email = email;

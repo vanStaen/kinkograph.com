@@ -56,12 +56,10 @@ router.post("/", async (req, res) => {
         { expiresIn: "7d" }
       );
 
-      // TODO
-      /* Add refresh token to db
-      const newToken = {
-        token: refreshToken,
-        userId: user.id
-      }; */
+      //Add refresh token to db
+      const addRefreshTokenQuery = `INSERT INTO token(refresh_token, user_id, date) 
+      VALUES ('${refreshToken}', ${user.id}, ${Date.now()});`;
+      await client.query(addRefreshTokenQuery);
 
       res.status(200).json({
         userId: user.id,
@@ -108,12 +106,10 @@ router.post("/code", async (req, res) => {
           { expiresIn: "7d" }
         );
 
-        // TODO
-        /* Add refresh token to db
-        const newToken = {
-          token: refreshToken,
-          userId: user.id
-        }; */
+        //Add refresh token to db
+        const addRefreshTokenQuery = `INSERT INTO token(refresh_token, user_id, date) 
+        VALUES ('${refreshToken}', ${user.id}, ${Date.now()});`;
+        await client.query(addRefreshTokenQuery);
 
         res.status(200).json({
           userId: user.id,
@@ -131,18 +127,11 @@ router.post("/code", async (req, res) => {
 
 // DEL Logout
 router.delete("/", async (req, res) => {
-  if (!req.body.refreshToken) {
-    return res.status(401).json({ error: `No refresh token was provided` });
-  }
-  const refreshToken = req.body.refreshToken;
 
-  //TODO
-  /* const deleteToken = await Token.deleteOne({ token: refreshToken });
-  
-    if (deleteToken.deletedCount === 0) {
-      return res.status(401).json({ error: `Refresh token not found in db!` });
-    }*/
-
+  //TODO id
+  const deleteTokensQuery = `DELETE FROM public.token WHERE user_id=1;`;
+  await client.query(deleteTokensQuery);
+    
   // Html resp code 204 return no content
   res.status(204).json();
 });

@@ -43,7 +43,7 @@
 
 /* Drawer custom */
 .ant-drawer-content, .ant-drawer-header {
-  background-color: rgba(44, 44, 44, .75);
+  background-color: rgba(55, 55, 55, .85);
   /* 282c34 vs 43464D */
   border-bottom: 1px solid #2C2C2C;
   color: #E1E1E1 !important;
