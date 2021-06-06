@@ -50,8 +50,8 @@ export const GalleryHeader = observer(() => {
               placement="bottomLeft"
               title={
                 <span>
-                  <b>TIP: </b>Mark some pictures as your favorites: Then we will
-                  both have a close look at how use those for us.
+                  <b>TIP: </b>Mark some pictures as your favorites: Then we both
+                  look at those, and plan a inspired shoot.
                 </span>
               }
             >
