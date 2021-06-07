@@ -1,9 +1,10 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useCallback } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { observer } from "mobx-react";
 
 import { Gallery } from "./pages/Gallery/Gallery";
 import { Uploader } from "./pages/Uploader/Uploader";
+import { userStore } from "./store/userStore";
 import { authStore } from "./store/authStore";
 import { Login } from "./component/Login/Login";
 
@@ -11,15 +12,16 @@ import "./helpers/axiosInterceptor";
 import "./App.css";
 
 const App = observer(() => {
-  useEffect(() => {
-    /*if (authStore.refreshToken !== "null") {
-      console.log(authStore.refreshToken);
-      authStore.setHasAccess(true);
-      userStore.fetchuserData();
-    } else {
-      authStore.setHasAccess(false);
-    }*/
+  const checkForValidAuth = useCallback(async () => {
+    if (authStore.refreshToken !== null) {
+      await authStore.getNewToken();
+      await userStore.fetchuserData();
+    }
   }, []);
+
+  useEffect(() => {
+    checkForValidAuth();
+  }, [checkForValidAuth]);
 
   return (
     <Router>

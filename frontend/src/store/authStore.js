@@ -1,6 +1,7 @@
 import { action, makeObservable, observable } from "mobx";
 
 import { deleteLogout } from "./calls/deleteLogout";
+import { postLoginToken } from "./calls/postLoginToken";
 
 export class AuthStore {
   token = null;
@@ -19,6 +20,7 @@ export class AuthStore {
       setIsGuest: action,
       hasAccess: observable,
       setHasAccess: action,
+      getNewToken: action,
     });
   }
 
@@ -48,6 +50,15 @@ export class AuthStore {
 
   setHasAccess = (hasAccess) => {
     this.hasAccess = hasAccess;
+  };
+
+  getNewToken = async () => {
+    const newToken = await postLoginToken(authStore.refreshToken);
+    if (newToken) {
+      authStore.setToken(newToken.data.token);
+      authStore.setHasAccess(true);
+    }
+    return newToken.token
   };
 }
 

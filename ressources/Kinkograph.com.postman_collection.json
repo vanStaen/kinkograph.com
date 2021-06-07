@@ -314,7 +314,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5009/login/code Copy",
+			"name": "localhost:5009/login/code",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -337,6 +337,36 @@
 					"path": [
 						"login",
 						"code"
+					]
+				},
+				"description": "GET request : list of all users\nTo localserver on port 5000\n"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5009/login/token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"code\": \"159753\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5009/login/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"login",
+						"token"
 					]
 				},
 				"description": "GET request : list of all users\nTo localserver on port 5000\n"
