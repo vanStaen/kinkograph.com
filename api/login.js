@@ -143,7 +143,7 @@ router.delete("/", async (req, res) => {
 router.post("/token", async (req, res) => {
   try {
     const refreshToken = req.body.refreshToken;
-    const isRefreshTokenInDBQuery = `SELECT user_id FROM token WHERE refreshToken=${refreshToken}`;
+    const isRefreshTokenInDBQuery = `SELECT user_id FROM token WHERE refresh_token='${refreshToken}'`;
     const isRefreshTokenInDBres = await client.query(isRefreshTokenInDBQuery);
     if (isRefreshTokenInDBres.rows.length == 1) {
       const userId = isRefreshTokenInDBres.rows[0].user_id;
