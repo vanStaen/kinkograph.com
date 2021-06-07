@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { observer } from "mobx-react";
 
@@ -11,6 +11,16 @@ import "./helpers/axiosInterceptor";
 import "./App.css";
 
 const App = observer(() => {
+  useEffect(() => {
+    /*if (authStore.refreshToken !== "null") {
+      console.log(authStore.refreshToken);
+      authStore.setHasAccess(true);
+      userStore.fetchuserData();
+    } else {
+      authStore.setHasAccess(false);
+    }*/
+  }, []);
+
   return (
     <Router>
       <div className="App">

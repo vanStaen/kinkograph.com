@@ -48,15 +48,17 @@ export class UserStore {
 
   fetchuserData = async () => {
     const userData = await getUserInfo();
-    userStore.setEmail(userData.email);
-    userStore.setInfos(userData.infos);
-    userStore.setName(userData.name);
-    userStore.setUsername(userData.username);
-    if (userData.favorites) {
-      favoriteStore.setFavoritesId(JSON.parse(userData.favorites));
-    }
-    if (userData.is_admin) {
-      userStore.setIsAdmin(userData.is_admin);
+    if (userData) {
+      userStore.setEmail(userData.email);
+      userStore.setInfos(userData.infos);
+      userStore.setName(userData.name);
+      userStore.setUsername(userData.username);
+      if (userData.favorites) {
+        favoriteStore.setFavoritesId(JSON.parse(userData.favorites));
+      }
+      if (userData.is_admin) {
+        userStore.setIsAdmin(userData.is_admin);
+      }
     }
   };
 }

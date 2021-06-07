@@ -14,7 +14,7 @@ export class AuthStore {
       setToken: action,
       refreshToken: observable,
       setRefreshToken: action,
-      logout: action, 
+      logout: action,
       isGuest: observable,
       setIsGuest: action,
       hasAccess: observable,
@@ -27,20 +27,20 @@ export class AuthStore {
   };
 
   setRefreshToken = (refreshToken) => {
-    this.refreshToken = refreshToken;    
+    this.refreshToken = refreshToken;
     localStorage.setItem("refreshToken", refreshToken);
   };
 
   logout = async () => {
-        // Delete refreshtoken from localstorage,
-        localStorage.removeItem("refreshToken");
-        localStorage.removeItem("userId");
-        localStorage.removeItem("user");
-        localStorage.clear();
-        authStore.setToken(null);
-        authStore.setRefreshToken(null);
-        await deleteLogout();
-  }
+    // Delete refreshtoken from localstorage,
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("user");
+    localStorage.clear();
+    authStore.setToken(null);
+    authStore.setRefreshToken(null);
+    await deleteLogout();
+  };
 
   setIsGuest = (isGuest) => {
     this.isGuest = isGuest;
@@ -49,8 +49,6 @@ export class AuthStore {
   setHasAccess = (hasAccess) => {
     this.hasAccess = hasAccess;
   };
-  
 }
 
 export const authStore = new AuthStore();
- 

@@ -26,3 +26,19 @@ axios.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+/* axios.interceptors.response.use((response) => {
+  //console.log('status', response.status);
+  return response;
+}, (error) => {
+    const status = error.response ? error.response.status : null
+    const originalRequest = error.config
+    console.log(originalRequest);
+
+  if (status === 401) {
+    //console.log('error status', error.response.status);
+    authStore.logout();
+  } else {
+        return Promise.reject(error);
+    }
+}); */
