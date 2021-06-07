@@ -97,7 +97,12 @@ export const PinInput = (props) => {
         id="code"
         onChange={handlerInputChange}
         placeholder="input code"
+        className="PinInput__mobileInput"
       />
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   ) : (
     <div>
