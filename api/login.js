@@ -86,7 +86,7 @@ router.post("/code", async (req, res) => {
       });
     } else {
       const access = await client.query(
-        `SELECT * FROM users WHERE access_code='${code}'`
+        `SELECT id FROM users WHERE access_code='${code}'`
       );
       if (access.rows < 1) {
         res.status(401).json({
@@ -127,13 +127,52 @@ router.post("/code", async (req, res) => {
 
 // DEL Logout
 router.delete("/", async (req, res) => {
+  try {
+    const deleteTokensQuery = `DELETE FROM token WHERE user_id=${req.userId}`;
+    await client.query(deleteTokensQuery);
+    // Html resp code 204 return no content
+    res.status(204).json();
+  } catch (err) {
+    res.status(400).json({
+      error: `${err})`,
+    });
+  }
+});
 
-  //TODO id
-  const deleteTokensQuery = `DELETE FROM public.token WHERE user_id=${req.userId}`;
-  await client.query(deleteTokensQuery);
-    
-  // Html resp code 204 return no content
-  res.status(204).json();
+// POST Get Token from refresh Token
+router.post("/token", async (req, res) => {
+  try {
+    const refreshToken = req.body.refreshToken;
+    const isRefreshTokenInDBQuery = `SELECT user_id FROM token WHERE refreshToken=${refreshToken}`;
+    const isRefreshTokenInDBres = await client.query(isRefreshTokenInDBQuery);
+    if (isRefreshTokenInDBres.rows.length == 1) {
+      const userId = isRefreshTokenInDBres.rows[0].user_id;
+      // Check if RefreshToken Is valid
+      try {
+        decodedToken = jsonwebtoken.verify(refreshToken, process.env.AUTH_SECRET_KEY_REFRESH);
+      } catch (err) {
+        req.isAuth = false;
+        res.status(401).json({
+          error: `Refresh Token not valid!`,
+        });
+        return next();
+      }
+      // Generate new token and return it 
+      const accessToken = await jsonwebtoken.sign(
+        { userId: userId },
+        process.env.AUTH_SECRET_KEY,
+        { expiresIn: "15m" }
+      );
+      res.status(200).json({
+        userId: userId,
+        token: accessToken,
+      });
+    }
+  } catch (err) {
+    res.status(400).json({
+      error: `${err})`,
+    });
+  }
 });
 
 module.exports = router;
