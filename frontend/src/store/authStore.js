@@ -5,7 +5,7 @@ import { postLoginToken } from "./calls/postLoginToken";
 
 export class AuthStore {
   token = null;
-  refreshToken = localStorage.getItem("refreshToken") || null;
+  refreshToken = localStorage.getItem("refreshToken");
   isGuest = true;
   hasAccess = false;
 
@@ -59,8 +59,8 @@ export class AuthStore {
       authStore.setHasAccess(true);
       return newToken;
     } catch (e) {
-      console.log(e);
-      authStore.logout();
+      console.log(e, authStore.refreshToken);
+      // authStore.logout();
     }
   };
 }
