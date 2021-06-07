@@ -8,7 +8,7 @@
 - [ ] Auth Management 
   - [x] Middelware in Backend
   - [x] Storing Token As cookie
-  - [ ] Refresh Token -> Token
+  - [x] Refresh Token -> Token
   - [x] Axios interceptor
   - [x] IsAuth on endpoints
   - [ ] Logout function
