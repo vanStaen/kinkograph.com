@@ -14,8 +14,8 @@ axios.interceptors.request.use(
       } else {
         if (authStore.token !== null) {
           // Token is not null, but not valid
-          await authStore.getNewToken();
-          token = authStore.token;
+          const newToken = await authStore.getNewToken();
+          token = newToken;
         } else {
           // Token is empty
           token = null;

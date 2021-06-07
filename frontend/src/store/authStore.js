@@ -57,6 +57,7 @@ export class AuthStore {
       const newToken = await postLoginToken(authStore.refreshToken);
       authStore.setToken(newToken.data.token);
       authStore.setHasAccess(true);
+      return newToken;
     } catch (e) {
       console.log(e);
       authStore.logout();

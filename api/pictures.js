@@ -254,12 +254,6 @@ router.post("/duplicate/", async (req, res) => {
 
 // GET all pictures with missing tag
 router.get("/tagsmissing/:limit", async (req, res) => {
-  if (!req.isAuth) {
-    res.status(401).json({
-      error: "Unauthorized",
-    });
-    return;
-  }
   try {
     const pictures = await client.query(
       `SELECT * FROM pictures WHERE tags_missing=true LIMIT ${req.params.limit} `
@@ -274,12 +268,6 @@ router.get("/tagsmissing/:limit", async (req, res) => {
 
 // GET COUNT all pictures with missing tag
 router.get("/tagsmissingcount/", async (req, res) => {
-  if (!req.isAuth) {
-    res.status(401).json({
-      error: "Unauthorized",
-    });
-    return;
-  }
   try {
     const result = await client.query(
       `SELECT COUNT(id) FROM pictures WHERE tags_missing=true;`
