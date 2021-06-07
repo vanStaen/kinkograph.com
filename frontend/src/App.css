@@ -51,6 +51,9 @@
 .anticon-close, .ant-drawer-title {
   color: #E1E1E1;
 }
+.ant-drawer-mask{
+  background-color: rgba(0,0,0, .75) !important;
+}
 
 
 /* Select custom */
