@@ -1,84 +1,97 @@
 .inputfile {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
 
-.inputfile+label {
-    color: #f0f0f0;
-    background: rgba(0, 0, 0, 0.75);
-    border: 1px dashed rgba(255, 255, 255, .5);
-    border-radius: 2px;
-    cursor: pointer;
-    transition: border-color 0.3s, background 0.3s, color 0.3s;
-    font-size: 14px;
-    font-variant: tabular-nums;
-    line-height: 1.5715;
-    list-style: none;
-    cursor: pointer;
-    font-feature-settings: 'tnum', "tnum";
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
-    height: 75vh;
+.inputfile + label {
+  color: #f0f0f0;
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px dashed rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: border-color 0.3s, background 0.3s, color 0.3s;
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  cursor: pointer;
+  font-feature-settings: "tnum", "tnum";
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  height: 75vh;
 }
 
-.inputfile:focus+label, .inputfile+label:hover {
-    border: 1px dashed rgba(255, 255, 255, 1);
-    background: rgba(255, 255, 255, 0.25);
-    color: rgba(255, 255, 255, .5);
+.inputfile:focus + label,
+.inputfile + label:hover {
+  border: 1px dashed rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .form-upload-drag-icon {
-    color: #fff;
-    font-size: 48px;
-    margin-bottom: 0 !important;
+  color: #fff;
+  font-size: 48px;
+  margin-bottom: 0 !important;
 }
 
 .form-upload-hint {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 .form-upload-text {
-    margin: 1.6em;
-    font-size: 1.2em;
-    color: #fff;
-    font-weight: 200;
-    letter-spacing: 2px;
+  margin: 1.6em;
+  font-size: 1.2em;
+  color: #fff;
+  font-weight: 200;
+  letter-spacing: 2px;
 }
 
 .Uploader__formContainer {
-    position: absolute;
-    top: 0px;
-    left: 0px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
 
 .Uploader__formContent {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 .Uploader__missingContainer {
-    position: absolute;
-    top: 0px;
-    right: 10vw;
+  position: absolute;
+  top: 0px;
+  right: 10vw;
 }
 
 .Uploader__missingContent {
-    padding-top: 12.5vh;
-    display: inline-block;
-    text-align: center;
-    width: 40vw;
-    height: 100vh;
+  padding-top: 12.5vh;
+  display: inline-block;
+  text-align: center;
+  width: 40vw;
+  height: 100vh;
 }
 
 .Uploader__spinner {
-    font-size: 10vh;
+  font-size: 10vh;
+}
+
+.Uploader__noAccess {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  letter-spacing: 2px;
+  font-weight: 200;
+  font-size: 1em;
 }

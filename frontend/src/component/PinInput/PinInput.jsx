@@ -96,7 +96,7 @@ export const PinInput = (props) => {
       <Input.Password
         id="code"
         onChange={handlerInputChange}
-        placeholder="input code"
+        placeholder="input code & confirm with enter"
         className="PinInput__mobileInput"
       />
       <br />

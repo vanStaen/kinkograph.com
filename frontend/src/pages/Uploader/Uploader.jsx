@@ -5,6 +5,7 @@ import {
   FileAddOutlined,
 } from "@ant-design/icons";
 import { notification } from "antd";
+import { observer } from "mobx-react";
 
 import { EditPictures } from "./EditPictures/EditPictures";
 import { postPicture } from "../../store/calls/postPicture";
@@ -13,12 +14,13 @@ import {
   getTagsMissing,
   getTagsMissingCountAll,
 } from "../../store/calls/getTagsMissing";
+import { userStore } from "../../store/userStore";
 
 import "./Uploader.css";
 
 const SIZE_PICTURE_MISSING_TAG = 150;
 
-export const Uploader = () => {
+export const Uploader = observer(() => {
   const [isUploading, setIsUploading] = useState(false);
   const [isDragDroping, setIsDragDroping] = useState(false);
   const [picsTagsMissing, setPicsTagsMissing] = useState([]);
@@ -143,7 +145,7 @@ export const Uploader = () => {
     }, 1000);
   };
 
-  return (
+  return userStore.isAdmin ? (
     <div className="Uploader__container">
       <div className="Uploader__formContainer">
         {showUploader && (
@@ -239,5 +241,12 @@ export const Uploader = () => {
         </div>
       )}
     </div>
+  ) : (
+    <div className="Uploader__noAccess">
+      Restricted!
+      <br />
+      <br />
+      <br />
+    </div>
   );
-};
+});
