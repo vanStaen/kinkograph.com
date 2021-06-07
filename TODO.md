@@ -5,13 +5,6 @@
   - [x] password input
   - [x] Endpoint to verify code
   - [ ] Login through user form
-- [ ] Auth Management 
-  - [x] Middelware in Backend
-  - [x] Storing Token As cookie
-  - [x] Refresh Token -> Token
-  - [x] Axios interceptor
-  - [x] IsAuth on endpoints
-  - [ ] Logout function
 - [ ] Disclaimer/about from landing-page
 - [ ] Admin
   - [x] Upload Form
@@ -27,7 +20,7 @@
 - [x] Create Upload endpoint (to AWS S3)
 - [x] Create PostGresQL Database 
 - [x] Design Gallery + Overlay
-- [ ] - [x] Pagination 
+- [x] Pagination 
   - [x] SQL Paggination
   - [x] Pagination in Gallery
   - [x] Pagination in Overlay
@@ -41,3 +34,10 @@
   - [x] Show Favorite count in header
   - [x] Store Favorite on DB
   - [x] Show List of favorites 
+- [x] Auth Management 
+  - [x] Middelware in Backend
+  - [x] Storing Token As cookie
+  - [x] Refresh Token -> Token
+  - [x] Axios interceptor
+  - [x] IsAuth on endpoints
+  - [x] Logout function

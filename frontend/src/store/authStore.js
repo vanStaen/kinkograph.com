@@ -53,12 +53,14 @@ export class AuthStore {
   };
 
   getNewToken = async () => {
-    const newToken = await postLoginToken(authStore.refreshToken);
-    if (newToken) {
+    try {
+      const newToken = await postLoginToken(authStore.refreshToken);
       authStore.setToken(newToken.data.token);
       authStore.setHasAccess(true);
+    } catch (e) {
+      console.log(e);
+      authStore.logout();
     }
-    return newToken.token
   };
 }
 

@@ -149,9 +149,9 @@ router.post("/token", async (req, res) => {
       const userId = isRefreshTokenInDBres.rows[0].user_id;
       // Check if RefreshToken Is valid
       try {
+        console.log(refreshToken);
         decodedToken = jsonwebtoken.verify(refreshToken, process.env.AUTH_SECRET_KEY_REFRESH);
       } catch (err) {
-        req.isAuth = false;
         res.status(401).json({
           error: `Refresh Token not valid!`,
         });
@@ -166,6 +166,10 @@ router.post("/token", async (req, res) => {
       res.status(200).json({
         userId: userId,
         token: accessToken,
+      });
+    } else {
+      res.status(401).json({
+        error: `Refresh Token not valid!`,
       });
     }
   } catch (err) {
