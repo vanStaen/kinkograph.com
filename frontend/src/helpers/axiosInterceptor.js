@@ -1,15 +1,26 @@
 import axios from "axios";
 
+import { isTokenValid } from "./isTokenValid";
 import { authStore } from "../store/authStore";
 
 axios.interceptors.request.use(
   async (config) => {
     //console.log(`${config.method} ${config.url}`);
     try {
-      const token = authStore.token
-      /* const token = authStore.token ?
-        await authStore.token :
-        await authStore.getNewToken(); */
+      let token;
+      // Check for token validity. If no valid, get new one:
+      if (isTokenValid(authStore.token)) {
+        token = authStore.token;
+      } else {
+        if (authStore.token !== null) {
+          // Token is not null, but not valid
+          await authStore.getNewToken();
+          token = authStore.token;
+        } else {
+          // Token is empty
+          token = null;
+        }
+      }
       //console.log("Request send with token:", token);
       if (token) {
         config.headers = Object.assign({
@@ -17,8 +28,9 @@ axios.interceptors.request.use(
           "Content-Type": "application/json",
         });
       }
+    } catch (err) {
+      console.log(err);
     }
-    catch (err) { console.log(err); }
     return config;
   },
   (error) => {
@@ -26,19 +38,3 @@ axios.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
-/* axios.interceptors.response.use((response) => {
-  //console.log('status', response.status);
-  return response;
-}, (error) => {
-    const status = error.response ? error.response.status : null
-    const originalRequest = error.config
-    console.log(originalRequest);
-
-  if (status === 401) {
-    //console.log('error status', error.response.status);
-    authStore.logout();
-  } else {
-        return Promise.reject(error);
-    }
-}); */
