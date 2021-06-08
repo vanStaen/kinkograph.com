@@ -1,0 +1,28 @@
+.adminHeader__main {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);;
+  color: rgba(255, 255, 255, 0.75);
+  width: 100vw;
+  text-align: center;
+  vertical-align: middle;
+  letter-spacing: 2px;
+  font-weight: 200;
+  font-size: 0.7em;
+}
+
+.adminHeader__left {
+  margin: 10px;
+  display: inline-block;
+  width: 30%;
+}
+
+.adminHeader__center {
+  margin: 10px;
+  display: inline-block;
+  width: 30%;
+}
+
+.adminHeader__right {
+  margin: 1%;
+  display: inline-block;
+  width: 30%;
+}

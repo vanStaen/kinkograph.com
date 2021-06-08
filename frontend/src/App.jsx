@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { observer } from "mobx-react";
 
 import { Gallery } from "./pages/Gallery/Gallery";
-import { Uploader } from "./pages/Uploader/Uploader";
+import { Admin } from "./pages/Admin/Admin";
 import { userStore } from "./store/userStore";
 import { authStore } from "./store/authStore";
 import { Login } from "./component/Login/Login";
@@ -29,7 +29,7 @@ const App = observer(() => {
         <div className="App__main">
           <Switch>
             <Route path="/admin">
-              <Uploader />
+              <Admin />
             </Route>
             <Route path="/">
               <div className="App__flex">
