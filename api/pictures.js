@@ -179,7 +179,7 @@ router.get("/all/:limit/:showMissing", async (req, res) => {
       setLimit = "";
     }
     const pictures = await client.query(
-      `SELECT * FROM pictures ${showMissing} ${setLimit}`
+      `SELECT * FROM pictures ${showMissing} ${setLimit} ORDER BY id DESC`
     );
     res.status(201).json(pictures.rows);
   } catch (err) {
@@ -256,7 +256,7 @@ router.post("/duplicate/", async (req, res) => {
 router.get("/tagsmissing/:limit", async (req, res) => {
   try {
     const pictures = await client.query(
-      `SELECT * FROM pictures WHERE tags_missing=true LIMIT ${req.params.limit} `
+      `SELECT * FROM pictures WHERE tags_missing=true LIMIT ${req.params.limit}`
     );
     res.status(201).json(pictures.rows);
   } catch (err) {

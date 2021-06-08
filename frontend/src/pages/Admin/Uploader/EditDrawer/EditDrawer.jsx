@@ -35,7 +35,7 @@ export const EditDrawer = (props) => {
       props.setShowUploader && props.setShowUploader(true);
       props.setShowDrawer(false);
       if (needReload) {
-        props.reload();
+        props.reload && props.reload();
       }
     },
     [props]

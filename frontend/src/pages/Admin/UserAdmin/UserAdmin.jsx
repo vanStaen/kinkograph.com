@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { LoadingOutlined } from "@ant-design/icons";
 
 import { getUsers } from "./getUsers";
 import { UserInfos } from "./UserInfos/UserInfos";
@@ -20,7 +21,10 @@ export const UserAdmin = () => {
   }, [fetchAllUser]);
 
   return isLoading ? (
-    <div className="userAdmin__main"> LOADING</div>
+    <div className="App__flex">
+      <LoadingOutlined className="Gallery__spinner" />
+      <div className="gallery__spinnerText">loading</div>
+    </div>
   ) : (
     <div className="userAdmin__main">
       {allUsers.map((user) => {

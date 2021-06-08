@@ -10,7 +10,7 @@
   - [x] Upload Form
   - [x] Tagging interface
   - [ ] Manage Tag
-  - [ ] Overview User and Favorite
+  - [x] Overview User and Favorite
 - [ ] Journey as a Guest
   
 ## Completed ✓

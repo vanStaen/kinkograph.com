@@ -6,6 +6,7 @@ import React, {
   useRef,
 } from "react";
 import { Drawer, Select } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 import { getFilteredTags } from "../../../store/calls/getTags";
 import { capitalizeFirstLetter } from "../../../helpers/capitalizeFirstLetter";
@@ -18,6 +19,7 @@ export const TagAdmin = () => {
   const [allTags, setAllTags] = useState([]);
   const selected = useRef(0);
   const [showDrawer, setShowDrawer] = useState(false);
+  const [isLoading, setisLoading] = useState(true);
 
   const fetchAllTags = useCallback(async () => {
     try {
@@ -26,6 +28,7 @@ export const TagAdmin = () => {
     } catch (err) {
       console.log(err);
     }
+    setisLoading(false);
   }, []);
 
   const tagClickHandler = (index) => {
@@ -39,10 +42,16 @@ export const TagAdmin = () => {
 
   return (
     <Fragment>
-      {allTags.length > 0 && (
+      {isLoading ? (
+        <div className="App__flex">
+          <LoadingOutlined className="Gallery__spinner" />
+          <div className="gallery__spinnerText">loading</div>
+        </div>
+      ) : (
         <Drawer
+          className="tagAdmin__drawer"
           title={
-            <span className="Drawer__Title">
+            <span className="tagAdmin__Title">
               Edit {allTags[selected.current].tag}
             </span>
           }
@@ -58,7 +67,6 @@ export const TagAdmin = () => {
           <div className="tagAdmin__modalAction">RENAME THIS TAG</div>
 
           <Select
-            mode="tags"
             allowClear={false}
             style={{ width: "100%" }}
             defaultValue={allTags[selected.current].tag}

@@ -1,0 +1,24 @@
+.picAdmin__main {
+  background-color: rgba(33, 33, 33, 0.95);
+  padding: 1em;
+  /* Prevent vertical gaps */
+  line-height: 0;
+  -webkit-column-count: 6;
+  -webkit-column-gap: 0px;
+  -moz-column-count: 6;
+  -moz-column-gap: 0px;
+  column-count: 6;
+  column-gap: 0px;
+}
+
+.picAdmin__main img {
+  /* Just in case there are inline attributes */
+  width: 100% !important;
+  height: auto !important;
+  border: 10px solid transparent;
+  cursor: pointer;
+}
+
+.picAdmin__main img:hover {
+  filter: brightness(50%) grayscale(1);
+}

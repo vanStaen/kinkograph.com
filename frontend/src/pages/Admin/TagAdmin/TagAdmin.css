@@ -21,17 +21,28 @@
 }
 
 .tagAdmin__modalAction {
-    text-align: center;
-    width: 100%;
-    cursor: pointer;
-    font-weight: 300;
-    letter-spacing: 2px;
-    font-size: 1.2em;
+  text-align: center;
+  width: 100%;
+  cursor: pointer;
+  font-weight: 300;
+  letter-spacing: 2px;
+  font-size: 1.2em;
 }
 
-.tagAdmin__modalAction:Hover {
-    background-color:rgba(0, 0, 0, 0.5);
-    color: #FFF;
+.tagAdmin__modalAction:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+
+.tagAdmin__Title {
+  font-weight: 200;
+  opacity: 0.75;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.tagAdmin__drawer .ant-select-selector {
+  color: #fff !important;
 }
 
 .red {
