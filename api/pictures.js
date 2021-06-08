@@ -300,7 +300,7 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-// POST: Get of favorites pictures
+// POST: Get all of favorites pictures
 router.post("/favorites/", async (req, res) => {
   if (!req.isAuth) {
     res.status(401).json({

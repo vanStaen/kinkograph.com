@@ -8,26 +8,35 @@
   letter-spacing: 2px;
   font-weight: 200;
   font-size: 0.7em;
+  cursor: pointer;
 }
 
 .adminHeader__left {
-  margin: 10px;
+  padding-top: 1.2vh;
   display: inline-block;
-  width: 30%;
+  width: 33%;
+  height: 5vh;
+  transition: background-color .3s, font-weight .3s, color .3s;
 }
 
 .adminHeader__center {
-  margin: 10px;
+  padding-top: 1.2vh;
   display: inline-block;
-  width: 30%;
+  width: 34%;
+  height: 5vh;
+  transition: background-color .3s, font-weight .3s, color .3s;
 }
 
 .adminHeader__right {
-  margin: 1%;
+  padding-top: 1.2vh;
   display: inline-block;
-  width: 30%;
+  width: 33%;
+  height: 5vh;
+  transition: background-color .3s, font-weight .3s, color .3s;
 }
 
-.pointer {
-  cursor: pointer;
+.adminHeader__left:Hover, .adminHeader__center:Hover, .adminHeader__right:Hover {
+  background-color: rgba(255, 255, 255, 0.75);
+  color: rgba(0, 0, 0, 1);
+  font-weight: 400;
 }

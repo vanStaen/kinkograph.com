@@ -1,0 +1,40 @@
+.userInfos__user {
+  border: 1px solid rgba(255,255,255, .5);
+  padding: 1em;
+  margin: 1em;
+  background-color: rgba(33, 33, 33, 0.95);
+}
+
+.userInfos__picture {
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.userInfos__pictureContainer {
+  display: inline-block;
+  margin: 10px;
+  margin-bottom: 35px;
+  width: 160px;
+  height: 160px;
+}
+
+.smallFont {
+    font-weight: 200;
+    opacity: .5;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    font-size: .5em;
+}
+
+.titleFont {
+    font-weight: 300;
+    opacity: .75;
+    letter-spacing: 3px;
+    margin: 0 10px 10px 10px;
+    font-size: .85em;
+width: auto;
+border-bottom: 1px solid rgba(255,255,255, .25);
+}

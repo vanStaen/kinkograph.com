@@ -423,6 +423,27 @@
 				"description": "GET request : list of all users\nTo localserver on port 5000\n"
 			},
 			"response": []
+		},
+		{
+			"name": "http://localhost:5009/admin/users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5009/admin/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"admin",
+						"users"
+					]
+				},
+				"description": "GET request : list of all users\nTo localserver on port 5000\n"
+			},
+			"response": []
 		}
 	]
 }

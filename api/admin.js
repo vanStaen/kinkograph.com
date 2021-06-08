@@ -17,42 +17,28 @@ client.connect((err) => {
   }
 });
 
-// GET all tags
-router.get("/", async (req, res) => {
-  if (!req.isAuth) {
+// GET all users
+router.get("/users", async (req, res) => {
+
+  /*if (!req.isAuth) {
     res.status(401).json({
       error: "Unauthorized",
     });
     return;
-  }
+  }*/
+
+  //TODO: CHeck tha user has adminr rights
   try {
-    const user = await client.query(`SELECT * FROM users WHERE id=${req.userId}`);
+    const user = await client.query(`SELECT * FROM users WHERE id>1 ORDER BY id ASC `);
     res.status(201).json(user.rows);
   } catch (err) {
     res.status(400).json({
       error: `${err})`,
     });
   }
+
 });
 
 
-// POST store Favorites
-router.post("/favorites", async (req, res) => {
-  if (!req.isAuth) {
-    res.status(401).json({
-      error: "Unauthorized",
-    });
-    return;
-  }
-    try {
-      const query = `UPDATE users SET favorites='${req.body.favorites}' WHERE id=${req.userId}`
-      await client.query(query);
-      res.status(201).json({"message" : "Success! Favorites have been saved."});
-    } catch (err) {
-      res.status(400).json({
-        error: `${err})`,
-      });
-    }
-  });
 
 module.exports = router;

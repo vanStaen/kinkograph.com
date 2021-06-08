@@ -6,6 +6,8 @@ export const getFavoritesPictures = async (favorites) => {
     "favorites": favorites,
   };
 
+  console.log(requestBody);
+
   const response = await axios({
       url: process.env.REACT_APP_API_URL + `/pictures/favorites/`,
       method: "POST",
