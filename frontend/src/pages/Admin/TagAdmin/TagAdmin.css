@@ -1,3 +1,40 @@
 .tagAdmin__main {
-    border: 1px solid green;
+  padding: 1.2em 0 3em 4vw;
+  background-color: rgba(33, 33, 33, 0.95);
+}
+
+.tagAdmin__tag {
+  width: 19vw;
+  padding: 0.2em;
+  display: inline-block;
+  font-weight: 200;
+  letter-spacing: 2px;
+  font-size: 0.75em;
+  cursor: pointer;
+}
+
+.tagAdmin__occur {
+  font-weight: 300;
+  opacity: 0.75;
+  letter-spacing: 2px;
+  font-size: 0.65em;
+}
+
+.tagAdmin__modalAction {
+    text-align: center;
+    width: 100%;
+    cursor: pointer;
+    font-weight: 300;
+    letter-spacing: 2px;
+    font-size: 1.2em;
+}
+
+.tagAdmin__modalAction:Hover {
+    background-color:rgba(0, 0, 0, 0.5);
+    color: #FFF;
+}
+
+.red {
+  font-weight: 500;
+  color: red;
 }

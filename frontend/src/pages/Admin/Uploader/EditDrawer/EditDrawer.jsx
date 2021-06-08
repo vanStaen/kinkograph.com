@@ -6,19 +6,20 @@ import {
   QuestionOutlined,
 } from "@ant-design/icons";
 
-import { capitalizeFirstLetter } from "../../helpers/capitalizeFirstLetter";
-import { getTags } from "../../store/calls/getTags";
-import { postTag } from "../../store/calls/postTag";
-import { patchPicture } from "../../store/calls/patchPicture";
-import { deletePicture } from "../../store/calls/deletePicture";
+import { capitalizeFirstLetter } from "../../../../helpers/capitalizeFirstLetter";
+import { getTags } from "../../../../store/calls/getTags";
+import { postTag } from "../../../../store/calls/postTag";
+import { patchPicture } from "../../../../store/calls/patchPicture";
+import { deletePicture } from "../../../../store/calls/deletePicture";
 
 import "./EditDrawer.css";
+
+const { Option } = Select;
 
 export const EditDrawer = (props) => {
   const [tags, setTags] = useState([]);
   const [allTags, setAllTags] = useState([]);
   const [confirmDelete, setConfirmDelete] = useState(false);
-  const { Option } = Select;
 
   const fetchAllTags = useCallback(async () => {
     try {

@@ -3,7 +3,6 @@ import { getFavoritesPictures } from "../../../../store/calls/getFavoritesPictur
 import "./UserInfos.css";
 
 export const UserInfos = (props) => {
-  const [isLoading, setisLoading] = useState(true);
   const [favorites, setFavorites] = useState([]);
 
   const fetchFavorites = useCallback(async () => {
@@ -12,8 +11,7 @@ export const UserInfos = (props) => {
       const allFav = await getFavoritesPictures(arrayFav);
       setFavorites(allFav);
     }
-    setisLoading(false);
-  }, []);
+  }, [props.user.favorites]);
 
   useEffect(() => {
     fetchFavorites();
@@ -21,7 +19,11 @@ export const UserInfos = (props) => {
 
   return (
     <div className="userInfos__user" key={`user_${props.user.id}`}>
-      <div className="titleFont">{props.user.name.toUpperCase()}</div>
+      <div className="titleFont">
+        {props.user.name.toUpperCase()}
+        {props.user.email && ` | ${props.user.email}`} 
+        {props.user.username && ` | ${props.user.username}`}
+      </div>
       {favorites.length > 0 &&
         favorites.map((fav) => {
           return (

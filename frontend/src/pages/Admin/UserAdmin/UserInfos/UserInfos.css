@@ -1,5 +1,5 @@
 .userInfos__user {
-  border: 1px solid rgba(255,255,255, .5);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   padding: 1em;
   margin: 1em;
   background-color: rgba(33, 33, 33, 0.95);
@@ -22,19 +22,19 @@
 }
 
 .smallFont {
-    font-weight: 200;
-    opacity: .5;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
-    font-size: .5em;
+  font-weight: 200;
+  opacity: 0.5;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  font-size: 0.5em;
 }
 
 .titleFont {
-    font-weight: 300;
-    opacity: .75;
-    letter-spacing: 3px;
-    margin: 0 10px 10px 10px;
-    font-size: .85em;
-width: auto;
-border-bottom: 1px solid rgba(255,255,255, .25);
+  font-weight: 300;
+  opacity: 0.75;
+  letter-spacing: 3px;
+  margin: 0 10px 10px 10px;
+  font-size: 0.85em;
+  width: auto;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 }
