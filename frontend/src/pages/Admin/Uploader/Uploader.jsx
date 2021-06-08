@@ -8,13 +8,13 @@ import { notification } from "antd";
 import { observer } from "mobx-react";
 
 import { EditPictures } from "./EditPictures/EditPictures";
-import { postPicture } from "../../store/calls/postPicture";
-import { getDuplicate } from "../../store/calls/getDuplicate";
+import { postPicture } from "../../../store/calls/postPicture";
+import { getDuplicate } from "../../../store/calls/getDuplicate";
 import {
   getTagsMissing,
   getTagsMissingCountAll,
-} from "../../store/calls/getTagsMissing";
-import { userStore } from "../../store/userStore";
+} from "../../../store/calls/getTagsMissing";
+import { userStore } from "../../../store/userStore";
 
 import "./Uploader.css";
 

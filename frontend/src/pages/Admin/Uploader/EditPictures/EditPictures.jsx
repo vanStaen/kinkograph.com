@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { EditOutlined } from "@ant-design/icons";
 
-import { EditDrawer } from "../../EditDrawer/EditDrawer";
+import { EditDrawer } from "../../../../component/EditDrawer/EditDrawer";
 
 import "./EditPictures.css";
 

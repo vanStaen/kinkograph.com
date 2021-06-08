@@ -53,7 +53,7 @@
 
 .Uploader__formContainer {
   position: absolute;
-  top: 0px;
+  top: 5vh;
   left: 0px;
 }
 
@@ -63,21 +63,21 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 95vh;
 }
 
 .Uploader__missingContainer {
   position: absolute;
-  top: 0px;
-  right: 10vw;
+  top: 5vh;
+  right: 0px;
 }
 
 .Uploader__missingContent {
-  padding-top: 12.5vh;
+  padding-top: 8vh;
   display: inline-block;
   text-align: center;
-  width: 40vw;
-  height: 100vh;
+  width: 50vw;
+  height: 95vh;
 }
 
 .Uploader__spinner {
