@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, Fragment } from "react";
 
 import { patchPicture } from "../../../store/calls/patchPicture";
 
@@ -39,19 +39,22 @@ export const PicThumbAdmin = (props) => {
   }, [props.tagSelected, checkHasHalo]);
 
   return (
-    <img
-      className={
-        props.tagSelected
-          ? hasHalo
-            ? "picAdmin__tagHalo"
-            : "picAdmin__tagBlur"
-          : "picAdmin__noFilter"
-      }
-      id={`pic_${props.picture.id}`}
-      src={props.picture.url_thumb}
-      alt={props.picture.id}
-      key={props.picture.id}
-      onClick={() => pictureClickHandle(props.picture)}
-    />
+    <Fragment>
+      <img
+        className={
+          props.tagSelected
+            ? hasHalo
+              ? "picAdmin__tagHalo"
+              : "picAdmin__tagBlur"
+            : "picAdmin__noFilter"
+        }
+        id={`pic_${props.picture.id}`}
+        src={props.picture.url_thumb}
+        alt={props.picture.id}
+        key={props.picture.id}
+        onClick={() => pictureClickHandle(props.picture)}
+      />
+      <span className="picAdmin__id">#{props.picture.id}</span>
+    </Fragment>
   );
 };

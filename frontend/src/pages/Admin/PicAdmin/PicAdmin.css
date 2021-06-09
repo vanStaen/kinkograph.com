@@ -1,6 +1,6 @@
 .picAdmin__main {
   background-color: rgba(33, 33, 33, 0.95);
-  padding: .8em 1em 2em 1em;
+  padding: 0.8em 1em 2em 1em;
   /* Prevent vertical gaps */
   line-height: 0;
   -webkit-column-count: 7;
@@ -22,7 +22,7 @@
   padding: 10px;
 }
 
-.picAdmin__tagSelector {  
+.picAdmin__tagSelector {
   background-color: rgba(33, 33, 33, 0.95);
   padding: 0.5em 1.2em 0em 1.2em;
 }
@@ -31,7 +31,7 @@
   color: #fff !important;
 }
 
-.picAdmin__tagSelector .anticon-close-circle{
+.picAdmin__tagSelector .anticon-close-circle {
   background-color: rgba(33, 33, 33, 0.95) !important;
   color: #fff !important;
 }
@@ -41,13 +41,21 @@
 }
 
 .picAdmin__tagBlur {
- filter: blur(1px) brightness(50%);
+  filter: blur(0px) brightness(100%);
 }
 
 .picAdmin__tagBlur:hover {
-  filter: blur(0px) brightness(100%);
- }
- 
+  filter: blur(0px) brightness(120%);
+  box-shadow: 0px 0px 7px 7px white;
+}
+
 .picAdmin__noFilter:hover {
   filter: brightness(50%) grayscale(1);
+}
+
+.picAdmin__id {
+  font-weight: 200;
+  opacity: 0.25;
+  letter-spacing: 2px;
+  font-size: 0.35em;
 }
