@@ -14,7 +14,6 @@ import {
   getTagsMissing,
   getTagsMissingCountAll,
 } from "../../../store/calls/getTagsMissing";
-import { userStore } from "../../../store/userStore";
 
 import "./Uploader.css";
 
@@ -145,7 +144,7 @@ export const Uploader = observer(() => {
     }, 1000);
   };
 
-  return userStore.isAdmin ? (
+  return (
     <div className="Uploader__container">
       <div className="Uploader__formContainer">
         {showUploader && (
@@ -240,13 +239,6 @@ export const Uploader = observer(() => {
           </div>
         </div>
       )}
-    </div>
-  ) : (
-    <div className="Uploader__noAccess">
-      Restricted!
-      <br />
-      <br />
-      <br />
     </div>
   );
 });
