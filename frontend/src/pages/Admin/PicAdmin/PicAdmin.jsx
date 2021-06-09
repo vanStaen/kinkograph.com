@@ -36,6 +36,25 @@ export const PicAdmin = () => {
     fetchAllPictures();
   }, [fetchAllPictures]);
 
+  const keyDownHandler = useCallback((event) => {
+    const keyPressed = event.key.toLowerCase();
+    if (keyPressed === "enter") {
+      event.preventDefault();
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    }
+  });
+
+  useEffect(() => {
+    document.addEventListener("keydown", keyDownHandler);
+    return () => {
+      document.removeEventListener("keydown", keyDownHandler);
+    };
+  }, [keyDownHandler]);
+
   return (
     <Fragment>
       {pictureSelected && (
