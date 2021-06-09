@@ -3,11 +3,11 @@
   padding: .8em 1em 2em 1em;
   /* Prevent vertical gaps */
   line-height: 0;
-  -webkit-column-count: 6;
+  -webkit-column-count: 7;
   -webkit-column-gap: 0px;
-  -moz-column-count: 6;
+  -moz-column-count: 7;
   -moz-column-gap: 0px;
-  column-count: 6;
+  column-count: 7;
   column-gap: 0px;
 }
 
