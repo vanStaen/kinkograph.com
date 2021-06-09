@@ -89,13 +89,79 @@ router.post("/", async (req, res) => {
       });
     } else {
       await client.query(
-        `INSERT INTO public.tags(tag_name) VALUES ('${req.body.tag_name}');`
+        `INSERT INTO public.tags (tag_name) VALUES ('${req.body.tag_name}');`
       );
       res.status(201).json({
         value: "success",
         message: `${req.body.tag_name} was added to the table 'tags'`,
       });
     }
+  } catch (err) {
+    res.status(400).json({
+      error: `${err})`,
+    });
+  }
+});
+
+// POST edit tags
+router.post("/edit/", async (req, res) => {
+  try {
+    const oldtag = red.body.oldtag;
+    const newtag = req.body.newtag;
+
+    // Rename in picture all from oldtag to newtag
+    const selectPictureWithTagsQuery = `SELECT id, tags FROM pictures WHERE tags LIKE '%"${oldtag}"%'`;
+    const pictureWithTag = await client.query(selectPictureWithTagsQuery);
+
+    if (pictureWithTag.rows.length < 1) {
+      res.status(401).json({
+        error: `No picture found with the tag '${oldtag}'`,
+      });
+      return;
+    } else {
+      pictureWithTag.rows.forEach( async (row) => {
+        const updatedTags = row.tags;
+        const updateTagQuery = `INSERT INTO pictures (tags) VALUES ('${newtag}');`;
+        await client.query(updateTagQuery);
+      });
+    }
+
+    // Check if new Tag exist in the tag_table already
+    const createTagQuery = `SELECT * FROM tags WHERE tag_name='${newtag}'`;
+    const doesTagExist = await client.query(createTagQuery);
+
+    if (doesTagExist.rows.length < 1) {
+      // if no, Create new Tag in tag_table
+      const createTagQuery = `INSERT INTO tags (tag_name) VALUES ('${newtag}');`;
+      await client.query(createTagQuery);
+    }
+
+    // Delete the old tag form the tag_table
+    const deleteTagQuery = `DELETE FROM tags WHERE tag_name='${oldtag}';`;
+    await client.query(deleteTagQuery);
+
+    res.status(201).json({
+      value: "success",
+      message: `Tag '${oldtag}' was updated to '${newtag}'`,
+    });
+  } catch (err) {
+    res.status(400).json({
+      error: `${err})`,
+    });
+  }
+});
+
+// DELETE  tags
+router.delete("/:tag", async (req, res) => {
+  try {
+    const tagToDelete = req.body.tagToDelete;
+    // Delete tagToDelete from tag
+    const deleteTagQuery = `DELETE FROM tags WHERE tag_name='${tagToDelete}';`;
+    await client.query(deleteTagQuery);
+    res.status(201).json({
+      value: "success",
+      message: `Tag '${tagToDelete}' was deleted.`,
+    });
   } catch (err) {
     res.status(400).json({
       error: `${err})`,
