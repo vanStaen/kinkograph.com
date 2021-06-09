@@ -16,6 +16,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { getFilteredTags } from "../../../store/calls/getTags";
 import { capitalizeFirstLetter } from "../../../helpers/capitalizeFirstLetter";
 import { postEditTag } from "../../../store/calls/postEditTag";
+import { deleteTag } from "../../../store/calls/deleteTag";
 
 import "./TagAdmin.css";
 
@@ -48,9 +49,10 @@ export const TagAdmin = () => {
   };
 
   const deleteHandler = useCallback(
-    async (key) => {
+    async (tag) => {
       if (confirmDelete === true) {
-        //await deleteTag(tag);
+        await deleteTag(tag);
+        await fetchAllTags();
         setShowDrawer(false);
       } else {
         setConfirmDelete(true);
@@ -59,7 +61,7 @@ export const TagAdmin = () => {
         }, 2000);
       }
     },
-    [confirmDelete, setShowDrawer]
+    [confirmDelete, setShowDrawer, fetchAllTags]
   );
 
   const selectChangeHandler = (value) => {

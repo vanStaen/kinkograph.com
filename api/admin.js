@@ -20,14 +20,15 @@ client.connect((err) => {
 // GET all users
 router.get("/users", async (req, res) => {
 
-  /*if (!req.isAuth) {
+  if (!req.isAuth) {
     res.status(401).json({
       error: "Unauthorized",
     });
     return;
-  }*/
+  }
 
-  //TODO: CHeck tha user has adminr rights
+  //TODO: CHeck tha user has admin rights
+
   try {
     const user = await client.query(`SELECT * FROM users WHERE id>1 ORDER BY id ASC `);
     res.status(201).json(user.rows);

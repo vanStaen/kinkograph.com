@@ -9,8 +9,9 @@
 - [ ] Admin
   - [x] Upload Form
   - [x] Tagging interface
-  - [ ] Manage Tag
+  - [x] Manage Tag
   - [x] Overview User and Favorite
+  - [ ] TODO: CHeck tha user has admin rights
 - [ ] Journey as a Guest
   
 ## Completed ✓

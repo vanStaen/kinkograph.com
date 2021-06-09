@@ -78,6 +78,9 @@ router.post("/", async (req, res) => {
     });
     return;
   }
+
+  //TODO: CHeck tha user has admin rights
+
   try {
     const checkIfTagsExist = await client.query(
       `SELECT * FROM tags WHERE tag_name='${req.body.tag_name}'`
@@ -105,6 +108,15 @@ router.post("/", async (req, res) => {
 
 // POST edit tags
 router.post("/edit/", async (req, res) => {
+  if (!req.isAuth) {
+    res.status(401).json({
+      error: "Unauthorized",
+    });
+    return;
+  }
+
+  //TODO: CHeck tha user has admin rights
+
   try {
     const oldtag = req.body.oldtag;
     const newtag = req.body.newtag;
@@ -113,7 +125,7 @@ router.post("/edit/", async (req, res) => {
     const selectPictureWithTagsQuery = `SELECT id, tags FROM pictures WHERE tags LIKE '%"${oldtag}"%'`;
     const pictureWithTag = await client.query(selectPictureWithTagsQuery);
     if (pictureWithTag.rows.length < 1) {
-      res.status(401).json({
+      res.status(400).json({
         error: `No picture found with the tag '${oldtag}'`,
       });
       return;
@@ -150,12 +162,39 @@ router.post("/edit/", async (req, res) => {
 });
 
 // DELETE  tags
-router.delete("/:tag", async (req, res) => {
+router.delete("/", async (req, res) => {
+  if (!req.isAuth) {
+    res.status(401).json({
+      error: "Unauthorized",
+    });
+    return;
+  }
+
+  //TODO: CHeck tha user has admin rights
+
   try {
     const tagToDelete = req.body.tagToDelete;
     // Delete tagToDelete from tag
     const deleteTagQuery = `DELETE FROM tags WHERE tag_name='${tagToDelete}';`;
+    console.log(deleteTagQuery);
     await client.query(deleteTagQuery);
+
+    // Delete Tag in picture
+    const selectPictureWithTagsQuery = `SELECT id, tags FROM pictures WHERE tags LIKE '%"${tagToDelete}"%'`;
+    const pictureWithTag = await client.query(selectPictureWithTagsQuery);
+    if (pictureWithTag.rows.length < 1) {
+      res.status(400).json({
+        error: `No picture found with the tag '${tagToDelete}'`,
+      });
+      return;
+    } else {
+      pictureWithTag.rows.forEach(async (row) => {
+        const updatedTags = row.tags.replace(`"${tagToDelete}"`, null);
+        const updateTagQuery = `UPDATE pictures SET tags='${updatedTags}' WHERE id=${row.id};`;
+        await client.query(updateTagQuery);
+      });
+    }
+
     res.status(201).json({
       value: "success",
       message: `Tag '${tagToDelete}' was deleted.`,
