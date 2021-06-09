@@ -106,22 +106,21 @@ router.post("/", async (req, res) => {
 // POST edit tags
 router.post("/edit/", async (req, res) => {
   try {
-    const oldtag = red.body.oldtag;
+    const oldtag = req.body.oldtag;
     const newtag = req.body.newtag;
 
     // Rename in picture all from oldtag to newtag
     const selectPictureWithTagsQuery = `SELECT id, tags FROM pictures WHERE tags LIKE '%"${oldtag}"%'`;
     const pictureWithTag = await client.query(selectPictureWithTagsQuery);
-
     if (pictureWithTag.rows.length < 1) {
       res.status(401).json({
         error: `No picture found with the tag '${oldtag}'`,
       });
       return;
     } else {
-      pictureWithTag.rows.forEach( async (row) => {
-        const updatedTags = row.tags;
-        const updateTagQuery = `INSERT INTO pictures (tags) VALUES ('${newtag}');`;
+      pictureWithTag.rows.forEach(async (row) => {
+        const updatedTags = row.tags.replace(oldtag, newtag);
+        const updateTagQuery = `UPDATE pictures SET tags='${updatedTags}' WHERE id=${row.id};`;
         await client.query(updateTagQuery);
       });
     }
@@ -141,7 +140,6 @@ router.post("/edit/", async (req, res) => {
     await client.query(deleteTagQuery);
 
     res.status(201).json({
-      value: "success",
       message: `Tag '${oldtag}' was updated to '${newtag}'`,
     });
   } catch (err) {
