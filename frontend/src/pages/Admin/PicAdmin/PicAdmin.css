@@ -15,12 +15,11 @@
   /* Just in case there are inline attributes */
   width: 100% !important;
   height: auto !important;
-  border: 10px solid transparent;
   cursor: pointer;
 }
 
-.picAdmin__main img:hover {
-  filter: brightness(50%) grayscale(1);
+.picAdmin__picture {
+  padding: 10px;
 }
 
 .picAdmin__tagSelector {  
@@ -41,6 +40,14 @@
   box-shadow: 0px 0px 7px 7px pink;
 }
 
-.picAdmin__tagSepia {
- filter: blur(2px) sepia(50%);
+.picAdmin__tagBlur {
+ filter: blur(1px) brightness(50%);
+}
+
+.picAdmin__tagBlur:hover {
+  filter: blur(0px) brightness(100%);
+ }
+ 
+.picAdmin__noFilter:hover {
+  filter: brightness(50%) grayscale(1);
 }

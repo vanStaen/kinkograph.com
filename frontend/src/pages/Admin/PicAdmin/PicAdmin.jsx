@@ -6,6 +6,7 @@ import { getFilteredTags } from "../../../store/calls/getTags";
 import { getPictures } from "../../../store/calls/getPictures";
 import { EditDrawer } from "../Uploader/EditDrawer/EditDrawer";
 import { capitalizeFirstLetter } from "../../../helpers/capitalizeFirstLetter";
+import { PicThumbAdmin } from "./PicThumbAdmin";
 
 import "./PicAdmin.css";
 
@@ -31,11 +32,6 @@ export const PicAdmin = () => {
     setIsloading(false);
   }, []);
 
-  const pictureClickHandle = (picture) => {
-    setShowDrawer(true);
-    setPictureSelected(picture);
-  };
-
   useEffect(() => {
     fetchAllPictures();
   }, [fetchAllPictures]);
@@ -58,10 +54,10 @@ export const PicAdmin = () => {
         <Fragment>
           <div className="picAdmin__tagSelector">
             <Select
-              allowClear={false}
+              showSearch={true}
+              allowClear={true}
               style={{ width: "100%" }}
               placeholder="Select a tag to manage"
-              allowClear
               onChange={(value) => {
                 setTagSelected(value);
               }}
@@ -78,18 +74,15 @@ export const PicAdmin = () => {
           <div className="picAdmin__main">
             {allPictures.map((picture) => {
               return (
-                <img
-                  className={
-                    picture.tags.includes(tagSelected)
-                      ? "picAdmin__tagHalo"
-                      : "picAdmin__tagSepia"
-                  }
-                  id={`pic_${picture.id}`}
-                  src={picture.url_thumb}
-                  alt={picture.id}
-                  key={picture.id}
-                  onClick={() => pictureClickHandle(picture)}
-                />
+                <div className="picAdmin__picture">
+                  <PicThumbAdmin
+                    picture={picture}
+                    tagSelected={tagSelected}
+                    setShowDrawer={setShowDrawer}
+                    setPictureSelected={setPictureSelected}
+                    fetchAllPictures={fetchAllPictures}
+                  />
+                </div>
               );
             })}
           </div>

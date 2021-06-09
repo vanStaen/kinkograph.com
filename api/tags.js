@@ -43,7 +43,7 @@ router.post("/filter/", async (req, res) => {
     arrayFilter.forEach(
       (filter) => (filters = filters + `AND tags LIKE '%"${filter}"%' `)
     );
-    const selectTagsQuery = `SELECT tags FROM pictures WHERE tags_missing=false ${filters} `;
+    const selectTagsQuery = `SELECT id, tags FROM pictures WHERE tags_missing=false ${filters} ORDER BY id ASC`;
     const tagsFilter = await client.query(selectTagsQuery);
     const allTagsFromFilter = [];
     tagsFilter.rows.forEach((row) => {
