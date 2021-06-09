@@ -15,6 +15,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 
 import { getFilteredTags } from "../../../store/calls/getTags";
 import { capitalizeFirstLetter } from "../../../helpers/capitalizeFirstLetter";
+import { postEditTag } from "../../../store/calls/postEditTag";
 
 import "./TagAdmin.css";
 
@@ -70,7 +71,7 @@ export const TagAdmin = () => {
       console.log(
         `Replace ${allTags[selected.current].tag} with ${replaceValue}`
       );
-      await editTag(oldTag, newTag);
+      await postEditTag(allTags[selected.current].tag, replaceValue);
     }
     setShowDrawer(false);
   };
@@ -80,7 +81,7 @@ export const TagAdmin = () => {
       console.log(
         `Rename ${allTags[selected.current].tag} with ${renameValue}`
       );
-      await editTag(oldTag, newTag);
+      await postEditTag(allTags[selected.current].tag, renameValue);
     }
     setShowDrawer(false);
   };
