@@ -23,6 +23,9 @@ export const UserInfos = (props) => {
         {props.user.name.toUpperCase()}
         {props.user.email && ` | ${props.user.email}`} 
         {props.user.username && ` | ${props.user.username}`}
+        <span className="smallFont">
+          {props.user.access_code && ` (${props.user.access_code})`}
+        </span>
       </div>
       {favorites.length > 0 &&
         favorites.map((fav) => {
