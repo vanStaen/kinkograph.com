@@ -68,21 +68,17 @@ export const TagAdmin = () => {
 
   const submitReplaceHandler = async () => {
     if (replaceValue !== allTags[selected.current].tag) {
-      console.log(
-        `Replace ${allTags[selected.current].tag} with ${replaceValue}`
-      );
       await postEditTag(allTags[selected.current].tag, replaceValue);
     }
+    await fetchAllTags();
     setShowDrawer(false);
   };
 
   const submitRenameHandler = async () => {
     if (renameValue !== allTags[selected.current].tag) {
-      console.log(
-        `Rename ${allTags[selected.current].tag} with ${renameValue}`
-      );
       await postEditTag(allTags[selected.current].tag, renameValue);
     }
+    await fetchAllTags();
     setShowDrawer(false);
   };
 
