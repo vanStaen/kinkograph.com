@@ -13,6 +13,7 @@
   - [x] Overview User and Favorite
   - [ ] TODO: CHeck tha user has admin rights
 - [ ] Journey as a Guest
+- [ ] Last login user
   
 ## Completed ✓
 

@@ -29,7 +29,7 @@
   font-size: 0.5em;
 }
 
-.titleFont {
+.userInfos__title {
   font-weight: 300;
   opacity: 0.75;
   letter-spacing: 3px;
@@ -38,3 +38,18 @@
   width: auto;
   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 }
+
+.userInfos__titleLeft {
+  display: inline-block;
+  vertical-align: baseline;
+  width: 50%;
+}
+
+.userInfos__titleRight {
+  display: inline-block;
+  vertical-align: baseline;
+  width: 50%;
+  text-align: right;
+}
+
+
