@@ -6,7 +6,11 @@ import "./PicAdmin.css";
 
 export const PicThumbAdmin = (props) => {
   const checkHasHalo = useCallback(() => {
-    return props.picture.tags.includes(props.tagSelected);
+    let result = false;
+    if (props.picture.tags) {
+      result = props.picture.tags.includes(props.tagSelected);
+    }
+    return result;
   }, [props.picture.tags, props.tagSelected]);
   const [hasHalo, setHasHalo] = useState(checkHasHalo());
 

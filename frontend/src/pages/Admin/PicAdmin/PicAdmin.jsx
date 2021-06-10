@@ -57,13 +57,6 @@ export const PicAdmin = () => {
 
   return (
     <Fragment>
-      {pictureSelected && (
-        <EditDrawer
-          picture={pictureSelected}
-          showDrawer={showDrawer}
-          setShowDrawer={setShowDrawer}
-        />
-      )}
       {isLoading ? (
         <div className="App__flex">
           <LoadingOutlined className="Gallery__spinner" />
@@ -71,6 +64,13 @@ export const PicAdmin = () => {
         </div>
       ) : (
         <Fragment>
+          {pictureSelected && (
+            <EditDrawer
+              picture={pictureSelected}
+              showDrawer={showDrawer}
+              setShowDrawer={setShowDrawer}
+            />
+          )}
           <div className="picAdmin__tagSelector">
             <Select
               showSearch={true}

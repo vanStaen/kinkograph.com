@@ -25,7 +25,7 @@ export const Uploader = observer(() => {
   const [picsTagsMissing, setPicsTagsMissing] = useState([]);
   const [showUploader, setShowUploader] = useState(true);
   const [uploadProgress, setUploadProgress] = useState([0, 0]);
-  const [limit, setLimit] = useState(undefined);
+  const [limit, setLimit] = useState(null);
   const [missingCountAll, setMissingCountAll] = useState(null);
 
   const submitHandler = useCallback(async (file) => {
