@@ -19,27 +19,30 @@ client.connect((err) => {
 
 // GET all users
 router.get("/users", async (req, res) => {
-
   if (!req.isAuth) {
     res.status(401).json({
       error: "Unauthorized",
     });
     return;
   }
-
-  //TODO: CHeck tha user has admin rights
-
-  try {
-    const user = await client.query(`SELECT * FROM users WHERE id>1 ORDER BY id ASC `);
-    res.status(201).json(user.rows);
-  } catch (err) {
-    res.status(400).json({
-      error: `${err})`,
+  //Check that user has admin rights
+  const user = await client.query(`SELECT * FROM users WHERE id=${req.userId}`);
+  console.log(user.rows[0].is_admin);
+  if (!user.rows[0].is_admin) {
+    res.status(401).json({
+      error: "You do not have administrator rights.",
     });
-  }
-
+    return;
+  } else {
+    try {
+      const user = await client.query(`SELECT * FROM users WHERE id>1 ORDER BY id ASC `);
+      res.status(201).json(user.rows);
+    } catch (err) {
+      res.status(400).json({
+        error: `${err})`,
+      });
+    }
+  }  
 });
-
-
 
 module.exports = router;

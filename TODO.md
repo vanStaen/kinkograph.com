@@ -6,14 +6,14 @@
   - [x] Endpoint to verify code
   - [ ] Login through user form
 - [ ] Disclaimer/about from landing-page
-- [ ] Admin
+- [x] Admin
   - [x] Upload Form
   - [x] Tagging interface
   - [x] Manage Tag
   - [x] Overview User and Favorite
-  - [ ] TODO: CHeck tha user has admin rights
 - [ ] Journey as a Guest
-- [ ] Last login user
+- [ ] Store user last login
+- [ ] "?" page
   
 ## Completed ✓
 
@@ -43,3 +43,8 @@
   - [x] Axios interceptor
   - [x] IsAuth on endpoints
   - [x] Logout function
+- [x] Admin
+  - [x] Upload Form
+  - [x] Tagging interface
+  - [x] Manage Tag
+  - [x] Overview User and Favorite
