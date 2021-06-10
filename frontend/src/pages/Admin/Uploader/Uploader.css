@@ -69,7 +69,7 @@
 .Uploader__missingContainer {
   position: absolute;
   top: 5vh;
-  right: 0px;
+  right: 2vw;
 }
 
 .Uploader__missingContent {
