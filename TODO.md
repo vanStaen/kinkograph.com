@@ -12,7 +12,6 @@
   - [x] Manage Tag
   - [x] Overview User and Favorite
 - [ ] Journey as a Guest
-- [ ] Store user last login
 - [ ] "?" page
   
 ## Completed ✓
@@ -48,3 +47,4 @@
   - [x] Tagging interface
   - [x] Manage Tag
   - [x] Overview User and Favorite
+  - [x] Store&show user last login

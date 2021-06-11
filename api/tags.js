@@ -79,7 +79,6 @@ router.post("/", async (req, res) => {
   }
   //Check that user has admin rights
   const user = await client.query(`SELECT * FROM users WHERE id=${req.userId}`);
-  console.log(user.rows[0].is_admin);
   if (!user.rows[0].is_admin) {
     res.status(401).json({
       error: "You do not have administrator rights.",
@@ -122,7 +121,6 @@ router.post("/edit/", async (req, res) => {
   }
   //Check that user has admin rights
   const user = await client.query(`SELECT * FROM users WHERE id=${req.userId}`);
-  console.log(user.rows[0].is_admin);
   if (!user.rows[0].is_admin) {
     res.status(401).json({
       error: "You do not have administrator rights.",
@@ -179,7 +177,6 @@ router.delete("/", async (req, res) => {
   }
   //Check that user has admin rights
   const user = await client.query(`SELECT * FROM users WHERE id=${req.userId}`);
-  console.log(user.rows[0].is_admin);
   if (!user.rows[0].is_admin) {
     res.status(401).json({
       error: "You do not have administrator rights.",
