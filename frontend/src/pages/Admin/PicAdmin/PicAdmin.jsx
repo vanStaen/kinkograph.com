@@ -46,7 +46,7 @@ export const PicAdmin = () => {
         behavior: "smooth",
       });
     }
-  });
+  }, []);
 
   useEffect(() => {
     document.addEventListener("keydown", keyDownHandler);
