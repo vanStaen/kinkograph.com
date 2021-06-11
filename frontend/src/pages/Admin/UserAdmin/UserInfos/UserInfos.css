@@ -37,6 +37,7 @@
   font-size: 0.85em;
   width: auto;
   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
 }
 
 .userInfos__titleLeft {
@@ -52,4 +53,13 @@
   text-align: right;
 }
 
+.userInfos__lastOnline{
+  opacity: 0.5;
+  font-size: 0.75em;
+  margin-right: .5em;
+}
+
+.userInfos__detail {
+  display: none;
+}
 
