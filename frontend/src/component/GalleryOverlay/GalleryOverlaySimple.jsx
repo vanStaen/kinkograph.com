@@ -62,18 +62,22 @@ export const GalleryOverlaySimple = (props) => {
       <div
         className="overlay__background"
         onClick={() => {
-          props.setShowSingleGallery(false);
+          if (props.picKey) {
+            props.setShowSingleGallery(false);
+          }
         }}
       ></div>
-      <div
-        className="overlay__closeButton"
-        id="closeButton"
-        onClick={() => {
-          props.setShowSingleGallery(false);
-        }}
-      >
-        <CloseOutlined />
-      </div>
+      {props.picKey && (
+        <div
+          className="overlay__closeButton"
+          id="closeButton"
+          onClick={() => {
+            props.setShowSingleGallery(false);
+          }}
+        >
+          <CloseOutlined />
+        </div>
+      )}
       {isLoading ? (
         <LoadingOutlined className="overlay__spinner" />
       ) : (
@@ -82,13 +86,26 @@ export const GalleryOverlaySimple = (props) => {
           onDoubleClick={copyLinkHandler}
         >
           <div className="overlay__infoAction">
-            <div className="overlay__info">#{pic.id}</div>
+            {props.picKey ? (
+              <div className="overlay__info">#{pic.id}</div>
+            ) : (
+              <div>
+                <span style={{ opacity: ".5" }}>kinkograph | </span>#{pic.id}
+              </div>
+            )}
 
-            <div className="overlay__action">
-              Doubleclick to copy link <LinkOutlined />
-            </div>
+            {props.picKey && (
+              <div className="overlay__action">
+                Doubleclick to copy link <LinkOutlined />
+              </div>
+            )}
           </div>
-          <div className="overlay__pictureHover">
+          <div
+            className="overlay__pictureHover"
+            style={
+              !props.picKey ? { cursor: "default" } : { cursor: "pointer" }
+            }
+          >
             <div className="overlay__pictureWatermark">KINKOGRAPH</div>
             <LinkOutlined id="heart" className="overlay__heart" />
           </div>
