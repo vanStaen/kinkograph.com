@@ -33,24 +33,26 @@ export const GalleryOverlaySimple = (props) => {
   }, [key]);
 
   const copyLinkHandler = () => {
-    const linkLogo = document.getElementById(`heart`);
-    linkLogo.style.visibility = "visible";
-    linkLogo.style.opacity = 0.25;
-    linkLogo.style.fontSize = "50em";
-    setTimeout(() => {
-      linkLogo.style.visibility = "hidden";
-      linkLogo.style.opacity = 0;
-      linkLogo.style.fontSize = "1em";
-    }, 500);
-    const link = `http://kinkograph.com/${pic.key}`;
-    navigator.clipboard.writeText(link).then(
-      function () {
-        console.log("Async: Copying to clipboard was successful!");
-      },
-      function (err) {
-        console.error("Async: Could not copy text: ", err);
-      }
-    );
+    if (props.picKey) {
+      const linkLogo = document.getElementById(`heart`);
+      linkLogo.style.visibility = "visible";
+      linkLogo.style.opacity = 0.25;
+      linkLogo.style.fontSize = "50em";
+      setTimeout(() => {
+        linkLogo.style.visibility = "hidden";
+        linkLogo.style.opacity = 0;
+        linkLogo.style.fontSize = "1em";
+      }, 500);
+      const link = `http://kinkograph.com/${pic.key}`;
+      navigator.clipboard.writeText(link).then(
+        function () {
+          console.log("Async: Copying to clipboard was successful!");
+        },
+        function (err) {
+          console.error("Async: Could not copy text: ", err);
+        }
+      );
+    }
   };
 
   useEffect(() => {
