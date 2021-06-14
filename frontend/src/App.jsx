@@ -11,6 +11,13 @@ import { Login } from "./component/Login/Login";
 import "./helpers/axiosInterceptor";
 import "./App.css";
 
+const defineVariableHeight = () => {
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty("--vh", `${vh}px`);
+};
+
+window.addEventListener("resize", defineVariableHeight);
+
 const App = observer(() => {
   const checkForValidAuth = useCallback(async () => {
     if (authStore.refreshToken !== null) {
@@ -19,8 +26,10 @@ const App = observer(() => {
     }
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     checkForValidAuth();
+    // Define variable height
+    defineVariableHeight();
   }, [checkForValidAuth]);
 
   return (
