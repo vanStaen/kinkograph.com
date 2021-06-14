@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { observer } from "mobx-react";
 
 import { Gallery } from "./pages/Gallery/Gallery";
+import { GalleryOverlaySimple } from "./component/GalleryOverlay/GalleryOverlaySimple";
 import { Admin } from "./pages/Admin/Admin";
 import { userStore } from "./store/userStore";
 import { authStore } from "./store/authStore";
@@ -40,6 +41,7 @@ const App = observer(() => {
             <Route path="/admin">
               <Admin />
             </Route>
+            <Route path="/:id" children={<GalleryOverlaySimple />} />
             <Route path="/">
               <div className="App__flex">
                 {authStore.hasAccess ? (
