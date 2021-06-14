@@ -42,7 +42,7 @@ export const GalleryOverlaySimple = (props) => {
       linkLogo.style.opacity = 0;
       linkLogo.style.fontSize = "1em";
     }, 500);
-    const link = `http://www.kinkograph.com/${pic.key}`;
+    const link = `http://kinkograph.com/${pic.key}`;
     navigator.clipboard.writeText(link).then(
       function () {
         console.log("Async: Copying to clipboard was successful!");
