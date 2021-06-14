@@ -6,6 +6,27 @@
 	},
 	"item": [
 		{
+			"name": "localhost:5009/pictures/:key",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5009/pictures/157",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"pictures",
+						"157"
+					]
+				},
+				"description": "GET request : list of all users\nTo localserver on port 5000\n"
+			},
+			"response": []
+		},
+		{
 			"name": "localhost:5009/pictures",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {}

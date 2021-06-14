@@ -41,7 +41,7 @@ const App = observer(() => {
             <Route path="/admin">
               <Admin />
             </Route>
-            <Route path="/:id" children={<GalleryOverlaySimple />} />
+            <Route path="/:key" children={<GalleryOverlaySimple />} />
             <Route path="/">
               <div className="App__flex">
                 {authStore.hasAccess ? (

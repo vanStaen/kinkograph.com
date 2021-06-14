@@ -29,17 +29,18 @@ export const UserInfos = (props) => {
     setShowDetail(!showDetail);
   };
 
+  const pictureClickHandler = (key) => {
+    props.setSinglePicKey(key);
+    props.setShowSingleGallery(true);
+  };
+
   useEffect(() => {
     fetchFavorites();
   }, [fetchFavorites]);
 
   return (
-    <div
-      className="userInfos__user"
-      key={`user_${props.user.id}`}
-      onClick={clickHandler}
-    >
-      <div className="userInfos__title">
+    <div className="userInfos__user" key={`user_${props.user.id}`}>
+      <div className="userInfos__title" onClick={clickHandler}>
         <div className="userInfos__titleLeft">
           {props.user.last_login && (
             <Tooltip title={Date(props.user.last_login).toString()}>
@@ -77,6 +78,7 @@ export const UserInfos = (props) => {
                     src={fav.url_med}
                     alt={fav.id}
                     key={fav.id}
+                    onClick={() => pictureClickHandler(fav.key)}
                   />
                 </div>
               );
