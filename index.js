@@ -32,6 +32,7 @@ app.use("/user", require("./api/user"));
 app.use("/pictures", require("./api/pictures"));
 app.use("/tags", require("./api/tags"));
 app.use("/admin", require("./api/admin"));
+app.use("/random", require("./api/random"));
 
 // Set up for React
 app.use(express.static(path.join(__dirname, "build")));
