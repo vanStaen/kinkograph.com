@@ -24,10 +24,11 @@ client.connect((err) => {
 router.get("/", async (req, res) => {
   try {
     const result = await client.query(
-      `SELECT url_med FROM pictures ORDER BY RANDOM() LIMIT 1`
+      `SELECT url_med, original_type FROM pictures ORDER BY RANDOM() LIMIT 1`
     );
     if (result.rows.length > 0) {
-      res.status(201).json(result.rows[0]);
+      resultFormated= {url: result.rows[0].url_med + '.' + result.rows[0].original_type}
+      res.status(201).json(resultFormated);
     } else {
       res.status(400).json({
         error: `No picture found with key ${req.params.key}!`,
