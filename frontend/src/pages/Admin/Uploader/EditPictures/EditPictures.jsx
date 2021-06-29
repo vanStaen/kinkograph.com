@@ -38,7 +38,7 @@ export const EditPictures = (props) => {
         setShowUploader={props.setShowUploader}
       />
       <div className="EditPictures__missingPicture">
-        {props.totalMissingTag === null ? (
+        {props.totalMissingTag === null || props.totalMissingTag == 0 ? (
           showEdit && (
             <div
               className="EditPictures__missingPictureOverText"
