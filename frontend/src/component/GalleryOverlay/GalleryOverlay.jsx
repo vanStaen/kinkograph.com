@@ -11,6 +11,7 @@ import {
   CloseOutlined,
   HeartFilled,
   LoadingOutlined,
+  LinkOutlined,
 } from "@ant-design/icons";
 import { observer } from "mobx-react";
 import { Tooltip } from "antd";
@@ -144,6 +145,29 @@ export const GalleryOverlay = observer(() => {
     };
   }, [keyDownHandler]);
 
+  const copyLinkHandler = () => {
+    if (selected.key) {
+      const linkLogo = document.getElementById(`link`);
+      linkLogo.style.visibility = "visible";
+      linkLogo.style.opacity = 0.25;
+      linkLogo.style.fontSize = "50em";
+      setTimeout(() => {
+        linkLogo.style.visibility = "hidden";
+        linkLogo.style.opacity = 0;
+        linkLogo.style.fontSize = "1em";
+      }, 500);
+      const link = `http://kinkograph.com/${selected.key}`;
+      navigator.clipboard.writeText(link).then(
+        function () {
+          console.log("Async: Copying to clipboard was successful!");
+        },
+        function (err) {
+          console.error("Async: Could not copy text: ", err);
+        }
+      );
+    }
+  };
+
   return (
     <div className="overlay__overlay">
       <div
@@ -206,7 +230,21 @@ export const GalleryOverlay = observer(() => {
           }}
         >
           <div className="overlay__infoAction">
-            {selected && <div className="overlay__info">#{selected.id}</div>}
+            {selected && (
+              <div className="overlay__info">
+                <Tooltip
+                  placement="bottomLeft"
+                  title={
+                    <span>
+                      <b>TIP: </b> copy a direct link to this picture
+                    </span>
+                  }
+                >
+                  {selected.key && <LinkOutlined onClick={copyLinkHandler} />}
+                </Tooltip>{" "}
+                {selected.id}
+              </div>
+            )}
 
             <div className="overlay__action">
               {!authStore.isGuest &&
@@ -230,6 +268,7 @@ export const GalleryOverlay = observer(() => {
           <div className="overlay__pictureHover">
             <div className="overlay__pictureWatermark">KINKOGRAPH</div>
             <HeartFilled id="heart" className="overlay__heart" />
+            <LinkOutlined id="link" className="overlay__heart" />
             <CloseOutlined id="unheart" className="overlay__heart" />
           </div>
           {selected && (
