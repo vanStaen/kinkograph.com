@@ -1,4 +1,5 @@
-@import "~antd/dist/antd.css";
+@import '~antd/dist/antd.css';
+
 .App {
   font-size: min(calc(7px + 2vmin), 25px);
   color: white;
@@ -9,7 +10,7 @@
   /* Fallback for browsers that do not support Custom Properties */
   min-height: calc(var(--vh, 1vh) * 100);
   background-color: #282c34;
-  background-image: url("img/diaboli.png");
+  background-image: url('img/diaboli.png');
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
@@ -39,43 +40,43 @@
   padding: 0 0 6em 0;
 }
 
-
 /* Drawer custom */
-.ant-drawer-content, .ant-drawer-header {
-  background-color: rgba(55, 55, 55, .85);
+.ant-drawer-content,
+.ant-drawer-header {
+  background-color: rgba(55, 55, 55, 0.85);
   /* 282c34 vs 43464D */
-  border-bottom: 1px solid #2C2C2C;
-  color: #E1E1E1 !important;
+  border-bottom: 1px solid #2c2c2c;
+  color: #e1e1e1 !important;
 }
-.anticon-close, .ant-drawer-title {
-  color: #E1E1E1;
+.anticon-close,
+.ant-drawer-title {
+  color: #e1e1e1;
 }
-.ant-drawer-mask{
-  background-color: rgba(0,0,0, .75) !important;
+.ant-drawer-mask {
+  background-color: rgba(0, 0, 0, 0.75) !important;
 }
-
 
 /* Select custom */
 .ant-select-selector {
   color: #000 !important;
-  background-color: rgba(255,255,255, .05) !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
   border-top: 1px !important;
   border-right: 1px !important;
   border-left: 1px !important;
-  border-color: rgba(255,255,255, .5) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
 }
-.ant-select-item{
+.ant-select-item {
   color: #fff !important;
 }
-.ant-select-item-option-active{
+.ant-select-item-option-active {
   color: #000 !important;
 }
 .ant-select-item-option-selected {
   color: #fff !important;
-  background-color: rgba(100,100,100, .75) !important;
+  background-color: rgba(100, 100, 100, 0.75) !important;
 }
 .ant-select-dropdown {
-  background-color: rgba(0,0,0, .75) !important;
+  background-color: rgba(0, 0, 0, 0.75) !important;
 }
 .ant-select-selection-search {
   color: #fff !important;
@@ -84,19 +85,19 @@
 /* Input custom */
 .ant-input {
   color: #fff !important;
-  background-color: rgba(255,255,255, .05) !important;
-  border: 1px solid rgba(255, 255, 255, .05) !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
 
 /* Tooltip custom */
 .ant-tooltip {
-  color: rgba(255, 255, 255, .75) !important;
+  color: rgba(255, 255, 255, 0.75) !important;
 }
 .ant-tooltip-inner {
   color: #000 !important;
-  background-color: rgba(255, 255, 255, .85) !important;
+  background-color: rgba(255, 255, 255, 0.85) !important;
 }
 .ant-tooltip-arrow-content {
-  border: 1px solid #FFF !important;
-  background-color: rgba(255, 255, 255, .8) !important;
+  border: 1px solid #fff !important;
+  background-color: rgba(255, 255, 255, 0.8) !important;
 }
