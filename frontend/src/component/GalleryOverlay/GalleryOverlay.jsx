@@ -16,7 +16,7 @@ import { observer } from "mobx-react";
 import { Tooltip } from "antd";
 
 import { pictureStore } from "../../store/pictureStore";
-import { userStore } from "../../store/userStore";
+import { authStore } from "../../store/authStore";
 import { favoriteStore } from "../../store/favoriteStore";
 
 import "./GalleryOverlay.css";
@@ -64,7 +64,7 @@ export const GalleryOverlay = observer(() => {
 
   const doubleClickHandler = useCallback(
     (id) => {
-      if (!userStore.isGuest) {
+      if (!authStore.isGuest) {
         const heart = document.getElementById(`heart`);
         const unheart = document.getElementById(`unheart`);
         if (!isFavorite) {
@@ -209,7 +209,7 @@ export const GalleryOverlay = observer(() => {
             {selected && <div className="overlay__info">#{selected.id}</div>}
 
             <div className="overlay__action">
-              {!userStore.isGuest &&
+              {!authStore.isGuest &&
                 (isFavorite ? (
                   <Fragment>
                     <span

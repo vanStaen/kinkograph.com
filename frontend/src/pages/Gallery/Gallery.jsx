@@ -108,7 +108,7 @@ export const Gallery = observer(() => {
             <div className="gallery__main">
               {pictureStore.allPictures.map((picture, index) => {
                 return (
-                  <div className="gallery__picSpacer">
+                  <div className="gallery__picSpacer" key={index}>
                     <PictureThumb picture={picture} key={picture.id} />
                   </div>
                 );
