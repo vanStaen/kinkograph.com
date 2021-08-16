@@ -1,12 +1,17 @@
 const express = require("express");
 const path = require("path");
-const isAuth = require("./middleware/is-auth");
+const isAuth = require("./middleware/isAuth");
+const redirectTraffic = require("./middleware/redirectTraffic");
 
 const PORT = process.env.PORT || 5009;
 require("dotenv/config");
 
 // Init Express
 const app = express();
+
+// Redirect www trafic to root
+app.set("trust proxy", true);
+app.use(redirectTraffic);
 
 // Body Parser Middleware
 app.use(express.json());
