@@ -34,8 +34,8 @@ export const GalleryHeader = observer(() => {
   const handleClickLogOut = () => {
     authStore.logout();
     setTimeout(function () {
-      window.location.reload(false);
-    }, 1000);
+      window.location.reload();
+    }, 500);
   };
 
   return (
@@ -50,7 +50,9 @@ export const GalleryHeader = observer(() => {
                 onMouseLeave={() => setShowOpenLock(false)}
                 onClick={handleClickLogOut}
               >
-                {showOpenLock ? <UnlockOutlined /> : <LockOutlined />}
+                <Tooltip placement="bottomLeft" title="Logout">
+                  {showOpenLock ? <UnlockOutlined /> : <LockOutlined />}
+                </Tooltip>
               </span>{" "}
               | 
               <span

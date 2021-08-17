@@ -47,7 +47,7 @@ router.post("/", async (req, res) => {
       const accessToken = await jsonwebtoken.sign(
         { userId: user.id },
         process.env.AUTH_SECRET_KEY,
-        { expiresIn: "15m" }
+        { expiresIn: "7d" }
       );
 
       const refreshToken = await jsonwebtoken.sign(
@@ -103,7 +103,7 @@ router.post("/code", async (req, res) => {
         const accessToken = await jsonwebtoken.sign(
           { userId: user.id },
           process.env.AUTH_SECRET_KEY,
-          { expiresIn: "15m" }
+          { expiresIn: "7d" }
         );
 
         const refreshToken = await jsonwebtoken.sign(
