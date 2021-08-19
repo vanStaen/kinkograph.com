@@ -78,11 +78,3 @@
 .light {
   opacity: 0.33;
 }
-
-.galleryHeader__logout {
-  cursor: pointer;
-}
-
-.galleryHeader__logout:hover {
-  color: rgba(255, 255, 255, 1);
-}

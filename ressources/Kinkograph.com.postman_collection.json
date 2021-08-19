@@ -6,27 +6,6 @@
 	},
 	"item": [
 		{
-			"name": "localhost:5009/pictures/:key",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5009/pictures/1c4fe9f13b0d15d6e1e8352f32e6e0c9",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5009",
-					"path": [
-						"pictures",
-						"1c4fe9f13b0d15d6e1e8352f32e6e0c9"
-					]
-				},
-				"description": "GET request : list of all users\nTo localserver on port 5000\n"
-			},
-			"response": []
-		},
-		{
 			"name": "localhost:5009/pictures",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {}
@@ -460,88 +439,6 @@
 					"path": [
 						"admin",
 						"users"
-					]
-				},
-				"description": "GET request : list of all users\nTo localserver on port 5000\n"
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:5009/tags/edit",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"oldtag\" : \"B&\",\n    \"newtag\" : \"B&W\"\n}"
-				},
-				"url": {
-					"raw": "http://localhost:5009/tags/edit",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5009",
-					"path": [
-						"tags",
-						"edit"
-					]
-				},
-				"description": "GET request : list of all users\nTo localserver on port 5000\n"
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:5009/tags",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"tagToDelete\" : \"tag\"\n}"
-				},
-				"url": {
-					"raw": "http://localhost:5009/tags/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5009",
-					"path": [
-						"tags",
-						""
-					]
-				},
-				"description": "GET request : list of all users\nTo localserver on port 5000\n"
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:5009/random",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5009/tags",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5009",
-					"path": [
-						"tags"
 					]
 				},
 				"description": "GET request : list of all users\nTo localserver on port 5000\n"

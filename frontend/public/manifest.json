@@ -8,9 +8,8 @@
       "sizes": "24x24"
     }
   ],
-  "start_url": "kinkograph.com",
+  "start_url": "www.kinkograph.com",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#000000",
-  "clipboardWrite": true
+  "background_color": "#000000"
 }

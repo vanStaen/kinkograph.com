@@ -15,7 +15,3 @@
 textarea:focus, input:focus {
   outline: none;
 }
-
-.PinInput__mobileInput .ant-input {
-  color: #000 !important;
-}

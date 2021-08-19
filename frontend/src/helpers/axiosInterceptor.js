@@ -12,7 +12,6 @@ axios.interceptors.request.use(
       if (isTokenValid(authStore.token)) {
         token = authStore.token;
       } else {
-        //console.log('Token is not Valid')
         if (authStore.token !== null) {
           // Token is not null, but not valid
           const newToken = await authStore.getNewToken();

@@ -11,7 +11,6 @@
   height: auto;
   max-height: 100%;
   max-width: 100%;
-  cursor: pointer;
 }
 
 .userInfos__pictureContainer {
@@ -30,7 +29,7 @@
   font-size: 0.5em;
 }
 
-.userInfos__title {
+.titleFont {
   font-weight: 300;
   opacity: 0.75;
   letter-spacing: 3px;
@@ -38,29 +37,4 @@
   font-size: 0.85em;
   width: auto;
   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-  cursor: pointer;
 }
-
-.userInfos__titleLeft {
-  display: inline-block;
-  vertical-align: baseline;
-  width: 50%;
-}
-
-.userInfos__titleRight {
-  display: inline-block;
-  vertical-align: baseline;
-  width: 50%;
-  text-align: right;
-}
-
-.userInfos__lastOnline{
-  opacity: 0.5;
-  font-size: 0.75em;
-  margin-right: .5em;
-}
-
-.userInfos__detail {
-  display: none;
-}
-

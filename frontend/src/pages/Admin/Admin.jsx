@@ -1,16 +1,14 @@
 import React, { useState } from "react";
-import { observer } from "mobx-react";
 
-import { userStore } from "../../store/userStore";
 import { Uploader } from "./Uploader/Uploader";
 import { AdminHeader } from "./AdminHeader/AdminHeader";
 import { UserAdmin } from "./UserAdmin/UserAdmin";
 import { TagAdmin } from "./TagAdmin/TagAdmin";
 import { PicAdmin } from "./PicAdmin/PicAdmin";
 
-export const Admin = observer(() => {
+export const Admin = () => {
   const [display, setDisplay] = useState("upload");
-  return userStore.isAdmin ? (
+  return (
     <div>
       <AdminHeader setDisplay={setDisplay} />
       {display === "upload" && <Uploader />}
@@ -18,12 +16,5 @@ export const Admin = observer(() => {
       {display === "user" && <UserAdmin />}
       {display === "pic" && <PicAdmin />}
     </div>
-  ) : (
-    <div className="Uploader__noAccess">
-      Restricted!
-      <br />
-      <br />
-      <br />
-    </div>
   );
-});
+};
