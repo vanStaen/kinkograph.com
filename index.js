@@ -10,7 +10,7 @@ require("dotenv/config");
 const app = express();
 
 // Redirect www trafic to root
-app.set("trust proxy", true);
+// app.set("trust proxy", true);
 // app.use(redirectTraffic);
 
 // Body Parser Middleware
