@@ -11,7 +11,7 @@ const app = express();
 
 // Redirect www trafic to root
 app.set("trust proxy", true);
-app.use(redirectTraffic);
+// app.use(redirectTraffic);
 
 // Body Parser Middleware
 app.use(express.json());
