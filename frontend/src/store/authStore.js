@@ -7,7 +7,7 @@ export class AuthStore {
   token = null;
   refreshToken = localStorage.getItem("refreshToken");
   isGuest = true;
-  hasAccess = false;
+  hasAccess = true;
 
   constructor() {
     makeObservable(this, {
