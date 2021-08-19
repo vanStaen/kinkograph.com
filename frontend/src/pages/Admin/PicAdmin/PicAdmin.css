@@ -1,13 +1,13 @@
 .picAdmin__main {
   background-color: rgba(33, 33, 33, 0.95);
-  padding: 1em;
+  padding: 0.8em 1em 2em 1em;
   /* Prevent vertical gaps */
   line-height: 0;
-  -webkit-column-count: 6;
+  -webkit-column-count: 7;
   -webkit-column-gap: 0px;
-  -moz-column-count: 6;
+  -moz-column-count: 7;
   -moz-column-gap: 0px;
-  column-count: 6;
+  column-count: 7;
   column-gap: 0px;
 }
 
@@ -15,10 +15,47 @@
   /* Just in case there are inline attributes */
   width: 100% !important;
   height: auto !important;
-  border: 10px solid transparent;
   cursor: pointer;
 }
 
-.picAdmin__main img:hover {
+.picAdmin__picture {
+  padding: 10px;
+}
+
+.picAdmin__tagSelector {
+  background-color: rgba(33, 33, 33, 0.95);
+  padding: 0.5em 1.2em 0em 1.2em;
+}
+
+.picAdmin__tagSelector .ant-select-selector {
+  color: #fff !important;
+}
+
+.picAdmin__tagSelector .anticon-close-circle {
+  background-color: rgba(33, 33, 33, 0.95) !important;
+  color: #fff !important;
+}
+
+.picAdmin__tagHalo {
+  box-shadow: 0px 0px 7px 7px pink;
+}
+
+.picAdmin__tagBlur {
+  filter: blur(0px) brightness(100%);
+}
+
+.picAdmin__tagBlur:hover {
+  filter: blur(0px) brightness(120%);
+  box-shadow: 0px 0px 7px 7px white;
+}
+
+.picAdmin__noFilter:hover {
   filter: brightness(50%) grayscale(1);
+}
+
+.picAdmin__id {
+  font-weight: 200;
+  opacity: 0.25;
+  letter-spacing: 2px;
+  font-size: 0.35em;
 }

@@ -10,7 +10,6 @@
 }
 
 .gallery__main {
-  max-width: 1600px;
   padding: 5px 15px 15px 15px;
   padding-bottom: 50px;
   /* Prevent vertical gaps */

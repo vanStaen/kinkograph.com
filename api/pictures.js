@@ -215,7 +215,7 @@ router.post("/page/", async (req, res) => {
 
 // POST: Get Total of pictures, with filter
 router.post("/total/", async (req, res) => {
-    try {
+  try {
     let filters = "";
     if (req.body.filter) {
       const array = req.body.filter;
@@ -293,6 +293,26 @@ router.patch("/:id", async (req, res) => {
       `UPDATE pictures SET tags='${req.body.tags}', tags_missing=false WHERE id=${req.params.id}`
     );
     res.status(201).json(`Picture with id #${req.params.id} was udpated`);
+  } catch (err) {
+    res.status(400).json({
+      error: `${err})`,
+    });
+  }
+});
+
+// GET picture based on key
+router.get("/:key", async (req, res) => {
+  try {
+    const result = await client.query(
+      `SELECT * FROM pictures WHERE key='${req.params.key}'`
+    );
+    if (result.rows.length > 0) {
+      res.status(201).json(result.rows);
+    } else {
+      res.status(400).json({
+        error: `No picture found with key ${req.params.key}!`,
+      });
+    }
   } catch (err) {
     res.status(400).json({
       error: `${err})`,

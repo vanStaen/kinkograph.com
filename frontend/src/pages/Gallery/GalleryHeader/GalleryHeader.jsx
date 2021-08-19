@@ -1,15 +1,18 @@
-import React, { Fragment, useCallback } from "react";
+import React, { Fragment, useCallback, useState } from "react";
 import { observer } from "mobx-react";
 import { Select, Tooltip } from "antd";
+import { LockOutlined, UnlockOutlined } from "@ant-design/icons";
 
 import { pictureStore } from "../../../store/pictureStore";
 import { userStore } from "../../../store/userStore";
+import { authStore } from "../../../store/authStore";
 import { favoriteStore } from "../../../store/favoriteStore";
 import { capitalizeFirstLetter } from "../../../helpers/capitalizeFirstLetter";
 
 import "./GalleryHeader.css";
 
 export const GalleryHeader = observer(() => {
+  const [showOpenLock, setShowOpenLock] = useState(false);
   const { Option } = Select;
 
   const handleTagChange = useCallback(async (fitlerArray) => {
@@ -28,17 +31,37 @@ export const GalleryHeader = observer(() => {
     favoriteStore.setShowFavorites(true);
   };
 
+  const handleClickLogOut = () => {
+    authStore.logout();
+    setTimeout(function () {
+      window.location.reload();
+    }, 500);
+  };
+
   return (
     <div className="galleryHeader__main">
       <div className="galleryHeader__left">
         {favoriteStore.favoritesId.length ? (
           <Fragment>
-            <div
-              className="galleryHeader__BigFont galleryHeader__favorite"
-              onClick={handleClickShowFavoritesDrawer}
-            >
-              {favoriteStore.favoritesId.length} picture
-              {favoriteStore.favoritesId.length > 1 && "s"}
+            <div className="galleryHeader__BigFont">
+              <span
+                className="galleryHeader__logout"
+                onMouseEnter={() => setShowOpenLock(true)}
+                onMouseLeave={() => setShowOpenLock(false)}
+                onClick={handleClickLogOut}
+              >
+                <Tooltip placement="bottomLeft" title="Logout">
+                  {showOpenLock ? <UnlockOutlined /> : <LockOutlined />}
+                </Tooltip>
+              </span>{" "}
+              | 
+              <span
+                className="galleryHeader__favorite"
+                onClick={handleClickShowFavoritesDrawer}
+              >
+                {favoriteStore.favoritesId.length} picture
+                {favoriteStore.favoritesId.length > 1 && "s"}
+              </span>
             </div>
             <div className="galleryHeader__SmallFont">
               marked as favorite{favoriteStore.favoritesId.length > 1 && "s"}

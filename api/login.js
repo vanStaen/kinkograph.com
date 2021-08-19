@@ -47,7 +47,7 @@ router.post("/", async (req, res) => {
       const accessToken = await jsonwebtoken.sign(
         { userId: user.id },
         process.env.AUTH_SECRET_KEY,
-        { expiresIn: "15m" }
+        { expiresIn: "7d" }
       );
 
       const refreshToken = await jsonwebtoken.sign(
@@ -55,6 +55,12 @@ router.post("/", async (req, res) => {
         process.env.AUTH_SECRET_KEY_REFRESH,
         { expiresIn: "7d" }
       );
+
+      //Update last_login in user table
+      const updateLastLoginQuery = `UPDATE users SET last_login=${Date.now()} WHERE id=${
+        user.id
+      }`;
+      await client.query(updateLastLoginQuery);
 
       //Add refresh token to db
       const addRefreshTokenQuery = `INSERT INTO token(refresh_token, user_id, date) 
@@ -97,7 +103,7 @@ router.post("/code", async (req, res) => {
         const accessToken = await jsonwebtoken.sign(
           { userId: user.id },
           process.env.AUTH_SECRET_KEY,
-          { expiresIn: "15m" }
+          { expiresIn: "7d" }
         );
 
         const refreshToken = await jsonwebtoken.sign(
@@ -105,6 +111,12 @@ router.post("/code", async (req, res) => {
           process.env.AUTH_SECRET_KEY_REFRESH,
           { expiresIn: "7d" }
         );
+
+        //Update last_login in user table
+        const updateLastLoginQuery = `UPDATE users SET last_login=${Date.now()} WHERE id=${
+          user.id
+        }`;
+        await client.query(updateLastLoginQuery);
 
         //Add refresh token to db
         const addRefreshTokenQuery = `INSERT INTO token(refresh_token, user_id, date) 
@@ -149,14 +161,22 @@ router.post("/token", async (req, res) => {
       const userId = isRefreshTokenInDBres.rows[0].user_id;
       // Check if RefreshToken Is valid
       try {
-        decodedToken = jsonwebtoken.verify(refreshToken, process.env.AUTH_SECRET_KEY_REFRESH);
+        decodedToken = jsonwebtoken.verify(
+          refreshToken,
+          process.env.AUTH_SECRET_KEY_REFRESH
+        );
       } catch (err) {
         res.status(401).json({
           error: `Refresh Token not valid!`,
         });
         return next();
       }
-      // Generate new token and return it 
+
+      //Update last_login in user table
+      const updateLastLoginQuery = `UPDATE users SET last_login=${Date.now()} WHERE id=${userId}`;
+      await client.query(updateLastLoginQuery);
+
+      // Generate new token and return it
       const accessToken = await jsonwebtoken.sign(
         { userId: userId },
         process.env.AUTH_SECRET_KEY,

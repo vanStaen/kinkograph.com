@@ -1,8 +1,9 @@
-import React, { Fragment, useEffect, useCallback } from "react";
+import React, { Fragment, useLayoutEffect, useCallback } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { observer } from "mobx-react";
 
 import { Gallery } from "./pages/Gallery/Gallery";
+import { GalleryOverlaySimple } from "./component/GalleryOverlay/GalleryOverlaySimple";
 import { Admin } from "./pages/Admin/Admin";
 import { userStore } from "./store/userStore";
 import { authStore } from "./store/authStore";
@@ -10,6 +11,13 @@ import { Login } from "./component/Login/Login";
 
 import "./helpers/axiosInterceptor";
 import "./App.css";
+
+const defineVariableHeight = () => {
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty("--vh", `${vh}px`);
+};
+
+window.addEventListener("resize", defineVariableHeight);
 
 const App = observer(() => {
   const checkForValidAuth = useCallback(async () => {
@@ -19,8 +27,10 @@ const App = observer(() => {
     }
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     checkForValidAuth();
+    // Define variable height
+    defineVariableHeight();
   }, [checkForValidAuth]);
 
   return (
@@ -31,6 +41,7 @@ const App = observer(() => {
             <Route path="/admin">
               <Admin />
             </Route>
+            <Route path="/:key" children={<GalleryOverlaySimple />} />
             <Route path="/">
               <div className="App__flex">
                 {authStore.hasAccess ? (

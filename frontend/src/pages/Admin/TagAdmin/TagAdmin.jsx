@@ -5,11 +5,18 @@ import React, {
   Fragment,
   useRef,
 } from "react";
-import { Drawer, Select } from "antd";
+import {
+  SaveOutlined,
+  DeleteOutlined,
+  QuestionOutlined,
+} from "@ant-design/icons";
+import { Drawer, Select, Input } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 
 import { getFilteredTags } from "../../../store/calls/getTags";
 import { capitalizeFirstLetter } from "../../../helpers/capitalizeFirstLetter";
+import { postEditTag } from "../../../store/calls/postEditTag";
+import { deleteTag } from "../../../store/calls/deleteTag";
 
 import "./TagAdmin.css";
 
@@ -20,6 +27,9 @@ export const TagAdmin = () => {
   const selected = useRef(0);
   const [showDrawer, setShowDrawer] = useState(false);
   const [isLoading, setisLoading] = useState(true);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [renameValue, setRenameValue] = useState(null);
+  const [replaceValue, setReplaceValue] = useState(null);
 
   const fetchAllTags = useCallback(async () => {
     try {
@@ -34,6 +44,44 @@ export const TagAdmin = () => {
   const tagClickHandler = (index) => {
     setShowDrawer(true);
     selected.current = index;
+    setRenameValue(allTags[index].tag);
+    setReplaceValue(allTags[index].tag);
+  };
+
+  const deleteHandler = useCallback(
+    async (tag) => {
+      if (confirmDelete === true) {
+        await deleteTag(tag);
+        await fetchAllTags();
+        setShowDrawer(false);
+      } else {
+        setConfirmDelete(true);
+        setTimeout(() => {
+          setConfirmDelete(false);
+        }, 2000);
+      }
+    },
+    [confirmDelete, setShowDrawer, fetchAllTags]
+  );
+
+  const selectChangeHandler = (value) => {
+    setReplaceValue(value);
+  };
+
+  const submitReplaceHandler = async () => {
+    if (replaceValue !== allTags[selected.current].tag) {
+      await postEditTag(allTags[selected.current].tag, replaceValue);
+    }
+    await fetchAllTags();
+    setShowDrawer(false);
+  };
+
+  const submitRenameHandler = async () => {
+    if (renameValue !== allTags[selected.current].tag) {
+      await postEditTag(allTags[selected.current].tag, renameValue);
+    }
+    await fetchAllTags();
+    setShowDrawer(false);
   };
 
   useEffect(() => {
@@ -62,14 +110,13 @@ export const TagAdmin = () => {
           key={`drawer${allTags[selected.current].tag}`}
           width="42.5%"
         >
-          <div className="tagAdmin__modalAction">DELETE THIS TAG</div>
-          <div className="tagAdmin__modalAction">REPLACE THIS TAG</div>
-          <div className="tagAdmin__modalAction">RENAME THIS TAG</div>
-
           <Select
             allowClear={false}
             style={{ width: "100%" }}
             defaultValue={allTags[selected.current].tag}
+            onChange={(value) => {
+              selectChangeHandler(value);
+            }}
           >
             {allTags.map((tag) => {
               return (
@@ -79,6 +126,58 @@ export const TagAdmin = () => {
               );
             })}
           </Select>
+          <div
+            className={
+              replaceValue === allTags[selected.current].tag
+                ? "Drawer__buttonDisabled"
+                : "Drawer__button"
+            }
+            onClick={submitReplaceHandler}
+          >
+            <SaveOutlined /> &nbsp; REPLACE THIS TAG
+          </div>
+          <br />
+          <br />
+          <Input
+            defaultValue={allTags[selected.current].tag}
+            onChange={(event) => {
+              setRenameValue(event.target.value);
+            }}
+            placeholder="Basic usage"
+          />
+          <div
+            className={
+              renameValue === allTags[selected.current].tag
+                ? "Drawer__buttonDisabled"
+                : "Drawer__button"
+            }
+            onClick={submitRenameHandler}
+          >
+            <SaveOutlined /> &nbsp; RENAME THIS TAG
+          </div>
+          <br />
+          <br />
+
+          <div className="Drawer__buttonContainer">
+            <div
+              className={
+                confirmDelete ? "Drawer__buttonConfirmAction" : "Drawer__button"
+              }
+              onClick={() => deleteHandler(allTags[selected.current].tag)}
+            >
+              {confirmDelete ? (
+                <Fragment>
+                  <DeleteOutlined /> ARE YOU SURE
+                  <QuestionOutlined />
+                </Fragment>
+              ) : (
+                <Fragment>
+                  <DeleteOutlined />
+                  &nbsp; DELETE THIS TAG
+                </Fragment>
+              )}
+            </div>
+          </div>
         </Drawer>
       )}
       <div className="tagAdmin__main">

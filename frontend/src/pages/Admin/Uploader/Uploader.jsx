@@ -14,7 +14,6 @@ import {
   getTagsMissing,
   getTagsMissingCountAll,
 } from "../../../store/calls/getTagsMissing";
-import { userStore } from "../../../store/userStore";
 
 import "./Uploader.css";
 
@@ -26,7 +25,7 @@ export const Uploader = observer(() => {
   const [picsTagsMissing, setPicsTagsMissing] = useState([]);
   const [showUploader, setShowUploader] = useState(true);
   const [uploadProgress, setUploadProgress] = useState([0, 0]);
-  const [limit, setLimit] = useState(undefined);
+  const [limit, setLimit] = useState(null);
   const [missingCountAll, setMissingCountAll] = useState(null);
 
   const submitHandler = useCallback(async (file) => {
@@ -50,7 +49,7 @@ export const Uploader = observer(() => {
   const calculateMissingTagPicLimit = useCallback(() => {
     const pageWidth = window.innerWidth;
     const pageHeight = window.innerHeight;
-    const missingPicContainerWidth = Math.floor(pageWidth * 0.4);
+    const missingPicContainerWidth = Math.floor(pageWidth * 0.5);
     const missingPicContainerHeight = Math.floor(pageHeight * (1 - 0.25));
     const numOfPicFittingInContainer =
       Math.floor(missingPicContainerWidth / (SIZE_PICTURE_MISSING_TAG + 34)) *
@@ -145,7 +144,7 @@ export const Uploader = observer(() => {
     }, 1000);
   };
 
-  return userStore.isAdmin ? (
+  return (
     <div className="Uploader__container">
       <div className="Uploader__formContainer">
         {showUploader && (
@@ -240,13 +239,6 @@ export const Uploader = observer(() => {
           </div>
         </div>
       )}
-    </div>
-  ) : (
-    <div className="Uploader__noAccess">
-      Restricted!
-      <br />
-      <br />
-      <br />
     </div>
   );
 });
