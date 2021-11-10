@@ -6,7 +6,7 @@ import { postLoginToken } from "./calls/postLoginToken";
 export class AuthStore {
   token = null;
   refreshToken = localStorage.getItem("refreshToken");
-  isGuest = true;
+  isGuest = false;
   hasAccess = false;
 
   constructor() {
