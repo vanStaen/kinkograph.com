@@ -79,7 +79,17 @@ export const GalleryHeader = observer(() => {
               }
             >
               <div className="galleryHeader__BigFont galleryHeader__favorite">
-                Hello {userStore.name},
+                <span
+                  className="galleryHeader__logout"
+                  onMouseEnter={() => setShowOpenLock(true)}
+                  onMouseLeave={() => setShowOpenLock(false)}
+                  onClick={handleClickLogOut}
+                >
+                  <Tooltip placement="bottomLeft" title="Logout">
+                    {showOpenLock ? <UnlockOutlined /> : <LockOutlined />}
+                  </Tooltip>
+                </span>{" "}
+                | Hello {userStore.name},
               </div>
             </Tooltip>
             <div className="galleryHeader__SmallFont">
