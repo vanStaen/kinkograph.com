@@ -7,6 +7,7 @@ import { AdminHeader } from "./AdminHeader/AdminHeader";
 import { UserAdmin } from "./UserAdmin/UserAdmin";
 import { TagAdmin } from "./TagAdmin/TagAdmin";
 import { PicAdmin } from "./PicAdmin/PicAdmin";
+import { Login } from "../../component/Login/Login";
 
 export const Admin = observer(() => {
   const [display, setDisplay] = useState("upload");
@@ -20,10 +21,9 @@ export const Admin = observer(() => {
     </div>
   ) : (
     <div className="Uploader__noAccess">
-      Restricted!
-      <br />
-      <br />
-      <br />
+      <div className="App__title">&nbsp;kinkograph</div>
+      <Login />
+      <div className="spacer"></div>
     </div>
   );
 });
