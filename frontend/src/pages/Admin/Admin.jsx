@@ -21,7 +21,7 @@ export const Admin = observer(() => {
     </div>
   ) : (
     <div className="Uploader__noAccess">
-      <div className="App__title">&nbsp;kinkograph</div>
+      <div className="App__title">&nbsp;kinkograph | admin</div>
       <Login />
       <div className="spacer"></div>
     </div>
