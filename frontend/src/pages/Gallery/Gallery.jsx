@@ -6,9 +6,9 @@ import { pictureStore } from "../../store/pictureStore";
 import { PictureThumb } from "../../component/PictureThumb/PictureThumb";
 import { GalleryOverlay } from "../../component/GalleryOverlay/GalleryOverlay";
 import { GalleryHeader } from "./GalleryHeader/GalleryHeader";
+import { FavoritesDrawer } from "../../component/FavoritesDrawer/FavoritesDrawer";
 
 import "./Gallery.css";
-import { FavoritesDrawer } from "../../component/FavoritesDrawer/FavoritesDrawer";
 
 export const Gallery = observer(() => {
   const throttling = useRef(false);
@@ -147,9 +147,3 @@ export const Gallery = observer(() => {
     </div>
   );
 });
-
-/*
-<div className="item item__landscape">item__landscape</div>
-<div className="item item__square">item__square</div>
-<div className="item item__portrait">item__portrait</div>
-*/
