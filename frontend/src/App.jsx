@@ -1,5 +1,5 @@
 import React, { Fragment, useLayoutEffect, useCallback } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { observer } from "mobx-react";
 
 import { Gallery } from "./pages/Gallery/Gallery";
@@ -51,6 +51,9 @@ const App = observer(() => {
                     <div className="App__title">&nbsp;kinkograph</div>
                     <Login />
                     <div className="spacer"></div>
+                    <Link className="App__adminLink" to="admin">
+                      [Admin]
+                    </Link>
                   </Fragment>
                 )}
               </div>
