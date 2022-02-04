@@ -13,6 +13,8 @@
   - [x] Overview User and Favorite
 - [ ] Journey as a Guest
 - [ ] "?" page
+- [ ] User Profile page
+- [ ] Create Account journey
   
 ## Completed ✓
 
