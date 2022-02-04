@@ -423,6 +423,42 @@
 						"key": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY0Mzk2ODU3OCwiZXhwIjoxNjQzOTY5NDc4fQ.EWF8A5wR7YfmBy_A7OTAQlDb4p_lF6tot-7OJb2WK9U",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":  \"Anne\",\n    \"access_code\": \"846173\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5009/user/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"user",
+						""
+					]
+				},
+				"description": "GET request : list of all users\nTo localserver on port 5000\n"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5009/user/favorites Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -446,7 +482,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:5009/admin/users",
+			"name": "localhost:5009/admin/users",
 			"request": {
 				"method": "GET",
 				"header": [],
