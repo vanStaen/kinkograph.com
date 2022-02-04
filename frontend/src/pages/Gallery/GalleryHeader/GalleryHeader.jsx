@@ -69,29 +69,30 @@ export const GalleryHeader = observer(() => {
           </Fragment>
         ) : (
           <Fragment>
-            <Tooltip
-              placement="bottomLeft"
-              title={
-                <span>
-                  <b>TIP: </b>Mark some pictures as your favorites: Then we both
-                  look at those, and plan a inspired shoot.
-                </span>
-              }
-            >
-              <div className="galleryHeader__BigFont galleryHeader__favorite">
-                <span
-                  className="galleryHeader__logout"
-                  onMouseEnter={() => setShowOpenLock(true)}
-                  onMouseLeave={() => setShowOpenLock(false)}
-                  onClick={handleClickLogOut}
-                >
-                  <Tooltip placement="bottomLeft" title="Logout">
-                    {showOpenLock ? <UnlockOutlined /> : <LockOutlined />}
-                  </Tooltip>
-                </span>{" "}
-                | Hello {userStore.name},
-              </div>
-            </Tooltip>
+            <div className="galleryHeader__BigFont galleryHeader__favorite">
+              <span
+                className="galleryHeader__logout"
+                onMouseEnter={() => setShowOpenLock(true)}
+                onMouseLeave={() => setShowOpenLock(false)}
+                onClick={handleClickLogOut}
+              >
+                <Tooltip placement="bottomLeft" title="Logout">
+                  {showOpenLock ? <UnlockOutlined /> : <LockOutlined />}
+                </Tooltip>
+              </span>{" "}
+              | 
+              <Tooltip
+                placement="bottomLeft"
+                title={
+                  <span>
+                    <b>TIP: </b>Mark some pictures as your favorites: Then we
+                    both look at those, and plan a inspired shoot.
+                  </span>
+                }
+              >
+                Hello {userStore.name},
+              </Tooltip>
+            </div>
             <div className="galleryHeader__SmallFont">
               What will inspire you today?
             </div>
