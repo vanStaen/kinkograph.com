@@ -124,7 +124,7 @@ export class PictureStore {
     } else {
       if (selected === 0) {
         await this.nextPageHandler(false);
-        this.selected = maxSelectable;
+        this.selected = this.PAGE_SIZE -1;
       } else {
         this.selected = selected - 1;
       }

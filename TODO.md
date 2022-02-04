@@ -15,6 +15,7 @@
 - [ ] "?" page
 - [ ] User Profile page
 - [ ] Create Account journey
+- [ ] Edit page count, to go directly to a further page
   
 ## Completed ✓
 
