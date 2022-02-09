@@ -16,6 +16,7 @@
 - [ ] User Profile page
 - [ ] Create Account journey
 - [ ] Edit page count, to go directly to a further page
+- [ ] bug: Adding a filter from the overlay do not show in the filter field
   
 ## Completed ✓
 
