@@ -102,7 +102,7 @@ export class PictureStore {
 
   goToPageHandler = async (page) => {
     pictureStore.setIsGalleryLoading(true);
-      this.pageNumber = page;
+      this.pageNumber = parseInt(page);
       await this.fetchPictures(page);
   };
 
