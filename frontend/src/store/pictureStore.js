@@ -54,6 +54,7 @@ export class PictureStore {
       setShowFilterSelect: action,
       fetchPictures: action,
       nextPageHandler: action,
+      goToPageHandler: action,
       tags: observable,
       setTags: action,
       isTagInputActive: observable,
@@ -97,6 +98,12 @@ export class PictureStore {
       this.pageNumber = previousPage;
       await this.fetchPictures(previousPage);
     }
+  };
+
+  goToPageHandler = async (page) => {
+    pictureStore.setIsGalleryLoading(true);
+      this.pageNumber = page;
+      await this.fetchPictures(page);
   };
 
   setPageNumber = (pageNumber) => {

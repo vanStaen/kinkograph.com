@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useState } from "react";
+import React, { Fragment, useCallback, useState, useRef } from "react";
 import { observer } from "mobx-react";
 import { Select, Tooltip } from "antd";
 import { LockOutlined, UnlockOutlined } from "@ant-design/icons";
@@ -13,7 +13,12 @@ import "./GalleryHeader.css";
 
 export const GalleryHeader = observer(() => {
   const [showOpenLock, setShowOpenLock] = useState(false);
+  const pageInputValue = useRef(pictureStore.pageNumber);
   const { Option } = Select;
+  const maxPage = Math.ceil(
+    pictureStore.totalPictures / pictureStore.PAGE_SIZE,
+    0
+  );
 
   const handleTagChange = useCallback(async (fitlerArray) => {
     pictureStore.setIsGalleryLoading(true);
@@ -36,6 +41,29 @@ export const GalleryHeader = observer(() => {
     setTimeout(function () {
       window.location.reload();
     }, 500);
+  };
+
+  const onPageInputhandler = (e) => {
+    if (e.which < 48 || e.which > 57) {
+      e.preventDefault();
+    } else {
+      if (e.target.innerText > maxPage) {
+        console.log("Senpai, it's too big!");
+        pageInputValue.current = maxPage;
+      } else {
+        pageInputValue.current = e.target.innerText;
+      }
+    }
+  };
+
+  const onPageInputKeyPressHanlder = (event) => {
+    if (event.charCode >= 48 && event.charCode <= 57) {
+    } else {
+      event.preventDefault();
+    }
+    if (event.charCode === 13) {
+      pictureStore.goToPageHandler(pageInputValue.current);
+    }
   };
 
   return (
@@ -151,15 +179,18 @@ export const GalleryHeader = observer(() => {
         >
           <div className="galleryHeader__pageInfo">
             <div className="galleryHeader__BigFont">
-              <b>Page {pictureStore.pageNumber}</b>
-              <span style={{ fontSize: "0.7em" }}>
-                {" "}
-                /{" "}
-                {Math.ceil(
-                  pictureStore.totalPictures / pictureStore.PAGE_SIZE,
-                  0
-                )}
-              </span>
+              <b>
+                Page{" "}
+                <div
+                  className="galleryHeader__PageSelector"
+                  contenteditable="true"
+                  onInput={onPageInputhandler}
+                  onKeyPress={onPageInputKeyPressHanlder}
+                >
+                  {pictureStore.pageNumber}
+                </div>
+              </b>
+              <span style={{ fontSize: "0.7em" }}> / {maxPage}</span>
             </div>
             <div className="galleryHeader__SmallFont">
               {(pictureStore.pageNumber - 1) * pictureStore.PAGE_SIZE + 1}-
