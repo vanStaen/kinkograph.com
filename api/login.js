@@ -56,10 +56,13 @@ router.post("/", async (req, res) => {
         { expiresIn: "7d" }
       );
 
-      //Update last_login in user table
-      const updateLastLoginQuery = `UPDATE users SET last_login=${Date.now()} WHERE id=${
-        user.id
-      }`;
+      //Update last_login & nb_picture_at_last_login in user table
+      const totalPic = await client.query(
+        `SELECT COUNT(id) FROM pictures WHERE tags_missing=false;`
+      );
+      const updateLastLoginQuery = `UPDATE users SET last_login=${Date.now()}, nb_picture_at_last_login=${
+        totalPic.rows[0].count
+      } WHERE id=${user.id}`;
       await client.query(updateLastLoginQuery);
 
       //Add refresh token to db
@@ -112,10 +115,13 @@ router.post("/code", async (req, res) => {
           { expiresIn: "7d" }
         );
 
-        //Update last_login in user table
-        const updateLastLoginQuery = `UPDATE users SET last_login=${Date.now()} WHERE id=${
-          user.id
-        }`;
+        //Update last_login & nb_picture_at_last_login in user table
+        const totalPic = await client.query(
+          `SELECT COUNT(id) FROM pictures WHERE tags_missing=false;`
+        );
+        const updateLastLoginQuery = `UPDATE users SET last_login=${Date.now()}, nb_picture_at_last_login=${
+          totalPic.rows[0].count
+        } WHERE id=${user.id}`;
         await client.query(updateLastLoginQuery);
 
         //Add refresh token to db
@@ -172,8 +178,13 @@ router.post("/token", async (req, res) => {
         return next();
       }
 
-      //Update last_login in user table
-      const updateLastLoginQuery = `UPDATE users SET last_login=${Date.now()} WHERE id=${userId}`;
+      //Update last_login & nb_picture_at_last_login in user table
+      const totalPic = await client.query(
+        `SELECT COUNT(id) FROM pictures WHERE tags_missing=false;`
+      );
+      const updateLastLoginQuery = `UPDATE users SET last_login=${Date.now()}, nb_picture_at_last_login=${
+        totalPic.rows[0].count
+      } WHERE id=${user.id}`;
       await client.query(updateLastLoginQuery);
 
       // Generate new token and return it

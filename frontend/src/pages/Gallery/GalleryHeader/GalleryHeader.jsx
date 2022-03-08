@@ -183,7 +183,7 @@ export const GalleryHeader = observer(() => {
                 Page{" "}
                 <div
                   className="galleryHeader__PageSelector"
-                  contenteditable="true"
+                  contentEditable="true"
                   onInput={onPageInputhandler}
                   onKeyPress={onPageInputKeyPressHanlder}
                 >
