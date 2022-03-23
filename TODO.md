@@ -12,16 +12,16 @@
   - [x] Manage Tag
   - [x] Overview User and Favorite
 - [ ] Journey as a Guest
-- [ ] "?" page
+  - [ ] Tag +18 pictures not displayed when guest
 - [ ] User Profile page
 - [ ] Create Account journey
-- [ ] Bug: Adding a filter from the overlay do not show in the filter field
 - [ ] Notification num of new pic since last visit
   - [x] Store information in User Db
   - [x] Store information in userStore
   - [ ] Pop up on connect
   - [ ] 1 mail every 3 month since last connection
 - [ ] Use Server Cookie as login method
+- [ ] Redirect info@kinkograph.com
   
 ## Completed ✓
 
@@ -58,3 +58,5 @@
   - [x] Overview User and Favorite
   - [x] Store&show user last login
 - [x] Edit page count, to go directly to an exact page
+- [x] "?" page
+- [x] Bug: Adding a filter from the overlay do not show in the filter field
