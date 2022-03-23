@@ -10,12 +10,13 @@ export const Info = () => {
       <div className="info__title">&nbsp;kinkograph</div>
       <div className="info__paragraph">
         ... is a curated and organised collection of sex positive, erotic and/or
-        BDSM artworks to inspire and plan an playful shoot between model and
+        BDSM artworks to inspire and plan a playful shoot between model(s) and
         photographer. Use this to trigger your creativity.
       </div>
       <div className="info__paragraph">
-        Due to the nature of the pictures, <b>you should be at least 18</b>{" "}
-        years old to access this website.
+        Due to the nature of the pictures,{" "}
+        <span className="info__18">you should be at least 18</span> years old to
+        access this website.
       </div>
       <div className="info__paragraph">
         I do not share any of my private kinky picture here. Hence, many of the
