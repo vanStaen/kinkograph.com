@@ -1,9 +1,11 @@
 import React, { Fragment, useLayoutEffect, useCallback } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { observer } from "mobx-react";
+import { QuestionOutlined } from "@ant-design/icons";
 
 import { Gallery } from "./pages/Gallery/Gallery";
 import { GalleryOverlaySimple } from "./component/GalleryOverlay/GalleryOverlaySimple";
+import { Info } from "./pages/Info/Info";
 import { Admin } from "./pages/Admin/Admin";
 import { userStore } from "./store/userStore";
 import { authStore } from "./store/authStore";
@@ -41,6 +43,9 @@ const App = observer(() => {
             <Route path="/admin">
               <Admin />
             </Route>
+            <Route path="/info">
+              <Info />
+            </Route>
             <Route path="/:key" children={<GalleryOverlaySimple />} />
             <Route path="/">
               <div className="App__flex">
@@ -51,8 +56,8 @@ const App = observer(() => {
                     <div className="App__title">&nbsp;kinkograph</div>
                     <Login />
                     <div className="spacer"></div>
-                    <Link className="App__adminLink" to="admin">
-                      [Admin]
+                    <Link className="App__infoLink" to="info">
+                      <QuestionOutlined />
                     </Link>
                   </Fragment>
                 )}
