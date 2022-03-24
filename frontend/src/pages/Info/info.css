@@ -1,5 +1,17 @@
+.info__container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  letter-spacing: 2px;
+  font-weight: 200;
+  font-size: 1em;
+}
+
 .info__paragraph {
-  max-width: 75%;
+  max-width: 900px;
   justify-content: center;
   font-size: 17px;
   color: rgba(255, 255, 255, .9);
@@ -9,7 +21,7 @@
 }
 
 .info__paragraph span {
-  background-color: rgba(0,0,0, .25);
+  background-color: rgba(0,0,0, .5);
 }
 
 .info__returnLink {
@@ -17,7 +29,7 @@
   padding: 0 10px 0 10px;
   border-radius: 50px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background-color: rgba(0,0,0, .1);
+  background-color: rgba(0,0,0, .5);
   font-size: 33px;
 }
 

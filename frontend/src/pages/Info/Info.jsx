@@ -6,7 +6,7 @@ import "./info.css";
 
 export const Info = () => {
   return (
-    <div className="Uploader__noAccess">
+    <div className="info__container">
       <div className="info__title">&nbsp;kinkograph</div>
       <div className="info__paragraph">
         <span>
@@ -36,7 +36,6 @@ export const Info = () => {
       <Link className="info__returnLink" to="/">
         <ArrowLeftOutlined />
       </Link>
-      <div className="spacer"></div>
       <div className="spacer"></div>
     </div>
   );
