@@ -26,7 +26,7 @@ export const Info = () => {
         <span>
           I do not share any of my private's kinky pictures here. Thus, many of
           the artworks found on this website are from the deep web. Should a
-          picture ou own be foudn here, please{" "}
+          picture that you own be found here, please{" "}
           <a className="info__contactLink" href="mailto:info@kinkograph.com">
             contact me
           </a>{" "}
