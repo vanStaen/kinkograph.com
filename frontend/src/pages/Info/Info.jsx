@@ -11,7 +11,7 @@ export const Info = () => {
       <div className="info__paragraph">
         <span>
           ... is a curated and organised collection of sex positive, erotic
-          and/or BDSM artworks to inspire and plan a playful shoot between
+          and/or BDSM pictures to inspire and plan a playful shoot between
           model(s) and photographer. Use this to trigger your creativity.
         </span>
       </div>
@@ -24,9 +24,9 @@ export const Info = () => {
       </div>
       <div className="info__paragraph">
         <span>
-          I do not share any of my private kinky picture here. Thus, many of the
-          pictures found on this website are from the deep web. Should a picture
-          ou own be foudn here, please{" "}
+          I do not share any of my private's kinky pictures here. Thus, many of
+          the artworks found on this website are from the deep web. Should a
+          picture ou own be foudn here, please{" "}
           <a className="info__contactLink" href="mailto:info@kinkograph.com">
             contact me
           </a>{" "}
