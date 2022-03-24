@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/static/css/main.3de7ec03.chunk.css",
-    "main.js": "/static/js/main.88af06bb.chunk.js",
-    "main.js.map": "/static/js/main.88af06bb.chunk.js.map",
+    "main.css": "/static/css/main.effb8f8b.chunk.css",
+    "main.js": "/static/js/main.8ba377a3.chunk.js",
+    "main.js.map": "/static/js/main.8ba377a3.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.950acac5.js",
     "runtime-main.js.map": "/static/js/runtime-main.950acac5.js.map",
     "static/css/2.c02757eb.chunk.css": "/static/css/2.c02757eb.chunk.css",
@@ -12,7 +12,7 @@
     "static/js/3.fb6eb049.chunk.js.map": "/static/js/3.fb6eb049.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.c02757eb.chunk.css.map": "/static/css/2.c02757eb.chunk.css.map",
-    "static/css/main.3de7ec03.chunk.css.map": "/static/css/main.3de7ec03.chunk.css.map",
+    "static/css/main.effb8f8b.chunk.css.map": "/static/css/main.effb8f8b.chunk.css.map",
     "static/js/2.2aad035b.chunk.js.LICENSE.txt": "/static/js/2.2aad035b.chunk.js.LICENSE.txt",
     "static/media/App.css": "/static/media/diaboli.435a709c.png"
   },
@@ -20,7 +20,7 @@
     "static/js/runtime-main.950acac5.js",
     "static/css/2.c02757eb.chunk.css",
     "static/js/2.2aad035b.chunk.js",
-    "static/css/main.3de7ec03.chunk.css",
-    "static/js/main.88af06bb.chunk.js"
+    "static/css/main.effb8f8b.chunk.css",
+    "static/js/main.8ba377a3.chunk.js"
   ]
 }
