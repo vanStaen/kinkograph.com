@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { postLoginCode } from "../../store/calls/postLoginCode";
 import { userStore } from "../../store/userStore";
 import { authStore } from "../../store/authStore";
 import { PinInput } from "../PinInput/PinInput";
+import { LoginForm } from "./LoginForm";
+
+import "./login.css";
 
 export const Login = () => {
+  const [loginWithCode, setLoginWithCode] = useState(true);
   const checkLogin = async (code) => {
     const res = await postLoginCode(code);
     if (res.status === 200) {
@@ -21,5 +25,25 @@ export const Login = () => {
     }
   };
 
-  return <PinInput login={checkLogin} />;
+  return (
+    <div>
+      <div className="login__container">
+        {loginWithCode ? (
+          <PinInput login={checkLogin} />
+        ) : (
+          <div>
+            <LoginForm />
+          </div>
+        )}
+      </div>
+      <div
+        className="login__switchLoginType"
+        onClick={() => {
+          setLoginWithCode(!loginWithCode);
+        }}
+      >
+        [{loginWithCode ? "log in with an account" : "log in with a code"}]
+      </div>
+    </div>
+  );
 };

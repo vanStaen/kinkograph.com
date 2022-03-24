@@ -1,0 +1,55 @@
+.signup__full {
+  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+} 
+
+.signup__full .signup__form {
+  width: 400px;
+}
+
+.signup__full .signup__formbutton {
+  width: 100%;
+}
+
+.signup__full .signup__terms {
+  text-align: left;
+  color: #43464D;
+}
+
+.signup__full .ant-btn-primary {
+  background: #43464D;
+  border-color: #43464D;
+}
+
+.signup__full .ant-btn-primary:hover, 
+.signup__full .ant-btn-primary:focus {
+  background:  rgba(109, 145, 126, .75);
+  border-color: rgba(109, 145, 126, .8);
+}
+
+.signup__full .ant-checkbox-checked .ant-checkbox-inner {
+  border-color: #43464D;
+  background: #43464D;
+}
+
+.signup__full .ant-checkbox-input:hover {
+  border-color: #43464D;
+  background: #43464D;
+}
+
+.signup__full .signup__header {
+  width: 400px;
+  font-weight: 200;
+  font-size: .75em;
+  text-align: left;
+  margin-bottom: 2vh;
+}
+
+.signup__showAlreadyMember{
+  display: none;
+}

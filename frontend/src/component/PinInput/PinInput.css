@@ -1,11 +1,11 @@
 .PinInput__input {
   width: 20px;
-  margin-left: 10px;
   font-size: 28px;
   letter-spacing: 17px;
   color: white;
   background-color: transparent;
   border: 0px solid red;
+  margin: 0 0 2em 10px;
 }
 
 .PinInput__input:focus {

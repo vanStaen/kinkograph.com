@@ -1,0 +1,73 @@
+.login__full {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+} 
+
+.login__full .login__form {
+  width: 400px;
+}
+
+.login__full .login__formbutton {
+  width: 100%;
+}
+
+.login__full .login__remember, 
+.login__full .login__recover {
+  text-align: left;
+  color: #FFF;
+  cursor: pointer;
+}
+
+.login__full .login__remember:hover, 
+.login__full .login__recover:hover {
+  text-align: left;
+  color: rgba(255, 255, 255, .5);
+  cursor: pointer;
+}
+
+.login__full .ant-btn-primary {
+  background: transparent;
+  border-color: transparent;
+}
+
+.login__full .ant-btn-primary:hover, 
+.login__full .ant-btn-primary:focus {
+  background:  rgba(0, 0, 0, .5);
+  border-color: rgba(50, 50, 50, .6);
+
+}
+
+.login__full .ant-checkbox-checked .ant-checkbox-inner {
+  border-color: #43464D;
+  background: #43464D;
+}
+
+.login__full .ant-checkbox-input:hover {
+  border-color: #43464D;
+  background: #43464D;
+}
+
+.login__full .login__header {
+  width: 400px;
+  font-weight: 200;
+  font-size: 18px;
+  text-align: left;
+  margin-bottom: 2vh;
+}
+
+.login__login {
+  padding-top: 15px;
+  color: rgba(0, 0, 0, .75);
+}
+
+.login__showAlreadyMember{
+  display: none;
+}
+
+.login__verifyEmailLink {
+  padding-top: 15px;
+  color: rgba(0, 0, 0, .75);
+}

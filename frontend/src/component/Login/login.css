@@ -1,0 +1,16 @@
+.login__switchLoginType {
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.1);
+  margin: 0 0 0 0;
+  font-weight: 300;
+  letter-spacing: 0px;
+  cursor: pointer;
+}
+
+.login__switchLoginType:hover {
+  color: rgba(255, 255, 255, .6);
+}
+
+.login__container {
+    border: 0px solid transparent; 
+}
