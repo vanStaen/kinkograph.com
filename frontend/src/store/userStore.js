@@ -9,6 +9,7 @@ export class UserStore {
   name = "there";
   username = null;
   isAdmin = false;
+  language = null;
   lastLogin = null; //last_login
   numberOfPicAtLastLogin = null; //nb_picture_at_last_login
 
@@ -22,6 +23,8 @@ export class UserStore {
       setName: action,
       name: observable,
       setUsername: action,
+      language: observable,
+      setLanguage: action,
       lastLogin: observable,
       setLastLogin: action,
       numberOfPicAtLastLogin: observable,
@@ -46,6 +49,10 @@ export class UserStore {
 
   setUsername = (username) => {
     this.username = username;
+  };
+
+  setLanguage = (language) => {
+    this.language = language;
   };
 
   setIsAdmin = (isAdmin) => {

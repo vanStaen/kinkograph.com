@@ -121,7 +121,7 @@ export const LoginForm = () => {
           rules={[
             {
               required: true,
-              message: t("login.pleaseInputEmailorUsername"),
+              message: t("login.pleaseInputEmailOrUsername"),
             },
           ]}
         >
