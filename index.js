@@ -2,7 +2,9 @@ const express = require("express");
 const path = require("path");
 const cors = require(`cors`)
 
+const db = require("./models");
 const isAuth = require("./middleware/isAuth");
+const cookieSession = require("./middleware/cookieSession");
 const redirectTraffic = require("./middleware/redirectTraffic");
 
 const PORT = process.env.PORT || 5009;
@@ -18,6 +20,9 @@ app.use(redirectTraffic);
 // Body Parser Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Session Cookie Middleware
+app.use(cookieSession);
 
 // Authorization Middleware
 app.use(isAuth);
@@ -45,15 +50,17 @@ app.use(function (req, res, next) {
   cors(corsOptions)(req, res, next);
 })
 
+// Sync sequelize
+db.sequelize.sync();
+
 // Router to API endpoints
-app.use("/login", require("./api/login"));
-//app.use("/user", require("./api/user"));
-app.use("/pictures", require("./api/pictures"));
-app.use("/tags", require("./api/tags"));
-app.use("/admin", require("./api/admin"));
-app.use("/random", require("./api/random"));
 app.use('/user', require('./api/controller/userController'))
-app.use('/mail', require('./api/controller/mailController'))
+app.use("/auth", require("./api/controller/authController"));
+
+//app.use("/pictures", require("./api/pictures"));
+//app.use("/tags", require("./api/tags"));
+//app.use("/admin", require("./api/admin"));
+
 
 // Set up for React
 app.use(express.static(path.join(__dirname, "build")));
