@@ -1,4 +1,4 @@
-const { sequelize, DataTypes } = require('../lib/sequelizedb');
+const { sequelize, DataTypes } = require('../helpers/sequelizedb');
 
 const User = sequelize.define("user", {
   id: {
@@ -81,29 +81,6 @@ const User = sequelize.define("user", {
     type: DataTypes.ARRAY(DataTypes.INTEGER),
     defaultValue: [],
   },
-});
-
-
-User.belongsToMany(User, { 
-  as: 'friends',
-  foreignKey: 'user_id',
-  through: UsersFriends
-});
-User.belongsToMany(User, { 
-  as: 'userFriends',
-  foreignKey: 'friend_id',
-  through: UsersFriends
-});
-
-User.belongsToMany(User, { 
-  as: 'followers',
-  foreignKey: 'follower_id',
-  through: UsersFollowers
-});
-User.belongsToMany(User, { 
-  as: 'followed',
-  foreignKey: 'followed_id',
-  through: UsersFollowers
 });
 
 module.exports = {
