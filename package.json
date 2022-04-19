@@ -25,7 +25,10 @@
   ],
   "dependencies": {
     "aws-sdk": "^2.908.0",
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
+    "cookie-session": "^1.4.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
