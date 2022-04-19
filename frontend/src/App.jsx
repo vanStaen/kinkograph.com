@@ -1,4 +1,4 @@
-import React, { Fragment, useLayoutEffect, useCallback } from "react";
+import React, { Fragment, useLayoutEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import { QuestionOutlined } from "@ant-design/icons";
@@ -7,11 +7,9 @@ import { Gallery } from "./pages/Gallery/Gallery";
 import { GalleryOverlaySimple } from "./component/GalleryOverlay/GalleryOverlaySimple";
 import { Info } from "./pages/Info/Info";
 import { Admin } from "./pages/Admin/Admin";
-import { userStore } from "./store/userStore";
 import { authStore } from "./store/authStore";
 import { Login } from "./component/Login/Login";
 
-import "./helpers/axiosInterceptor";
 import "./App.css";
 
 const defineVariableHeight = () => {
@@ -22,18 +20,10 @@ const defineVariableHeight = () => {
 window.addEventListener("resize", defineVariableHeight);
 
 const App = observer(() => {
-  const checkForValidAuth = useCallback(async () => {
-    if (authStore.refreshToken !== null) {
-      await authStore.getNewToken();
-      await userStore.fetchuserData();
-    }
-  }, []);
-
   useLayoutEffect(() => {
-    checkForValidAuth();
     // Define variable height
     defineVariableHeight();
-  }, [checkForValidAuth]);
+  }, []);
 
   return (
     <Router>

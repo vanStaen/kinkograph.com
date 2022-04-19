@@ -16,8 +16,6 @@ export const Login = () => {
       if (res.data.userId === "guest") {
         authStore.setIsGuest(true);
       } else {
-        authStore.setToken(res.data.token);
-        authStore.setRefreshToken(res.data.refreshToken);
         authStore.setIsGuest(false);
         userStore.fetchuserData();
       }

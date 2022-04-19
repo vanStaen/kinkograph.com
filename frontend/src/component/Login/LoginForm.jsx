@@ -27,7 +27,7 @@ export const LoginForm = () => {
     const emailOrUsername = values.emailOrUsername;
     const isValidEmail = validateEmail(emailOrUsername);
     if (isValidEmail) {
-      isEmail.current = values.email.toLowerCase();
+      isEmail.current = values.emailOrUsername.toLowerCase();
     }
     const password = values.password;
     const remember = values.remember;

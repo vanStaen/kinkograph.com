@@ -1,47 +1,47 @@
 import { action, makeObservable, observable } from "mobx";
 
 import { deleteLogout } from "./calls/deleteLogout";
-import { postLoginToken } from "./calls/postLoginToken";
+import { postLogin } from "./calls/postLogin";
+import { getHasAccess } from "./calls/getHasAccess";
 
 export class AuthStore {
-  token = null;
-  refreshToken = localStorage.getItem("refreshToken");
+
   isGuest = false;
   hasAccess = false;
 
   constructor() {
     makeObservable(this, {
-      token: observable,
-      setToken: action,
-      refreshToken: observable,
-      setRefreshToken: action,
+      login: action,
       logout: action,
       isGuest: observable,
       setIsGuest: action,
       hasAccess: observable,
       setHasAccess: action,
-      getNewToken: action,
     });
   }
 
-  setToken = (token) => {
-    this.token = token;
-  };
-
-  setRefreshToken = (refreshToken) => {
-    this.refreshToken = refreshToken;
-    localStorage.setItem("refreshToken", refreshToken);
+  login = async (email, username, password, remind) => {
+    if (!remind) {
+      remind = false;
+    }
+    // Call login endpoint
+    const resultLogIn = await postLogin(email, username, password, remind);
+    if (resultLogIn.success) {
+      this.setHasAccess(true);
+    } else {
+      return resultLogIn.error;
+    }
   };
 
   logout = async () => {
-    // Delete refreshtoken from localstorage,
-    localStorage.removeItem("refreshToken");
-    localStorage.removeItem("userId");
-    localStorage.removeItem("user");
-    localStorage.clear();
-    authStore.setToken(null);
-    authStore.setRefreshToken(null);
+    // Call logout endpoint
     await deleteLogout();
+  };
+
+  checkAccess = async () => {
+    const hasAccess = await getHasAccess();
+    //console.log("Check if user has valid credentials.")
+    this.setHasAccess(hasAccess);
   };
 
   setIsGuest = (isGuest) => {
@@ -50,18 +50,6 @@ export class AuthStore {
 
   setHasAccess = (hasAccess) => {
     this.hasAccess = hasAccess;
-  };
-
-  getNewToken = async () => {
-    try {
-      const newToken = await postLoginToken(authStore.refreshToken);
-      authStore.setToken(newToken.data.token);
-      authStore.setHasAccess(true);
-      return newToken;
-    } catch (e) {
-      console.log(e, authStore.refreshToken);
-      // authStore.logout();
-    }
   };
 }
 
