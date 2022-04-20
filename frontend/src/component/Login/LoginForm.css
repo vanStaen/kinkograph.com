@@ -7,7 +7,7 @@
 } 
 
 .login__full .login__form {
-  width: 400px;
+  width: 300px;
 }
 
 .login__full .login__formbutton {
@@ -21,6 +21,13 @@
   cursor: pointer;
 }
 
+.login__full .login__recover {
+  text-align: left;
+  color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  margin-right: 12px;
+}
+
 .login__full .login__remember:hover, 
 .login__full .login__recover:hover {
   text-align: left;
@@ -29,7 +36,7 @@
 }
 
 .login__full .ant-btn-primary {
-  background: transparent;
+  background: rgba(0, 0, 0, .95);
   border-color: transparent;
 }
 

@@ -1,8 +1,7 @@
-import React, { Fragment, useLayoutEffect, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React, { Fragment, useLayoutEffect, useEffect, useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { observer } from "mobx-react";
 import { useTranslation } from "react-i18next";
-import { QuestionOutlined } from "@ant-design/icons";
 
 import { Gallery } from "./pages/Gallery/Gallery";
 import { GalleryOverlaySimple } from "./component/GalleryOverlay/GalleryOverlaySimple";
@@ -11,6 +10,7 @@ import { Admin } from "./pages/Admin/Admin";
 import { authStore } from "./store/authStore";
 import { userStore } from "./store/userStore";
 import { Login } from "./component/Login/Login";
+import { FooterStartPage } from "./component/FooterStartPage/FooterStartPage";
 
 import "../src/lib/i18n";
 import "./App.css";
@@ -23,6 +23,8 @@ const defineVariableHeight = () => {
 window.addEventListener("resize", defineVariableHeight);
 
 const App = observer(() => {
+  const [loginWithCode, setLoginWithCode] = useState(true);
+
   const { i18n } = useTranslation();
   useLayoutEffect(() => {
     // Define variable height
@@ -37,7 +39,7 @@ const App = observer(() => {
     } else {
       i18n.changeLanguage("en-US");
     }
-  }, [userStore.language]);
+  }, [i18n]);
 
   return (
     <Router>
@@ -58,11 +60,12 @@ const App = observer(() => {
                 ) : (
                   <Fragment>
                     <div className="App__title">&nbsp;kinkograph</div>
-                    <Login />
+                    <Login loginWithCode={loginWithCode} />
                     <div className="spacer"></div>
-                    <Link className="App__infoLink" to="info">
-                      <QuestionOutlined />
-                    </Link>
+                    <FooterStartPage
+                      loginWithCode={loginWithCode}
+                      setLoginWithCode={setLoginWithCode}
+                    />
                   </Fragment>
                 )}
               </div>

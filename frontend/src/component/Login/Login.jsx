@@ -8,8 +8,7 @@ import { LoginForm } from "./LoginForm";
 
 import "./login.css";
 
-export const Login = () => {
-  const [loginWithCode, setLoginWithCode] = useState(true);
+export const Login = (props) => {
   const checkLogin = async (code) => {
     const res = await postLoginCode(code);
     if (res.status === 200) {
@@ -26,21 +25,13 @@ export const Login = () => {
   return (
     <div>
       <div className="login__container">
-        {loginWithCode ? (
+        {props.loginWithCode ? (
           <PinInput login={checkLogin} />
         ) : (
           <div>
             <LoginForm />
           </div>
         )}
-      </div>
-      <div
-        className="login__switchLoginType"
-        onClick={() => {
-          setLoginWithCode(!loginWithCode);
-        }}
-      >
-        [{loginWithCode ? "log in with an account" : "log in with a code"}]
       </div>
     </div>
   );

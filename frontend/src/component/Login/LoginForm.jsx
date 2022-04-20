@@ -113,6 +113,7 @@ export const LoginForm = () => {
         className="login__form"
         initialValues={{
           email: isEmail.current,
+          remember: true,
         }}
         onFinish={submitHandler}
       >
@@ -150,7 +151,6 @@ export const LoginForm = () => {
           name="remember"
           valuePropName="checked"
           style={{ display: "inline-block", width: "calc(50%)" }}
-          defaultChecked={false}
         >
           <Checkbox className="login__remember">
             {t("login.rememberMe")}

@@ -1,0 +1,29 @@
+.startFooter__infoLink {
+    position: absolute;
+    bottom: 20px;
+    right: 25px;
+    color: rgba(100, 100, 100, 0.75); 
+    font-size: 22px;
+    text-transform: lowercase; 
+  }
+  
+  .startFooter__infoLink:hover {
+    color: rgba(255, 255, 255, 0.75);
+  }
+  
+  .startFooter__switchLoginType {
+    position: absolute;
+    bottom: 21px;
+    right: 60px;
+    font-size: 21px;
+    color: rgba(100, 100, 100, 0.75); 
+    transition: color .3s;
+    margin: 0 0 0 0;
+    font-weight: 300;
+    letter-spacing: 0px;
+    cursor: pointer;
+  }
+  
+  .startFooter__switchLoginType:hover {
+    color: rgba(255, 255, 255, .75);
+  }
