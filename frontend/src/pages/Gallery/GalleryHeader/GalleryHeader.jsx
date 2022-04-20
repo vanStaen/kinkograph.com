@@ -161,9 +161,9 @@ export const GalleryHeader = observer(() => {
             className="galleryHeader__setFilter"
             onClick={handleClickFilterTitle}
           >
-            &#123;click here to{" "}
+            click here to{" "}
             <span className="galleryHeader__wordFilter">filter</span> the
-            results&#125;
+            results
           </div>
         )}
       </div>
