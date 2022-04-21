@@ -6,31 +6,36 @@ import "./info.css";
 
 export const Info = () => {
   return (
-    <div className="Uploader__noAccess">
+    <div className="info__container">
       <div className="info__title">&nbsp;kinkograph</div>
       <div className="info__paragraph">
-        ... is a curated and organised collection of sex positive, erotic and/or
-        BDSM artworks to inspire and plan a playful shoot between model(s) and
-        photographer. Use this to trigger your creativity.
+        <span>
+          ... is a curated and organised collection of sex positive, erotic
+          and/or BDSM pictures to inspire and plan a playful shoot between
+          model(s) and photographer. Use this to trigger your creativity.
+        </span>
       </div>
       <div className="info__paragraph">
-        Due to the nature of the pictures,{" "}
-        <span className="info__18">you should be at least 18</span> years old to
-        access this website.
+        <span>
+          Due to the nature of the pictures,{" "}
+          <span className="info__18">you should be at least 18</span> years old
+          to access this website.
+        </span>
       </div>
       <div className="info__paragraph">
-        I do not share any of my private kinky picture here. Hence, many of the
-        pictures found on this website are from the deep web. Should a picture
-        ou own be foudn here, please{" "}
-        <a className="info__contactLink" href="mailto:info@kinkograph.com">
-          contact me
-        </a>{" "}
-        to decide what should be done.
+        <span>
+          I do not share any of my private's kinky pictures here. Thus, many of
+          the artworks found on this website are from the deep web. Should a
+          picture that you own be found here, please{" "}
+          <a className="info__contactLink" href="mailto:info@kinkograph.com">
+            contact me
+          </a>{" "}
+          to decide what should be done.
+        </span>
       </div>
       <Link className="info__returnLink" to="/">
         <ArrowLeftOutlined />
       </Link>
-      <div className="spacer"></div>
       <div className="spacer"></div>
     </div>
   );
