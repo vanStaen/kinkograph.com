@@ -8,7 +8,6 @@ import {
   LinkOutlined,
 } from "@ant-design/icons";
 
-import { AlreadyMember } from "../SignUpForm/AlreadyMember";
 import { PasswordRecover } from "../PasswordRecover/PasswordRecover";
 import { authStore } from "../../store/authStore";
 import { postVerifyEmailLink } from "./postVerifyEmailLink";
@@ -166,7 +165,7 @@ export const LoginForm = () => {
           }}
         >
           <span
-            className="login__recover"
+            className="login__recover link"
             onClick={() => setIsRecovery(!isRecovery)}
           >
             {t("login.recoverPassword").replace(/^\w/, (c) => c.toUpperCase())}
@@ -181,9 +180,6 @@ export const LoginForm = () => {
           >
             {isLoading ? <SyncOutlined spin /> : t("login.logMeIn")}
           </Button>
-          <div className="login__showAlreadyMember">
-            <AlreadyMember />
-          </div>
         </Form.Item>
       </Form>
     </div>

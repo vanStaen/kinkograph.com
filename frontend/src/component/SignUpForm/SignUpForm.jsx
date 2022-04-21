@@ -10,9 +10,8 @@ import {
 import { useTranslation } from "react-i18next";
 
 import { postUsernameTaken } from "./postUsernameTaken";
-import { postVerifyEmailLink } from "../LoginForm/postVerifyEmailLink";
+import { postVerifyEmailLink } from "../Login/postVerifyEmailLink";
 import { postAddUser } from "./postAddUser";
-import { AlreadyMember } from "./AlreadyMember";
 
 import "./SignUpForm.css";
 
@@ -96,11 +95,6 @@ export const SignUpForm = (props) => {
 
   return (
     <div className="signup__full">
-      <div className="signup__header">
-        {t("login.signinto")} <b>rewaer</b>
-        .com {t("login.signintoAfter")}
-      </div>
-
       <Form
         name="form_signup"
         className="signup__form"
@@ -252,10 +246,17 @@ export const SignUpForm = (props) => {
         >
           <Checkbox className="signup__terms">
             {t("login.creatingAccountMeans")}{" "}
-            <a href="/service">{t("login.termsService")}</a>,{" "}
-            <a href="/privacy">{t("login.privacyPolicy")}</a>
+            <a className="link" href="/service">
+              {t("login.termsService")}
+            </a>
+            ,{" "}
+            <a className="link" href="/privacy">
+              {t("login.privacyPolicy")}
+            </a>
             {t("login.andDefault")}{" "}
-            <a href="/settings">{t("login.notificationSettings")}</a>
+            <a className="link" href="/settings">
+              {t("login.notificationSettings")}
+            </a>
             {t("login.creatingAccountMeansAfter")}
           </Checkbox>
         </Form.Item>
@@ -268,9 +269,6 @@ export const SignUpForm = (props) => {
           >
             {isLoading ? <SyncOutlined spin /> : t("login.createAccount")}
           </Button>
-          <div className="signup__showAlreadyMember">
-            <AlreadyMember />
-          </div>
         </Form.Item>
       </Form>
     </div>

@@ -40,6 +40,18 @@
   padding: 0 0 6em 0;
 }
 
+.link {
+  color: rgba(255, 255, 255, .95);
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color .3s;
+}
+
+.link:hover {
+  color: rgba(255, 255, 255, .75);
+  text-decoration: none;
+}
+
 /* Drawer custom */
 .ant-drawer-content,
 .ant-drawer-header {
@@ -84,7 +96,6 @@
 
 /* Input custom */
 .ant-input {
-  color: #fff !important;
   background-color: rgba(255, 255, 255, 0.05) !important;
   border: 1px solid rgba(255, 255, 255, 0.05) !important;
 }

@@ -5,23 +5,23 @@ export const AlreadyMember = (props) => {
   const { t } = useTranslation();
 
   return (
-    <div style={{ paddingTop: "15px" }}>
-      {props.showLogin ? (
+    <div classname="login__alreadyMember" style={{ paddingTop: "15px" }}>
+      {!props.showSignUp ? (
         <>
-          {t("login.newHere")}?{" "}
+          {t("login.newHere")}? &nbsp;
           <span
             className="link"
-            onClick={() => props.setShowLogin(!props.showLogin)}
+            onClick={() => props.setShowSignUp(!props.showSignUp)}
           >
             {t("login.signUp")}
           </span>
         </>
       ) : (
         <>
-          {t("login.member")}?{" "}
+          {t("login.member")}? &nbsp;
           <span
             className="link"
-            onClick={() => props.setShowLogin(!props.showLogin)}
+            onClick={() => props.setShowSignUp(!props.showSignUp)}
           >
             {t("login.login")}
           </span>

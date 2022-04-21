@@ -44,7 +44,6 @@
 .login__full .ant-btn-primary:focus {
   background:  rgba(0, 0, 0, .5);
   border-color: rgba(50, 50, 50, .6);
-
 }
 
 .login__full .ant-checkbox-checked .ant-checkbox-inner {
@@ -77,4 +76,8 @@
 .login__verifyEmailLink {
   padding-top: 15px;
   color: rgba(0, 0, 0, .75);
+}
+
+.login__alreadyMember {
+  color: rgba(255, 255, 255, .6);
 }

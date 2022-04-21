@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { notification } from "antd";
 
 import { postLoginCode } from "../../store/calls/postLoginCode";
@@ -6,11 +6,15 @@ import { userStore } from "../../store/userStore";
 import { authStore } from "../../store/authStore";
 import { PinInput } from "../PinInput/PinInput";
 import { LoginForm } from "./LoginForm";
+import { SignUpForm } from "../SignUpForm/SignUpForm";
+import { AlreadyMember } from "./AlreadyMember";
 
 import "./login.css";
 
 export const Login = (props) => {
-  const checkLogin = async (code) => {
+  const [showSignUp, setShowSignUp] = useState(false);
+
+  const checkPin = async (code) => {
     try {
       const res = await postLoginCode(code);
       if (res.status === 200) {
@@ -35,10 +39,16 @@ export const Login = (props) => {
     <div>
       <div className="login__container">
         {props.loginWithCode ? (
-          <PinInput login={checkLogin} />
+          <PinInput login={checkPin} />
         ) : (
           <div>
-            <LoginForm />
+            {showSignUp ? <SignUpForm /> : <LoginForm />}
+            <div className="login__alreadyMember">
+              <AlreadyMember
+                setShowSignUp={setShowSignUp}
+                showSignUp={showSignUp}
+              />
+            </div>
           </div>
         )}
       </div>

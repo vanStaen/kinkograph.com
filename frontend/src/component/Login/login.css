@@ -9,3 +9,15 @@
 .login__notification .ant-notification-notice-message {
     color: white  !important;
 }
+
+.login__alreadyMember{
+    position: absolute;
+    top: 0;
+    right: 1.5em;
+    font-size: 14px;
+}
+
+
+.login__alreadyMember:a{
+    color: red;
+}
