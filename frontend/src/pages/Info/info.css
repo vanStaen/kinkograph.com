@@ -52,7 +52,7 @@
 
 .info__title {
   font-size: 25px;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, .75);
   margin: 0 0 2em 0;
   font-weight: 100;
   letter-spacing: 17px;

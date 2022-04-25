@@ -1,17 +1,18 @@
-import React, { Fragment, useLayoutEffect, useCallback } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React, { Fragment, useLayoutEffect, useEffect, useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { observer } from "mobx-react";
-import { QuestionOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 import { Gallery } from "./pages/Gallery/Gallery";
 import { GalleryOverlaySimple } from "./component/GalleryOverlay/GalleryOverlaySimple";
 import { Info } from "./pages/Info/Info";
 import { Admin } from "./pages/Admin/Admin";
-import { userStore } from "./store/userStore";
 import { authStore } from "./store/authStore";
+import { userStore } from "./store/userStore";
 import { Login } from "./component/Login/Login";
+import { FooterStartPage } from "./component/FooterStartPage/FooterStartPage";
 
-import "./helpers/axiosInterceptor";
+import "../src/lib/i18n";
 import "./App.css";
 
 const defineVariableHeight = () => {
@@ -22,18 +23,23 @@ const defineVariableHeight = () => {
 window.addEventListener("resize", defineVariableHeight);
 
 const App = observer(() => {
-  const checkForValidAuth = useCallback(async () => {
-    if (authStore.refreshToken !== null) {
-      await authStore.getNewToken();
-      await userStore.fetchuserData();
-    }
-  }, []);
+  const [loginWithCode, setLoginWithCode] = useState(true);
 
+  const { i18n } = useTranslation();
   useLayoutEffect(() => {
-    checkForValidAuth();
     // Define variable height
     defineVariableHeight();
-  }, [checkForValidAuth]);
+  }, []);
+
+  useEffect(() => {
+    if (userStore.language === "fr") {
+      i18n.changeLanguage("fr-FR");
+    } else if (userStore.language === "de") {
+      i18n.changeLanguage("de-DE");
+    } else {
+      i18n.changeLanguage("en-US");
+    }
+  }, [i18n]);
 
   return (
     <Router>
@@ -54,11 +60,12 @@ const App = observer(() => {
                 ) : (
                   <Fragment>
                     <div className="App__title">&nbsp;kinkograph</div>
-                    <Login />
+                    <Login loginWithCode={loginWithCode} />
                     <div className="spacer"></div>
-                    <Link className="App__infoLink" to="info">
-                      <QuestionOutlined />
-                    </Link>
+                    <FooterStartPage
+                      loginWithCode={loginWithCode}
+                      setLoginWithCode={setLoginWithCode}
+                    />
                   </Fragment>
                 )}
               </div>

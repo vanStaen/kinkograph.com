@@ -8,7 +8,7 @@
     "start-client": "react-scripts start",
     "devfr": "cd frontend/; npm i; npm start; cd ../;",
     "test": "cd frontend/; npm run test; cd ../;",
-    "dev": "forever -c \"nodemon --exitcrash\" index.js",
+    "dev": "npm i; nodemon  index.js",
     "log": "heroku logs --tail",
     "version": "heroku --version; git --version",
     "buildfe": "cd frontend/; npm run build; cd ../; git add -A; git commit -a -m \"deploy frontend Build\"; git push;",
@@ -25,7 +25,10 @@
   ],
   "dependencies": {
     "aws-sdk": "^2.908.0",
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
+    "cookie-session": "^1.4.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
@@ -35,10 +38,10 @@
     "multer": "^1.4.2",
     "multer-s3": "^2.9.0",
     "path": "^0.12.7",
-    "pg": "^8.5.1"
+    "pg": "^8.5.1",
+    "sequelize": "^6.6.2"
   },
   "devDependencies": {
-    "forever": "^3.0.4",
     "lint": "^0.7.0",
     "nodemon": "^2.0.4",
     "prettier": "^2.2.1"

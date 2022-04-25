@@ -40,17 +40,16 @@
   padding: 0 0 6em 0;
 }
 
-.App__infoLink {
-  position: absolute;
-  bottom: 20px;
-  right: 25px;
-  color: rgba(100, 100, 100, 0.75); 
-  font-size: 22px;
-  text-transform: lowercase; 
+.link {
+  color: rgba(255, 255, 255, .95);
+  cursor: pointer;
+  text-decoration: none;
+  transition: color .3s;
 }
 
-.App__infoLink:hover {
-  color: rgba(255, 255, 255, 0.75);
+.link:hover {
+  color: rgba(255, 255, 255, .75);
+  text-decoration: underline;
 }
 
 /* Drawer custom */
@@ -97,7 +96,6 @@
 
 /* Input custom */
 .ant-input {
-  color: #fff !important;
   background-color: rgba(255, 255, 255, 0.05) !important;
   border: 1px solid rgba(255, 255, 255, 0.05) !important;
 }

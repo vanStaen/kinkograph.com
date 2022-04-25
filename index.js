@@ -1,6 +1,10 @@
 const express = require("express");
 const path = require("path");
+const cors = require(`cors`)
+
+const db = require("./models");
 const isAuth = require("./middleware/isAuth");
+const cookieSession = require("./middleware/cookieSession");
 const redirectTraffic = require("./middleware/redirectTraffic");
 
 const PORT = process.env.PORT || 5009;
@@ -17,27 +21,47 @@ app.use(redirectTraffic);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Session Cookie Middleware
+app.use(cookieSession);
+
 // Authorization Middleware
 app.use(isAuth);
 
 // Allow cross origin request
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PATCH, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
+app.use(function (req, res, next) {
+  let corsOptions = {};
+  if ((req.get('host') === 'localhost:5009')) {
+    corsOptions = {
+      origin: 'http://localhost:3000',
+      optionsSuccessStatus: 200
+    }
+  } else {
+    corsOptions = {
+      origin: [
+        'https://www.kinkograph.com',
+        'https://kinkograph.com',
+        'http://kinkograph.herokuapp.com',
+        'https://kinkograph.herokuapp.com',
+      ],
+      credentials: true,
+      optionsSuccessStatus: 200
+    }
   }
-  next();
-});
+  cors(corsOptions)(req, res, next);
+})
+
+// Sync sequelize
+db.sequelize.sync();
 
 // Router to API endpoints
-app.use("/login", require("./api/login"));
-app.use("/user", require("./api/user"));
+app.use('/user', require('./api/controller/userController'))
+app.use("/auth", require("./api/controller/authController"));
+app.use("/mail", require("./api/controller/mailController"));
+
 app.use("/pictures", require("./api/pictures"));
 app.use("/tags", require("./api/tags"));
 app.use("/admin", require("./api/admin"));
-app.use("/random", require("./api/random"));
+
 
 // Set up for React
 app.use(express.static(path.join(__dirname, "build")));

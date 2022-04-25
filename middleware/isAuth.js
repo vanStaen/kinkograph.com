@@ -1,15 +1,29 @@
 const jsonwebtoken = require("jsonwebtoken");
+const { User } = require("../models/User");
 require("dotenv/config");
 
-module.exports = (req, res, next) => {
-  const authHeader = req.get("Authorization");
-  if (!authHeader) {
-    req.isAuth = false;
-    return next();
+const devMode = true;
+
+module.exports = async (req, res, next) => {
+  // if in development mode
+  if (devMode) {
+    if (req.get("host") === "localhost:5000") {
+      console.log(">>>> Developement Mode <<<<<");
+      req.isAuth = true;
+      req.userId = "1";
+      req.email = "clement.vanstaen@gmail.com";
+      return next();
+    }
   }
+
   // Authorization: Bearer <token>
-  const token = authHeader.split(" ")[1];
-  if (!token  || token === "undefined" || token === "") {
+  const token = req.session.token;
+  const refreshToken = req.session.refreshToken;
+  //console.log("token", token)
+  //console.log("refreshToken", refreshToken)
+
+  // Check tokens are valid:
+  if (!token || token === "undefined" || token === "") {
     req.isAuth = false;
     return next();
   }
@@ -17,19 +31,48 @@ module.exports = (req, res, next) => {
   try {
     decodedToken = jsonwebtoken.verify(token, process.env.AUTH_SECRET_KEY);
   } catch (err) {
-    req.isAuth = false;
-    // console.log("Error", err);
-    return next();
-  }
-  if (!decodedToken) {
-    console.log("Decoded Token: ", decodedToken);
-    req.isAuth = false;
-    return next();
+    try {
+      // if refreshToken exist = user checked remind me
+      decodedToken = jsonwebtoken.verify(
+        refreshToken,
+        process.env.AUTH_SECRET_KEY_REFRESH
+      );
+    } catch (err) {
+      req.isAuth = false;
+      return next();
+    }
   }
 
+  // Set Auth variable
   req.isAuth = true;
   req.userId = decodedToken.userId;
-  req.email = decodedToken.email;
+
+  // Update token in session cookie
+  const accessToken = await jsonwebtoken.sign(
+    { userId: decodedToken.userId },
+    process.env.AUTH_SECRET_KEY,
+    { expiresIn: "15m" }
+  );
+
+  //console.log("accessToken updated!");
+  req.session.token = accessToken;
+
+  // Update refrehstoken in session cookie
+  if (refreshToken) {
+    const refreshToken = await jsonwebtoken.sign(
+      { userId: decodedToken.userId },
+      process.env.AUTH_SECRET_KEY_REFRESH,
+      { expiresIn: "7d" }
+    );
+    //console.log("refreshToken updated!");
+    req.session.refreshToken = refreshToken;
+  }
+
+   // Update lastLogin in user table
+   await User.update(
+    { last_login: Date.now() },
+    { where: { id: decodedToken.userId } }
+  );
 
   next();
 };
