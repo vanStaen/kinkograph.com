@@ -118,7 +118,7 @@ export const GalleryHeader = observer(() => {
                   </span>
                 }
               >
-                Hello {userStore.name},
+                Hello {userStore.name ? userStore.name : "stranger"},
               </Tooltip>
             </div>
             <div className="galleryHeader__SmallFont">
