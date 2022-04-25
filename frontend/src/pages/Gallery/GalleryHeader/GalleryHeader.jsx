@@ -50,6 +50,9 @@ export const GalleryHeader = observer(() => {
       if (e.target.innerText > maxPage) {
         console.log("Senpai, it's too big!");
         pageInputValue.current = maxPage;
+      } else if (e.target.innerText < 1) {
+        console.log("Oh baby, it's really small!");
+        pageInputValue.current = 1;
       } else {
         pageInputValue.current = e.target.innerText;
       }
