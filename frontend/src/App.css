@@ -43,13 +43,13 @@
 .link {
   color: rgba(255, 255, 255, .95);
   cursor: pointer;
-  text-decoration: underline;
+  text-decoration: none;
   transition: color .3s;
 }
 
 .link:hover {
   color: rgba(255, 255, 255, .75);
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 /* Drawer custom */

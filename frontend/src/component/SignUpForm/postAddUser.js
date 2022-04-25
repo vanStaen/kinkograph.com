@@ -46,7 +46,7 @@ export const postAddUser = async (
   try {
     const response = await axios(
       {
-        url: process.env.API_URL + `/graphql`,
+        url: process.env.REACT_APP_API_URL + `/graphql`,
         method: "POST",
         data: requestBody,
       },
