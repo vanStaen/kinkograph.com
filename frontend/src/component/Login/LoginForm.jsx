@@ -61,6 +61,7 @@ export const LoginForm = () => {
                     duration: 0,
                     message: t("login.recoverEmailSent"),
                     placement: "topLeft",
+                    className: "login__notification",
                   });
                 }}
               >
@@ -73,6 +74,7 @@ export const LoginForm = () => {
             duration: 0,
             message: errorMessage,
             placement: "topLeft",
+            className: "login__notification",
           });
         } else if (error === "Error: Password is incorrect!") {
           const errorMessage = (
@@ -89,11 +91,13 @@ export const LoginForm = () => {
           notification.error({
             message: errorMessage,
             placement: "topLeft",
+            className: "login__notification",
           });
         } else {
           notification.error({
             message: error,
             placement: "topLeft",
+            className: "login__notification",
           });
         }
       }

@@ -74,6 +74,7 @@ export const SignUpForm = (props) => {
         notification.success({
           message: t("login.pleaseConfirmEmail"),
           placement: "topLeft",
+          className: "login__notification",
           duration: 0,
         });
         props.setShowLogin(true);
@@ -81,12 +82,14 @@ export const SignUpForm = (props) => {
         notification.error({
           message: response.errors[0].message,
           placement: "topLeft",
+          className: "login__notification",
         });
       }
     } catch (error) {
       notification.error({
         message: error.message,
         placement: "topLeft",
+        className: "login__notification",
       });
       console.log(error);
     }

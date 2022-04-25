@@ -30,6 +30,7 @@ export const Login = (props) => {
       console.log(err);
       notification.error({
         message: err.message,
+        placement: "topLeft",
         className: "login__notification",
       });
     }
