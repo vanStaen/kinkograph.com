@@ -65,7 +65,6 @@ export const getTotalPictures = async (filter = "") => {
       throw new Error(`Error! Status ${response.status}`);
     }
   }
-
-  return response.data[0].count;
+  return response.data;
   
 };

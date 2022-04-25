@@ -57,8 +57,8 @@ db.sequelize.sync();
 app.use('/user', require('./api/controller/userController'))
 app.use("/auth", require("./api/controller/authController"));
 app.use("/mail", require("./api/controller/mailController"));
+app.use("/pictures", require("./api/controller/pictureController"));
 
-app.use("/pictures", require("./api/pictures"));
 app.use("/tags", require("./api/tags"));
 app.use("/admin", require("./api/admin"));
 
