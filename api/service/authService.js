@@ -1,4 +1,5 @@
 const { User } = require("../../models/User");
+const { Picture } = require("../../models/Picture");
 const bcrypt = require("bcryptjs");
 const jsonwebtoken = require("jsonwebtoken");
 const sequelize = require("sequelize");
@@ -7,11 +8,10 @@ exports.authService = {
   async login(req, email, username, password, remindMe) {
     if (username) {
       foundUser = await User.findOne({
-        where: 
-          sequelize.where(
-            sequelize.fn('lower', sequelize.col('userName')), 
-            sequelize.fn('lower', username)
-          ),
+        where: sequelize.where(
+          sequelize.fn("lower", sequelize.col("userName")),
+          sequelize.fn("lower", username)
+        ),
       });
     } else {
       foundUser = await User.findOne({
@@ -47,9 +47,10 @@ exports.authService = {
         req.session.refreshToken = refreshToken;
       }
 
-      // Update lastLogin in user table
+      // Update lastLogin and nb_picture_at_last_login in user table
+      const { count } = await Picture.findAndCountAll();
       await User.update(
-        { lastActive: Date.now() },
+        { lastActive: Date.now(), nb_picture_at_last_login: count },
         { where: { _id: foundUser._id } }
       );
 
@@ -77,6 +78,55 @@ exports.authService = {
       return true;
     } else {
       return false;
+    }
+  },
+
+  async code(req, code) {
+    if (code === process.env.ACCESS_CODE_GUEST) {
+      // Set token in session cookie
+      const accessToken = await jsonwebtoken.sign(
+        { userId: "guest" },
+        process.env.AUTH_SECRET_KEY,
+        { expiresIn: "15m" }
+      );
+      req.session.token = accessToken;
+      return true;
+    }
+
+    foundUser = await User.findOne({
+      where: { access_code: code },
+    });
+
+    if (!foundUser) {
+      throw new Error("Wrong access code!");
+    } else {
+      // Set token in session cookie
+      const accessToken = await jsonwebtoken.sign(
+        { userId: foundUser._id },
+        process.env.AUTH_SECRET_KEY,
+        { expiresIn: "15m" }
+      );
+      req.session.token = accessToken;
+
+      // Set refreshtoken in session cookie
+      if (remindMe) {
+        const refreshToken = await jsonwebtoken.sign(
+          { userId: foundUser._id },
+          process.env.AUTH_SECRET_KEY_REFRESH,
+          { expiresIn: "7d" }
+        );
+        req.session.refreshToken = refreshToken;
+      }
+
+      // Update lastLogin and nb_picture_at_last_login in user table
+      const { count } = await Picture.findAndCountAll();
+      await User.update(
+        { lastActive: Date.now(), nb_picture_at_last_login: count },
+        { where: { _id: foundUser._id } }
+      );
+
+      // Return true if success
+      return true;
     }
   },
 };

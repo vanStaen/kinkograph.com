@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const {authService} = require("../service/authService");
+const { authService } = require("../service/authService");
 
 // Login
 router.post("/login", async (req, res) => {
@@ -54,6 +54,29 @@ router.get("/access", async (req, res) => {
     if (hasAccess) {
       res.status(200).json({
         access: hasAccess,
+      });
+    } else {
+      res.status(200).json({
+        access: false,
+      });
+    }
+  } catch (err) {
+    res.status(400).json({
+      error: `${err}`,
+    });
+  }
+});
+
+// Has validCode?
+router.post("/code", async (req, res) => {
+  try {
+    if (!req.body.code) {
+      throw new Error("Please provide a code to login!");
+    }
+        const codeIsValid = await authService.code(req, req.body.code);
+    if (codeIsValid) {
+      res.status(200).json({
+        access: codeIsValid,
       });
     } else {
       res.status(200).json({

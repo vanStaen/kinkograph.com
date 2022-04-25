@@ -56,11 +56,11 @@ db.sequelize.sync();
 // Router to API endpoints
 app.use('/user', require('./api/controller/userController'))
 app.use("/auth", require("./api/controller/authController"));
+app.use("/mail", require("./api/controller/mailController"));
 
-app.use("/login", require("./api/login"));
-//app.use("/pictures", require("./api/pictures"));
-//app.use("/tags", require("./api/tags"));
-//app.use("/admin", require("./api/admin"));
+app.use("/pictures", require("./api/pictures"));
+app.use("/tags", require("./api/tags"));
+app.use("/admin", require("./api/admin"));
 
 
 // Set up for React
