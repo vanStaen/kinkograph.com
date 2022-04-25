@@ -1,6 +1,6 @@
 /* as an object, instead of an array, because it 
-takes less ressources to look for a key in an objects 
-rather that find an elementin an array */
+takes less ressources to look for a key in an object
+rather that find an element in an array */
 
 const forbiddenUsername = {
     recoverpwd: 1,
