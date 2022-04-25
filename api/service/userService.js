@@ -1,17 +1,20 @@
 const { User } = require("../../models/User");
+const checkUsernameforbidden = require("../../helpers/checkUsernameforbidden")
 const jsonwebtoken = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 exports.userService = {
   async taken(username) {
     foundUser = await User.findOne({
-      where: { userName: username },
+      where: { username: username },
     });
-    if (!foundUser) {
-      return false;
-    } else {
+    if (foundUser) {
       return true;
     }
+    if (checkUsernameforbidden(username)) {
+      return true;
+    }
+    return false;
   },
 
   async email(email) {
@@ -83,5 +86,4 @@ exports.userService = {
       return false;
     }
   },
-
 };
