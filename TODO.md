@@ -22,6 +22,19 @@
   - [ ] 1 mail every 3 month since last connection
 - [ ] Use Server Cookie as login method
 - [ ] Redirect info@kinkograph.com
+- [ ] Refactoring
+  - [ ] Use Session Cookie
+  - [ ] Rework Login component
+    - [ ] Login with code
+    - [ ] Login with account
+    - [ ] Create Account
+    - [ ] Lost password
+  - [ ] Refactor BackEnd to use Sequelise
+    - [ ] Admin API
+    - [x] Picture API
+    - [ ] Tags API
+    - [ ] User API
+    - [ ] Mail Api
   
 ## Completed ✓
 
