@@ -90,4 +90,48 @@ exports.pictureService = {
       return count;
     }
   },
+
+  async getPictureByName(name) {
+    return await Picture.findOne({
+      where: {
+        original_name: name,
+      },
+    });
+  },
+
+  async getFavoritePictureById(ids) {
+    const filterFormated = ids.map((id) => ({
+      id: id,
+    }));
+    console.log(filterFormated)
+    return await Picture.findAll({
+      where: {
+        [Op.or]: filterFormated,
+      },
+    });
+  },
+
+  async getPictureByKey(key) {
+    return await Picture.findOne({
+      where: {
+        key: key,
+      },
+    });
+  },
+
+  async patchPictureById(id, tags) {
+    const updatedPicture = await Picture.update(
+      { tags: tags },
+      {
+        where: {
+          id: id,
+        },
+        returning: true,
+        plain: true,
+      }
+    );
+    // updatedLook[0]: number or row udpated
+    // updatedLook[1]: rows updated
+    return updatedPicture[1];
+  },
 };

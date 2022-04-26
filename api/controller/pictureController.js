@@ -47,6 +47,12 @@ const uploadS3 = multer({
 
 // POST single file object to s3
 router.post("/", (req, res) => {
+  /*if (!req.isAuth) {
+    res.status(401).json({
+      error: "Unauthorized",
+    });
+    return;
+  }*/
   if (!req.isAuth) {
     res.status(401).json({
       error: "Unauthorized",
@@ -115,6 +121,12 @@ router.post("/", (req, res) => {
 
 // DELETE single file object from s3 (based on key)
 router.delete("/:key", async (req, res) => {
+  /*if (!req.isAuth) {
+    res.status(401).json({
+      error: "Unauthorized",
+    });
+    return;
+  }*/
   if (!req.isAuth) {
     res.status(401).json({
       error: "Unauthorized",
@@ -165,6 +177,12 @@ router.delete("/:key", async (req, res) => {
 
 // GET all pictures
 router.get("/all/:limit/:showMissing", async (req, res) => {
+  /*if (!req.isAuth) {
+    res.status(401).json({
+      error: "Unauthorized",
+    });
+    return;
+  }*/
   try {
     const pictures = await pictureService.getPictures(
       req.params.showMissing,
@@ -183,6 +201,12 @@ router.get("/all/:limit/:showMissing", async (req, res) => {
 
 // POST all pictures, with pagination and filter
 router.post("/page/", async (req, res) => {
+  /*if (!req.isAuth) {
+    res.status(401).json({
+      error: "Unauthorized",
+    });
+    return;
+  }*/
   try {
     const pageNumber = req.body.pageNumber;
     const pageSize = req.body.pageSize;
@@ -211,6 +235,12 @@ router.post("/page/", async (req, res) => {
 
 // POST: Get Total of pictures, with filter
 router.post("/total/", async (req, res) => {
+  /*if (!req.isAuth) {
+    res.status(401).json({
+      error: "Unauthorized",
+    });
+    return;
+  }*/
   try {
     let filters = "";
     if (req.body.filter) {
@@ -230,16 +260,15 @@ router.post("/total/", async (req, res) => {
 
 // POST, check if a picture is already in db
 router.post("/duplicate/", async (req, res) => {
-  if (!req.isAuth) {
+  /*if (!req.isAuth) {
     res.status(401).json({
       error: "Unauthorized",
     });
     return;
-  }
-  const filter = `WHERE original_name='${req.body.name}'`;
+  }*/
   try {
-    const pictures = await client.query(`SELECT * FROM pictures ${filter}`);
-    res.status(201).json(pictures.rows);
+    const picture = await pictureService.getPictureByName(req.body.name);
+    res.status(201).json(picture);
   } catch (err) {
     res.status(400).json({
       error: `${err})`,
@@ -249,11 +278,21 @@ router.post("/duplicate/", async (req, res) => {
 
 // GET all pictures with missing tag
 router.get("/tagsmissing/:limit", async (req, res) => {
-  try {
-    const pictures = await client.query(
-      `SELECT * FROM pictures WHERE tags_missing=true LIMIT ${req.params.limit}`
+  /*if (!req.isAuth) {
+    res.status(401).json({
+      error: "Unauthorized",
+    });
+    return;
+  }*/
+  try {    
+    const pictures = await pictureService.getPictures(
+      true,
+      req.params.limit,
+      null,
+      null,
+      'DESC',
     );
-    res.status(201).json(pictures.rows);
+    res.status(201).json(pictures);
   } catch (err) {
     res.status(400).json({
       error: `${err})`,
@@ -263,11 +302,15 @@ router.get("/tagsmissing/:limit", async (req, res) => {
 
 // GET COUNT all pictures with missing tag
 router.get("/tagsmissingcount/", async (req, res) => {
+  /*if (!req.isAuth) {
+    res.status(401).json({
+      error: "Unauthorized",
+    });
+    return;
+  }*/
   try {
-    const result = await client.query(
-      `SELECT COUNT(id) FROM pictures WHERE tags_missing=true;`
-    );
-    res.status(201).json(result.rows);
+    const count = await pictureService.countPictures(true, null)
+    res.status(201).json(count);
   } catch (err) {
     res.status(400).json({
       error: `${err})`,
@@ -277,16 +320,14 @@ router.get("/tagsmissingcount/", async (req, res) => {
 
 // PATCH picture based on ID
 router.patch("/:id", async (req, res) => {
-  if (!req.isAuth) {
+  /*if (!req.isAuth) {
     res.status(401).json({
       error: "Unauthorized",
     });
     return;
-  }
+  }*/
   try {
-    await client.query(
-      `UPDATE pictures SET tags='${req.body.tags}', tags_missing=false WHERE id=${req.params.id}`
-    );
+    await pictureService.patchPictureById(req.params.id, req.body.tags)
     res.status(201).json(`Picture with id #${req.params.id} was udpated`);
   } catch (err) {
     res.status(400).json({
@@ -297,12 +338,16 @@ router.patch("/:id", async (req, res) => {
 
 // GET picture based on key
 router.get("/:key", async (req, res) => {
+  /*if (!req.isAuth) {
+    res.status(401).json({
+      error: "Unauthorized",
+    });
+    return;
+  }*/
   try {
-    const result = await client.query(
-      `SELECT * FROM pictures WHERE key='${req.params.key}'`
-    );
-    if (result.rows.length > 0) {
-      res.status(201).json(result.rows);
+    const picture = await pictureService.getPictureByKey(req.params.key);
+    if (picture) {
+      res.status(201).json(picture);
     } else {
       res.status(400).json({
         error: `No picture found with key ${req.params.key}!`,
@@ -317,22 +362,15 @@ router.get("/:key", async (req, res) => {
 
 // POST: Get all of favorites pictures
 router.post("/favorites/", async (req, res) => {
-  if (!req.isAuth) {
+  /*if (!req.isAuth) {
     res.status(401).json({
       error: "Unauthorized",
     });
     return;
-  }
+  }*/
   try {
-    let favFilter = "WHERE ";
-    const fav = req.body.favorites;
-    fav.forEach((e) => {
-      favFilter = favFilter + `id=${e} OR `;
-    });
-    const favFilterCleaned = favFilter.slice(0, -4); // delete the last " OR "
-    const getFavQuery = `SELECT * FROM pictures ${favFilterCleaned};`;
-    const favPictures = await client.query(getFavQuery);
-    res.status(201).json(favPictures.rows);
+    const pictures = await pictureService.getFavoritePictureById(req.body.favorites);
+    res.status(201).json(pictures);
   } catch (err) {
     res.status(400).json({
       error: `${err})`,

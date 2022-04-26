@@ -35,6 +35,8 @@
     - [ ] Tags API
     - [ ] User API
     - [ ] Mail Api
+    - [ ] Check Auth on api calls
+    - [ ] Check Admin auth on api calls
   
 ## Completed ✓
 
