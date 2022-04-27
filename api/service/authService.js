@@ -31,7 +31,7 @@ exports.authService = {
 
       // Set token in session cookie
       const accessToken = await jsonwebtoken.sign(
-        { userId: foundUser._id },
+        { userId: foundUser._id, isAdmin: foundUser.is_admin },
         process.env.AUTH_SECRET_KEY,
         { expiresIn: "15m" }
       );
@@ -40,7 +40,7 @@ exports.authService = {
       // Set refreshtoken in session cookie
       if (remindMe) {
         const refreshToken = await jsonwebtoken.sign(
-          { userId: foundUser._id },
+          { userId: foundUser._id, isAdmin: foundUser.is_admin },
           process.env.AUTH_SECRET_KEY_REFRESH,
           { expiresIn: "7d" }
         );
@@ -85,7 +85,7 @@ exports.authService = {
     if (code === process.env.ACCESS_CODE_GUEST) {
       // Set token in session cookie
       const accessToken = await jsonwebtoken.sign(
-        { userId: "guest" },
+        { userId: "guest", isAdmin: false },
         process.env.AUTH_SECRET_KEY,
         { expiresIn: "15m" }
       );
@@ -102,7 +102,7 @@ exports.authService = {
     } else {
       // Set token in session cookie
       const accessToken = await jsonwebtoken.sign(
-        { userId: foundUser._id },
+        { userId: foundUser._id, isAdmin: foundUser.is_admin },
         process.env.AUTH_SECRET_KEY,
         { expiresIn: "15m" }
       );
@@ -111,7 +111,7 @@ exports.authService = {
       // Set refreshtoken in session cookie
       if (remindMe) {
         const refreshToken = await jsonwebtoken.sign(
-          { userId: foundUser._id },
+          { userId: foundUser._id, isAdmin: foundUser.is_admin },
           process.env.AUTH_SECRET_KEY_REFRESH,
           { expiresIn: "7d" }
         );

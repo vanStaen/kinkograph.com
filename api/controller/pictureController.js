@@ -47,7 +47,7 @@ const uploadS3 = multer({
 
 // POST single file object to s3
 router.post("/", (req, res) => {
-  /*if (!req.isAuth) {
+  /*if (!req.isAdmin) {
     res.status(401).json({
       error: "Unauthorized",
     });
@@ -121,7 +121,7 @@ router.post("/", (req, res) => {
 
 // DELETE single file object from s3 (based on key)
 router.delete("/:key", async (req, res) => {
-  /*if (!req.isAuth) {
+  /*if (!req.isAdmin) {
     res.status(401).json({
       error: "Unauthorized",
     });
@@ -260,7 +260,7 @@ router.post("/total/", async (req, res) => {
 
 // POST, check if a picture is already in db
 router.post("/duplicate/", async (req, res) => {
-  /*if (!req.isAuth) {
+  /*if (!req.isAdmin) {
     res.status(401).json({
       error: "Unauthorized",
     });
@@ -278,7 +278,7 @@ router.post("/duplicate/", async (req, res) => {
 
 // GET all pictures with missing tag
 router.get("/tagsmissing/:limit", async (req, res) => {
-  /*if (!req.isAuth) {
+  /*if (!req.isAdmin) {
     res.status(401).json({
       error: "Unauthorized",
     });
@@ -302,7 +302,7 @@ router.get("/tagsmissing/:limit", async (req, res) => {
 
 // GET COUNT all pictures with missing tag
 router.get("/tagsmissingcount/", async (req, res) => {
-  /*if (!req.isAuth) {
+  /*if (!req.isAdmin) {
     res.status(401).json({
       error: "Unauthorized",
     });
@@ -320,7 +320,7 @@ router.get("/tagsmissingcount/", async (req, res) => {
 
 // PATCH picture based on ID
 router.patch("/:id", async (req, res) => {
-  /*if (!req.isAuth) {
+  /*if (!req.isAdmin) {
     res.status(401).json({
       error: "Unauthorized",
     });
@@ -338,12 +338,6 @@ router.patch("/:id", async (req, res) => {
 
 // GET picture based on key
 router.get("/:key", async (req, res) => {
-  /*if (!req.isAuth) {
-    res.status(401).json({
-      error: "Unauthorized",
-    });
-    return;
-  }*/
   try {
     const picture = await pictureService.getPictureByKey(req.params.key);
     if (picture) {

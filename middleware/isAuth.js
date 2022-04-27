@@ -10,6 +10,7 @@ module.exports = async (req, res, next) => {
     if (req.get("host") === "localhost:5000") {
       console.log(">>>> Developement Mode <<<<<");
       req.isAuth = true;
+      req.isAdmin = true;
       req.userId = "1";
       req.email = "clement.vanstaen@gmail.com";
       return next();
@@ -45,6 +46,7 @@ module.exports = async (req, res, next) => {
 
   // Set Auth variable
   req.isAuth = true;
+  req.isAdmin = decodedToken.isAdmin;
   req.userId = decodedToken.userId;
 
   // Update token in session cookie
