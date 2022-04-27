@@ -37,7 +37,6 @@ router.post("/filter/", async (req, res) => {
       arrayFilter,
       "DESC"
     );
-    console.log(tagsFilter);
     const allTagsFromFilter = [];
     tagsFilter.forEach((row) => {
       const tags = JSON.parse(row.tags);
@@ -72,18 +71,14 @@ router.post("/", async (req, res) => {
     return;
   }*/
   try {
-    const checkIfTagsExist = await client.query(
-      `SELECT * FROM tags WHERE tag_name='${req.body.tag_name}'`
-    );
-    if (checkIfTagsExist.rows.length > 0) {
+    const tagsExistAlready = await tagService.checkTagExist(req.body.tag_name);
+    if (tagsExistAlready) {
       res.status(201).json({
         value: "failed",
-        message: `${req.body.tag_name} was already in the table 'tags'`,
+        message: `the tag '${req.body.tag_name}' exist already!`,
       });
     } else {
-      await client.query(
-        `INSERT INTO public.tags (tag_name) VALUES ('${req.body.tag_name}');`
-      );
+      await tagService.addTag(req.body.tag_name);
       res.status(201).json({
         value: "success",
         message: `${req.body.tag_name} was added to the table 'tags'`,
@@ -154,12 +149,12 @@ router.post("/edit/", async (req, res) => {
 
 // DELETE  tags
 router.delete("/", async (req, res) => {
-  if (!req.isAdmin) {
+  /*if (!req.isAdmin) {
     res.status(401).json({
       error: "Unauthorized",
     });
     return;
-  }
+  }*/
   //Check that user has admin rights
   const user = await client.query(`SELECT * FROM users WHERE id=${req.userId}`);
   if (!user.rows[0].is_admin) {
