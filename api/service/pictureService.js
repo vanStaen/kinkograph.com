@@ -103,7 +103,6 @@ exports.pictureService = {
     const filterFormated = ids.map((id) => ({
       id: id,
     }));
-    console.log(filterFormated)
     return await Picture.findAll({
       where: {
         [Op.or]: filterFormated,
@@ -133,5 +132,21 @@ exports.pictureService = {
     // updatedLook[0]: number or row udpated
     // updatedLook[1]: rows updated
     return updatedPicture[1];
+  },
+
+  async getPicturesByTag(showMissing, tags, order) {
+    const filterFormated = tags.map((element) => ({
+      [Op.like]: `%${element}%`,
+    }));
+    return await Picture.findAll({
+      attributes: ["id", "tags"],
+      where: {
+        tags_missing: showMissing,
+        tags: {
+          [Op.and]: filterFormated,
+        },
+      },
+      order: [["id", order]],
+    });
   },
 };
