@@ -58,8 +58,8 @@ app.use('/user', require('./api/controller/userController'))
 app.use("/auth", require("./api/controller/authController"));
 app.use("/mail", require("./api/controller/mailController"));
 app.use("/pictures", require("./api/controller/pictureController"));
+app.use("/tags", require("./api/controller/tagController"));
 
-app.use("/tags", require("./api/tags"));
 app.use("/admin", require("./api/admin"));
 
 
