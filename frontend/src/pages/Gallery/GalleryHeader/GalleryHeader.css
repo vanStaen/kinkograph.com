@@ -58,14 +58,6 @@
   display: inline-block;
 }
 
-.galleryHeader__favorite {
-  cursor: pointer;
-}
-
-.galleryHeader__favorite:hover {
-  color: rgba(255, 255, 255, 1);
-}
-
 .galleryHeader__setFilter {
   font-size: 0.8em;
   color: rgba(255, 255, 255, 0.5);
