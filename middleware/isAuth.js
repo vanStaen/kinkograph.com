@@ -70,11 +70,13 @@ module.exports = async (req, res, next) => {
     req.session.refreshToken = refreshToken;
   }
 
-   // Update lastLogin in user table
-   await User.update(
-    { last_login: Date.now() },
-    { where: { id: decodedToken.userId } }
-  );
+  if (decodedToken.userId !== "guest") {
+    // Update lastLogin in user table
+    await User.update(
+      { last_login: Date.now() },
+      { where: { id: decodedToken.userId } }
+    );
+  }
 
   next();
 };
