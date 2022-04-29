@@ -4,6 +4,95 @@ const jsonwebtoken = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 exports.userService = {
+
+  async getUsers() {
+    return await User.findAll();
+  },
+
+  async addUser(input) {
+    const foundUserEmail = await User.findOne({
+      where: {
+        email: input.email,
+      },
+    });
+    if (foundUserEmail) {
+      throw new Error("This email is already associated with an account.");
+    }
+    const foundUserUserName = await User.findOne({
+      where: {
+        userName: input.userName,
+      },
+    });
+    if (foundUserUserName) {
+      throw new Error("This username is already associated with an account.");
+    }
+
+    try {
+      hashedPassword = await bcrypt.hash(input.pwd, 12);
+      const user = new User({
+        name: input.name,
+        username: input.username,
+        language: input.language,
+        email: input.email,
+        access_code: input.access_code,
+        pwd: hashedPassword,
+        lastActive: Date.now(),
+      });
+      return await user.save();
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  async updateUser(input) {
+    const updateFields = [];
+    const updatableFields = [
+      "avatar",
+      "userName",
+      "emailSettings",
+      "profilSettings",
+      "language",
+      "gender",
+      "archived",
+      "usernameChange",
+    ];
+    updatableFields.forEach((field) => {
+      if (field in input) {
+        updateFields[field] = input[field];
+      }
+    });
+    if (input.password) {
+      updateFields.password = await bcrypt.hash(input.password, 12);
+    }
+    try {
+      const updatedUser = await User.update(updateFields, {
+        where: {
+          _id: req.userId,
+        },
+        returning: true,
+        plain: true,
+      });
+      // updatedUser[0]: number or row udpated
+      // updatedUser[1]: rows updated
+      return updatedUser[1];
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  async deleteUser(args, req) {
+    if (!req.isAuth) {
+      throw new Error("Unauthorized!");
+    }
+    await User.destroy({
+      where: {
+        _id: req.userId,
+      },
+    });
+    req.session = null;
+    return true;
+  },
+
   async taken(username) {
     foundUser = await User.findOne({
       where: { username: username },

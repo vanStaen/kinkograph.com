@@ -1,6 +1,49 @@
 const router = require("express").Router();
 const { userService } = require("../service/userService");
 
+
+// Get all user 
+router.get("/", async (req, res) => {
+  /*if (!req.isAdmin) {
+  res.status(401).json({
+    error: "Unauthorized",
+  });
+  return;
+}*/
+  try {
+    const getAllUser = await userService.getUsers();
+    res.status(200).json({
+      getAllUser,
+    });
+  } catch (err) {
+    res.status(400).json({
+      error: `${err}`,
+    });
+  }
+});
+
+// POST new user
+router.post("/", async (req, res) => {
+  try {
+    if (!req.body.userInput.username) {
+      res.status(400).json({
+        error: `No username was provided`,
+      });
+    }
+    if (!req.body.userInput.pwd && !req.body.userInput.access_code) {
+      res.status(400).json({
+        error: `No means of identification (Password or Access Code) were provided!`,
+      });
+    }
+    await userService.addUser(req.body.userInput);
+    res.status(201).json({ message: "Success! User have been created." });
+  } catch (err) {
+    res.status(400).json({
+      error: `${err}`,
+    });
+  }
+});
+
 // Username Taken? 
 router.post("/taken", async (req, res) => {
   try {
