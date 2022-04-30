@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
     error: "Unauthorized",
   });
   return;
-}*/
+  }*/
   try {
     const getAllUser = await userService.getUsers();
     res.status(200).json({
@@ -143,5 +143,22 @@ router.post("/emailverified", async (req, res) => {
   4;
 });
 
+// POST store Favorites
+router.patch("/", async (req, res) => {
+  /*if (!req.isAuth) {
+    res.status(401).json({
+      error: "Unauthorized",
+    });
+    return;
+  } */
+  try {
+    await userService.updateUser(req.userId, { input: req.body.input })
+    res.status(201).json({ message: "Success! The updates have been saved." });
+  } catch (err) {
+    res.status(400).json({
+      error: `${err}`,
+    });
+  }
+});
 
 module.exports = router;

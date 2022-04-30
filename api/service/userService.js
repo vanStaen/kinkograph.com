@@ -44,7 +44,7 @@ exports.userService = {
     }
   },
 
-  async updateUser(input) {
+  async updateUser(userId, input) {
     const updateFields = [];
     const updatableFields = [
       "avatar",
@@ -67,7 +67,7 @@ exports.userService = {
     try {
       const updatedUser = await User.update(updateFields, {
         where: {
-          _id: req.userId,
+          _id: userId,
         },
         returning: true,
         plain: true,
