@@ -33,7 +33,7 @@
     - [ ] Admin API
     - [x] Picture API
     - [ ] Tags API
-    - [ ] User API
+    - [x] User API
     - [ ] Mail Api
     - [ ] Check Auth on api calls
     - [ ] Check Admin auth on api calls
