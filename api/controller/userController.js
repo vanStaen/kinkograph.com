@@ -6,7 +6,7 @@ const { userService } = require("../service/userService");
 router.get("/", async (req, res) => {
   /*if (!req.isAdmin) {
   res.status(401).json({
-    error: "Unauthorized",
+      error: "You do not have administrator rights.",
   });
   return;
   }*/

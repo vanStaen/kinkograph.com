@@ -66,7 +66,7 @@ router.post("/filter/", async (req, res) => {
 router.post("/", async (req, res) => {
   /*if (!req.isAdmin) {
     res.status(401).json({
-      error: "Unauthorized",
+      error: "You do not have administrator rights.",
     });
     return;
   }*/
@@ -93,12 +93,12 @@ router.post("/", async (req, res) => {
 
 // POST edit tags
 router.post("/edit/", async (req, res) => {
-  if (!req.isAdmin) {
+  /*if (!req.isAdmin) {
     res.status(401).json({
-      error: "Unauthorized",
+      error: "You do not have administrator rights.",
     });
     return;
-  }
+  }*/
   //Check that user has admin rights
   const user = await client.query(`SELECT * FROM users WHERE id=${req.userId}`);
   if (!user.rows[0].is_admin) {
@@ -151,7 +151,7 @@ router.post("/edit/", async (req, res) => {
 router.delete("/", async (req, res) => {
   /*if (!req.isAdmin) {
     res.status(401).json({
-      error: "Unauthorized",
+      error: "You do not have administrator rights.",
     });
     return;
   }*/

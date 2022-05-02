@@ -60,9 +60,6 @@ app.use("/mail", require("./api/controller/mailController"));
 app.use("/pictures", require("./api/controller/pictureController"));
 app.use("/tags", require("./api/controller/tagController"));
 
-app.use("/admin", require("./api/admin"));
-
-
 // Set up for React
 app.use(express.static(path.join(__dirname, "build")));
 app.get('/*', (req, res) => { res.sendFile(path.join(__dirname, "build", "index.html")); });

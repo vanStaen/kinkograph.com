@@ -49,7 +49,7 @@ const uploadS3 = multer({
 router.post("/", (req, res) => {
   /*if (!req.isAdmin) {
     res.status(401).json({
-      error: "Unauthorized",
+      error: "You do not have administrator rights.",
     });
     return;
   }*/
@@ -123,7 +123,7 @@ router.post("/", (req, res) => {
 router.delete("/:key", async (req, res) => {
   /*if (!req.isAdmin) {
     res.status(401).json({
-      error: "Unauthorized",
+      error: "You do not have administrator rights.",
     });
     return;
   }*/
@@ -262,7 +262,7 @@ router.post("/total/", async (req, res) => {
 router.post("/duplicate/", async (req, res) => {
   /*if (!req.isAdmin) {
     res.status(401).json({
-      error: "Unauthorized",
+      error: "You do not have administrator rights.",
     });
     return;
   }*/
@@ -280,11 +280,11 @@ router.post("/duplicate/", async (req, res) => {
 router.get("/tagsmissing/:limit", async (req, res) => {
   /*if (!req.isAdmin) {
     res.status(401).json({
-      error: "Unauthorized",
+      error: "You do not have administrator rights.",
     });
     return;
   }*/
-  try {    
+  try {
     const pictures = await pictureService.getPictures(
       true,
       req.params.limit,
@@ -304,7 +304,7 @@ router.get("/tagsmissing/:limit", async (req, res) => {
 router.get("/tagsmissingcount/", async (req, res) => {
   /*if (!req.isAdmin) {
     res.status(401).json({
-      error: "Unauthorized",
+      error: "You do not have administrator rights.",
     });
     return;
   }*/
@@ -322,7 +322,7 @@ router.get("/tagsmissingcount/", async (req, res) => {
 router.patch("/:id", async (req, res) => {
   /*if (!req.isAdmin) {
     res.status(401).json({
-      error: "Unauthorized",
+      error: "You do not have administrator rights.",
     });
     return;
   }*/

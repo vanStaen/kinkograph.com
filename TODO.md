@@ -30,7 +30,7 @@
     - [ ] Create Account
     - [ ] Lost password
   - [ ] Refactor BackEnd to use Sequelise
-    - [ ] Admin API
+    - [x] Admin API
     - [x] Picture API
     - [ ] Tags API
     - [x] User API

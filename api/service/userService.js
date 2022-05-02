@@ -6,7 +6,9 @@ const bcrypt = require("bcryptjs");
 exports.userService = {
 
   async getUsers() {
-    return await User.findAll();
+    return await User.findAll({
+      order: [["id", "ASC"], ["last_login", "DESC"]],
+    });
   },
 
   async addUser(input) {
