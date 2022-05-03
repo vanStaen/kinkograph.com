@@ -14,7 +14,7 @@ router.post("/login", async (req, res) => {
       req,
       req.body.email,
       req.body.username,
-      req.body.password,
+      req.body.pwd,
       req.body.remind
     );
     res.status(200).json({

@@ -69,7 +69,7 @@ exports.userService = {
     try {
       const updatedUser = await User.update(updateFields, {
         where: {
-          _id: userId,
+          id: userId,
         },
         returning: true,
         plain: true,
@@ -88,7 +88,7 @@ exports.userService = {
     }
     await User.destroy({
       where: {
-        _id: req.userId,
+        id: req.userId,
       },
     });
     req.session = null;
@@ -117,18 +117,6 @@ exports.userService = {
     } else {
       return true;
     }
-  },
-
-  async validtoken(token) {
-    try {
-      decodedToken = jsonwebtoken.verify(
-        token,
-        process.env.AUTH_SECRET_KEY_RECOVERY
-      );
-    } catch (err) {
-      return false;
-    }
-    return true;
   },
 
   async changepassword(token, password) {

@@ -103,11 +103,11 @@ router.post("/changepassword", async (req, res) => {
     if (!req.body.token) {
       throw new Error("Please provide a token");
     }
-    if (!req.body.password) {
+    if (!req.body.pwd) {
       throw new Error("Please provide a new password");
     }
     const token = req.body.token;
-    const password = req.body.password;
+    const password = req.body.pwd;
     const passwordChanged = await userService.changepassword(token, password);
     res.status(200).json({
       changed: passwordChanged,

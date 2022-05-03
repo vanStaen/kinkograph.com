@@ -9,7 +9,7 @@ exports.authService = {
     if (username) {
       foundUser = await User.findOne({
         where: sequelize.where(
-          sequelize.fn("lower", sequelize.col("userName")),
+          sequelize.fn("lower", sequelize.col("username")),
           sequelize.fn("lower", username)
         ),
       });
@@ -19,11 +19,13 @@ exports.authService = {
       });
     }
 
+    console.log("foundUser", foundUser)
+
     if (!foundUser) {
       console.log("User does not exist!");
       throw new Error("User does not exist!");
     } else {
-      const isValid = await bcrypt.compare(password, foundUser.password);
+      const isValid = await bcrypt.compare(password, foundUser.pwd);
       if (!isValid) {
         console.log("Password is incorrect!");
         throw new Error("Password is incorrect!");
@@ -31,7 +33,7 @@ exports.authService = {
 
       // Set token in session cookie
       const accessToken = await jsonwebtoken.sign(
-        { userId: foundUser._id, isAdmin: foundUser.is_admin },
+        { userId: foundUser.id, isAdmin: foundUser.is_admin },
         process.env.AUTH_SECRET_KEY,
         { expiresIn: "15m" }
       );
@@ -40,7 +42,7 @@ exports.authService = {
       // Set refreshtoken in session cookie
       if (remindMe) {
         const refreshToken = await jsonwebtoken.sign(
-          { userId: foundUser._id, isAdmin: foundUser.is_admin },
+          { userId: foundUser.id, isAdmin: foundUser.is_admin },
           process.env.AUTH_SECRET_KEY_REFRESH,
           { expiresIn: "7d" }
         );
@@ -50,8 +52,8 @@ exports.authService = {
       // Update lastLogin and nb_picture_at_last_login in user table
       const { count } = await Picture.findAndCountAll();
       await User.update(
-        { lastActive: Date.now(), nb_picture_at_last_login: count },
-        { where: { _id: foundUser._id } }
+        { last_login: Date.now(), nb_picture_at_last_login: count },
+        { where: { id: foundUser.id } }
       );
 
       // check if user has validated his email
@@ -102,7 +104,7 @@ exports.authService = {
     } else {
       // Set token in session cookie
       const accessToken = await jsonwebtoken.sign(
-        { userId: foundUser._id, isAdmin: foundUser.is_admin },
+        { userId: foundUser.id, isAdmin: foundUser.is_admin },
         process.env.AUTH_SECRET_KEY,
         { expiresIn: "15m" }
       );
@@ -111,7 +113,7 @@ exports.authService = {
       // Set refreshtoken in session cookie
       if (remindMe) {
         const refreshToken = await jsonwebtoken.sign(
-          { userId: foundUser._id, isAdmin: foundUser.is_admin },
+          { userId: foundUser.id, isAdmin: foundUser.is_admin },
           process.env.AUTH_SECRET_KEY_REFRESH,
           { expiresIn: "7d" }
         );
@@ -121,8 +123,8 @@ exports.authService = {
       // Update lastLogin and nb_picture_at_last_login in user table
       const { count } = await Picture.findAndCountAll();
       await User.update(
-        { lastActive: Date.now(), nb_picture_at_last_login: count },
-        { where: { _id: foundUser._id } }
+        { last_login: Date.now(), nb_picture_at_last_login: count },
+        { where: { id: foundUser.id } }
       );
 
       // Return true if success
