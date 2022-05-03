@@ -35,7 +35,7 @@ exports.pictureService = {
       });
     } catch (err) {
       console.log(err);
-      throw new Error(`Error when deleting the picture to the database!`);
+      throw new Error(`Error when deleting the picture in the database!`);
     }
   },
 

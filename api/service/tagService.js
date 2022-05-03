@@ -30,4 +30,18 @@ exports.tagService = {
     }
     return true;
   },
+
+  async deleteTag(tag) {
+    try {
+      await Tag.destroy({
+        where: {
+          tag: tag,
+        },
+      });
+    } catch (err) {
+      console.log(err);
+      throw new Error(`Error when deleting the tag in the database!`);
+    }
+  },
+
 };

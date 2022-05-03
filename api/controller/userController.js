@@ -79,24 +79,6 @@ router.post("/email", async (req, res) => {
   }
 });
 
-// token still valid exist?
-router.post("/validtoken", async (req, res) => {
-  try {
-    if (!req.body.token) {
-      throw new Error("Please provide a token");
-    }
-    const token = req.body.token;
-    const tokenValid = await userService.validtoken(token);
-    res.status(200).json({
-      valid: tokenValid,
-    });
-  } catch (err) {
-    res.status(400).json({
-      error: `${err}`,
-    });
-  }
-});
-
 // Change password
 router.post("/changepassword", async (req, res) => {
   try {
