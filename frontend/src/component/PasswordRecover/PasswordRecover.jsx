@@ -86,8 +86,7 @@ export const PasswordRecover = (props) => {
               props.setIsRecovery(false);
             }}
           >
-            <ArrowLeftOutlined />{" "}
-            <span className="link">{t("login.iRememberNow")}</span>
+            <ArrowLeftOutlined /> <span>{t("login.iRememberNow")}</span>
           </div>
         </Form.Item>
       </Form>
