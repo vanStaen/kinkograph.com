@@ -20,12 +20,12 @@ exports.userService = {
     if (foundUserEmail) {
       throw new Error("This email is already associated with an account.");
     }
-    const foundUserUserName = await User.findOne({
+    const foundUserUsername = await User.findOne({
       where: {
-        userName: input.userName,
+        username: input.username,
       },
     });
-    if (foundUserUserName) {
+    if (foundUserUsername) {
       throw new Error("This username is already associated with an account.");
     }
 
@@ -50,7 +50,7 @@ exports.userService = {
     const updateFields = [];
     const updatableFields = [
       "avatar",
-      "userName",
+      "username",
       "emailSettings",
       "profilSettings",
       "language",

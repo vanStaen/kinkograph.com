@@ -1,8 +1,7 @@
 const router = require("express").Router();
 const { userService } = require("../service/userService");
 
-
-// Get all user 
+// Get all user
 router.get("/", async (req, res) => {
   /*if (!req.isAdmin) {
   res.status(401).json({
@@ -26,14 +25,14 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     if (!req.body.userInput.username) {
-      res.status(400).json({
-        error: `No username was provided`,
-      });
+      throw new Error(
+        `No username was provided`,
+      );
     }
     if (!req.body.userInput.pwd && !req.body.userInput.access_code) {
-      res.status(400).json({
-        error: `No means of identification (Password or Access Code) were provided!`,
-      });
+      throw new Error(
+        `No means of identification (Password or Access Code) were provided!`
+      );
     }
     await userService.addUser(req.body.userInput);
     res.status(201).json({ message: "Success! User have been created." });
@@ -44,7 +43,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Username Taken? 
+// Username Taken?
 router.post("/taken", async (req, res) => {
   try {
     if (!req.body.username) {
@@ -62,7 +61,7 @@ router.post("/taken", async (req, res) => {
   }
 });
 
-// Email exist? 
+// Email exist?
 router.post("/email", async (req, res) => {
   try {
     if (!req.body.email) {
@@ -80,7 +79,7 @@ router.post("/email", async (req, res) => {
   }
 });
 
-// token still valid exist? 
+// token still valid exist?
 router.post("/validtoken", async (req, res) => {
   try {
     if (!req.body.token) {
@@ -98,7 +97,7 @@ router.post("/validtoken", async (req, res) => {
   }
 });
 
-// Change password 
+// Change password
 router.post("/changepassword", async (req, res) => {
   try {
     if (!req.body.token) {
@@ -119,7 +118,6 @@ router.post("/changepassword", async (req, res) => {
     });
   }
 });
-
 
 // Email is verified?
 router.post("/emailverified", async (req, res) => {
@@ -152,7 +150,7 @@ router.patch("/", async (req, res) => {
     return;
   } */
   try {
-    await userService.updateUser(req.userId, { input: req.body.input })
+    await userService.updateUser(req.userId, { input: req.body.input });
     res.status(201).json({ message: "Success! The updates have been saved." });
   } catch (err) {
     res.status(400).json({
