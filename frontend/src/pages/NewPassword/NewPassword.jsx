@@ -47,6 +47,7 @@ export const NewPassword = () => {
   };
 
   const verifyToken = useCallback(async () => {
+    console.log("token", token);
     const tokenValid = await postTokenVerify(token);
     if (!tokenValid) {
       setIsValid(false);
@@ -63,81 +64,76 @@ export const NewPassword = () => {
   }, [verifyToken]);
 
   return (
-    <div>
-      <div className="newPassword__leftPanel"></div>
-      <div className="newPassword__rightPanel">
-        <div className="signup__full">
-          <div className="signup__header">{t("login.setNewPassword")}</div>
-
-          <Form
-            name="form_signup"
-            className="signup__form"
-            initialValues={{
-              remember: true,
-            }}
-            onFinish={submitHandler}
-          >
-            <Form.Item
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: t("login.pleaseInputNewPassword"),
-                },
-              ]}
-            >
-              <Input.Password
-                prefix={<LockOutlined className="site-form-item-icon" />}
-                placeholder={t("login.chooseNewPassword")}
-              />
-            </Form.Item>
-
-            <Form.Item
-              name="confirm"
-              dependencies={["password"]}
-              hasFeedback
-              rules={[
-                {
-                  required: true,
-                  message: t("login.pleaseInputNewPassword"),
-                },
-                ({ getFieldValue }) => ({
-                  validator(_, value) {
-                    if (!value || getFieldValue("password") === value) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(
-                      new Error(t("login.passwordDoNotMatch"))
-                    );
-                  },
-                }),
-              ]}
-            >
-              <Input.Password
-                prefix={<LockOutlined className="site-form-item-icon" />}
-                placeholder={t("login.pleaseConfirmNewPassword")}
-              />
-            </Form.Item>
-
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="signup__formbutton"
-                disabled={!isValid}
-              >
-                {isLoading ? (
-                  <SyncOutlined spin />
-                ) : isValid ? (
-                  t("login.updatePassword")
-                ) : (
-                      t("login.linkNotValidAnymore")
-                    )}
-              </Button>
-            </Form.Item>
-          </Form>
-        </div>
+    <div className="App__flex">
+      <div className="App__title newPassword__title">
+        {t("login.setNewPassword")}
       </div>
+
+      <Form
+        name="form_signup"
+        className="newPassword__form"
+        initialValues={{
+          remember: true,
+        }}
+        onFinish={submitHandler}
+      >
+        <Form.Item
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: t("login.pleaseInputNewPassword"),
+            },
+          ]}
+        >
+          <Input.Password
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            placeholder={t("login.chooseNewPassword")}
+          />
+        </Form.Item>
+
+        <Form.Item
+          name="confirm"
+          dependencies={["password"]}
+          hasFeedback
+          rules={[
+            {
+              required: true,
+              message: t("login.pleaseInputNewPassword"),
+            },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue("password") === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(new Error(t("login.passwordDoNotMatch")));
+              },
+            }),
+          ]}
+        >
+          <Input.Password
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            placeholder={t("login.pleaseConfirmNewPassword")}
+          />
+        </Form.Item>
+
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="newPassword__formbutton"
+            disabled={!isValid}
+          >
+            {isLoading ? (
+              <SyncOutlined spin />
+            ) : isValid ? (
+              t("login.updatePassword")
+            ) : (
+              t("login.linkNotValidAnymore")
+            )}
+          </Button>
+        </Form.Item>
+      </Form>
     </div>
   );
 };

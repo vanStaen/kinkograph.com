@@ -3,11 +3,11 @@ import axios from "axios";
 export const postChangePassword = async (token, password) => {
   const requestBody = {
     token: token,
-    password: password,
+    pwd: password,
   };
 
   const response = await axios({
-    url: process.env.API_URL + `/user/changepassword`,
+    url: process.env.REACT_APP_API_URL + `/user/changepassword`,
     method: "POST",
     data: requestBody,
   });

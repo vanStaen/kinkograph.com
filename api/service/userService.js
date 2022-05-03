@@ -165,4 +165,17 @@ exports.userService = {
       return false;
     }
   },
+
+  async validtoken(token) {
+    try {
+      decodedToken = jsonwebtoken.verify(
+        token,
+        process.env.AUTH_SECRET_KEY_RECOVERY
+      );
+    } catch (err) {
+      return false;
+    }
+    return true;
+  },
+
 };
