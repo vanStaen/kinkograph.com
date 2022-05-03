@@ -1,0 +1,22 @@
+.languageDropdown {
+  color: rgba(0,0,0,1);
+  margin: 15px 25px;
+  font-weight: 300;
+  font-size: 20px;
+  letter-spacing: 2.5px;
+}
+
+.languageDropdown .ant-dropdown-link {
+  color: rgba(255,255,255,1);
+}
+
+.languageDropdown .ant-dropdown-link:hover {
+  color: rgba(0,0,0,.75);
+}
+
+.languageDropdown__item {
+  font-size: 17px;
+  font-weight: 300;
+}
+
+

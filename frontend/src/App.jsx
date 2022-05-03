@@ -11,6 +11,8 @@ import { authStore } from "./store/authStore";
 import { userStore } from "./store/userStore";
 import { Login } from "./component/Login/Login";
 import { FooterStartPage } from "./component/FooterStartPage/FooterStartPage";
+import { EmailVerified } from "./pages/EmailVerified/EmailVerified";
+import { NewPassword } from "./pages/NewPassword/NewPassword";
 
 import "../src/lib/i18n";
 import "./App.css";
@@ -46,6 +48,8 @@ const App = observer(() => {
       <div className="App">
         <div className="App__main">
           <Switch>
+            <Route path="recoverpwd/:key" element={<NewPassword />} />
+            <Route path="emailverify/:verifyCode" element={<EmailVerified />} />
             <Route path="/admin">
               <Admin />
             </Route>
