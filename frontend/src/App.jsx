@@ -48,8 +48,11 @@ const App = observer(() => {
       <div className="App">
         <div className="App__main">
           <Switch>
-            <Route path="recoverpwd/:key" element={<NewPassword />} />
-            <Route path="emailverify/:verifyCode" element={<EmailVerified />} />
+            <Route path="/recoverpwd/:key" element={<NewPassword />} />
+            <Route
+              path="/emailverify/:verifyCode"
+              element={<EmailVerified />}
+            />
             <Route path="/admin">
               <Admin />
             </Route>
