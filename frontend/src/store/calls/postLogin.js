@@ -4,7 +4,7 @@ export const postLogin = async (email, username, password, remind) => {
   const requestBody = {
     email: email,
     username: username,
-    password: password,
+    pwd: password,
     remind: remind,
   };
 

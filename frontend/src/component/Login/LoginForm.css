@@ -75,7 +75,7 @@
 
 .login__verifyEmailLink {
   padding-top: 15px;
-  color: rgba(0, 0, 0, .75);
+  color: rgba(255, 255, 255, .5);
 }
 
 .login__alreadyMember {

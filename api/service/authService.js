@@ -19,8 +19,6 @@ exports.authService = {
       });
     }
 
-    console.log("foundUser", foundUser)
-
     if (!foundUser) {
       console.log("User does not exist!");
       throw new Error("User does not exist!");

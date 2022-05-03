@@ -65,8 +65,8 @@ export const LoginForm = () => {
                   });
                 }}
               >
-                <LinkOutlined /> {t("login.clickToGetNewVerificationLink")}
-                <span className="link"> {t("login.verifyYourEmail")}</span>.
+                <LinkOutlined /> {t("login.clickToGetNewVerificationLink")}{" "}
+                <span className="link">{t("login.verifyYourEmail")}</span>.
               </div>
             </>
           );
