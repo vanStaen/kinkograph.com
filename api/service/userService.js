@@ -128,7 +128,7 @@ exports.userService = {
       const email = decodedToken.email;
       const hashedPassword = await bcrypt.hash(password, 12);
       await User.update(
-        { password: hashedPassword },
+        { pwd: hashedPassword },
         {
           where: {
             email: email,
