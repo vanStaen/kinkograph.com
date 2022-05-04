@@ -12,7 +12,7 @@ import { AlreadyMember } from "./AlreadyMember";
 import "./login.css";
 
 export const Login = (props) => {
-  const [showSignUp, setShowSignUp] = useState(true);
+  const [showSignUp, setShowSignUp] = useState(false);
 
   const checkPin = async (code) => {
     try {

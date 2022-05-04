@@ -13,6 +13,7 @@ import { Login } from "./component/Login/Login";
 import { FooterStartPage } from "./component/FooterStartPage/FooterStartPage";
 import { EmailVerified } from "./pages/EmailVerified/EmailVerified";
 import { NewPassword } from "./pages/NewPassword/NewPassword";
+import { LanguageDropDown } from "./component/LanguageDropDown/LanguageDropDown";
 
 import "../src/lib/i18n";
 import "./App.css";
@@ -25,7 +26,7 @@ const defineVariableHeight = () => {
 window.addEventListener("resize", defineVariableHeight);
 
 const App = observer(() => {
-  const [loginWithCode, setLoginWithCode] = useState(true);
+  const [loginWithCode, setLoginWithCode] = useState(false);
 
   const { i18n } = useTranslation();
   useLayoutEffect(() => {
@@ -66,6 +67,7 @@ const App = observer(() => {
                   <Gallery />
                 ) : (
                   <Fragment>
+                    <LanguageDropDown />
                     <div className="App__title">&nbsp;kinkograph</div>
                     <Login loginWithCode={loginWithCode} />
                     <div className="spacer"></div>
