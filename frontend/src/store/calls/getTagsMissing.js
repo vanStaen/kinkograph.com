@@ -33,6 +33,6 @@ export const getTagsMissingCountAll = async (limit) => {
   }
 
   //console.log(response.data[0].count);
-  return response.data[0].count;
+  return response.data;
 
 };

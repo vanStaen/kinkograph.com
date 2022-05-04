@@ -70,6 +70,7 @@ export class UserStore {
   fetchUserData = async () => {
     const userData = await getUserInfo();
     if (userData) {
+      //console.log("userData", userData);
       userStore.setEmail(userData.email);
       userStore.setFirstname(userData.firstname);
       userStore.setLastname(userData.lastname);
@@ -77,7 +78,7 @@ export class UserStore {
       userStore.setLastLogin(userData.nb_picture_at_last_login);
       userStore.setNumberOfPicAtLastLogin(userData.username);
       if (userData.favorites) {
-        favoriteStore.setFavoritesId(JSON.parse(userData.favorites));
+        favoriteStore.setFavoritesId(userData.favorites);
       }
       if (userData.is_admin) {
         userStore.setIsAdmin(userData.is_admin);
