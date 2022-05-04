@@ -134,6 +134,22 @@ exports.pictureService = {
     return updatedPicture[1];
   },
 
+  async patchPictureAdultContentById(id, isAdult) {
+    const updatedPicture = await Picture.update(
+      { adult_content: isAdult },
+      {
+        where: {
+          id: id,
+        },
+        returning: true,
+        plain: true,
+      }
+    );
+    // updatedLook[0]: number or row udpated
+    // updatedLook[1]: rows updated
+    return updatedPicture[1];
+  },
+
   async getPicturesByTag(showMissing, tags, order) {
     const filterFormated = tags.map((element) => ({
       [Op.like]: `%${element}%`,

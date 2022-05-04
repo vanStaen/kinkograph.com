@@ -336,6 +336,24 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
+// PATCH picture based on ID
+router.patch("/isAdult/:id", async (req, res) => {
+  /*if (!req.isAdmin) {
+    res.status(401).json({
+      error: "You do not have administrator rights.",
+    });
+    return;
+  }*/
+  try {
+    await pictureService.patchPictureAdultContentById(req.params.id, req.body.isAdult)
+    res.status(201).json(`Picture with id #${req.params.id} was udpated`);
+  } catch (err) {
+    res.status(400).json({
+      error: `${err})`,
+    });
+  }
+});
+
 // GET picture based on key
 router.get("/:key", async (req, res) => {
   try {

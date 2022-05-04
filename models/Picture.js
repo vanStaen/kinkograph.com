@@ -36,6 +36,10 @@ const Picture = sequelize.define("picture", {
     allowNull: false,
     defaultValue: true,
   },
+  adult_content: {
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
+  },
   key: {
     type: DataTypes.STRING,
     allowNull: true,
