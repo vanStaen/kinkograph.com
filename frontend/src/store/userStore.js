@@ -5,8 +5,8 @@ import { favoriteStore } from "./favoriteStore";
 
 export class UserStore {
   email = null;
-  infos = null;
-  name = "there";
+  firstname = "there";
+  lastname = null;
   username = null;
   isAdmin = false;
   language = null;
@@ -15,13 +15,14 @@ export class UserStore {
 
   constructor() {
     makeObservable(this, {
-      fetchuserData: action,
-      setEmail: action,
+      fetchUserData: action,
       email: observable,
-      setInfos: action,
-      infos: observable,
-      setName: action,
-      name: observable,
+      setEmail: action,
+      firstname: observable,
+      setFirstname: action,
+      lastname: observable,
+      setLastname: action,
+      username: observable,
       setUsername: action,
       language: observable,
       setLanguage: action,
@@ -29,7 +30,6 @@ export class UserStore {
       setLastLogin: action,
       numberOfPicAtLastLogin: observable,
       setNumberOfPicAtLastLogin: action, 
-      username: observable,
       isAdmin: observable,
       setIsAdmin: action,
     });
@@ -39,12 +39,12 @@ export class UserStore {
     this.email = email;
   };
 
-  setInfos = (infos) => {
-    this.infos = infos;
+  setFirstname = (firstname) => {
+    this.firstname = firstname;
   };
 
-  setName = (name) => {
-    this.name = name;
+  setLastname = (lastname) => {
+    this.lastname = lastname;
   };
 
   setUsername = (username) => {
@@ -67,12 +67,13 @@ export class UserStore {
     this.numberOfPicAtLastLogin = numberOfPicAtLastLogin;
   };
 
-  fetchuserData = async () => {
+  fetchUserData = async () => {
     const userData = await getUserInfo();
     if (userData) {
+      console.log("userData", userData);
       userStore.setEmail(userData.email);
-      userStore.setInfos(userData.infos);
-      userStore.setName(userData.name);
+      userStore.setFirstname(userData.firstname);
+      userStore.setLastame(userData.lastname);
       userStore.setUsername(userData.last_login);
       userStore.setLastLogin(userData.nb_picture_at_last_login);
       userStore.setNumberOfPicAtLastLogin(userData.username);

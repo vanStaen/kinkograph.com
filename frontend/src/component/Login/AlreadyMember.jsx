@@ -5,7 +5,7 @@ export const AlreadyMember = (props) => {
   const { t } = useTranslation();
 
   return (
-    <div classname="login__alreadyMember" style={{ paddingTop: "15px" }}>
+    <div className="login__alreadyMember" style={{ paddingTop: "15px" }}>
       {!props.showSignUp ? (
         <>
           {t("login.newHere")}? &nbsp;

@@ -112,7 +112,7 @@ export const GalleryHeader = observer(() => {
                 </Tooltip>
               </span>{" "}
               | 
-              {userStore.name ? (
+              {userStore.firstname ? (
                 <Tooltip
                   placement="bottomLeft"
                   title={
@@ -122,7 +122,7 @@ export const GalleryHeader = observer(() => {
                     </span>
                   }
                 >
-                  Hello {userStore.name},
+                  Hello {userStore.firstname},
                 </Tooltip>
               ) : (
                 "Hello stranger,"

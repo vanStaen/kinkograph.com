@@ -11,8 +11,15 @@ exports.userService = {
     });
   },
 
-  async addUser(input) {
+  async getUser(userId) {
+    return await User.findAll({
+      where: {
+        id: userId,
+      },
+    });
+  },
 
+  async addUser(input) {
     const foundUserEmail = await User.findOne({
       where: {
         email: input.email,

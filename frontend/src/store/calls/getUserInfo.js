@@ -15,5 +15,6 @@ export const getUserInfo = async () => {
         }
     }
 
-    return response.data[0];
+    //console.log("userData", response.data.getUser[0]);
+    return response.data.getUser[0];
 };

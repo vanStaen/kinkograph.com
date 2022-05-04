@@ -10,7 +10,7 @@ module.exports = cookieSession({
   ],
   cookie: {
     secure: true, // true for https only
-    domain: "rewaer.com",
+    domain: "kinkograph.com",
     maxAge: 604800000, // 7day x 24h x 60min x 60sec x 1000ms
   },
 });

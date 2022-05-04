@@ -27,12 +27,16 @@ window.addEventListener("resize", defineVariableHeight);
 
 const App = observer(() => {
   const [loginWithCode, setLoginWithCode] = useState(false);
-
   const { i18n } = useTranslation();
-  useLayoutEffect(() => {
-    // Define variable height
-    defineVariableHeight();
+
+  useEffect(() => {
+    authStore.checkAccess();
+    userStore.fetchUserData();
   }, []);
+
+  useEffect(() => {
+    userStore.fetchUserData();
+  }, [authStore.hasAccess]);
 
   useEffect(() => {
     if (userStore.language === "fr") {
@@ -42,7 +46,12 @@ const App = observer(() => {
     } else {
       i18n.changeLanguage("en-US");
     }
-  }, [i18n]);
+  }, [userStore.language, i18n]);
+
+  useLayoutEffect(() => {
+    // Define variable height
+    defineVariableHeight();
+  }, []);
 
   return (
     <Router>

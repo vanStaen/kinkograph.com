@@ -1,7 +1,28 @@
 const router = require("express").Router();
 const { userService } = require("../service/userService");
+
 // Get all user
 router.get("/", async (req, res) => {
+  if (!req.isAuth) {
+  res.status(401).json({
+      error: "Unauthorized",
+  });
+  return;
+  }
+  try {
+    const getUser = await userService.getUser(req.userId);
+    res.status(200).json({
+      getUser,
+    });
+  } catch (err) {
+    res.status(400).json({
+      error: `${err}`,
+    });
+  }
+});
+
+// Get all user
+router.get("/all", async (req, res) => {
   /*if (!req.isAdmin) {
   res.status(401).json({
       error: "You do not have administrator rights.",

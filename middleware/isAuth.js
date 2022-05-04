@@ -2,12 +2,12 @@ const jsonwebtoken = require("jsonwebtoken");
 const { User } = require("../models/User");
 require("dotenv/config");
 
-const devMode = false;
+const devMode = true;
 
 module.exports = async (req, res, next) => {
   // if in development mode
   if (devMode) {
-    if (req.get("host") === "localhost:5000") {
+    if (req.get("host") === "localhost:5009") {
       console.log(">>>> Developement Mode <<<<<");
       req.isAuth = true;
       req.isAdmin = true;
@@ -20,8 +20,8 @@ module.exports = async (req, res, next) => {
   // Authorization: Bearer <token>
   const token = req.session.token;
   const refreshToken = req.session.refreshToken;
-  //console.log("token", token)
-  //console.log("refreshToken", refreshToken)
+  console.log("token", token)
+  console.log("refreshToken", refreshToken)
 
   // Check tokens are valid:
   if (!token || token === "undefined" || token === "") {
@@ -39,6 +39,7 @@ module.exports = async (req, res, next) => {
         process.env.AUTH_SECRET_KEY_REFRESH
       );
     } catch (err) {
+      console.log(err);
       req.isAuth = false;
       return next();
     }
