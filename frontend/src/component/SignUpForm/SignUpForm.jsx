@@ -10,6 +10,7 @@ import {
 import { useTranslation } from "react-i18next";
 
 import { postUsernameTaken } from "./postUsernameTaken";
+import { postEmailTaken } from "./postEmailTaken";
 import { postVerifyEmailLink } from "../Login/postVerifyEmailLink";
 import { postAddUser } from "./postAddUser";
 
@@ -17,6 +18,7 @@ import "./SignUpForm.css";
 
 export const SignUpForm = (props) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [emailIsTaken, setEmailIsTaken] = useState(false);
   const [isValidUsername, setIsValidUsername] = useState(undefined); // validateStatus: validate status of form components which could be 'success', 'warning', 'error', 'validating'.
   const [errorMsgUsername, setErrorMsgUsername] = useState(undefined); // validateStatus: validate status of form components which could be 'success', 'warning', 'error', 'validating'.
   const { t, i18n } = useTranslation();
@@ -53,6 +55,13 @@ export const SignUpForm = (props) => {
     }
   };
 
+  const changeEmailHandler = async (e) => {
+    const email = e.target.value;
+    const isEmailTaken = await postEmailTaken(email);
+    setEmailIsTaken(isEmailTaken);
+    console.log("taken:", isEmailTaken);
+  };
+
   const submitHandler = async (values) => {
     setIsLoading(true);
     const firstname = values.firstname;
@@ -77,7 +86,7 @@ export const SignUpForm = (props) => {
           className: "login__notification",
           duration: 0,
         });
-        props.setShowLogin(true);
+        props.setShowSignUp(false);
       } else {
         notification.error({
           message: response.errors[0].message,
@@ -143,7 +152,6 @@ export const SignUpForm = (props) => {
         </Form.Item>
 
         <Tooltip
-          trigger={["hover"]}
           title={
             errorMsgUsername
               ? errorMsgUsername === t("login.usernameIsAlreadyTaken")
@@ -179,21 +187,28 @@ export const SignUpForm = (props) => {
             />
           </Form.Item>
         </Tooltip>
-        <Form.Item
-          name="email"
-          rules={[
-            {
-              type: "email",
-              required: true,
-              message: t("login.pleaseInputEmail"),
-            },
-          ]}
+        <Tooltip
+          title={emailIsTaken ? t("login.emailAlreadyInUse") : null}
+          placement="left"
         >
-          <Input
-            prefix={<MailOutlined className="site-form-item-icon" />}
-            placeholder="Email"
-          />
-        </Form.Item>
+          <Form.Item
+            name="email"
+            validateStatus={emailIsTaken ? "error" : "success"}
+            onChange={changeEmailHandler}
+            rules={[
+              {
+                type: "email",
+                required: true,
+                message: t("login.pleaseInputEmail"),
+              },
+            ]}
+          >
+            <Input
+              prefix={<MailOutlined className="site-form-item-icon" />}
+              placeholder="Email"
+            />
+          </Form.Item>
+        </Tooltip>
 
         <Form.Item
           name="password"

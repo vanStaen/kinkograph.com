@@ -74,6 +74,7 @@
     "passwordDoNotMatch": "The passwords do not match!",
     "updatePassword": "Update password",
     "linkNotValidAnymore": "Link not valid anymore.",
-    "usernameShouldNotBeAnEmail": "Your username should not be an email"
+    "usernameShouldNotBeAnEmail": "Your username should not be an email",
+    "emailAlreadyInUse": "Email is already in use"
   }
 }

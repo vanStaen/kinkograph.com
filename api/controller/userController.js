@@ -34,6 +34,12 @@ router.post("/", async (req, res) => {
         `No means of identification (Password or Access Code) were provided!`
       );
     }
+    const emailTaken = await userService.email(req.body.userInput.email);
+    if (emailTaken) {
+      throw new Error(
+        `Email already associated with an account!`
+      );
+    }
     await userService.addUser(req.body.userInput);
     res.status(201).json({ message: "Success! User have been created." });
   } catch (err) {

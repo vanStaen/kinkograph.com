@@ -43,7 +43,11 @@ export const Login = (props) => {
           <PinInput login={checkPin} />
         ) : (
           <div>
-            {showSignUp ? <SignUpForm /> : <LoginForm />}
+            {showSignUp ? (
+              <SignUpForm setShowSignUp={setShowSignUp} />
+            ) : (
+              <LoginForm />
+            )}
             <div className="login__alreadyMember">
               <AlreadyMember
                 setShowSignUp={setShowSignUp}

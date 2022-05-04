@@ -74,6 +74,7 @@
     "passwordDoNotMatch": "Les mots de passe ne correspondent pas!",
     "updatePassword": "Mettre à jour le mot de passe",
     "linkNotValidAnymore": "Le lien n'est plus valide",
-    "usernameShouldNotBeAnEmail": "Le nom d'utilisateur ne doit pas être un email"
+    "usernameShouldNotBeAnEmail": "Le nom d'utilisateur ne doit pas être un email",
+    "emailAlreadyInUse": "Email déja utlisé"
   }
 }

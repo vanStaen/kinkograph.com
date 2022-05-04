@@ -1,41 +1,29 @@
 import axios from "axios";
 
 export const postAddUser = async (
-  firstName,
-  lastName,
-  userName,
+  name,
+  username,
   email,
   password,
-  language
+  access_code,
+  language,
 ) => {
   const requestBody = {
-    query: `mutation ( $firstName: String, 
-                       $lastName: String, 
-                       $userName: String, 
-                       $email: String, 
-                       $password: String,
-                       $language: String ) {
-                addUser (
-                    userInput: { 
-                        firstName: $firstName, 
-                        lastName: $lastName,
-                        userName: $userName, 
-                        email: $email, 
-                        password: $password, 
-                        language: $language,
-                        }
-                    ) {
-                    _id
-                    email
-                    }
-                }`,
+    query: `userInput: { 
+              name: $name, 
+              username: $username, 
+              email: $email, 
+              pwd: $password, 
+              access_code: $access_code,
+              language: $language,
+            }`,
     variables: {
-      firstName,
-      lastName,
-      userName,
+      name,
+      username,
       email,
       password,
-      language
+      access_code,
+      language,
     },
   };
 
@@ -46,7 +34,7 @@ export const postAddUser = async (
   try {
     const response = await axios(
       {
-        url: process.env.REACT_APP_API_URL + `/graphql`,
+        url: process.env.REACT_APP_API_URL + `/users`,
         method: "POST",
         data: requestBody,
       },
