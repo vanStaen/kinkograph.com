@@ -70,10 +70,9 @@ export class UserStore {
   fetchUserData = async () => {
     const userData = await getUserInfo();
     if (userData) {
-      console.log("userData", userData);
       userStore.setEmail(userData.email);
       userStore.setFirstname(userData.firstname);
-      userStore.setLastame(userData.lastname);
+      userStore.setLastname(userData.lastname);
       userStore.setUsername(userData.last_login);
       userStore.setLastLogin(userData.nb_picture_at_last_login);
       userStore.setNumberOfPicAtLastLogin(userData.username);
