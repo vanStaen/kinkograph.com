@@ -1,4 +1,7 @@
 .languageDropdown {
+  position: absolute;
+  top: 0;
+  left: 0;
   color: rgba(0,0,0,1);
   margin: 15px 25px;
   font-weight: 300;
@@ -11,7 +14,7 @@
 }
 
 .languageDropdown .ant-dropdown-link:hover {
-  color: rgba(0,0,0,.75);
+  font-weight: 500;
 }
 
 .languageDropdown__item {

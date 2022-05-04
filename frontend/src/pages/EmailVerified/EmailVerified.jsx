@@ -31,22 +31,22 @@ export const EmailVerified = () => {
 
   return (
     <div>
-      <div className="emailVerified__leftPanel">
+      <div className="emailVerified__container">
         <LanguageDropDown />
-      </div>
-      <div className="emailVerified__rightPanel">
-        <div className="emailVerified__container">
-          {isLoading ? (
-            <LoadingOutlined className="emailVerified__loader" />
-          ) : isVerified ? (
-            <>
+        {isLoading ? (
+          <LoadingOutlined className="emailVerified__loader" />
+        ) : isVerified ? (
+          <div className="emailVerified__paragraph">
+            <span>
               <strong>{t("login.emailVerified")}</strong> <br />
               {t("login.welcomeInOurCommunity")}!<br />
               {t("login.goAheadAndLogin")}.
-              <br />
-              <br />
-              <div className="emailVerified__link">
-                {t("login.redirectedToThe")}{" "}
+            </span>
+            <br />
+            <br />
+            <div className="emailVerified__link">
+              <span>{t("login.redirectedToThe")} </span>
+              <strong>
                 <span
                   className="link"
                   onClick={() => {
@@ -56,32 +56,37 @@ export const EmailVerified = () => {
                   {" "}
                   {t("login.loginPage")}.
                 </span>
-                .
-              </div>
-            </>
-          ) : (
-            <>
+              </strong>
+              .
+            </div>
+          </div>
+        ) : (
+          <div className="emailVerified__paragraph">
+            <span>
               <strong>{t("login.emailNotVerified")}!</strong>
-              <br />
-              {t("login.somethingWrongEmail")}!
-              <br />
-              <div className="emailVerified__link">
-                {t("login.whatCanYouDo")}
+            </span>
+            <br />
+            <span>{t("login.somethingWrongEmail")}!</span>
+            <br />
+            <div className="emailVerified__link">
+              <span>{t("login.whatCanYouDo")} </span>
+              <strong>
                 <span
                   className="link"
                   onClick={() => {
                     document.location.href = "/";
                   }}
                 >
-                  {" "}
                   {t("login.loginPage")}
                 </span>
+              </strong>
+              <span>
                 {", "}
                 {t("login.requestNewLink")}.
-              </div>
-            </>
-          )}
-        </div>
+              </span>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

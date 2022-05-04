@@ -11,6 +11,7 @@ const forbiddenUsername = {
     editsettings: 1,
     admin: 1,
     guest: 1,
+    kinkograph: 1,
   };
 
 module.exports = forbiddenUsername;
