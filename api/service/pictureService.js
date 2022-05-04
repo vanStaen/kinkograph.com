@@ -40,6 +40,10 @@ exports.pictureService = {
   },
 
   async getPictures(showMissing, limit, offset, filter, order) {
+    let limitFormated = limit;
+    if (limit == 0) {
+      limitFormated = null;
+    }
     if (filter) {
       const filterFormated = filter.map((element) => ({
         [Op.like]: `%${element}%`,
@@ -51,7 +55,7 @@ exports.pictureService = {
             [Op.and]: filterFormated,
           },
         },
-        limit: limit,
+        limit: limitFormated,
         offset: offset,
         order: [["id", order]],
       });
@@ -60,7 +64,7 @@ exports.pictureService = {
         where: {
           tags_missing: showMissing,
         },
-        limit: limit,
+        limit: limitFormated,
         offset: offset,
         order: [["id", order]],
       });
