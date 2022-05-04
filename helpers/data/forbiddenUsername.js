@@ -9,7 +9,6 @@ const forbiddenUsername = {
     info: 1,
     profile: 1,
     editsettings: 1,
-    kinkograph: 1,
     admin: 1,
     guest: 1,
   };

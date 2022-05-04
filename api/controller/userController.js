@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const { userService } = require("../service/userService");
-
 // Get all user
 router.get("/", async (req, res) => {
   /*if (!req.isAdmin) {

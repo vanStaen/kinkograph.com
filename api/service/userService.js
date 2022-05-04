@@ -12,6 +12,7 @@ exports.userService = {
   },
 
   async addUser(input) {
+
     const foundUserEmail = await User.findOne({
       where: {
         email: input.email,
@@ -32,7 +33,8 @@ exports.userService = {
     try {
       hashedPassword = await bcrypt.hash(input.pwd, 12);
       const user = new User({
-        name: input.name,
+        firstname: input.firstname,
+        lastname: input.lastname,
         username: input.username,
         language: input.language,
         email: input.email,
@@ -50,6 +52,8 @@ exports.userService = {
     const updateFields = [];
     const updatableFields = [
       "avatar",
+      "firstname",
+      "lastname",
       "username",
       "emailSettings",
       "profilSettings",

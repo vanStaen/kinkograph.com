@@ -1,29 +1,23 @@
 import axios from "axios";
 
 export const postAddUser = async (
-  name,
+  firstname,
+  lastname,
   username,
   email,
   password,
   access_code,
-  language,
+  language
 ) => {
   const requestBody = {
-    query: `userInput: { 
-              name: $name, 
-              username: $username, 
-              email: $email, 
-              pwd: $password, 
-              access_code: $access_code,
-              language: $language,
-            }`,
-    variables: {
-      name,
-      username,
-      email,
-      password,
-      access_code,
-      language,
+    userInput: {
+      firstname: firstname,
+      lastname: lastname,
+      username: username,
+      email: email,
+      pwd: password,
+      access_code: access_code,
+      language: language,
     },
   };
 
@@ -31,22 +25,24 @@ export const postAddUser = async (
     "Content-Type": "application/json",
   };
 
-  try {
-    const response = await axios(
-      {
-        url: process.env.REACT_APP_API_URL + `/users`,
-        method: "POST",
-        data: requestBody,
-      },
-      {
-        headers: headers,
-      }
-    );
-    return response.data;
-  } catch (err) {
-    if (err.response.status === 401) {
-      throw new Error(`Error! Unauthorized(401)`);
+  const response = await axios(
+    {
+      url: process.env.REACT_APP_API_URL + `/user`,
+      method: "POST",
+      data: requestBody,
+    },
+    {
+      headers: headers,
     }
-    return err.response.data;
+  );
+
+  if ((response.status !== 200) & (response.status !== 201)) {
+    if (response.status === 401) {
+      throw new Error(`Error! Unauthorized(401)`);
+    } else {
+      throw new Error(`Error! Status ${response.status}`);
+    }
   }
+
+  return response.data;
 };

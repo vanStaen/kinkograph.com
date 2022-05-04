@@ -69,6 +69,7 @@ export const SignUpForm = (props) => {
     const username = values.username;
     const email = values.email.toLowerCase();
     const password = values.password;
+    const language = "fr";
     try {
       const response = await postAddUser(
         firstname,

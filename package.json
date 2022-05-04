@@ -42,7 +42,7 @@
     "sequelize": "^6.6.2"
   },
   "devDependencies": {
-    "lint": "^0.7.0",
+    "lint": "^1.1.2",
     "nodemon": "^2.0.4",
     "prettier": "^2.2.1"
   },
