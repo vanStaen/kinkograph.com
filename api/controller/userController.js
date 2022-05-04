@@ -4,10 +4,10 @@ const { userService } = require("../service/userService");
 // Get all user
 router.get("/", async (req, res) => {
   if (!req.isAuth) {
-  res.status(401).json({
+    res.status(401).json({
       error: "Unauthorized",
-  });
-  return;
+    });
+    return;
   }
   try {
     const getUser = await userService.getUser(req.userId);
@@ -23,12 +23,12 @@ router.get("/", async (req, res) => {
 
 // Get all user
 router.get("/all", async (req, res) => {
-  /*if (!req.isAdmin) {
-  res.status(401).json({
+  if (!req.isAdmin) {
+    res.status(401).json({
       error: "You do not have administrator rights.",
-  });
-  return;
-  }*/
+    });
+    return;
+  }
   try {
     const getAllUser = await userService.getUsers();
     res.status(200).json({
@@ -45,9 +45,7 @@ router.get("/all", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     if (!req.body.userInput.username) {
-      throw new Error(
-        `No username was provided`,
-      );
+      throw new Error(`No username was provided`);
     }
     if (!req.body.userInput.pwd && !req.body.userInput.access_code) {
       throw new Error(
@@ -56,9 +54,7 @@ router.post("/", async (req, res) => {
     }
     const emailTaken = await userService.email(req.body.userInput.email);
     if (emailTaken) {
-      throw new Error(
-        `Email already associated with an account!`
-      );
+      throw new Error(`Email already associated with an account!`);
     }
     await userService.addUser(req.body.userInput);
     res.status(201).json({ message: "Success! User have been created." });
@@ -151,12 +147,12 @@ router.post("/emailverified", async (req, res) => {
 
 // POST store Favorites
 router.patch("/", async (req, res) => {
-  /*if (!req.isAuth) {
+  if (!req.isAuth) {
     res.status(401).json({
       error: "Unauthorized",
     });
     return;
-  } */
+  } 
   try {
     await userService.updateUser(req.userId, { input: req.body.input });
     res.status(201).json({ message: "Success! The updates have been saved." });

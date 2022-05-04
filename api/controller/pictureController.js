@@ -47,12 +47,12 @@ const uploadS3 = multer({
 
 // POST single file object to s3
 router.post("/", (req, res) => {
-  /*if (!req.isAdmin) {
+  if (!req.isAdmin) {
     res.status(401).json({
       error: "You do not have administrator rights.",
     });
     return;
-  }*/
+  }
   if (!req.isAuth) {
     res.status(401).json({
       error: "Unauthorized",
@@ -121,12 +121,12 @@ router.post("/", (req, res) => {
 
 // DELETE single file object from s3 (based on key)
 router.delete("/:key", async (req, res) => {
-  /*if (!req.isAdmin) {
+  if (!req.isAdmin) {
     res.status(401).json({
       error: "You do not have administrator rights.",
     });
     return;
-  }*/
+  }
   if (!req.isAuth) {
     res.status(401).json({
       error: "Unauthorized",
@@ -162,7 +162,7 @@ router.delete("/:key", async (req, res) => {
     ]);
 
     // Delete picture from DB
-    await pictureService.deletePicture(key);
+    await pictureService.deletePicture(req.params.key);
 
     // Response
     res
@@ -177,12 +177,12 @@ router.delete("/:key", async (req, res) => {
 
 // GET all pictures
 router.get("/all/:limit/:showMissing", async (req, res) => {
-  /*if (!req.isAuth) {
+  if (!req.isAuth) {
     res.status(401).json({
       error: "Unauthorized",
     });
     return;
-  }*/
+  }
   try {
     const pictures = await pictureService.getPictures(
       req.params.showMissing,
@@ -201,12 +201,12 @@ router.get("/all/:limit/:showMissing", async (req, res) => {
 
 // POST all pictures, with pagination and filter
 router.post("/page/", async (req, res) => {
-  /*if (!req.isAuth) {
+  if (!req.isAuth) {
     res.status(401).json({
       error: "Unauthorized",
     });
     return;
-  }*/
+  }
   try {
     const pageNumber = req.body.pageNumber;
     const pageSize = req.body.pageSize;
@@ -235,12 +235,12 @@ router.post("/page/", async (req, res) => {
 
 // POST: Get Total of pictures, with filter
 router.post("/total/", async (req, res) => {
-  /*if (!req.isAuth) {
+  if (!req.isAuth) {
     res.status(401).json({
       error: "Unauthorized",
     });
     return;
-  }*/
+  }
   try {
     let filters = "";
     if (req.body.filter) {
@@ -260,12 +260,12 @@ router.post("/total/", async (req, res) => {
 
 // POST, check if a picture is already in db
 router.post("/duplicate/", async (req, res) => {
-  /*if (!req.isAdmin) {
+  if (!req.isAdmin) {
     res.status(401).json({
       error: "You do not have administrator rights.",
     });
     return;
-  }*/
+  }
   try {
     const picture = await pictureService.getPictureByName(req.body.name);
     res.status(201).json(picture);
@@ -278,12 +278,12 @@ router.post("/duplicate/", async (req, res) => {
 
 // GET all pictures with missing tag
 router.get("/tagsmissing/:limit", async (req, res) => {
-  /*if (!req.isAdmin) {
+  if (!req.isAdmin) {
     res.status(401).json({
       error: "You do not have administrator rights.",
     });
     return;
-  }*/
+  }
   try {
     const pictures = await pictureService.getPictures(
       true,
@@ -302,12 +302,12 @@ router.get("/tagsmissing/:limit", async (req, res) => {
 
 // GET COUNT all pictures with missing tag
 router.get("/tagsmissingcount/", async (req, res) => {
-  /*if (!req.isAdmin) {
+  if (!req.isAdmin) {
     res.status(401).json({
       error: "You do not have administrator rights.",
     });
     return;
-  }*/
+  }
   try {
     const count = await pictureService.countPictures(true, null)
     res.status(201).json(count);
@@ -320,12 +320,12 @@ router.get("/tagsmissingcount/", async (req, res) => {
 
 // PATCH picture based on ID
 router.patch("/:id", async (req, res) => {
-  /*if (!req.isAdmin) {
+  if (!req.isAdmin) {
     res.status(401).json({
       error: "You do not have administrator rights.",
     });
     return;
-  }*/
+  }
   try {
     await pictureService.patchPictureById(req.params.id, req.body.tags)
     res.status(201).json(`Picture with id #${req.params.id} was udpated`);
@@ -338,12 +338,12 @@ router.patch("/:id", async (req, res) => {
 
 // PATCH picture based on ID
 router.patch("/isAdult/:id", async (req, res) => {
-  /*if (!req.isAdmin) {
+  if (!req.isAdmin) {
     res.status(401).json({
       error: "You do not have administrator rights.",
     });
     return;
-  }*/
+  }
   try {
     await pictureService.patchPictureAdultContentById(req.params.id, req.body.isAdult)
     res.status(201).json(`Picture with id #${req.params.id} was udpated`);
@@ -374,12 +374,12 @@ router.get("/:key", async (req, res) => {
 
 // POST: Get all of favorites pictures
 router.post("/favorites/", async (req, res) => {
-  /*if (!req.isAuth) {
+  if (!req.isAuth) {
     res.status(401).json({
       error: "Unauthorized",
     });
     return;
-  }*/
+  }
   try {
     const pictures = await pictureService.getFavoritePictureById(req.body.favorites);
     res.status(201).json(pictures);

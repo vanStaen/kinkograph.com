@@ -29,12 +29,12 @@
     - [ ] Login with account
     - [ ] Create Account
     - [ ] Lost password
-  - [ ] Refactor BackEnd to use Sequelise
+  - [x] Refactor BackEnd to use Sequelise
     - [x] Admin API
     - [x] Picture API
-    - [ ] Tags API
+    - [x] Tags API
     - [x] User API
-    - [ ] Mail Api
+    - [x] Mail Api
     - [ ] Check Auth on api calls
     - [ ] Check Admin auth on api calls
   

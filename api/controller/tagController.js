@@ -5,12 +5,12 @@ const _ = require("lodash/core");
 
 // GET all tags
 router.get("/", async (req, res) => {
-  /*if (!req.isAuth) {
+  if (!req.isAuth) {
     res.status(401).json({
       error: "Unauthorized",
     });
     return;
-  }*/
+  }
   try {
     const tags = await tagService.getTags();
     console.log(tags);
@@ -24,12 +24,12 @@ router.get("/", async (req, res) => {
 
 // POST return tags coresponding to a filter
 router.post("/filter/", async (req, res) => {
-  /*if (!req.isAuth) {
+  if (!req.isAuth) {
     res.status(401).json({
       error: "Unauthorized",
     });
     return;
-  }*/
+  }
   try {
     const arrayFilter = req.body.filter;
     const tagsFilter = await pictureService.getPicturesByTag(
@@ -64,12 +64,12 @@ router.post("/filter/", async (req, res) => {
 
 // POST new tag in DB
 router.post("/", async (req, res) => {
-  /*if (!req.isAdmin) {
+  if (!req.isAdmin) {
     res.status(401).json({
       error: "You do not have administrator rights.",
     });
     return;
-  }*/
+  }
   try {
     const tagsExistAlready = await tagService.checkTagExist(req.body.tag_name);
     if (tagsExistAlready) {
@@ -93,12 +93,12 @@ router.post("/", async (req, res) => {
 
 // POST edit tags
 router.patch("/", async (req, res) => {
-  /*if (!req.isAdmin) {
+  if (!req.isAdmin) {
     res.status(401).json({
       error: "You do not have administrator rights.",
     });
     return;
-  }*/
+  }
     try {
       const oldtag = req.body.oldtag;
       const newtag = req.body.newtag;
@@ -136,12 +136,12 @@ router.patch("/", async (req, res) => {
 
 // DELETE  tags
 router.delete("/", async (req, res) => {
-  /*if (!req.isAdmin) {
+  if (!req.isAdmin) {
     res.status(401).json({
       error: "You do not have administrator rights.",
     });
     return;
-  }*/
+  }
     try {
       const tagToDelete = req.body.tagToDelete;
       await tagService.deleteTag(tagToDelete);
