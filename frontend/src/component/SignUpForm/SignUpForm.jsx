@@ -76,6 +76,7 @@ export const SignUpForm = (props) => {
         username,
         email,
         password,
+        null,
         language
       );
       if (!response.errors) {
