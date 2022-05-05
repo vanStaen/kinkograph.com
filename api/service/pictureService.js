@@ -124,7 +124,7 @@ exports.pictureService = {
 
   async patchPictureById(id, tags) {
     const updatedPicture = await Picture.update(
-      { tags: tags },
+      { tags: tags, tags_missing: false },
       {
         where: {
           id: id,
