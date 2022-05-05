@@ -28,7 +28,7 @@ export class AuthStore {
     const resultLogIn = await postLogin(email, username, password, remind);
     if (resultLogIn.access) {
       this.setHasAccess(true);
-      console.log(resultLogIn);
+      console.log("SHOW POST LOGIN RESULT", resultLogIn);
     } else {
       return resultLogIn.error;
     }

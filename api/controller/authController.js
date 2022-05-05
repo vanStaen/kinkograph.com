@@ -10,7 +10,7 @@ router.post("/login", async (req, res) => {
     if (req.body.remind === undefined) {
       throw new Error("The 'remind me'-flag shoud not be missing!");
     }
-    const loginSuccess = await authService.login(
+    const result = await authService.login(
       req,
       req.body.email,
       req.body.username,
@@ -18,7 +18,7 @@ router.post("/login", async (req, res) => {
       req.body.remind
     );
     res.status(200).json({
-      loginSuccess,
+      result,
     });
   } catch (err) {
     res.status(403).json({
