@@ -1,7 +1,7 @@
 import { action, makeObservable, observable } from "mobx";
 
 import { getFavoritesPictures} from "./calls/getFavoritesPictures";
-import { postUserFavorites } from "./calls/postUserFavorites";
+import { patchUserFavorites } from "./calls/patchUserFavorites";
 
 export class FavoriteStore {
  
@@ -60,13 +60,13 @@ export class FavoriteStore {
     if (index < 0) {
       this.favoritesId.push(id);
     }
-    postUserFavorites(this.favoritesId);
+    patchUserFavorites(this.favoritesId);
   };
 
   deleteFromFavoritesId = (id) => {
     const index = this.favoritesId.findIndex((pictureId) => pictureId === id);
     this.favoritesId.splice(index, 1);
-    postUserFavorites(this.favoritesId);
+    patchUserFavorites(this.favoritesId);
   };
 
   setFavoritesId = (favoritesId) => {

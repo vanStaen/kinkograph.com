@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const postEditTag = async (oldtag, newtag) => {
+export const patchEditTag = async (oldtag, newtag) => {
 
     const requestBody = {
         "oldtag": oldtag,
@@ -8,8 +8,8 @@ export const postEditTag = async (oldtag, newtag) => {
     };
 
     const response = await axios({
-        url: process.env.REACT_APP_API_URL + `/tags/edit`,
-        method: "POST",
+        url: process.env.REACT_APP_API_URL + `/tags/`,
+        method: "PATCH",
         data: requestBody,
     });
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const postUserFavorites = async (favorites) => {
+export const patchUserFavorites = async (favorites) => {
 
     const requestBody = {
         "input": {
