@@ -20,23 +20,8 @@
   - [x] Store information in userStore
   - [ ] Pop up on connect
   - [ ] 1 mail every 3 month since last connection
-- [ ] Use Server Cookie as login method
 - [ ] Redirect info@kinkograph.com
-- [ ] Refactoring
-  - [ ] Use Session Cookie
-  - [ ] Rework Login component
-    - [ ] Login with code
-    - [ ] Login with account
-    - [ ] Create Account
-    - [ ] Lost password
-  - [x] Refactor BackEnd to use Sequelise
-    - [x] Admin API
-    - [x] Picture API
-    - [x] Tags API
-    - [x] User API
-    - [x] Mail Api
-    - [ ] Check Auth on api calls
-    - [ ] Check Admin auth on api calls
+- [ ] Bug: Adding a filter from the overlay do not show in the filter field
   
 ## Completed ✓
 
@@ -74,4 +59,7 @@
   - [x] Store&show user last login
 - [x] Edit page count, to go directly to an exact page
 - [x] "?" page
-- [x] Bug: Adding a filter from the overlay do not show in the filter field
+- [x] Refactoring
+  - [x] Use Session Cookie
+  - [x] Rework Login component
+  - [x] Refactor BackEnd to use Sequelise
