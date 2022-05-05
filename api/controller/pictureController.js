@@ -268,7 +268,11 @@ router.post("/duplicate/", async (req, res) => {
   }
   try {
     const picture = await pictureService.getPictureByName(req.body.name);
-    res.status(201).json(picture);
+    if (picture) {
+      res.status(201).json(picture);
+    } else {
+      res.status(201).json([]);
+    }
   } catch (err) {
     res.status(400).json({
       error: `${err})`,
