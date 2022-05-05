@@ -19,6 +19,6 @@ export const postLogin = async (email, username, password, remind) => {
     if (err.response.status === 401) {
       throw new Error(`Error! Unauthorized(401)`);
     }
-    return err.response.data.result;
+    return err.response.data;
   }
 };

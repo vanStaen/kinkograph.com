@@ -26,9 +26,9 @@ export class AuthStore {
     }
     // Call login endpoint
     const resultLogIn = await postLogin(email, username, password, remind);
-    if (resultLogIn.access) {
+    console.log("SHOW POST LOGIN RESULT", resultLogIn);
+    if (resultLogIn.result.access) {
       this.setHasAccess(true);
-      console.log("SHOW POST LOGIN RESULT", resultLogIn);
     } else {
       return resultLogIn.error;
     }
