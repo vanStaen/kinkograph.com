@@ -5,7 +5,7 @@ import { favoriteStore } from "./favoriteStore";
 
 export class UserStore {
   email = null;
-  firstname = "there";
+  firstname = null;
   lastname = null;
   username = null;
   isAdmin = false;

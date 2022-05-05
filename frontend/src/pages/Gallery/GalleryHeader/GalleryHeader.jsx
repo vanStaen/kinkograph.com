@@ -85,7 +85,7 @@ export const GalleryHeader = observer(() => {
                   {showOpenLock ? <UnlockOutlined /> : <LockOutlined />}
                 </Tooltip>
               </span>{" "}
-              | 
+              |
               <span
                 className="galleryHeader__favorite"
                 onClick={handleClickShowFavoritesDrawer}
@@ -94,45 +94,44 @@ export const GalleryHeader = observer(() => {
                 {favoriteStore.favoritesId.length > 1 && "s"}
               </span>
             </div>
-            <div className="galleryHeader__SmallFont">
+            <div className="galleryHeader__SmallFont pointer">
               marked as favorite{favoriteStore.favoritesId.length > 1 && "s"}
             </div>
           </Fragment>
         ) : (
-          <Fragment>
-            <div className="galleryHeader__BigFont">
-              <span
-                className="galleryHeader__logout link"
-                onMouseEnter={() => setShowOpenLock(true)}
-                onMouseLeave={() => setShowOpenLock(false)}
-                onClick={handleClickLogOut}
-              >
-                <Tooltip placement="bottomLeft" title="Logout">
-                  {showOpenLock ? <UnlockOutlined /> : <LockOutlined />}
-                </Tooltip>
-              </span>{" "}
-              | 
-              {userStore.firstname ? (
-                <Tooltip
-                  placement="bottomLeft"
-                  title={
-                    <span>
-                      <b>TIP: </b>Mark some pictures as your favorites: Then we
-                      both look at those, and plan a inspired shoot.
-                    </span>
-                  }
+            <Fragment>
+              <div className="galleryHeader__BigFont">
+                <span
+                  className="galleryHeader__logout link"
+                  onMouseEnter={() => setShowOpenLock(true)}
+                  onMouseLeave={() => setShowOpenLock(false)}
+                  onClick={handleClickLogOut}
                 >
-                  Hello {userStore.firstname},
-                </Tooltip>
-              ) : (
-                "Hello stranger,"
-              )}
+                  <Tooltip placement="bottomLeft" title="Logout">
+                    {showOpenLock ? <UnlockOutlined /> : <LockOutlined />}
+                  </Tooltip>
+                </span>{" "}
+              |
+              {userStore.firstname ? (
+                  <Tooltip
+                    placement="bottomLeft"
+                    title={
+                      <span>
+                        <b>TIP: </b>When browsing the gallery, mark some pictures as your favorites.
+                    </span>
+                    }
+                  >
+                    Hello {userStore.firstname},
+                  </Tooltip>
+                ) : (
+                    "Hello stranger,"
+                  )}
+              </div>
+              <div className="galleryHeader__SmallFont">
+                What will inspire you today?
             </div>
-            <div className="galleryHeader__SmallFont">
-              What will inspire you today?
-            </div>
-          </Fragment>
-        )}
+            </Fragment>
+          )}
       </div>
       <div
         className="galleryHeader__center"
@@ -164,15 +163,15 @@ export const GalleryHeader = observer(() => {
             })}
           </Select>
         ) : (
-          <div
-            className="galleryHeader__setFilter"
-            onClick={handleClickFilterTitle}
-          >
-            click here to{" "}
-            <span className="galleryHeader__wordFilter">filter</span> the
+            <div
+              className="galleryHeader__setFilter"
+              onClick={handleClickFilterTitle}
+            >
+              click here to{" "}
+              <span className="galleryHeader__wordFilter">filter</span> the
             results
-          </div>
-        )}
+            </div>
+          )}
       </div>
       <div className="galleryHeader__right">
         <Tooltip
