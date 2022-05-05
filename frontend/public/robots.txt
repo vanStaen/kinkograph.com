@@ -1,3 +1,7 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Crawl-deay: 120
+Disallow: /user/
+Disallow: /auth/
+Disallow: /mail/
+Disallow: /pictures/
+Disallow: /tags/
