@@ -1,7 +1,10 @@
 import { action, makeObservable, observable } from "mobx";
+import { notification } from "antd";
+import { CameraOutlined } from '@ant-design/icons';
 
 import { getFilteredTags } from "./calls/getTags";
 import { getPicturesPerPage, getTotalPictures } from "./calls/getPictures";
+import { userStore } from "./userStore";
 
 const loadImage = (image) => {
   return new Promise((resolve, reject) => {
@@ -81,6 +84,17 @@ export class PictureStore {
 
       this.setAllPictures(pictures);
       this.setTotalPictures(totalPictures);
+
+      if (totalPictures > userStore.numberOfPicAtLastLogin && userStore.numberOfPicAtLastLogin) {
+        const numberOfNewPictures = totalPictures - userStore.numberOfPicAtLastLogin
+        notification.open({
+          message: `There is ${numberOfNewPictures} new picture${numberOfNewPictures > 1 && 's'} since your last visit.`,
+          placement: "bottomRight",
+          className: "app__blackNotification",
+          duration: 5,
+          icon: <CameraOutlined style={{ color: '#666' }} />,
+        });
+      }
     } catch (err) {
       console.log(err);
     }
@@ -102,8 +116,8 @@ export class PictureStore {
 
   goToPageHandler = async (page) => {
     pictureStore.setIsGalleryLoading(true);
-      this.pageNumber = parseInt(page);
-      await this.fetchPictures(page);
+    this.pageNumber = parseInt(page);
+    await this.fetchPictures(page);
   };
 
   setPageNumber = (pageNumber) => {
@@ -131,7 +145,7 @@ export class PictureStore {
     } else {
       if (selected === 0) {
         await this.nextPageHandler(false);
-        this.selected = this.PAGE_SIZE -1;
+        this.selected = this.PAGE_SIZE - 1;
       } else {
         this.selected = selected - 1;
       }

@@ -3,6 +3,7 @@ import { action, makeObservable, observable } from "mobx";
 import { deleteLogout } from "./calls/deleteLogout";
 import { postLogin } from "./calls/postLogin";
 import { getHasAccess } from "./calls/getHasAccess";
+import { userStore } from "./userStore";
 
 export class AuthStore {
 
@@ -26,9 +27,9 @@ export class AuthStore {
     }
     // Call login endpoint
     const resultLogIn = await postLogin(email, username, password, remind);
-    console.log("SHOW POST LOGIN RESULT", resultLogIn);
     if (resultLogIn.result.access) {
       this.setHasAccess(true);
+      userStore.setNumberOfPicAtLastLogin(resultLogIn.result.nb_picture_at_last_login);
     } else {
       return resultLogIn.error;
     }

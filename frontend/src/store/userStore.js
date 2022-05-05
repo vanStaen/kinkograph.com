@@ -29,7 +29,7 @@ export class UserStore {
       lastLogin: observable,
       setLastLogin: action,
       numberOfPicAtLastLogin: observable,
-      setNumberOfPicAtLastLogin: action, 
+      setNumberOfPicAtLastLogin: action,
       isAdmin: observable,
       setIsAdmin: action,
     });
@@ -74,9 +74,8 @@ export class UserStore {
       userStore.setEmail(userData.email);
       userStore.setFirstname(userData.firstname);
       userStore.setLastname(userData.lastname);
-      userStore.setUsername(userData.last_login);
-      userStore.setLastLogin(userData.nb_picture_at_last_login);
-      userStore.setNumberOfPicAtLastLogin(userData.username);
+      userStore.setUsername(userData.username);
+      userStore.setLastLogin(userData.last_login);
       if (userData.favorites) {
         favoriteStore.setFavoritesId(userData.favorites);
       }

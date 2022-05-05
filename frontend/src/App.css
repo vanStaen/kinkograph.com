@@ -112,3 +112,14 @@
   border: 1px solid #fff !important;
   background-color: rgba(255, 255, 255, 0.8) !important;
 }
+
+/* black notification */
+
+.app__blackNotification {
+  background: rgba(0,0,0, .85) !important;
+  border: 1px solid rgba(255, 255, 255, .1);
+}
+
+.app__blackNotification .ant-notification-notice-message {
+  color: white  !important;
+}
