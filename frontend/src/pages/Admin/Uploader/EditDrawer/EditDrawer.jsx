@@ -132,8 +132,8 @@ export const EditDrawer = (props) => {
       >
         {allTags.map((tag) => {
           return (
-            <Option key={capitalizeFirstLetter(tag.tag_name)}>
-              {capitalizeFirstLetter(tag.tag_name)}
+            <Option key={capitalizeFirstLetter(tag.tag)}>
+              {capitalizeFirstLetter(tag.tag)}
             </Option>
           );
         })}

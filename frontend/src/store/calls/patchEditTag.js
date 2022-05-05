@@ -1,16 +1,15 @@
 import axios from "axios";
 
-export const postUserFavorites = async (favorites) => {
+export const patchEditTag = async (oldtag, newtag) => {
 
     const requestBody = {
-        input: {
-            "favorites": JSON.stringify(favorites),
-        }
+        "oldtag": oldtag,
+        "newtag": newtag,
     };
 
     const response = await axios({
-        url: process.env.REACT_APP_API_URL + `/user`,
-        method: "POST",
+        url: process.env.REACT_APP_API_URL + `/tags/`,
+        method: "PATCH",
         data: requestBody,
     });
 
@@ -22,5 +21,5 @@ export const postUserFavorites = async (favorites) => {
         }
     }
 
-    return response;
+    return response.data;
 };

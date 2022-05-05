@@ -15,7 +15,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 
 import { getFilteredTags } from "../../../store/calls/getTags";
 import { capitalizeFirstLetter } from "../../../helpers/capitalizeFirstLetter";
-import { postEditTag } from "../../../store/calls/postEditTag";
+import { patchEditTag } from "../../../store/calls/patchEditTag";
 import { deleteTag } from "../../../store/calls/deleteTag";
 
 import "./TagAdmin.css";
@@ -70,7 +70,7 @@ export const TagAdmin = () => {
 
   const submitReplaceHandler = async () => {
     if (replaceValue !== allTags[selected.current].tag) {
-      await postEditTag(allTags[selected.current].tag, replaceValue);
+      await patchEditTag(allTags[selected.current].tag, replaceValue);
     }
     await fetchAllTags();
     setShowDrawer(false);
@@ -78,7 +78,7 @@ export const TagAdmin = () => {
 
   const submitRenameHandler = async () => {
     if (renameValue !== allTags[selected.current].tag) {
-      await postEditTag(allTags[selected.current].tag, renameValue);
+      await patchEditTag(allTags[selected.current].tag, renameValue);
     }
     await fetchAllTags();
     setShowDrawer(false);

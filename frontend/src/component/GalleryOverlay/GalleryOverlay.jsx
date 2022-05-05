@@ -26,7 +26,6 @@ export const GalleryOverlay = observer(() => {
   const [isLoading, setIsLoading] = useState(true);
   const throttling = useRef(false);
   const selected = pictureStore.allPictures[pictureStore.selected];
-  console.log(pictureStore.selected);
   const indexInSelected = selected
     ? favoriteStore.favoritesId.findIndex(
         (pictureId) => pictureId === selected.id
