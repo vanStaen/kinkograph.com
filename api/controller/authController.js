@@ -73,11 +73,9 @@ router.post("/code", async (req, res) => {
     if (!req.body.code) {
       throw new Error("Please provide a code to login!");
     }
-        const codeIsValid = await authService.code(req, req.body.code);
-    if (codeIsValid) {
-      res.status(200).json({
-        access: codeIsValid,
-      });
+        const result = await authService.code(req, req.body.code);
+    if (result.access) {
+      res.status(200).json(result);
     } else {
       res.status(200).json({
         access: false,

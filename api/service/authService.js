@@ -90,7 +90,7 @@ exports.authService = {
         { expiresIn: "15m" }
       );
       req.session.token = accessToken;
-      return true;
+      return {access: true, id: "guest"};
     }
 
     foundUser = await User.findOne({
@@ -126,7 +126,7 @@ exports.authService = {
       );
 
       // Return true if success
-      return true;
+      return {access: true, id: foundUser.id};
     }
   },
 };

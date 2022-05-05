@@ -18,7 +18,7 @@ export const Login = (props) => {
     try {
       const res = await postLoginCode(code);
       if (res.status === 200) {
-        if (res.data.userId === "guest") {
+        if (res.data.id === "guest") {
           authStore.setIsGuest(true);
         } else {
           authStore.setIsGuest(false);
