@@ -2,7 +2,7 @@ const jsonwebtoken = require("jsonwebtoken");
 const { User } = require("../models/User");
 require("dotenv/config");
 
-const devMode = true;
+const devMode = false;
 
 module.exports = async (req, res, next) => {
   // if in development mode
