@@ -52,7 +52,7 @@ module.exports = async (req, res, next) => {
 
   // Update token in session cookie
   const accessToken = await jsonwebtoken.sign(
-    { userId: decodedToken.userId },
+    { userId: decodedToken.userId, isAdmin: decodedToken.isAdmin },
     process.env.AUTH_SECRET_KEY,
     { expiresIn: "15m" }
   );
@@ -63,7 +63,7 @@ module.exports = async (req, res, next) => {
   // Update refrehstoken in session cookie
   if (refreshToken) {
     const refreshToken = await jsonwebtoken.sign(
-      { userId: decodedToken.userId },
+      { userId: decodedToken.userId, isAdmin: decodedToken.isAdmin },
       process.env.AUTH_SECRET_KEY_REFRESH,
       { expiresIn: "7d" }
     );

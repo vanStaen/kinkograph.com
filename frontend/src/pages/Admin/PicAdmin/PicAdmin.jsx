@@ -22,7 +22,7 @@ export const PicAdmin = () => {
 
   const fetchAllPictures = useCallback(async () => {
     try {
-      const fetchedPics = await getPictures(0, true);
+      const fetchedPics = await getPictures(0, false);
       const fetchedTags = await getFilteredTags([]);
       setAllPictures(fetchedPics);
       setAllTags(fetchedTags);
@@ -63,50 +63,50 @@ export const PicAdmin = () => {
           <div className="gallery__spinnerText">loading</div>
         </div>
       ) : (
-        <Fragment>
-          {pictureSelected && (
-            <EditDrawer
-              picture={pictureSelected}
-              showDrawer={showDrawer}
-              setShowDrawer={setShowDrawer}
-            />
-          )}
-          <div className="picAdmin__tagSelector">
-            <Select
-              showSearch={true}
-              allowClear={true}
-              style={{ width: "100%" }}
-              placeholder="Select a tag to manage"
-              onChange={(value) => {
-                setTagSelected(value);
-              }}
-            >
-              {allTags.map((tag) => {
+          <Fragment>
+            {pictureSelected && (
+              <EditDrawer
+                picture={pictureSelected}
+                showDrawer={showDrawer}
+                setShowDrawer={setShowDrawer}
+              />
+            )}
+            <div className="picAdmin__tagSelector">
+              <Select
+                showSearch={true}
+                allowClear={true}
+                style={{ width: "100%" }}
+                placeholder="Select a tag to manage"
+                onChange={(value) => {
+                  setTagSelected(value);
+                }}
+              >
+                {allTags.map((tag) => {
+                  return (
+                    <Option key={capitalizeFirstLetter(tag.tag)}>
+                      {capitalizeFirstLetter(tag.tag)} ({tag.occur})
+                    </Option>
+                  );
+                })}
+              </Select>
+            </div>
+            <div className="picAdmin__main">
+              {allPictures.map((picture) => {
                 return (
-                  <Option key={capitalizeFirstLetter(tag.tag)}>
-                    {capitalizeFirstLetter(tag.tag)} ({tag.occur})
-                  </Option>
+                  <div className="picAdmin__picture">
+                    <PicThumbAdmin
+                      picture={picture}
+                      tagSelected={tagSelected}
+                      setShowDrawer={setShowDrawer}
+                      setPictureSelected={setPictureSelected}
+                      fetchAllPictures={fetchAllPictures}
+                    />
+                  </div>
                 );
               })}
-            </Select>
-          </div>
-          <div className="picAdmin__main">
-            {allPictures.map((picture) => {
-              return (
-                <div className="picAdmin__picture">
-                  <PicThumbAdmin
-                    picture={picture}
-                    tagSelected={tagSelected}
-                    setShowDrawer={setShowDrawer}
-                    setPictureSelected={setPictureSelected}
-                    fetchAllPictures={fetchAllPictures}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </Fragment>
-      )}
+            </div>
+          </Fragment>
+        )}
     </Fragment>
   );
 };

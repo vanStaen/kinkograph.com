@@ -6,7 +6,103 @@
 	},
 	"item": [
 		{
-			"name": "localhost:5009/user/taken",
+			"name": "user/",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"clement.vanstaen@gmail.com\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5009/user/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user/all",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"clement.vanstaen@gmail.com\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5009/user/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userInput\": {\n        \"firstname\": \"Clément\",\n        \"lastname\": \"van Staen\",\n        \"username\": \"kinkograph\",\n        \"email\": \"clement.vanstaen@gmail.com\",\n        \"pwd\": \"123456\",\n        \"language\": \"fr\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5009/user/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user/taken",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -36,7 +132,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5009/user/email",
+			"name": "user/email",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -66,7 +162,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5009/user/validtoken",
+			"name": "user/changepassword",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -78,10 +174,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"clement.vanstaen@gmail.com\"\n}"
+					"raw": "{\n    \"token\": \"123456\",\n    \"\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:5009/user/taken",
+					"raw": "http://localhost:5009/user/changepassword",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -89,20 +185,204 @@
 					"port": "5009",
 					"path": [
 						"user",
-						"taken"
+						"changepassword"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:5009/auth/code",
+			"name": "user/",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"favorites\":  \"[134, 179]\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5009/user/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"user",
+						""
+					]
+				},
+				"description": "GET request : list of all users\nTo localserver on port 5000\n"
+			},
+			"response": []
+		},
+		{
+			"name": "user/validtoken",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"123\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5009/user/validtoken",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"user",
+						"validtoken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user/emailverified",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsZW1lbnQudmFuc3RhZW5AZ21haWwuY29tIiwiaWF0IjoxNjUxNTc2NjM0LCJleHAiOjE2NTE2NjMwMzR9.4gOkgMAuscD2PVySKhG6DP6UBn8aPFLlJiZ5oa-4z1s\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5009/user/emailverified",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"user",
+						"emailverified"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth/access",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5009/auth/access",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"auth",
+						"access"
+					]
+				},
+				"description": "GET request : list of all users\nTo localserver on port 5000\n"
+			},
+			"response": []
+		},
+		{
+			"name": "auth/login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"clement.vanstaen@gmail.com\",    \n    \"pwd\": \"123456\",\n    \"remind\": true\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5009/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth/logout",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"clement.vanstaen@gmail.com\",    \n    \"pwd\": \"123456\",\n    \"remind\": true\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5009/auth/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth/code",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"test\": \"159753\"\n}",
+					"raw": "{\n    \"code\": \"159753\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -126,7 +406,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5009/pictures/:key",
+			"name": "pictures/:key",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -147,30 +427,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5009/pictures/all",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5009/pictures/all/0/true",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5009",
-					"path": [
-						"pictures",
-						"all",
-						"0",
-						"true"
-					]
-				},
-				"description": "GET request : list of all users\nTo localserver on port 5000\n"
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:5009/pictures",
+			"name": "pictures",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {}
 			},
@@ -221,7 +478,30 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5009/pictures/total",
+			"name": "pictures/all/:limit/:showmissing",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5009/pictures/all/0/true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"pictures",
+						"all",
+						"0",
+						"true"
+					]
+				},
+				"description": "GET request : list of all users\nTo localserver on port 5000\n"
+			},
+			"response": []
+		},
+		{
+			"name": "pictures/total",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {}
 			},
@@ -255,7 +535,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5009/pictures/favorites",
+			"name": "pictures/favorites",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {}
 			},
@@ -289,7 +569,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5009/pictures/page",
+			"name": "pictures/page",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {}
 			},
@@ -323,7 +603,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5009/pictures/tagsmissing",
+			"name": "pictures/tagsmissing",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true,
 				"disabledSystemHeaders": {}
@@ -359,7 +639,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5009/pictures/duplicate",
+			"name": "pictures/duplicate",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {}
 			},
@@ -393,7 +673,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5009/pictures/tagsmissingcount/",
+			"name": "pictures/tagsmissingcount/",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -415,7 +695,27 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5009/tags",
+			"name": "tags",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5009/tags",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"tags"
+					]
+				},
+				"description": "GET request : list of all users\nTo localserver on port 5000\n"
+			},
+			"response": []
+		},
+		{
+			"name": "tags",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -444,256 +744,7 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5009/tags/filter",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"filter\": []\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:5009/tags/filter/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5009",
-					"path": [
-						"tags",
-						"filter",
-						""
-					]
-				},
-				"description": "GET request : list of all users\nTo localserver on port 5000\n"
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:5009/tags",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5009/tags",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5009",
-					"path": [
-						"tags"
-					]
-				},
-				"description": "GET request : list of all users\nTo localserver on port 5000\n"
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:5009/login/",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:5009/login/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5009",
-					"path": [
-						"login",
-						""
-					]
-				},
-				"description": "GET request : list of all users\nTo localserver on port 5000\n"
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:5009/login/token",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"code\": \"159753\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:5009/login/token",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5009",
-					"path": [
-						"login",
-						"token"
-					]
-				},
-				"description": "GET request : list of all users\nTo localserver on port 5000\n"
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:5009/user",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5009/user",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5009",
-					"path": [
-						"user"
-					]
-				},
-				"description": "GET request : list of all users\nTo localserver on port 5000\n"
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:5009/user",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					},
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY0Mzk2ODU3OCwiZXhwIjoxNjQzOTY5NDc4fQ.EWF8A5wR7YfmBy_A7OTAQlDb4p_lF6tot-7OJb2WK9U",
-						"type": "default"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\":  \"Anne\",\n    \"access_code\": \"846173\"\n}"
-				},
-				"url": {
-					"raw": "http://localhost:5009/user",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5009",
-					"path": [
-						"user"
-					]
-				},
-				"description": "GET request : list of all users\nTo localserver on port 5000\n"
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:5009/user/favorites",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"favorites\":  \"[134, 179]\"\n}"
-				},
-				"url": {
-					"raw": "http://localhost:5009/user/favorites",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5009",
-					"path": [
-						"user",
-						"favorites"
-					]
-				},
-				"description": "GET request : list of all users\nTo localserver on port 5000\n"
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:5009/admin/users",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5009/admin/users",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5009",
-					"path": [
-						"admin",
-						"users"
-					]
-				},
-				"description": "GET request : list of all users\nTo localserver on port 5000\n"
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:5009/tags/edit",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"oldtag\" : \"B&\",\n    \"newtag\" : \"B&W\"\n}"
-				},
-				"url": {
-					"raw": "http://localhost:5009/tags/edit",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5009",
-					"path": [
-						"tags",
-						"edit"
-					]
-				},
-				"description": "GET request : list of all users\nTo localserver on port 5000\n"
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:5009/tags",
+			"name": "tags",
 			"request": {
 				"method": "DELETE",
 				"header": [
@@ -705,7 +756,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"tagToDelete\" : \"tag\"\n}"
+					"raw": "{\n    \"tagToDelete\" : \"test\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:5009/tags/",
@@ -724,10 +775,20 @@
 			"response": []
 		},
 		{
-			"name": "localhost:5009/random",
+			"name": "tags/",
 			"request": {
-				"method": "GET",
-				"header": [],
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"oldtag\" : \"B&\",\n    \"newtag\" : \"B&W\"\n}"
+				},
 				"url": {
 					"raw": "http://localhost:5009/tags",
 					"protocol": "http",
@@ -737,6 +798,37 @@
 					"port": "5009",
 					"path": [
 						"tags"
+					]
+				},
+				"description": "GET request : list of all users\nTo localserver on port 5000\n"
+			},
+			"response": []
+		},
+		{
+			"name": "tags/filter",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"filter\": [\"Leo\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5009/tags/filter/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"tags",
+						"filter",
+						""
 					]
 				},
 				"description": "GET request : list of all users\nTo localserver on port 5000\n"
