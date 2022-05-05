@@ -48,7 +48,11 @@ exports.authService = {
       }
 
       // Update lastLogin and nb_picture_at_last_login in user table
-      const { count } = await Picture.findAndCountAll();
+      const { count } = await Picture.findAndCountAll({
+        where: {
+          tags_missing: false,
+        },
+      });
       await User.update(
         { last_login: Date.now(), nb_picture_at_last_login: count },
         { where: { id: foundUser.id } }
@@ -90,7 +94,7 @@ exports.authService = {
         { expiresIn: "15m" }
       );
       req.session.token = accessToken;
-      return {access: true, id: "guest"};
+      return { access: true, id: "guest" };
     }
 
     foundUser = await User.findOne({
@@ -119,14 +123,18 @@ exports.authService = {
       }
 
       // Update lastLogin and nb_picture_at_last_login in user table
-      const { count } = await Picture.findAndCountAll();
+      const { count } = await Picture.findAndCountAll({
+        where: {
+          tags_missing: false,
+        },
+      });
       await User.update(
         { last_login: Date.now(), nb_picture_at_last_login: count },
         { where: { id: foundUser.id } }
       );
 
       // Return true if success
-      return {access: true, id: foundUser.id};
+      return { access: true, id: foundUser.id };
     }
   },
 };
