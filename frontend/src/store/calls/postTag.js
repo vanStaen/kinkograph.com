@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const postTag = async (tag_name) => {
+export const postTag = async (tag) => {
 
     const requestBody = {
-        "tag_name": tag_name,
+        "tag": tag,
     };
 
     const response = await axios({

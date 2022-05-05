@@ -71,17 +71,17 @@ router.post("/", async (req, res) => {
     return;
   }
   try {
-    const tagsExistAlready = await tagService.checkTagExist(req.body.tag_name);
+    const tagsExistAlready = await tagService.checkTagExist(req.body.tag);
     if (tagsExistAlready) {
       res.status(201).json({
         value: "failed",
-        message: `the tag '${req.body.tag_name}' exist already!`,
+        message: `the tag '${req.body.tag}' exist already!`,
       });
     } else {
-      await tagService.addTag(req.body.tag_name);
+      await tagService.addTag(req.body.tag);
       res.status(201).json({
         value: "success",
-        message: `${req.body.tag_name} was added to the table 'tags'`,
+        message: `${req.body.tag} was added to the table 'tags'`,
       });
     }
   } catch (err) {
