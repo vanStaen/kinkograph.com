@@ -55,7 +55,7 @@ exports.userService = {
     }
   },
 
-  async updateUser(userId, input) {
+  async updateUser(userId, data) {
     const updateFields = [];
     const updatableFields = [
       "avatar",
@@ -67,15 +67,15 @@ exports.userService = {
       "language",
       "gender",
       "archived",
-      "usernameChange",
+      "favorites",
     ];
     updatableFields.forEach((field) => {
-      if (field in input) {
-        updateFields[field] = input[field];
+      if (field in data.input) {
+        updateFields[field] = data.input[field];
       }
     });
-    if (input.password) {
-      updateFields.password = await bcrypt.hash(input.password, 12);
+    if (data.input.password) {
+      updateFields.password = await bcrypt.hash(data.input.password, 12);
     }
     try {
       const updatedUser = await User.update(updateFields, {

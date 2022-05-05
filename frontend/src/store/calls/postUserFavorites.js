@@ -3,14 +3,14 @@ import axios from "axios";
 export const postUserFavorites = async (favorites) => {
 
     const requestBody = {
-        input: {
-            "favorites": JSON.stringify(favorites),
+        "input": {
+            "favorites": favorites,
         }
     };
 
     const response = await axios({
         url: process.env.REACT_APP_API_URL + `/user`,
-        method: "POST",
+        method: "PATCH",
         data: requestBody,
     });
 
