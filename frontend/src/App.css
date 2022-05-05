@@ -56,6 +56,10 @@
   cursor: pointer;
 }
 
+.pointer:hover {
+  font-weight: 300;
+}
+
 /* Drawer custom */
 .ant-drawer-content,
 .ant-drawer-header {

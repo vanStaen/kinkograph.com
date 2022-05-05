@@ -85,16 +85,16 @@ export const GalleryHeader = observer(() => {
                   {showOpenLock ? <UnlockOutlined /> : <LockOutlined />}
                 </Tooltip>
               </span>{" "}
-              |
+              |{" "}
               <span
-                className="galleryHeader__favorite"
+                className="galleryHeader__favorite pointer"
                 onClick={handleClickShowFavoritesDrawer}
               >
                 {favoriteStore.favoritesId.length} picture
                 {favoriteStore.favoritesId.length > 1 && "s"}
               </span>
             </div>
-            <div className="galleryHeader__SmallFont pointer">
+            <div className="galleryHeader__SmallFont">
               marked as favorite{favoriteStore.favoritesId.length > 1 && "s"}
             </div>
           </Fragment>
@@ -111,8 +111,8 @@ export const GalleryHeader = observer(() => {
                     {showOpenLock ? <UnlockOutlined /> : <LockOutlined />}
                   </Tooltip>
                 </span>{" "}
-              |
-              {userStore.firstname ? (
+              |{" "}
+                {userStore.firstname ? (
                   <Tooltip
                     placement="bottomLeft"
                     title={
