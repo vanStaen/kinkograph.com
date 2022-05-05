@@ -18,11 +18,11 @@ router.post("/login", async (req, res) => {
       req.body.remind
     );
     res.status(200).json({
-      success: loginSuccess,
+      loginSuccess,
     });
   } catch (err) {
     res.status(403).json({
-      success: false,
+      access: false,
       error: `${err}`,
     });
   }
@@ -73,7 +73,7 @@ router.post("/code", async (req, res) => {
     if (!req.body.code) {
       throw new Error("Please provide a code to login!");
     }
-        const result = await authService.code(req, req.body.code);
+    const result = await authService.code(req, req.body.code);
     if (result.access) {
       res.status(200).json(result);
     } else {

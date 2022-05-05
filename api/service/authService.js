@@ -64,8 +64,12 @@ exports.authService = {
         throw new Error("Email is not verified!");
       }
 
-      // Return true if success
-      return true;
+      // Return some data if success
+      return {
+        access: true,
+        id: foundUser.id,
+        nb_picture_at_last_login: foundUser.nb_picture_at_last_login
+      };
     }
   },
 
@@ -134,7 +138,11 @@ exports.authService = {
       );
 
       // Return true if success
-      return { access: true, id: foundUser.id };
+      return {
+        access: true,
+        id: foundUser.id,
+        nb_picture_at_last_login: foundUser.nb_picture_at_last_login
+      };
     }
   },
 };
