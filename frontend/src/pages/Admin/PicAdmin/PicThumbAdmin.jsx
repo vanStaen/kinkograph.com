@@ -1,17 +1,29 @@
 import React, { useEffect, useState, useCallback, Fragment } from "react";
 
 import { patchPicture } from "../../../store/calls/patchPicture";
+import { patchPictureAdult } from "../../../store/calls/patchPictureAdult";
 
 import "./PicAdmin.css";
 
 export const PicThumbAdmin = (props) => {
   const checkHasHalo = useCallback(() => {
     let result = false;
-    if (props.picture.tags) {
-      result = props.picture.tags.includes(props.tagSelected);
+    if (props.tagSelected) {
+      if (props.picture.tags) {
+        result = props.picture.tags.includes(props.tagSelected);
+      }
+      return result;
+    } else if (props.adultContentSelected) {
+      result = props.picture.adult_content;
+      if (result === true) {
+        return true;
+      }
+      return false;
+    } else {
+      return false;
     }
-    return result;
-  }, [props.picture.tags, props.tagSelected]);
+  }, [props.picture, props.tagSelected, props.adultContentSelected]);
+
   const [hasHalo, setHasHalo] = useState(checkHasHalo());
 
   const pictureClickHandle = async (picture) => {
@@ -32,6 +44,9 @@ export const PicThumbAdmin = (props) => {
       //Path picture
       await patchPicture(tagsArray, props.picture.id);
       props.fetchAllPictures();
+    } else if (props.adultContentSelected) {
+      await patchPictureAdult(!props.picture.adult_content, props.picture.id);
+      props.fetchAllPictures();
     } else {
       props.setShowDrawer(true);
       props.setPictureSelected(picture);
@@ -40,13 +55,13 @@ export const PicThumbAdmin = (props) => {
 
   useEffect(() => {
     setHasHalo(checkHasHalo());
-  }, [props.tagSelected, checkHasHalo]);
+  }, [props.tagSelected, props.adultContentSelected, checkHasHalo]);
 
   return (
     <Fragment>
       <img
         className={
-          props.tagSelected
+          props.tagSelected || props.adultContentSelected
             ? hasHalo
               ? "picAdmin__tagHalo"
               : "picAdmin__tagBlur"
