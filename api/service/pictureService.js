@@ -122,6 +122,14 @@ exports.pictureService = {
     });
   },
 
+  async getPictureById(id) {
+    return await Picture.findOne({
+      where: {
+        id: id,
+      },
+    });
+  },
+
   async patchPictureById(id, tags) {
     const updatedPicture = await Picture.update(
       { tags: tags, tags_missing: false },
