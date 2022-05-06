@@ -255,6 +255,18 @@ export const SignUpForm = (props) => {
 
         <Form.Item
           name="agreement"
+          rules={[
+            {
+              required: true,
+              message: t("login.pleaseConfirm18"),
+            },
+          ]}
+        >
+          <Checkbox className="signup__terms">{t("login.over18")} </Checkbox>
+        </Form.Item>
+
+        <Form.Item
+          name="over18"
           valuePropName="checked"
           rules={[
             {

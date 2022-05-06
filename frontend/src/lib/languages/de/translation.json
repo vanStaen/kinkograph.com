@@ -74,6 +74,8 @@
     "updatePassword": "Passwort aktualisieren",
     "linkNotValidAnymore": "Link ist nicht mehr gültig",
     "usernameShouldNotBeAnEmail": "Der Benutzername darf kein email sein",
-    "emailAlreadyInUse": "Email würde schon benutzt"
+    "emailAlreadyInUse": "Email würde schon benutzt",
+    "over18": "Bitte bestättigen dass Sie mindestens 18 sind, und wissen von dass. die Website könnte Pornografische Inhalt darstellen.",
+    "pleaseConfirm18": "Bitte bestättigen, dass Sie nicht minderjährig sind!"
   }
 }

@@ -75,6 +75,8 @@
     "updatePassword": "Update password",
     "linkNotValidAnymore": "Link not valid anymore.",
     "usernameShouldNotBeAnEmail": "Your username should not be an email",
-    "emailAlreadyInUse": "Email is already in use"
+    "emailAlreadyInUse": "Email is already in use",
+    "over18": "Please confirm that you are at least 18, and aware that this site may contain pornographic content.",
+    "pleaseConfirm18": "Please confirm that you are not underage!"
   }
 }

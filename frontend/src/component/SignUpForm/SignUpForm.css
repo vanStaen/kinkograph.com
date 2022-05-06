@@ -18,6 +18,7 @@
   color: white;
   padding: 5px 0 5px 10px;
   background-color: rgba(0,0,0,.5);
+  width: 100%;
 }
 
 .signup__full .ant-btn-primary {
