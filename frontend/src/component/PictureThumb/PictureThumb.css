@@ -5,7 +5,6 @@
 .picture__container {
     position: relative;
     top: 0px;
-    cursor: pointer;
 }
 
 .picture__tagMissing {

@@ -28,17 +28,21 @@ export const PictureThumb = observer((props) => {
   };
 
   const clickHandler = () => {
-    pictureStore.setShowOverlay(true);
-    const index = pictureStore.allPictures.findIndex(
-      (pic) => pic.id === props.picture.id
-    );
-    pictureStore.setSelected(index);
+    if (props.picture.adult_content && authStore.isGuest) {
+      // nothing
+    } else {
+      pictureStore.setShowOverlay(true);
+      const index = pictureStore.allPictures.findIndex(
+        (pic) => pic.id === props.picture.id
+      );
+      pictureStore.setSelected(index);
+    }
   };
 
   return (
     <Fragment>
       <div
-        className="picture__container"
+        className={`picture__container ${props.picture.adult_content && authStore.isGuest ? "" : "pointer"} `}
         onClick={clickHandler}
         onMouseEnter={() => mouseHoverHandler(true)}
         onMouseLeave={() => mouseHoverHandler(false)}
