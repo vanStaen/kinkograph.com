@@ -8,23 +8,22 @@ import "./PicAdmin.css";
 export const PicThumbAdmin = (props) => {
   const checkHasHalo = useCallback(() => {
     let result = false;
-    if (props.tagSelected) {
-      if (props.picture.tags) {
-        result = props.picture.tags.includes(props.tagSelected);
-      }
-      return result;
-    } else if (props.adultContentSelected) {
-      result = props.picture.adult_content;
-      if (result === true) {
-        return true;
-      }
-      return false;
-    } else {
-      return false;
+    if (props.picture.tags) {
+      result = props.picture.tags.includes(props.tagSelected);
     }
-  }, [props.picture, props.tagSelected, props.adultContentSelected]);
+    return result;
+  }, [props.picture, props.tagSelected]);
+
+  const checkIsAdult = useCallback(() => {
+    const result = props.picture.adult_content;
+    if (result === true) {
+      return true;
+    }
+    return false;
+  }, [props.picture, props.adultContentSelected]);
 
   const [hasHalo, setHasHalo] = useState(checkHasHalo());
+  const [isAdult, setIsAdult] = useState(checkIsAdult());
 
   const pictureClickHandle = async (picture) => {
     if (props.tagSelected) {
@@ -45,6 +44,7 @@ export const PicThumbAdmin = (props) => {
       await patchPicture(tagsArray, props.picture.id);
       props.fetchAllPictures();
     } else if (props.adultContentSelected) {
+      setIsAdult(!isAdult);
       await patchPictureAdult(!props.picture.adult_content, props.picture.id);
       props.fetchAllPictures();
     } else {
@@ -64,6 +64,8 @@ export const PicThumbAdmin = (props) => {
           props.tagSelected || props.adultContentSelected
             ? hasHalo
               ? "picAdmin__tagHalo"
+              : isAdult
+              ? "picAdmin__tagAdult"
               : "picAdmin__tagBlur"
             : "picAdmin__noFilter"
         }
@@ -73,6 +75,11 @@ export const PicThumbAdmin = (props) => {
         key={props.picture.id}
         onClick={() => pictureClickHandle(props.picture)}
       />
+
+      <span className="picAdmin__isAdult">
+        {props.picture.adult_content && "+18"}
+      </span>
+      {props.picture.adult_content && " "}
       <span className="picAdmin__id">#{props.picture.id}</span>
     </Fragment>
   );
