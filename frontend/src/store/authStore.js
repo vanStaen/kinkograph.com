@@ -7,8 +7,8 @@ import { userStore } from "./userStore";
 
 export class AuthStore {
 
-  isGuest = false;
-  hasAccess = false;
+  isGuest = true;
+  hasAccess = true;
 
   constructor() {
     makeObservable(this, {

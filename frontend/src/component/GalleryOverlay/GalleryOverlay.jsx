@@ -12,6 +12,7 @@ import {
   HeartFilled,
   LoadingOutlined,
   LinkOutlined,
+  EyeInvisibleOutlined,
 } from "@ant-design/icons";
 import { observer } from "mobx-react";
 import { Tooltip } from "antd";
@@ -268,14 +269,29 @@ export const GalleryOverlay = observer(() => {
           </div>
 
           <div className="overlay__pictureHover">
-            <div className="overlay__pictureWatermark">KINKOGRAPH</div>
             <HeartFilled id="heart" className="overlay__heart" />
             <LinkOutlined id="link" className="overlay__heart" />
             <CloseOutlined id="unheart" className="overlay__heart" />
+
+            {selected.adult_content && authStore.isGuest ? (
+              <Tooltip title="Create an account to see those.">
+                <EyeInvisibleOutlined
+                  style={{ fontSize: "90px", opacity: ".75" }}
+                />
+                <div className="picture__adult">Adult content!</div>
+              </Tooltip>
+            ) : (
+              <div className="overlay__pictureWatermark">KINKOGRAPH</div>
+            )}
           </div>
+
           {selected && (
             <img
-              className="overlay__picture"
+              className={`${
+                selected.adult_content && authStore.isGuest
+                  ? "overlay__pictureAdult"
+                  : ""
+              } overlay__picture`}
               src={selected.url_med}
               alt={selected.id}
               key={`img__${selected.id}`}
@@ -289,6 +305,9 @@ export const GalleryOverlay = observer(() => {
                   &nbsp;
                 </Fragment>
               ))}
+              {selected.adult_content && authStore.isGuest && (
+                <span className="overlay__tagAdult">+18</span>
+              )}
             </div>
           )}
         </div>

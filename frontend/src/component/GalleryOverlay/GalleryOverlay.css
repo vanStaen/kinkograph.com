@@ -100,6 +100,7 @@
   -webkit-user-select: none;
   -o-user-select: none;
   cursor: pointer;
+  z-index: 1;
 }
 
 .overlay__pictureWatermark {
@@ -183,4 +184,13 @@
   color: #FFF;
   z-index: 10;  
   font-size: 10vh;
+}
+
+.overlay__pictureAdult {
+  filter: blur(10px) !important;
+}
+
+.overlay__tagAdult {
+  color: red !important;
+  cursor: default !important;
 }

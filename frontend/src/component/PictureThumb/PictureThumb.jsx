@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { FullscreenOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 import { observer } from "mobx-react";
+import { Tooltip } from "antd";
 
 import { pictureStore } from "../../store/pictureStore";
 import { authStore } from "../../store/authStore";
@@ -68,14 +69,10 @@ export const PictureThumb = observer((props) => {
         </div>
         <div id={`tag_${props.picture.id}`} className="picture__tagShow">
           {props.picture.adult_content && authStore.isGuest ? (
-            <>
+            <Tooltip title="Create an account to see those.">
               <EyeInvisibleOutlined />
               <div className="picture__adult">Adult content!</div>
-              <div className="picture__adult">-</div>
-              <div className="picture__adult">Please create an </div>
-              <div className="picture__adult">account to</div>
-              <div className="picture__adult">see those.</div>
-            </>
+            </Tooltip>
           ) : (
             <>
               <FullscreenOutlined />

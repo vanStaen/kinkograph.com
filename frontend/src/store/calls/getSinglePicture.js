@@ -17,6 +17,6 @@ export const getSinglePicture = async (key) => {
     }
   }
 
-  return response.data[0];
+  return response.data;
 
 };
