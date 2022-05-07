@@ -376,6 +376,25 @@ router.get("/:key", async (req, res) => {
   }
 });
 
+
+// GET picture based on id
+router.get("/id/:id", async (req, res) => {
+  try {
+    const picture = await pictureService.getPictureById(req.params.id);
+    if (picture) {
+      res.status(201).json(picture);
+    } else {
+      res.status(400).json({
+        error: `No picture found with key ${req.params.id}!`,
+      });
+    }
+  } catch (err) {
+    res.status(400).json({
+      error: `${err})`,
+    });
+  }
+});
+
 // POST: Get all of favorites pictures
 router.post("/favorites/", async (req, res) => {
   if (!req.isAuth) {

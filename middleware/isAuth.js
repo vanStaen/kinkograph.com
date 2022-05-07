@@ -2,7 +2,7 @@ const jsonwebtoken = require("jsonwebtoken");
 const { User } = require("../models/User");
 require("dotenv/config");
 
-const devMode = true;
+const devMode = false;
 
 module.exports = async (req, res, next) => {
   // if in development mode
@@ -11,7 +11,7 @@ module.exports = async (req, res, next) => {
       console.log(">>>> Developement Mode <<<<<");
       req.isAuth = true;
       req.isAdmin = true;
-      req.userId = "1";
+      req.userId = 1;
       req.email = "clement.vanstaen@gmail.com";
       return next();
     }
