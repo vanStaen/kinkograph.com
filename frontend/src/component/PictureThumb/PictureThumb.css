@@ -35,7 +35,7 @@
 }
 
 .picture__blur {
-    filter: blur(10px) !important;
+    filter: blur(15px) !important;
 }
 
 .picture__id {    
@@ -47,9 +47,9 @@
 
 .picture__adult {
     font-weight: 300;
-    font-size: .3em;
+    font-size: 1em;
     letter-spacing: 2px;
-    margin-top: 1em;
+    opacity: .75;
 }
 
 .halo {

@@ -5,6 +5,7 @@ import {
   QuestionOutlined,
   UnlockOutlined,
   UserOutlined,
+  BulbOutlined,
 } from "@ant-design/icons";
 
 import "./FooterStartPage.css";
@@ -12,6 +13,17 @@ import "./FooterStartPage.css";
 export const FooterStartPage = (props) => {
   return (
     <>
+      {props.loginWithCode && (
+        <Tooltip title="Need an access code?">
+          <Link
+            className="startFooter__tipForCode"
+            to={{ pathname: "https://www.youtube.com/watch?v=e-wl7f78aRI" }}
+            target="_blank"
+          >
+            <BulbOutlined />
+          </Link>
+        </Tooltip>
+      )}
       <div
         className="startFooter__switchLoginType"
         onClick={() => {

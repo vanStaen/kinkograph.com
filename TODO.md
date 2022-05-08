@@ -12,7 +12,7 @@
   - [x] Manage Tag
   - [x] Overview User and Favorite
 - [ ] Journey as a Guest
-  - [ ] Tag +18 pictures not displayed when guest
+  - [x] Taged +18 pictures not displayed when guest
 - [ ] User Profile page
 - [ ] Create Account journey
 - [ ] Notification num of new pic since last visit
@@ -22,6 +22,7 @@
   - [ ] 1 mail every 3 month since last connection
 - [ ] Redirect info@kinkograph.com
 - [ ] Bug: Adding a filter from the overlay do not show in the filter field
+- [ ] GalleryOverlaySimple : Add disclaimer if pic tag as Adult
   
 ## Completed ✓
 

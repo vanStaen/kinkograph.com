@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { FullscreenOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 import { observer } from "mobx-react";
+import { Tooltip } from "antd";
 
 import { pictureStore } from "../../store/pictureStore";
 import { authStore } from "../../store/authStore";
@@ -42,7 +43,9 @@ export const PictureThumb = observer((props) => {
   return (
     <Fragment>
       <div
-        className={`picture__container ${props.picture.adult_content && authStore.isGuest ? "" : "pointer"} `}
+        className={`picture__container ${
+          props.picture.adult_content && authStore.isGuest ? "" : "pointer"
+        } `}
         onClick={clickHandler}
         onMouseEnter={() => mouseHoverHandler(true)}
         onMouseLeave={() => mouseHoverHandler(false)}
@@ -51,7 +54,11 @@ export const PictureThumb = observer((props) => {
           id={`pic_${props.picture.id}`}
           className={`picture 
           ${!props.picture.tags ? "picture__gray" : ""} 
-          ${props.picture.adult_content && authStore.isGuest ? "picture__blur" : ""} 
+          ${
+            props.picture.adult_content && authStore.isGuest
+              ? "picture__blur"
+              : ""
+          } 
           ${isFavorite >= 0 ? "halo" : ""} `}
           src={props.picture.url_thumb}
           alt={props.picture.id}
@@ -61,25 +68,17 @@ export const PictureThumb = observer((props) => {
           {!props.picture.tags && "TAGS MISSING"}
         </div>
         <div id={`tag_${props.picture.id}`} className="picture__tagShow">
-          {props.picture.adult_content && authStore.isGuest ?
-            <>
+          {props.picture.adult_content && authStore.isGuest ? (
+            <Tooltip title="Create an account to see those.">
               <EyeInvisibleOutlined />
-              <div className="picture__adult">
-                Adult content!</div>
-              <div className="picture__adult">
-                -</div>
-              <div className="picture__adult">
-                Please create an account </div>
-              <div className="picture__adult">
-                to see those.</div>
-            </>
-            :
+              <div className="picture__adult">Adult content!</div>
+            </Tooltip>
+          ) : (
             <>
               <FullscreenOutlined />
               <div className="picture__id">#{props.picture.id}</div>
             </>
-          }
-
+          )}
         </div>
       </div>
     </Fragment>
