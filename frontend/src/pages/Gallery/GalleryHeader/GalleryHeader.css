@@ -30,6 +30,21 @@
   text-align: left;
 }
 
+.galleryHeader__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  display: inline-block;
+  border: 1px solid rgba(255,255,255, .5);
+  vertical-align: baseline;
+  margin-right: 10px;
+}
+
+.galleryHeader__infoLeft {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
 .galleryHeader__center {
   vertical-align: middle;
   display: inline-block;
