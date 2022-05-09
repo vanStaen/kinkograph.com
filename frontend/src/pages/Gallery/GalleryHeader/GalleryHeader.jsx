@@ -147,6 +147,13 @@ export const GalleryHeader = observer(() => {
           onChange={handleTagChange}
           className="galleryHeader__selectFilter"
           optionLabelProp="label"
+          filterOption={(inputValue, option) => {
+            //work around to make search case sensitive
+            if (!option.value) {
+              return false;
+            }
+            return option.value.includes(inputValue);
+          }}
         >
           {pictureStore.tags.map((tag) => {
             return (
