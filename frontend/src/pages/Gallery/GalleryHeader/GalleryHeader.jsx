@@ -28,10 +28,6 @@ export const GalleryHeader = observer(() => {
     pictureStore.setFilter(fitlerArrayCleaned);
   }, []);
 
-  const handleClickFilterTitle = () => {
-    pictureStore.setShowFilterSelect(true);
-  };
-
   const handleClickShowFavoritesDrawer = () => {
     favoriteStore.setShowFavorites(true);
   };
@@ -99,39 +95,40 @@ export const GalleryHeader = observer(() => {
             </div>
           </Fragment>
         ) : (
-            <Fragment>
-              <div className="galleryHeader__BigFont">
-                <span
-                  className="galleryHeader__logout link"
-                  onMouseEnter={() => setShowOpenLock(true)}
-                  onMouseLeave={() => setShowOpenLock(false)}
-                  onClick={handleClickLogOut}
-                >
-                  <Tooltip placement="bottomLeft" title="Logout">
-                    {showOpenLock ? <UnlockOutlined /> : <LockOutlined />}
-                  </Tooltip>
-                </span>{" "}
+          <Fragment>
+            <div className="galleryHeader__BigFont">
+              <span
+                className="galleryHeader__logout link"
+                onMouseEnter={() => setShowOpenLock(true)}
+                onMouseLeave={() => setShowOpenLock(false)}
+                onClick={handleClickLogOut}
+              >
+                <Tooltip placement="bottomLeft" title="Logout">
+                  {showOpenLock ? <UnlockOutlined /> : <LockOutlined />}
+                </Tooltip>
+              </span>{" "}
               |{" "}
-                {userStore.firstname ? (
-                  <Tooltip
-                    placement="bottomLeft"
-                    title={
-                      <span>
-                        <b>TIP: </b>When browsing the gallery, mark some pictures as your favorites.
+              {userStore.firstname ? (
+                <Tooltip
+                  placement="bottomLeft"
+                  title={
+                    <span>
+                      <b>TIP: </b>When browsing the gallery, mark some pictures
+                      as your favorites.
                     </span>
-                    }
-                  >
-                    Hello {userStore.firstname},
-                  </Tooltip>
-                ) : (
-                    "Hello stranger,"
-                  )}
-              </div>
-              <div className="galleryHeader__SmallFont">
-                What will inspire you today?
+                  }
+                >
+                  Hello {userStore.firstname},
+                </Tooltip>
+              ) : (
+                "Hello stranger,"
+              )}
             </div>
-            </Fragment>
-          )}
+            <div className="galleryHeader__SmallFont">
+              What will inspire you today?
+            </div>
+          </Fragment>
+        )}
       </div>
       <div
         className="galleryHeader__center"
@@ -142,36 +139,25 @@ export const GalleryHeader = observer(() => {
           pictureStore.setIsTagInputActive(false);
         }}
       >
-        {pictureStore.filter.length > 0 || pictureStore.showFilterSelect ? (
-          <Select
-            mode="multiple"
-            style={{ width: "100%" }}
-            placeholder="Select a filter"
-            defaultValue={pictureStore.filter}
-            onChange={handleTagChange}
-            className="galleryHeader__selectFilter"
-            optionLabelProp="label"
-          >
-            {pictureStore.tags.map((tag) => {
-              return (
-                <Option value={tag.tag} label={tag.tag}>
-                  <div className="demo-option-label-item">
-                    {tag.tag} <span className="light">({tag.occur})</span>
-                  </div>
-                </Option>
-              );
-            })}
-          </Select>
-        ) : (
-            <div
-              className="galleryHeader__setFilter"
-              onClick={handleClickFilterTitle}
-            >
-              click here to{" "}
-              <span className="galleryHeader__wordFilter">filter</span> the
-            results
-            </div>
-          )}
+        <Select
+          mode="multiple"
+          style={{ width: "auto", minWidth: "200px" }}
+          placeholder="Select a filter"
+          defaultValue={pictureStore.filter}
+          onChange={handleTagChange}
+          className="galleryHeader__selectFilter"
+          optionLabelProp="label"
+        >
+          {pictureStore.tags.map((tag) => {
+            return (
+              <Option value={tag.tag} label={tag.tag}>
+                <div className="demo-option-label-item">
+                  {tag.tag} <span className="light">({tag.occur})</span>
+                </div>
+              </Option>
+            );
+          })}
+        </Select>
       </div>
       <div className="galleryHeader__right">
         <Tooltip

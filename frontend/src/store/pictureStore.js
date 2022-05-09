@@ -25,7 +25,6 @@ export class PictureStore {
   showOverlay = false;
   isGalleryLoading = true;
   galleryNeedsRefresh = true;
-  showFilterSelect = false;
   isTagInputActive = false;
   allPictures = [];
   tags = [];
@@ -53,8 +52,6 @@ export class PictureStore {
       setIsGalleryLoading: action,
       galleryNeedsRefresh: observable,
       setGalleryNeedsRefresh: action,
-      showFilterSelect: observable,
-      setShowFilterSelect: action,
       fetchPictures: action,
       nextPageHandler: action,
       goToPageHandler: action,
@@ -184,10 +181,6 @@ export class PictureStore {
 
   setGalleryNeedsRefresh = (galleryNeedsRefresh) => {
     this.galleryNeedsRefresh = galleryNeedsRefresh;
-  };
-
-  setShowFilterSelect = (showFilterSelect) => {
-    this.showFilterSelect = showFilterSelect;
   };
 
   setIsTagInputActive = (isTagInputActive) => {
