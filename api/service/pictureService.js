@@ -46,7 +46,7 @@ exports.pictureService = {
     }
     if (filter) {
       const filterFormated = filter.map((element) => ({
-        [Op.like]: `%${element}%`,
+        [Op.like]: `%"${element}"%`,
       }));
       return await Picture.findAll({
         where: {
@@ -74,7 +74,7 @@ exports.pictureService = {
   async countPictures(showMissing, filter) {
     if (filter) {
       const filterFormated = filter.map((element) => ({
-        [Op.like]: `%${element}%`,
+        [Op.like]: `%"${element}"%`,
       }));
       const { count } = await Picture.findAndCountAll({
         where: {
@@ -164,7 +164,7 @@ exports.pictureService = {
 
   async getPicturesByTag(showMissing, tags, order) {
     const filterFormated = tags.map((element) => ({
-      [Op.like]: `%${element}%`,
+      [Op.like]: `%"${element}"%`,
     }));
     return await Picture.findAll({
       attributes: ["id", "tags"],
