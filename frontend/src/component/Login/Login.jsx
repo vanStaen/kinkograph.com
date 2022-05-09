@@ -9,7 +9,7 @@ import { LoginForm } from "./LoginForm";
 import { SignUpForm } from "../SignUpForm/SignUpForm";
 import { AlreadyMember } from "./AlreadyMember";
 
-import "./login.css";
+import "./Login.css";
 
 export const Login = (props) => {
   const [showSignUp, setShowSignUp] = useState(false);

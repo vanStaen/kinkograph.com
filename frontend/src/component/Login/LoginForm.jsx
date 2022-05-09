@@ -156,7 +156,7 @@ export const LoginForm = () => {
           style={{ display: "inline-block", width: "calc(50%)" }}
         >
           <Checkbox className="login__remember">
-            {t("login.rememberMe")}
+            <span>{t("login.rememberMe")}</span>
           </Checkbox>
         </Form.Item>
 
@@ -169,7 +169,7 @@ export const LoginForm = () => {
           }}
         >
           <span
-            className="login__recover link"
+            className="login__recover"
             onClick={() => setIsRecovery(!isRecovery)}
           >
             {t("login.recoverPassword").replace(/^\w/, (c) => c.toUpperCase())}

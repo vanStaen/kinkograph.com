@@ -79,7 +79,6 @@ const App = observer(() => {
                     <LanguageDropDown />
                     <div className="App__title">&nbsp;kinkograph</div>
                     <Login loginWithCode={loginWithCode} />
-                    <div className="spacer"></div>
                     <FooterStartPage
                       loginWithCode={loginWithCode}
                       setLoginWithCode={setLoginWithCode}

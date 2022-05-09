@@ -6,11 +6,13 @@
 } 
 
 .signup__full .signup__form {
-  width: 400px;
+  width: 330px;
+  max-width: 85vw;
 }
 
 .signup__full .signup__formbutton {
   width: 100%;
+  max-width: 85vw;
 }
 
 .signup__full .signup__terms {

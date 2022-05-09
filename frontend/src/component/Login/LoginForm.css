@@ -8,6 +8,7 @@
 
 .login__full .login__form {
   width: 330px;
+  max-width: 85vw;
 }
 
 .login__full .login__formbutton {
@@ -21,18 +22,31 @@
   cursor: pointer;
 }
 
-.login__full .login__recover {
-  text-align: left;
-  color: rgba(255, 255, 255, 0.3);
-  cursor: pointer;
-  margin-right: 12px;
+.login__full .login__remember span {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-.login__full .login__remember:hover, 
+.login__full .login__recover {
+  text-align: left;
+  color: rgba(255, 255, 255, 1);
+  padding: 1px 5px 2px 5px;
+  cursor: pointer;
+  margin-right: 12px;
+  text-decoration: underline;
+}
+
+.login__full .login__remember:hover {
+  text-align: left;
+  color: rgba(255, 255, 255, .9);
+  cursor: pointer;
+}
+
 .login__full .login__recover:hover {
   text-align: left;
-  color: rgba(255, 255, 255, .5);
+  color: rgba(255, 255, 255, .9);
+  background-color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
+  text-decoration: none;
 }
 
 .login__full .ant-btn-primary {
