@@ -31,7 +31,7 @@ export const Login = (props) => {
       notification.error({
         message: err.message,
         placement: "topLeft",
-        className: "login__notification",
+        className: "app__blackNotification",
       });
     }
   };

@@ -2,14 +2,6 @@
     border: 0px solid transparent; 
 }
 
-.login__notification {
-    background: rgba(255,255,255, .25) !important;
-}
-
-.login__notification .ant-notification-notice-message {
-    color: white  !important;
-}
-
 .login__alreadyMember{
     position: absolute;
     text-align: right;
