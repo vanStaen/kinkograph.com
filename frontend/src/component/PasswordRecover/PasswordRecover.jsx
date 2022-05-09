@@ -28,14 +28,12 @@ export const PasswordRecover = (props) => {
         notification.success({
           message: t("login.recoverEmailSent"),
           placement: "topLeft",
-          className: "login__notification",
         });
         props.setIsRecovery(false);
       } catch (error) {
         notification.warn({
           message: error.message,
           placement: "topLeft",
-          className: "login__notification",
         });
       }
     }
