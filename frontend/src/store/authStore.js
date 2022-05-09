@@ -31,7 +31,7 @@ export class AuthStore {
       this.setHasAccess(true);
       userStore.setNumberOfPicAtLastLogin(resultLogIn.result.nb_picture_at_last_login);
     } else {
-      return resultLogIn.error;
+      return resultLogIn.result.error;
     }
   };
 

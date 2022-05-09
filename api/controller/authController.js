@@ -22,8 +22,10 @@ router.post("/login", async (req, res) => {
     });
   } catch (err) {
     res.status(403).json({
-      access: false,
-      error: `${err}`,
+      result: {
+        access: false,
+        error: `${err}`,
+      },
     });
   }
 });
