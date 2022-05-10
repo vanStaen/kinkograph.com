@@ -1,11 +1,17 @@
 {
-  "short_name": "kinkograph",
+  "short_name": "Kinkograph",
   "name": "Kinkograph",
+  "description" : "Kinkograph.com | Curated photographs to inspire",
   "icons": [
     {
       "src": "black-heart-shaped.png",
       "type": "image/png",
       "sizes": "24x24"
+    },
+    {
+      "src": "black-heart-256.png",
+      "type": "image/jpg",
+      "sizes": "256x256"
     }
   ],
   "start_url": "https://kinkograph.com",

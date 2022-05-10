@@ -12,6 +12,12 @@
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/black-heart-shaped.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>Kinkograph.com | Curated photographs to inspire</title>
+    <script>
+    if ('serviceWorker' in navigator) {
+      // sw.js can literally be empty, but must exist
+      navigator.serviceWorker.register('/sw.js');
+    }
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
