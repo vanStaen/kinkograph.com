@@ -47,9 +47,10 @@
 
 .picture__adult {
     font-weight: 300;
-    font-size: 1em;
+    font-size: .35em;
     letter-spacing: 2px;
     opacity: .75;
+    margin-top: 1em;
 }
 
 .halo {
