@@ -8,12 +8,14 @@ import { userStore } from "../../../store/userStore";
 import { authStore } from "../../../store/authStore";
 import { favoriteStore } from "../../../store/favoriteStore";
 import { capitalizeFirstLetter } from "../../../helpers/capitalizeFirstLetter";
+import { isMobileCheck } from "../../../helpers/checkMobileTablet";
 
 import "./GalleryHeader.css";
 
 export const GalleryHeader = observer(() => {
   const [showOpenLock, setShowOpenLock] = useState(false);
   const pageInputValue = useRef(pictureStore.pageNumber);
+  const isMobile = isMobileCheck();
   const { Option } = Select;
   const maxPage = Math.ceil(
     pictureStore.totalPictures / pictureStore.PAGE_SIZE,
@@ -68,67 +70,85 @@ export const GalleryHeader = observer(() => {
   return (
     <div className="galleryHeader__main">
       <div className="galleryHeader__left">
-        {favoriteStore.favoritesId.length ? (
-          <Fragment>
-            <div className="galleryHeader__BigFont">
-              <span
-                className="galleryHeader__logout"
-                onMouseEnter={() => setShowOpenLock(true)}
-                onMouseLeave={() => setShowOpenLock(false)}
-                onClick={handleClickLogOut}
-              >
-                <Tooltip placement="bottomLeft" title="Logout">
-                  {showOpenLock ? <UnlockOutlined /> : <LockOutlined />}
-                </Tooltip>
-              </span>{" "}
+        {isMobile ?
+          <div className="galleryHeader__BigFont">
+            <span
+              className="galleryHeader__logout galleryHeader__logoutMobile"
+              onMouseEnter={() => setShowOpenLock(true)}
+              onMouseLeave={() => setShowOpenLock(false)}
+              onClick={handleClickLogOut}
+            >
+              <Tooltip placement="bottomLeft" title="Logout">
+                {showOpenLock ? <UnlockOutlined /> : <LockOutlined />}
+              </Tooltip>
+            </span>{" "}|{" "}
+            <span
+              className="galleryHeader__favoriteMobile pointer"
+              onClick={handleClickShowFavoritesDrawer}
+            >
+              {favoriteStore.favoritesId.length} 🤍
+            </span>
+          </div> : favoriteStore.favoritesId.length ? (
+            <Fragment>
+              <div className="galleryHeader__BigFont">
+                <span
+                  className="galleryHeader__logout"
+                  onMouseEnter={() => setShowOpenLock(true)}
+                  onMouseLeave={() => setShowOpenLock(false)}
+                  onClick={handleClickLogOut}
+                >
+                  <Tooltip placement="bottomLeft" title="Logout">
+                    {showOpenLock ? <UnlockOutlined /> : <LockOutlined />}
+                  </Tooltip>
+                </span>{" "}
               |{" "}
-              <span
-                className="galleryHeader__favorite pointer"
-                onClick={handleClickShowFavoritesDrawer}
-              >
-                {favoriteStore.favoritesId.length} picture
+                <span
+                  className="pointer"
+                  onClick={handleClickShowFavoritesDrawer}
+                >
+                  {favoriteStore.favoritesId.length} picture
                 {favoriteStore.favoritesId.length > 1 && "s"}
-              </span>
-            </div>
-            <div className="galleryHeader__SmallFont">
-              marked as favorite{favoriteStore.favoritesId.length > 1 && "s"}
-            </div>
-          </Fragment>
-        ) : (
-          <Fragment>
-            <div className="galleryHeader__BigFont">
-              <span
-                className="galleryHeader__logout link"
-                onMouseEnter={() => setShowOpenLock(true)}
-                onMouseLeave={() => setShowOpenLock(false)}
-                onClick={handleClickLogOut}
-              >
-                <Tooltip placement="bottomLeft" title="Logout">
-                  {showOpenLock ? <UnlockOutlined /> : <LockOutlined />}
-                </Tooltip>
-              </span>{" "}
+                </span>
+              </div>
+              <div className="galleryHeader__SmallFont">
+                marked as favorite{favoriteStore.favoritesId.length > 1 && "s"}
+              </div>
+            </Fragment>
+          ) : (
+              <Fragment>
+                <div className="galleryHeader__BigFont">
+                  <span
+                    className="galleryHeader__logout link"
+                    onMouseEnter={() => setShowOpenLock(true)}
+                    onMouseLeave={() => setShowOpenLock(false)}
+                    onClick={handleClickLogOut}
+                  >
+                    <Tooltip placement="bottomLeft" title="Logout">
+                      {showOpenLock ? <UnlockOutlined /> : <LockOutlined />}
+                    </Tooltip>
+                  </span>{" "}
               |{" "}
-              {userStore.firstname ? (
-                <Tooltip
-                  placement="bottomLeft"
-                  title={
-                    <span>
-                      <b>TIP: </b>When browsing the gallery, mark some pictures
+                  {userStore.firstname ? (
+                    <Tooltip
+                      placement="bottomLeft"
+                      title={
+                        <span>
+                          <b>TIP: </b>When browsing the gallery, mark some pictures
                       as your favorites.
                     </span>
-                  }
-                >
-                  Hello {userStore.firstname},
-                </Tooltip>
-              ) : (
-                "Hello stranger,"
-              )}
+                      }
+                    >
+                      Hello {userStore.firstname},
+                    </Tooltip>
+                  ) : (
+                      "Hello stranger,"
+                    )}
+                </div>
+                <div className="galleryHeader__SmallFont">
+                  What will inspire you today?
             </div>
-            <div className="galleryHeader__SmallFont">
-              What will inspire you today?
-            </div>
-          </Fragment>
-        )}
+              </Fragment>
+            )}
       </div>
       <div
         className="galleryHeader__center"
@@ -141,8 +161,7 @@ export const GalleryHeader = observer(() => {
       >
         <Select
           mode="multiple"
-          style={{ width: "auto", minWidth: "200px" }}
-          placeholder="Select a filter"
+          placeholder={isMobile ? "Filter" : "Select a filter"}
           defaultValue={pictureStore.filter}
           onChange={handleTagChange}
           className="galleryHeader__selectFilter"
@@ -189,16 +208,16 @@ export const GalleryHeader = observer(() => {
                   {pictureStore.pageNumber}
                 </div>
               </b>
-              <span style={{ fontSize: "0.7em" }}> / {maxPage}</span>
+              <span style={{ fontSize: "0.7em" }}> /{!isMobile && " "}{maxPage}</span>
             </div>
-            <div className="galleryHeader__SmallFont">
+            {!isMobile && <div className="galleryHeader__SmallFont">
               {(pictureStore.pageNumber - 1) * pictureStore.PAGE_SIZE + 1}-
               {Math.min(
                 pictureStore.pageNumber * pictureStore.PAGE_SIZE,
                 pictureStore.totalPictures
               )}{" "}
               of {pictureStore.totalPictures}
-            </div>
+            </div>}
           </div>
         </Tooltip>
       </div>
