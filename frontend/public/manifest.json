@@ -9,13 +9,13 @@
       "sizes": "24x24"
     },
     {
-      "src": "black-heart-256.png",
+      "src": "white-heart-256.png",
       "type": "image/jpg",
       "sizes": "256x256"
     }
   ],
   "start_url": "https://kinkograph.com",
-  "display": "standalone",
+  "display": "fullscreen",
   "theme_color": "#000000",
   "background_color": "#000000",
   "clipboardWrite": true
