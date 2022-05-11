@@ -8,6 +8,7 @@ export class UserStore {
   firstname = null;
   lastname = null;
   username = null;
+  avatar = null;
   isAdmin = false;
   language = null;
   lastLogin = null; //last_login
@@ -24,6 +25,8 @@ export class UserStore {
       setLastname: action,
       username: observable,
       setUsername: action,
+      avatar: observable,
+      setAvatar: action,
       language: observable,
       setLanguage: action,
       lastLogin: observable,
@@ -51,6 +54,10 @@ export class UserStore {
     this.username = username;
   };
 
+  setAvatar = (avatar) => {
+    this.avatar = avatar;
+  };
+
   setLanguage = (language) => {
     this.language = language;
   };
@@ -75,6 +82,7 @@ export class UserStore {
       userStore.setFirstname(userData.firstname);
       userStore.setLastname(userData.lastname);
       userStore.setUsername(userData.username);
+      userStore.setAvatar(userData.avatar);
       userStore.setLastLogin(userData.last_login);
       if (userData.favorites) {
         favoriteStore.setFavoritesId(userData.favorites);
