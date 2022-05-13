@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const cors = require(`cors`)
+const cors = require("cors");
 
 const db = require("./models");
 const isAuth = require("./middleware/isAuth");
@@ -30,31 +30,31 @@ app.use(isAuth);
 // Allow cross origin request
 app.use(function (req, res, next) {
   let corsOptions = {};
-  if ((req.get('host') === 'localhost:5009')) {
+  if (req.get("host") === "localhost:5009") {
     corsOptions = {
-      origin: 'http://localhost:3000',
-      optionsSuccessStatus: 200
-    }
+      origin: "http://localhost:3000",
+      optionsSuccessStatus: 200,
+    };
   } else {
     corsOptions = {
       origin: [
-        'https://www.kinkograph.com',
-        'https://kinkograph.com',
-        'http://kinkograph.herokuapp.com',
-        'https://kinkograph.herokuapp.com',
+        "https://www.kinkograph.com",
+        "https://kinkograph.com",
+        "http://kinkograph.herokuapp.com",
+        "https://kinkograph.herokuapp.com",
       ],
       credentials: true,
-      optionsSuccessStatus: 200
-    }
+      optionsSuccessStatus: 200,
+    };
   }
   cors(corsOptions)(req, res, next);
-})
+});
 
 // Sync sequelize
 db.sequelize.sync();
 
 // Router to API endpoints
-app.use('/user', require('./api/controller/userController'))
+app.use("/user", require("./api/controller/userController"));
 app.use("/auth", require("./api/controller/authController"));
 app.use("/mail", require("./api/controller/mailController"));
 app.use("/pictures", require("./api/controller/pictureController"));
@@ -62,7 +62,12 @@ app.use("/tags", require("./api/controller/tagController"));
 
 // Set up for React
 app.use(express.static(path.join(__dirname, "build")));
-app.get('/*', (req, res) => { res.sendFile(path.join(__dirname, "build", "index.html")); });
+app.get("/service-worker.js", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "build", "service-worker.js"));
+});
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 // Listen on a port
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
