@@ -25,7 +25,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         { from: "public/black-heart-shaped.png" },
-        { from: "public/white-heart-256.png" },
+        { from: "public/white-heart-256.jpg" },
         { from: "public/manifest.webmanifest" },
       ],
     }),
