@@ -7,7 +7,7 @@ export const patchPictureAdult = async (isAdult, id) => {
     };
 
     const response = await axios({
-        url: process.env.REACT_APP_API_URL + `/pictures/isAdult/${id}`,
+        url: process.env.API_URL + `/pictures/isAdult/${id}`,
         method: "PATCH",
         data: requestBody,
     });

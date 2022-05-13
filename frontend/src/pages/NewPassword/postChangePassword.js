@@ -7,7 +7,7 @@ export const postChangePassword = async (token, password) => {
   };
 
   const response = await axios({
-    url: process.env.REACT_APP_API_URL + `/user/changepassword`,
+    url: process.env.API_URL + `/user/changepassword`,
     method: "POST",
     data: requestBody,
   });

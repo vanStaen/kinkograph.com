@@ -3,7 +3,7 @@ import axios from "axios";
 export const deletePicture = async (key) => {
 
     const response = await axios({
-        url: process.env.REACT_APP_API_URL + `/pictures/${key}`,
+        url: process.env.API_URL + `/pictures/${key}`,
         method: "DELETE",
     });
 

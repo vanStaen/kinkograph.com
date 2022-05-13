@@ -7,7 +7,7 @@ export const postEmailVerified = async (token) => {
     };
 
     const response = await axios({
-        url: process.env.REACT_APP_API_URL + `/user/emailverified`,
+        url: process.env.API_URL + `/user/emailverified`,
         method: "POST",
         data: requestBody,
     });

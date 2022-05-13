@@ -3,7 +3,7 @@ import axios from "axios";
 export const getTags = async () => {
 
     const response = await axios({
-        url: process.env.REACT_APP_API_URL + `/tags/`,
+        url: process.env.API_URL + `/tags/`,
         method: "GET",
     });
 
@@ -23,10 +23,10 @@ export const getFilteredTags = async (filter) => {
 
     const requestBody = {
         "filter": filter,
-      };
+    };
 
     const response = await axios({
-        url: process.env.REACT_APP_API_URL + `/tags/filter`,
+        url: process.env.API_URL + `/tags/filter`,
         method: "POST",
         data: requestBody,
     });

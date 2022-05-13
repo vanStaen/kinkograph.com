@@ -8,7 +8,7 @@ export const postSendRecoverLink = async (email, language = "en") => {
     };
 
     const response = await axios({
-        url: process.env.REACT_APP_API_URL + `/mail/recover`,
+        url: process.env.API_URL + `/mail/recover`,
         method: "POST",
         data: requestBody,
     });

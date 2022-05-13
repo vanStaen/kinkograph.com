@@ -20,7 +20,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       "process.env.API_URL": JSON.stringify("http://localhost:5009"),
-      "process.env.REACT_APP_API_URL_UPLOAD": JSON.stringify("http://localhost:5009/pictures"),
+      "process.env.API_URL_UPLOAD": JSON.stringify("http://localhost:5009/pictures"),
     }),
     new CopyPlugin({
       patterns: [
