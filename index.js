@@ -62,9 +62,6 @@ app.use("/tags", require("./api/controller/tagController"));
 
 // Set up for React
 app.use(express.static(path.join(__dirname, "build")));
-app.get("/service-worker.js", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "build", "service-worker.js"));
-});
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
