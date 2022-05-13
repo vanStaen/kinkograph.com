@@ -2,6 +2,7 @@
 
 .App {
   font-size: min(calc(7px + 2vmin), 25px);
+  background-color: #000;
   color: white;
 }
 
