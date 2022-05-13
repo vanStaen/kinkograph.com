@@ -1,10 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import reportWebVitals from "./reportWebVitals";
-import registerServiceWorker from './registerServiceWorker';
+import "core-js/stable";
+import "regenerator-runtime/runtime";
+
 import App from "./App";
 
-import "./index.css";
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./sw.js").then(() => {
+    console.log("Service Worker Registered");
+  });
+}
 
 ReactDOM.render(
   <React.StrictMode>
