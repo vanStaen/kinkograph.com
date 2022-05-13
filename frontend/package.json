@@ -17,7 +17,6 @@
     "image-webpack-loader": "^8.1.0",
     "mobx": "^6.3.2",
     "mobx-react": "^7.2.0",
-    "prettier": "^2.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-i18next": "^11.16.1",
@@ -28,6 +27,14 @@
     "webpack-cli": "^4.7.2",
     "webpack-dev-server": "^4.6.0"
   },
+  "devDependencies": {
+    "copy-webpack-plugin": "^10.2.4",
+    "prettier": "^2.2.1",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "jest": "^27.4.3",
+    "react-test-renderer": "^17.0.2"
+  },  
   "scripts": {    
     "start": "webpack serve --config webpack.config.dev.js --hot --open",
     "prebuild": "rm -rf ../build",
