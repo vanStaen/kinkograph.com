@@ -2,6 +2,7 @@
 
 .App {
   font-size: min(calc(7px + 2vmin), 25px);
+  background-color: #000;
   color: white;
 }
 
@@ -119,7 +120,7 @@
 /* black notification */
 
 .app__blackNotification {
-  background: rgba(0,0,0, .85) !important;
+  background: rgb(33,33, 33) !important;
   border: 1px solid rgba(255, 255, 255, .1);
 }
 

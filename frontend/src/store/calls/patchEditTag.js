@@ -8,7 +8,7 @@ export const patchEditTag = async (oldtag, newtag) => {
     };
 
     const response = await axios({
-        url: process.env.REACT_APP_API_URL + `/tags/`,
+        url: process.env.API_URL + `/tags/`,
         method: "PATCH",
         data: requestBody,
     });

@@ -84,7 +84,7 @@ export const SignUpForm = (props) => {
         notification.success({
           message: t("login.pleaseConfirmEmail"),
           placement: "topLeft",
-          className: "login__notification",
+          className: "app__blackNotification",
           duration: 0,
         });
         props.setShowSignUp(false);
@@ -92,14 +92,14 @@ export const SignUpForm = (props) => {
         notification.error({
           message: response.errors[0].message,
           placement: "topLeft",
-          className: "login__notification",
+          className: "app__blackNotification",
         });
       }
     } catch (error) {
       notification.error({
         message: error.message,
         placement: "topLeft",
-        className: "login__notification",
+        className: "app__blackNotification",
       });
       console.log(error);
     }

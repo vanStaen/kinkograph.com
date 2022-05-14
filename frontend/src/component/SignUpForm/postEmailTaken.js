@@ -7,7 +7,7 @@ export const postEmailTaken = async (email) => {
     };
 
     const response = await axios({
-        url: process.env.REACT_APP_API_URL + `/user/email/`,
+        url: process.env.API_URL + `/user/email/`,
         method: "POST",
         data: requestBody,
     });

@@ -1,15 +1,15 @@
 import axios from "axios";
 
 export const getFavoritesPictures = async (favorites) => {
-  
+
   const requestBody = {
     "favorites": favorites,
   };
 
   const response = await axios({
-      url: process.env.REACT_APP_API_URL + `/pictures/favorites/`,
-      method: "POST",
-      data: requestBody,
+    url: process.env.API_URL + `/pictures/favorites/`,
+    method: "POST",
+    data: requestBody,
   });
 
   if ((response.status !== 200) & (response.status !== 201)) {
@@ -21,5 +21,5 @@ export const getFavoritesPictures = async (favorites) => {
   }
 
   return response.data;
-  
+
 };

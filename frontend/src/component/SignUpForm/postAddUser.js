@@ -27,7 +27,7 @@ export const postAddUser = async (
 
   const response = await axios(
     {
-      url: process.env.REACT_APP_API_URL + `/user`,
+      url: process.env.API_URL + `/user`,
       method: "POST",
       data: requestBody,
     },

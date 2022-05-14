@@ -7,7 +7,7 @@ export const postLoginToken = async (refreshToken) => {
     };
 
     const response = await axios({
-        url: process.env.REACT_APP_API_URL + `/login/token`,
+        url: process.env.API_URL + `/login/token`,
         method: "POST",
         data: requestBody,
     });

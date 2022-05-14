@@ -7,7 +7,7 @@ export const postUsernameTaken = async (username) => {
     };
 
     const response = await axios({
-        url: process.env.REACT_APP_API_URL + `/user/taken/`,
+        url: process.env.API_URL + `/user/taken/`,
         method: "POST",
         data: requestBody,
     });

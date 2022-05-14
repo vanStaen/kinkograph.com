@@ -1,0 +1,12 @@
+.login__container {
+    border: 0px solid transparent; 
+}
+
+.login__alreadyMember{
+    position: absolute;
+    text-align: right;
+    width: 250px;
+    top: 0;
+    right: 10px;
+    font-size: 14px;
+}

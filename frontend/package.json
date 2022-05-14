@@ -1,31 +1,46 @@
 {
-  "name": "frontend",
+  "name": "kinkograph",
   "version": "0.1.0",
-  "private": true,
+  "description": "Kinkograph App",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.5",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/preset-typescript": "^7.14.5",
     "antd": "^4.16.0",
     "axios": "^0.21.1",
+    "babel-loader": "^8.2.2",
+    "core-js": "^3.19.2",
+    "css-loader": "^5.2.6",
     "i18next": "^20.4.0",
     "i18next-browser-languagedetector": "^6.1.2",
+    "image-webpack-loader": "^8.1.0",
     "mobx": "^6.3.2",
     "mobx-react": "^7.2.0",
-    "prettier": "^2.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-i18next": "^11.16.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^5.0.1",
-    "web-vitals": "^2.0.0"
+    "regenerator-runtime": "^0.13.9",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.39.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^4.6.0"
   },
-  "scripts": {
-    "start": "react-scripts start",
+  "devDependencies": {
+    "copy-webpack-plugin": "^10.2.4",
+    "prettier": "^2.2.1",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "jest": "^27.4.3",
+    "react-test-renderer": "^17.0.2"
+  },  
+  "scripts": {    
+    "start": "webpack serve --config webpack.config.dev.js --hot --open",
     "prebuild": "rm -rf ../build",
-    "build": "npm i; react-scripts build",
+    "build": "webpack --config webpack.config.prod.js --mode production",
     "postbuild": "mv build ../",
-    "test": "react-scripts test"
+    "test": "jest"
   },
   "eslintConfig": {
     "extends": [

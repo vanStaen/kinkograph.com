@@ -7,7 +7,7 @@ export const getDuplicate = async (name) => {
   };
 
   const response = await axios({
-    url: process.env.REACT_APP_API_URL + `/pictures/duplicate`,
+    url: process.env.API_URL + `/pictures/duplicate`,
     method: "POST",
     data: requestBody,
   });

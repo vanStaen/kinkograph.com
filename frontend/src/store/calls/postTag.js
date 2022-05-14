@@ -7,7 +7,7 @@ export const postTag = async (tag) => {
     };
 
     const response = await axios({
-        url: process.env.REACT_APP_API_URL + `/tags/`,
+        url: process.env.API_URL + `/tags/`,
         method: "POST",
         data: requestBody,
     });

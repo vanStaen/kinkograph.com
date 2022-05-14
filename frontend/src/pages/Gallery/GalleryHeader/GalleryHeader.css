@@ -98,4 +98,25 @@
 
 .galleryHeader__logout:hover {
   color: rgba(255, 255, 255, 1);
+
 }
+
+.galleryHeader__center .galleryHeader__selectFilter {
+  font-size: 1em;
+  width: 200px;
+}
+
+.galleryHeader__logoutMobile {
+  font-size: 1.5em;
+}
+
+.galleryHeader__favoriteMobile {
+  font-weight: 400;
+}
+
+@media (max-width: 600px) {
+  .galleryHeader__center .galleryHeader__selectFilter {
+    font-size: 1em;
+    width: 100px;
+  }
+ }

@@ -7,7 +7,7 @@ export const postLoginCode = async (code) => {
 
   try {
     const response = await axios({
-      url: process.env.REACT_APP_API_URL + `/auth/code`,
+      url: process.env.API_URL + `/auth/code`,
       method: "POST",
       data: requestBody,
     });

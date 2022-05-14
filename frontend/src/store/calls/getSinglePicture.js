@@ -2,8 +2,8 @@ import axios from "axios";
 
 export const getSinglePicture = async (key) => {
 
-    const response = await axios({
-    url: process.env.REACT_APP_API_URL + `/pictures/${key}`,
+  const response = await axios({
+    url: process.env.API_URL + `/pictures/${key}`,
     method: "GET",
   });
 

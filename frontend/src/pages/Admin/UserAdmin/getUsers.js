@@ -3,7 +3,7 @@ import axios from "axios";
 export const getUsers = async () => {
 
     const response = await axios({
-        url: process.env.REACT_APP_API_URL + `/admin/users/`,
+        url: process.env.API_URL + `/admin/users/`,
         method: "GET",
     });
 
@@ -14,6 +14,6 @@ export const getUsers = async () => {
             throw new Error(`Error! Status ${response.status}`);
         }
     }
-    
+
     return response.data;
 };

@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getTagsMissing = async (limit) => {
   const response = await axios({
-    url: process.env.REACT_APP_API_URL + `/pictures/tagsmissing/${limit}`,
+    url: process.env.API_URL + `/pictures/tagsmissing/${limit}`,
     method: "GET",
   });
 
@@ -20,7 +20,7 @@ export const getTagsMissing = async (limit) => {
 
 export const getTagsMissingCountAll = async (limit) => {
   const response = await axios({
-    url: process.env.REACT_APP_API_URL + `/pictures/tagsmissingcount/`,
+    url: process.env.API_URL + `/pictures/tagsmissingcount/`,
     method: "GET",
   });
 

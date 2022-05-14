@@ -6,7 +6,7 @@ export const postTokenVerify = async (token) => {
   };
 
   const response = await axios({
-    url: process.env.REACT_APP_API_URL + `/user/validtoken`,
+    url: process.env.API_URL + `/user/validtoken`,
     method: "POST",
     data: requestBody,
   });

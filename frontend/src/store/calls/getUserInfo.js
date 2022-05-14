@@ -3,7 +3,7 @@ import axios from "axios";
 export const getUserInfo = async () => {
 
     const response = await axios({
-        url: process.env.REACT_APP_API_URL + `/user`,
+        url: process.env.API_URL + `/user`,
         method: "GET",
     });
 
