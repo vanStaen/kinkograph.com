@@ -9,9 +9,19 @@
       "sizes": "24x24"
     },
     {
-      "src": "white-heart-256.png",
+      "src": "white-heart-192.jpg",
+      "type": "image/jpg",
+      "sizes": "192x192"
+    },
+    {
+      "src": "white-heart-256.jpg",
       "type": "image/jpg",
       "sizes": "256x256"
+    },
+    {
+      "src": "white-heart-512.jpg",
+      "type": "image/jpg",
+      "sizes": "512x512"
     }
   ],
   "start_url": "https://kinkograph.com",
