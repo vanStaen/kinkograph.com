@@ -4,11 +4,6 @@
   "description" : "Kinkograph.com | Curated photographs to inspire",
   "icons": [
     {
-      "src": "black-heart-shaped.png",
-      "type": "image/png",
-      "sizes": "24x24"
-    },
-    {
       "src": "white-heart-128.png",
       "type": "image/png",
       "sizes": "128x128"
