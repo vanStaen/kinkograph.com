@@ -9,6 +9,11 @@
       "sizes": "24x24"
     },
     {
+      "src": "white-heart-128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
       "src": "white-heart-192.png",
       "type": "image/png",
       "sizes": "192x192"
@@ -25,7 +30,7 @@
     }
   ],
   "start_url": "https://kinkograph.com",
-  "display": "fullscreen",
+  "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#000000",
   "clipboardWrite": true
