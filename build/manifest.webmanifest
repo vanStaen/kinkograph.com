@@ -14,16 +14,6 @@
       "sizes": "128x128"
     },
     {
-      "src": "white-heart-192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "white-heart-256.png",
-      "type": "image/png",
-      "sizes": "256x256"
-    },
-    {
       "src": "white-heart-512.png",
       "type": "image/png",
       "sizes": "512x512"
