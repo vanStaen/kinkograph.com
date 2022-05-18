@@ -88,3 +88,8 @@
     padding: 0 24px 24px 24px;
     width: 100%;
 }
+
+.Drawer__adultContentFlag 
+.ant-switch-checked {
+  background-color: rgba(182, 0, 0, 0.95) !important;
+}

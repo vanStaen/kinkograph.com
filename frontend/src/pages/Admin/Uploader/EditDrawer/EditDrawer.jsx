@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, Fragment } from "react";
-import { Drawer, Select } from "antd";
+import { Drawer, Select, Switch } from "antd";
 import {
   SaveOutlined,
   DeleteOutlined,
@@ -11,6 +11,7 @@ import { getTags } from "../../../../store/calls/getTags";
 import { postTag } from "../../../../store/calls/postTag";
 import { patchPicture } from "../../../../store/calls/patchPicture";
 import { deletePicture } from "../../../../store/calls/deletePicture";
+import { patchPictureAdult } from "../../../../store/calls/patchPictureAdult";
 
 import "./EditDrawer.css";
 
@@ -18,6 +19,7 @@ const { Option } = Select;
 
 export const EditDrawer = (props) => {
   const [tags, setTags] = useState([]);
+  const [isAdult, setIsAdult] = useState(props.picture.adult_content);
   const [allTags, setAllTags] = useState([]);
   const [confirmDelete, setConfirmDelete] = useState(false);
 
@@ -54,6 +56,11 @@ export const EditDrawer = (props) => {
     });
     setTags(valueCleaned);
   }, []);
+
+  const handleSwitchIsAdult = async () => {
+    await patchPictureAdult(!isAdult, props.picture.id);
+    setIsAdult(!isAdult);
+  };
 
   const submitHandler = useCallback(async () => {
     if (tags.length > 0) {
@@ -138,6 +145,14 @@ export const EditDrawer = (props) => {
           );
         })}
       </Select>
+      <br />
+      <br />
+      <br />
+      <div className="Drawer__font">Flag:</div>
+      <div className="Drawer__adultContentFlag">
+        <Switch defaultChecked={isAdult} onChange={handleSwitchIsAdult} />
+        &nbsp; This is{!isAdult && " not"} adult content.
+      </div>
       <br />
       <br />
       <div className="Drawer__buttonContainer">
