@@ -1,6 +1,6 @@
 {
   "name": "kinkograph",
-  "version": "0.1.0",
+  "version": "1.0",
   "description": "Kinkograph App",
   "dependencies": {
     "@babel/core": "^7.14.6",
