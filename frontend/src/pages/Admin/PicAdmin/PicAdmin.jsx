@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, Fragment } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
-import { Select } from "antd";
+import { Select, Switch } from "antd";
 
 import { getFilteredTags } from "../../../store/calls/getTags";
 import { getPictures } from "../../../store/calls/getPictures";
@@ -19,7 +19,7 @@ export const PicAdmin = () => {
   const [pictureSelected, setPictureSelected] = useState(null);
   const [allTags, setAllTags] = useState([]);
   const [tagSelected, setTagSelected] = useState(null);
-  const [adultContentSelected, setAdultContentSelected] = useState(true);
+  const [adultContentSelected, setAdultContentSelected] = useState(false);
 
   const fetchAllPictures = useCallback(async () => {
     try {
@@ -64,20 +64,22 @@ export const PicAdmin = () => {
           <div className="gallery__spinnerText">loading</div>
         </div>
       ) : (
-          <Fragment>
-            {pictureSelected && (
-              <EditDrawer
-                picture={pictureSelected}
-                showDrawer={showDrawer}
-                setShowDrawer={setShowDrawer}
-              />
-            )}
+        <Fragment>
+          {pictureSelected && (
+            <EditDrawer
+              picture={pictureSelected}
+              showDrawer={showDrawer}
+              setShowDrawer={setShowDrawer}
+            />
+          )}
+          <div className="picAdmin__headerBackground">
             <div className="picAdmin__tagSelector">
               <Select
                 showSearch={true}
                 allowClear={true}
                 style={{ width: "100%" }}
                 placeholder="Select a tag to manage"
+                disabled={adultContentSelected}
                 onChange={(value) => {
                   setTagSelected(value);
                 }}
@@ -91,24 +93,33 @@ export const PicAdmin = () => {
                 })}
               </Select>
             </div>
-            <div className="picAdmin__main">
-              {allPictures.map((picture) => {
-                return (
-                  <div className="picAdmin__picture">
-                    <PicThumbAdmin
-                      picture={picture}
-                      tagSelected={tagSelected}
-                      adultContentSelected={adultContentSelected}
-                      setShowDrawer={setShowDrawer}
-                      setPictureSelected={setPictureSelected}
-                      fetchAllPictures={fetchAllPictures}
-                    />
-                  </div>
-                );
-              })}
+            <div className="picAdmin__adultContentFlag">
+              &nbsp;or edit the <i>Adult-content</i> flag &nbsp;
+              <Switch
+                size="small"
+                defaultChecked={adultContentSelected}
+                onChange={() => setAdultContentSelected(!adultContentSelected)}
+              />
             </div>
-          </Fragment>
-        )}
+          </div>
+          <div className="picAdmin__main">
+            {allPictures.map((picture) => {
+              return (
+                <div className="picAdmin__picture">
+                  <PicThumbAdmin
+                    picture={picture}
+                    tagSelected={tagSelected}
+                    adultContentSelected={adultContentSelected}
+                    setShowDrawer={setShowDrawer}
+                    setPictureSelected={setPictureSelected}
+                    fetchAllPictures={fetchAllPictures}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </Fragment>
+      )}
     </Fragment>
   );
 };
