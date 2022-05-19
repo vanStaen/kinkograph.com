@@ -193,15 +193,15 @@ router.get("/all/:limit/:showMissing", async (req, res) => {
       "DESC"
     );
 
-    /* pictures.forEach(async (picture) => {
-      if (!picture.fingerprint) {
+    pictures.forEach(async (picture) => {
+      if (picture.fingerprint === null) {
         const fingerprint = await createFingerPrintImage(picture.url_original);
         await pictureService.patchPictureFingerprintById(
           picture.id,
           fingerprint
         );
       }
-    }); */
+    });
 
     res.status(201).json(pictures);
   } catch (err) {
