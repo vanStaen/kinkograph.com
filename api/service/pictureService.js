@@ -107,6 +107,14 @@ exports.pictureService = {
     });
   },
 
+  async getPicturesByFingerPrint(fingerprint) {
+    return await Picture.findAll({
+      where: {
+        fingerprint: fingerprint,
+      },
+    });
+  },
+
   async getFavoritePictureById(ids) {
     const filterFormated = ids.map((id) => ({
       id: id,

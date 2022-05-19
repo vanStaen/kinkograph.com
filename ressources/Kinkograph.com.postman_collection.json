@@ -204,7 +204,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"favorites\":  \"[134, 179]\"\n}"
+					"raw": "{\n    \"input\": {\n        \"favorites\": [134]\n    }\n}"
 				},
 				"url": {
 					"raw": "http://localhost:5009/user/",
@@ -427,6 +427,28 @@
 			"response": []
 		},
 		{
+			"name": "pictures/id/:id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5009/pictures/id/1822",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"pictures",
+						"id",
+						"1822"
+					]
+				},
+				"description": "GET request : list of all users\nTo localserver on port 5000\n"
+			},
+			"response": []
+		},
+		{
 			"name": "pictures",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {}
@@ -443,7 +465,8 @@
 					{
 						"key": "Authorization",
 						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZmFkNThiMGM2YjgzYTc3MDQyZDZiM2EiLCJlbWFpbCI6ImNsZW1lbnQudmFuc3RhZW5AZ21haWwuY29tIiwiaWF0IjoxNjEyNjI5ODY2LCJleHAiOjE2MTI2MzA3NjZ9.y3DC1Hw5PCn94yGueomEMICPBhD6A2m-QVDPycDZkeY",
-						"type": "text"
+						"type": "text",
+						"disabled": true
 					}
 				],
 				"body": {
@@ -478,12 +501,66 @@
 			"response": []
 		},
 		{
+			"name": "pictures/:key",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "multipart/form-data",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZmFkNThiMGM2YjgzYTc3MDQyZDZiM2EiLCJlbWFpbCI6ImNsZW1lbnQudmFuc3RhZW5AZ21haWwuY29tIiwiaWF0IjoxNjEyNjI5ODY2LCJleHAiOjE2MTI2MzA3NjZ9.y3DC1Hw5PCn94yGueomEMICPBhD6A2m-QVDPycDZkeY",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "userId",
+							"value": "123",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/clementvanstaen/Desktop/123.jpg",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5009/pictures/f98e39eb84bef5613ba03b79e2cf5b7c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"pictures",
+						"f98e39eb84bef5613ba03b79e2cf5b7c"
+					]
+				},
+				"description": "Post request : new user (format Json)\nTo localserver on port 5000"
+			},
+			"response": []
+		},
+		{
 			"name": "pictures/all/:limit/:showmissing",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5009/pictures/all/0/true",
+					"raw": "http://localhost:5009/pictures/all/50/false",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -492,8 +569,8 @@
 					"path": [
 						"pictures",
 						"all",
-						"0",
-						"true"
+						"50",
+						"false"
 					]
 				},
 				"description": "GET request : list of all users\nTo localserver on port 5000\n"
@@ -569,6 +646,40 @@
 			"response": []
 		},
 		{
+			"name": "pictures/fingerprint",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"url\": \"https://kinkograph-static01.s3.eu-central-1.amazonaws.com/6e84495b575c3ca220ee41f78647a0c2\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5009/pictures/fingerprint",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"pictures",
+						"fingerprint"
+					]
+				},
+				"description": "Post request : new user (format Json)\nTo localserver on port 5000"
+			},
+			"response": []
+		},
+		{
 			"name": "pictures/page",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {}
@@ -584,7 +695,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"pageNumber\": 1,\n    \"pageSize\": 100,\n    \"filter\": [\"Arty\", \"Vanilla\"]\n}"
+					"raw": "{\n    \"pageNumber\": 1,\n    \"pageSize\": 100,\n    \"filter\": [\"Bath\"]\n}"
 				},
 				"url": {
 					"raw": "http://localhost:5009/pictures/page",
@@ -666,6 +777,42 @@
 					"path": [
 						"pictures",
 						"duplicate"
+					]
+				},
+				"description": "Post request : new user (format Json)\nTo localserver on port 5000"
+			},
+			"response": []
+		},
+		{
+			"name": "pictures/duplicate/fingerprint/",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fingerprint\": \"0010111100000111000001111100011111000111000001111100111100000011\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5009/pictures/duplicate/fingerprint/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"pictures",
+						"duplicate",
+						"fingerprint",
+						""
 					]
 				},
 				"description": "Post request : new user (format Json)\nTo localserver on port 5000"

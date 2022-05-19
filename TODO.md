@@ -24,10 +24,11 @@
 - [ ] Bug: Adding a filter from the overlay do not show in the filter field
 - [ ] GalleryOverlaySimple : Add disclaimer if pic tag as Adult
 - [ ] Detect duplicate images based on fingerprints
-  - [ ] Add fingerprints to picture table and model
-  - [ ] Create image hash on upload
+  - [x] Add fingerprints to picture table and model
+  - [x] Create image hash on upload
+  - [ ] Detect if images is a duplicate on upload
   - [ ] Detect if images is a duplicate on Tag selection
-  - [ ] Admin page to identified image with almost identical hash
+  - [ ] Admin page to identify image with almost identical hash
   
 ## Completed ✓
 

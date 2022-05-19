@@ -4,12 +4,11 @@ const AWS = require("aws-sdk");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
 
+const { pictureService } = require("../service/pictureService");
 const resizeImage = require("../../helpers/resizeImage");
 const uploadFileFromUrlToS3 = require("../../helpers/uploadFileFromUrlToS3");
 const deleteLocalFile = require("../../helpers/deleteLocalFile");
-
 const createFingerPrintImage = require("../../helpers/createFingerPrintImage");
-const { pictureService } = require("../service/pictureService");
 
 // Limits size of 10MB
 const sizeLimits = { fileSize: 1024 * 1024 * 10 };
@@ -168,7 +167,7 @@ router.delete("/:key", async (req, res) => {
     // Response
     res
       .status(200)
-      .json({ success: `User with id #${req.params.key} was deleted.` });
+      .json({ success: `Picture with key #${req.params.key} was deleted.` });
   } catch (err) {
     res.status(400).json({
       error: `${err}`,
@@ -286,6 +285,26 @@ router.post("/duplicate/", async (req, res) => {
     } else {
       res.status(201).json([]);
     }
+  } catch (err) {
+    res.status(400).json({
+      error: `${err})`,
+    });
+  }
+});
+
+
+
+// POST duplicate of an image based on its fingerprint
+router.post("/duplicate/fingerprint/", async (req, res) => {
+  if (!req.isAuth) {
+    res.status(401).json({
+      error: "Unauthorized",
+    });
+    return;
+  }
+  try {
+    const fingerprint = await pictureService.getPicturesByFingerPrint(req.body.fingerprint);
+    res.status(201).json(fingerprint);
   } catch (err) {
     res.status(400).json({
       error: `${err})`,
