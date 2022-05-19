@@ -193,7 +193,8 @@ router.get("/all/:limit/:showMissing", async (req, res) => {
       "DESC"
     );
 
-    pictures.forEach(async (picture) => {
+    // Generate and Store fingerprint if missing
+    /* pictures.forEach(async (picture) => {
       if (picture.fingerprint === null) {
         const fingerprint = await createFingerPrintImage(picture.url_original);
         await pictureService.patchPictureFingerprintById(
@@ -201,7 +202,7 @@ router.get("/all/:limit/:showMissing", async (req, res) => {
           fingerprint
         );
       }
-    });
+    }); */
 
     res.status(201).json(pictures);
   } catch (err) {
