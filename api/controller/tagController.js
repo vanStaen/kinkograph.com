@@ -13,7 +13,6 @@ router.get("/", async (req, res) => {
   }
   try {
     const tags = await tagService.getTags();
-    console.log(tags);
     res.status(201).json(tags);
   } catch (err) {
     res.status(400).json({

@@ -8,6 +8,7 @@ const resizeImage = require("../../helpers/resizeImage");
 const uploadFileFromUrlToS3 = require("../../helpers/uploadFileFromUrlToS3");
 const deleteLocalFile = require("../../helpers/deleteLocalFile");
 
+const createFingerPrintImage = require("../../helpers/createFingerPrintImage");
 const { pictureService } = require("../service/pictureService");
 
 // Limits size of 10MB
@@ -189,8 +190,19 @@ router.get("/all/:limit/:showMissing", async (req, res) => {
       req.params.limit,
       0,
       null,
-      'DESC',
+      "DESC"
     );
+
+    /* pictures.forEach(async (picture) => {
+      if (!picture.fingerprint) {
+        const fingerprint = await createFingerPrintImage(picture.url_original);
+        await pictureService.patchPictureFingerprintById(
+          picture.id,
+          fingerprint
+        );
+      }
+    }); */
+
     res.status(201).json(pictures);
   } catch (err) {
     res.status(400).json({
@@ -223,7 +235,7 @@ router.post("/page/", async (req, res) => {
       pageSize,
       offSet,
       req.body.filter,
-      'DESC',
+      "DESC"
     );
     res.status(201).json(pictures);
   } catch (err) {
@@ -249,7 +261,7 @@ router.post("/total/", async (req, res) => {
         (filter) => (filters = filters + `AND tags LIKE '%"${filter}"%' `)
       );
     }
-    const count = await pictureService.countPictures(false, null)
+    const count = await pictureService.countPictures(false, null);
     res.status(201).json(count);
   } catch (err) {
     res.status(400).json({
@@ -294,7 +306,7 @@ router.get("/tagsmissing/:limit", async (req, res) => {
       req.params.limit,
       null,
       null,
-      'DESC',
+      "DESC"
     );
     res.status(201).json(pictures);
   } catch (err) {
@@ -313,7 +325,7 @@ router.get("/tagsmissingcount/", async (req, res) => {
     return;
   }
   try {
-    const count = await pictureService.countPictures(true, null)
+    const count = await pictureService.countPictures(true, null);
     res.status(201).json(count);
   } catch (err) {
     res.status(400).json({
@@ -331,7 +343,7 @@ router.patch("/:id", async (req, res) => {
     return;
   }
   try {
-    await pictureService.patchPictureById(req.params.id, req.body.tags)
+    await pictureService.patchPictureById(req.params.id, req.body.tags);
     res.status(201).json(`Picture with id #${req.params.id} was udpated`);
   } catch (err) {
     res.status(400).json({
@@ -349,7 +361,10 @@ router.patch("/isAdult/:id", async (req, res) => {
     return;
   }
   try {
-    await pictureService.patchPictureAdultContentById(req.params.id, req.body.isAdult)
+    await pictureService.patchPictureAdultContentById(
+      req.params.id,
+      req.body.isAdult
+    );
     res.status(201).json(`Picture with id #${req.params.id} was udpated`);
   } catch (err) {
     res.status(400).json({
@@ -375,7 +390,6 @@ router.get("/:key", async (req, res) => {
     });
   }
 });
-
 
 // GET picture based on id
 router.get("/id/:id", async (req, res) => {
@@ -404,8 +418,28 @@ router.post("/favorites/", async (req, res) => {
     return;
   }
   try {
-    const pictures = await pictureService.getFavoritePictureById(req.body.favorites);
+    const pictures = await pictureService.getFavoritePictureById(
+      req.body.favorites
+    );
     res.status(201).json(pictures);
+  } catch (err) {
+    res.status(400).json({
+      error: `${err})`,
+    });
+  }
+});
+
+// Post fingerprint of an image based on its URL
+router.post("/fingerprint/", async (req, res) => {
+  if (!req.isAuth) {
+    res.status(401).json({
+      error: "Unauthorized",
+    });
+    return;
+  }
+  try {
+    const fingerprint = await createFingerPrintImage(req.body.url);
+    res.status(201).json(fingerprint);
   } catch (err) {
     res.status(400).json({
       error: `${err})`,

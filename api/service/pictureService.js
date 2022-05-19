@@ -1,6 +1,8 @@
 const { Picture } = require("../../models/Picture");
 const { Op } = require("sequelize");
 
+const createFingerPrintImage = require("../../helpers/createFingerPrintImage");
+
 exports.pictureService = {
   async addPicture(
     url_original,
@@ -11,6 +13,7 @@ exports.pictureService = {
     key
   ) {
     try {
+      const fingerprint = await createFingerPrintImage(url_original);
       const picture = new Picture({
         url_original: url_original,
         url_thumb: url_thumb,
@@ -18,6 +21,7 @@ exports.pictureService = {
         original_name: original_name,
         original_type: original_type,
         key: key,
+        fingerprint: fingerprint,
       });
       return await picture.save();
     } catch (err) {
@@ -149,6 +153,23 @@ exports.pictureService = {
   async patchPictureAdultContentById(id, isAdult) {
     const updatedPicture = await Picture.update(
       { adult_content: isAdult },
+      {
+        where: {
+          id: id,
+        },
+        returning: true,
+        plain: true,
+      }
+    );
+    // updatedLook[0]: number or row udpated
+    // updatedLook[1]: rows updated
+    return updatedPicture[1];
+  },
+
+
+  async patchPictureFingerprintById(id, fingerprint) {
+    const updatedPicture = await Picture.update(
+      { fingerprint: fingerprint },
       {
         where: {
           id: id,
