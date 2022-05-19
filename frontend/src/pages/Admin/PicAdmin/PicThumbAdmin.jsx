@@ -61,10 +61,10 @@ export const PicThumbAdmin = (props) => {
     <Fragment>
       <img
         className={
-          props.tagSelected || props.adultContentSelected
+          props.tagSelected
             ? hasHalo
               ? "picAdmin__tagHalo"
-              : isAdult
+              : isAdult && props.adultContentSelected
               ? "picAdmin__tagAdult"
               : "picAdmin__tagBlur"
             : "picAdmin__noFilter"
