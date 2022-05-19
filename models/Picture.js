@@ -47,7 +47,11 @@ const Picture = sequelize.define("picture", {
   fingerprint: {
     type: DataTypes.STRING,
     allowNull: true,
-  }
+  },
+  similar: {
+    type: DataTypes.ARRAY(DataTypes.INTEGER),
+    defaultValue: [],
+  },
 });
 
 module.exports = {
