@@ -173,7 +173,7 @@ export const GalleryHeader = observer(() => {
             if (!option.value) {
               return false;
             }
-            return option.value.includes(inputValue);
+            return option.value.includes(capitalizeFirstLetter(inputValue));
           }}
         >
           {pictureStore.tags.map((tag) => {
