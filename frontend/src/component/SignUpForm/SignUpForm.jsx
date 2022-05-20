@@ -255,6 +255,7 @@ export const SignUpForm = (props) => {
 
         <Form.Item
           name="agreement"
+          valuePropName="checked"
           rules={[
             {
               required: true,
