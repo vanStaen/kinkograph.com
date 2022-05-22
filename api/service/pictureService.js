@@ -5,7 +5,7 @@ const createFingerPrintImage = require('../../helpers/createFingerPrintImage')
 const fingerprintSimilarity = require('../../helpers/fingerprintSimilarity')
 
 exports.pictureService = {
-  async addPicture (
+  async addPicture(
     url_original,
     url_thumb,
     url_med,
@@ -31,7 +31,7 @@ exports.pictureService = {
     }
   },
 
-  async deletePicture (key) {
+  async deletePicture(key) {
     try {
       await Picture.destroy({
         where: {
@@ -44,7 +44,7 @@ exports.pictureService = {
     }
   },
 
-  async getPictures (showMissing, limit, offset, filter, order) {
+  async getPictures(showMissing, limit, offset, filter, order) {
     let limitFormated = limit
     if (limit == 0) {
       limitFormated = null
@@ -76,7 +76,7 @@ exports.pictureService = {
     }
   },
 
-  async countPictures (showMissing, filter) {
+  async countPictures(showMissing, filter) {
     if (filter) {
       const filterFormated = filter.map(element => ({
         [Op.like]: `%"${element}"%`
@@ -100,7 +100,7 @@ exports.pictureService = {
     }
   },
 
-  async getPictureByName (name) {
+  async getPictureByName(name) {
     return await Picture.findOne({
       where: {
         original_name: name
@@ -108,7 +108,7 @@ exports.pictureService = {
     })
   },
 
-  async getPicturesByFingerPrint (id, fingerprint) {
+  async getPicturesByFingerPrint(id, fingerprint) {
     return await Picture.findAll({
       where: {
         fingerprint: fingerprint,
@@ -119,7 +119,7 @@ exports.pictureService = {
     })
   },
 
-  async getSimilarPicturesByFingerPrint (id, fingerprint, threshold) {
+  async getSimilarPicturesByFingerPrint(id, fingerprint, threshold) {
     const allPictures = await Picture.findAll({
       where: {
         id: {
@@ -132,14 +132,12 @@ exports.pictureService = {
       if (similarity <= threshold) {
         return false
       }
-      console.log("similarity", similarity);
       return true
     })
-    console.log("similarity count", similarPictures.length);
     return similarPictures;
   },
 
-  async getFavoritePictureById (ids) {
+  async getFavoritePictureById(ids) {
     const filterFormated = ids.map(id => ({
       id: id
     }))
@@ -150,7 +148,7 @@ exports.pictureService = {
     })
   },
 
-  async getPictureByKey (key) {
+  async getPictureByKey(key) {
     return await Picture.findOne({
       where: {
         key: key
@@ -158,7 +156,7 @@ exports.pictureService = {
     })
   },
 
-  async getPictureById (id) {
+  async getPictureById(id) {
     return await Picture.findOne({
       where: {
         id: id
@@ -166,7 +164,7 @@ exports.pictureService = {
     })
   },
 
-  async patchPictureById (id, tags) {
+  async patchPictureById(id, tags) {
     const updatedPicture = await Picture.update(
       { tags: tags, tags_missing: false },
       {
@@ -182,7 +180,7 @@ exports.pictureService = {
     return updatedPicture[1]
   },
 
-  async patchPictureAdultContentById (id, isAdult) {
+  async patchPictureAdultContentById(id, isAdult) {
     const updatedPicture = await Picture.update(
       { adult_content: isAdult },
       {
@@ -198,7 +196,7 @@ exports.pictureService = {
     return updatedPicture[1]
   },
 
-  async patchPictureFingerprintById (id, fingerprint) {
+  async patchPictureFingerprintById(id, fingerprint) {
     const updatedPicture = await Picture.update(
       { fingerprint: fingerprint },
       {
@@ -214,7 +212,7 @@ exports.pictureService = {
     return updatedPicture[1]
   },
 
-  async getPicturesByTag (showMissing, tags, order) {
+  async getPicturesByTag(showMissing, tags, order) {
     const filterFormated = tags.map(element => ({
       [Op.like]: `%"${element}"%`
     }))

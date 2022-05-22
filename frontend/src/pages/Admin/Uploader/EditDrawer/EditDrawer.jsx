@@ -12,6 +12,9 @@ import { postTag } from "../../../../store/calls/postTag";
 import { patchPicture } from "../../../../store/calls/patchPicture";
 import { deletePicture } from "../../../../store/calls/deletePicture";
 import { patchPictureAdult } from "../../../../store/calls/patchPictureAdult";
+import { postSimilarFingerprint } from "../../../../store/calls/postSimilarFingerprint";
+import { postDuplicateFingerprint } from "../../../../store/calls/postDuplicateFingerprint";
+
 
 import "./EditDrawer.css";
 
@@ -22,6 +25,8 @@ export const EditDrawer = (props) => {
   const [isAdult, setIsAdult] = useState(props.picture.adult_content);
   const [allTags, setAllTags] = useState([]);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [similarFingerprints, setSimilarFingerPrints] = useState([]);
+  const [duplicateFingerprints, setDuplicateFingerprints] = useState([]);
 
   const fetchAllTags = useCallback(async () => {
     try {
@@ -42,6 +47,18 @@ export const EditDrawer = (props) => {
     },
     [props]
   );
+
+  useEffect(() => {
+    const fetchAllFingerprintData = async () => {
+      const [similar, duplicate] = await Promise.all([
+        postSimilarFingerprint(props.picture.id, 90, props.picture.fingerprint),
+        postDuplicateFingerprint(props.picture.id, props.picture.fingerprint)
+      ])
+      setSimilarFingerPrints(similar);
+      setDuplicateFingerprints(duplicate);
+    }
+    fetchAllFingerprintData().catch(console.error);;;
+  }, []);
 
   useEffect(() => {
     fetchAllTags();
@@ -155,10 +172,35 @@ export const EditDrawer = (props) => {
       </div>
       <br />
       <br />
-      <div className="Drawer__font">Similar Pictures:</div>
-      <div>Fingerprint : {props.picture.fingerprint}</div>
-      <br />
-      <br />
+      { similarFingerprints.length > 0 && (
+        <><div className="Drawer__font">Similar:</div>
+          { similarFingerprints.map(picture => {
+            return (<img
+              id={picture.id}
+              src={picture.url_thumb}
+              alt={picture.id}
+              width="100px"
+            />)
+          }
+          )}
+          <br />
+          <br />
+        </>)}
+
+      { duplicateFingerprints.length > 0 && (
+        <><div className="Drawer__font">Duplicate:</div>
+          { duplicateFingerprints.map(picture => {
+            return (<img
+              id={picture.id}
+              src={picture.url_thumb}
+              alt={picture.id}
+              width="100px"
+            />)
+          }
+          )}
+          <br />
+          <br />
+        </>)}
       <div className="Drawer__buttonContainer">
         <div
           className={
@@ -180,11 +222,11 @@ export const EditDrawer = (props) => {
               <QuestionOutlined />
             </Fragment>
           ) : (
-            <Fragment>
-              <DeleteOutlined />
+              <Fragment>
+                <DeleteOutlined />
               &nbsp; Delete
-            </Fragment>
-          )}
+              </Fragment>
+            )}
         </div>
       </div>
     </Drawer>
