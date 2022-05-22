@@ -155,6 +155,10 @@ export const EditDrawer = (props) => {
       </div>
       <br />
       <br />
+      <div className="Drawer__font">Similar Pictures:</div>
+      <div>Fingerprint : {props.picture.fingerprint}</div>
+      <br />
+      <br />
       <div className="Drawer__buttonContainer">
         <div
           className={
