@@ -107,10 +107,13 @@ exports.pictureService = {
     });
   },
 
-  async getPicturesByFingerPrint(fingerprint) {
+  async getPicturesByFingerPrint(id, fingerprint) {
     return await Picture.findAll({
       where: {
         fingerprint: fingerprint,
+        id: {
+          [Op.not]: id,
+        }
       },
     });
   },
