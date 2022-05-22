@@ -313,6 +313,28 @@ router.post('/duplicate/fingerprint/', async (req, res) => {
   }
 })
 
+// POST duplicate of an image based on its fingerprint
+router.post('/similar/fingerprint/', async (req, res) => {
+  if (!req.isAuth) {
+    res.status(401).json({
+      error: 'Unauthorized'
+    })
+    return
+  }
+  try {
+    const result = await pictureService.getSimilarPicturesByFingerPrint(
+      req.body.id,
+      req.body.fingerprint,
+      req.body.threshold,
+    )
+    res.status(201).json(result)
+  } catch (err) {
+    res.status(400).json({
+      error: `${err})`
+    })
+  }
+})
+
 // GET all pictures with missing tag
 router.get('/tagsmissing/:limit', async (req, res) => {
   if (!req.isAdmin) {
