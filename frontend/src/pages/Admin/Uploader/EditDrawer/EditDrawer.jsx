@@ -48,15 +48,14 @@ export const EditDrawer = (props) => {
   );
 
   useEffect(() => {
-    const fetchAllFingerprintData = async () => {
+    (async () => {
       const [similar, duplicate] = await Promise.all([
         postSimilarFingerprint(props.picture.id, 90, props.picture.fingerprint),
         postDuplicateFingerprint(props.picture.id, props.picture.fingerprint),
       ]);
       setSimilarFingerPrints(similar);
       setDuplicateFingerprints(duplicate);
-    };
-    fetchAllFingerprintData();
+    })();
   }, []);
 
   useEffect(() => {
@@ -139,7 +138,6 @@ export const EditDrawer = (props) => {
         style={{ maxWidth: "100%", maxHeight: window.innerHeight / 2.5 }}
       />
       <br />
-      <br />
       <div className="Drawer__font">Tags:</div>
       <Select
         mode="tags"
@@ -163,18 +161,15 @@ export const EditDrawer = (props) => {
       </Select>
       <br />
       <br />
-      <br />
-      <div className="Drawer__font">Flag:</div>
       <div className="Drawer__adultContentFlag">
         <Switch defaultChecked={isAdult} onChange={handleSwitchIsAdult} />
         &nbsp; This is{!isAdult && " not"} adult content.
       </div>
       <br />
-      <br />
       {similarFingerprints.length > 0 && (
         <>
           <div className="Drawer__font">
-            Similar {duplicateFingerprints.length > 0 && "and duplicates"}{" "}
+            Similar {duplicateFingerprints.length > 0 && "and duplicate"}{" "}
             picture{similarFingerprints.length > 0 && "s"}:
           </div>
           {similarFingerprints.map((picture) => {
