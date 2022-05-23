@@ -254,14 +254,7 @@ router.post('/total/', async (req, res) => {
     return
   }
   try {
-    let filters = ''
-    if (req.body.filter) {
-      const array = req.body.filter
-      array.forEach(
-        filter => (filters = filters + `AND tags LIKE '%"${filter}"%' `)
-      )
-    }
-    const count = await pictureService.countPictures(false, null)
+    const count = await pictureService.countPictures(false, req.body.filter)
     res.status(201).json(count)
   } catch (err) {
     res.status(400).json({

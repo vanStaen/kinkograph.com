@@ -15,7 +15,6 @@ import { patchPictureAdult } from "../../../../store/calls/patchPictureAdult";
 import { postSimilarFingerprint } from "../../../../store/calls/postSimilarFingerprint";
 import { postDuplicateFingerprint } from "../../../../store/calls/postDuplicateFingerprint";
 
-
 import "./EditDrawer.css";
 
 const { Option } = Select;
@@ -49,15 +48,14 @@ export const EditDrawer = (props) => {
   );
 
   useEffect(() => {
-    const fetchAllFingerprintData = async () => {
+    (async () => {
       const [similar, duplicate] = await Promise.all([
         postSimilarFingerprint(props.picture.id, 90, props.picture.fingerprint),
-        postDuplicateFingerprint(props.picture.id, props.picture.fingerprint)
-      ])
+        postDuplicateFingerprint(props.picture.id, props.picture.fingerprint),
+      ]);
       setSimilarFingerPrints(similar);
       setDuplicateFingerprints(duplicate);
-    }
-    fetchAllFingerprintData().catch(console.error);;;
+    })();
   }, []);
 
   useEffect(() => {
@@ -140,7 +138,6 @@ export const EditDrawer = (props) => {
         style={{ maxWidth: "100%", maxHeight: window.innerHeight / 2.5 }}
       />
       <br />
-      <br />
       <div className="Drawer__font">Tags:</div>
       <Select
         mode="tags"
@@ -164,43 +161,31 @@ export const EditDrawer = (props) => {
       </Select>
       <br />
       <br />
-      <br />
-      <div className="Drawer__font">Flag:</div>
       <div className="Drawer__adultContentFlag">
         <Switch defaultChecked={isAdult} onChange={handleSwitchIsAdult} />
         &nbsp; This is{!isAdult && " not"} adult content.
       </div>
       <br />
-      <br />
-      { similarFingerprints.length > 0 && (
-        <><div className="Drawer__font">Similar:</div>
-          { similarFingerprints.map(picture => {
-            return (<img
-              id={picture.id}
-              src={picture.url_thumb}
-              alt={picture.id}
-              width="100px"
-            />)
-          }
-          )}
+      {similarFingerprints.length > 0 && (
+        <>
+          <div className="Drawer__font">
+            Similar {duplicateFingerprints.length > 0 && "and duplicate"}{" "}
+            picture{similarFingerprints.length > 0 && "s"}:
+          </div>
+          {similarFingerprints.map((picture) => {
+            return (
+              <img
+                id={picture.id}
+                src={picture.url_thumb}
+                alt={picture.id}
+                width="100px"
+              />
+            );
+          })}
           <br />
           <br />
-        </>)}
-
-      { duplicateFingerprints.length > 0 && (
-        <><div className="Drawer__font">Duplicate:</div>
-          { duplicateFingerprints.map(picture => {
-            return (<img
-              id={picture.id}
-              src={picture.url_thumb}
-              alt={picture.id}
-              width="100px"
-            />)
-          }
-          )}
-          <br />
-          <br />
-        </>)}
+        </>
+      )}
       <div className="Drawer__buttonContainer">
         <div
           className={
@@ -222,11 +207,11 @@ export const EditDrawer = (props) => {
               <QuestionOutlined />
             </Fragment>
           ) : (
-              <Fragment>
-                <DeleteOutlined />
+            <Fragment>
+              <DeleteOutlined />
               &nbsp; Delete
-              </Fragment>
-            )}
+            </Fragment>
+          )}
         </div>
       </div>
     </Drawer>
