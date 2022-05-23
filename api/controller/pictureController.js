@@ -1,14 +1,14 @@
 const router = require('express').Router()
 
-const AWS = require('aws-sdk')
-const multer = require('multer')
-const multerS3 = require('multer-s3')
+const AWS = require('aws-sdk');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
 
-const { pictureService } = require('../service/pictureService')
-const resizeImage = require('../../helpers/resizeImage')
-const uploadFileFromUrlToS3 = require('../../helpers/uploadFileFromUrlToS3')
-const deleteLocalFile = require('../../helpers/deleteLocalFile')
-const createFingerPrintImage = require('../../helpers/createFingerPrintImage')
+const { pictureService } = require('../service/pictureService');
+const resizeImage = require('../../helpers/resizeImage');
+const uploadFileFromUrlToS3 = require('../../helpers/uploadFileFromUrlToS3');
+const deleteLocalFile = require('../../helpers/deleteLocalFile');
+const createFingerPrintImage = require('../../helpers/createFingerPrintImage');
 
 // Limits size of 10MB
 const sizeLimits = { fileSize: 1024 * 1024 * 10 }
@@ -24,8 +24,8 @@ const fileFilter = (req, file, callback) => {
 }
 
 // Setup the AWS
-AWS.config.region = 'eu-west-1'
-AWS.config.signatureVersion = 'v4'
+AWS.config.region = 'eu-west-1';
+AWS.config.signatureVersion = 'v4';
 
 // Define s3 bucket login info
 const s3 = new AWS.S3({
