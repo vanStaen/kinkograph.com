@@ -61,12 +61,12 @@ export const PicThumbAdmin = (props) => {
     <Fragment>
       <img
         className={
-          props.tagSelected
+          props.tagSelected !== null
             ? hasHalo
               ? "picAdmin__tagHalo"
-              : isAdult && props.adultContentSelected
-              ? "picAdmin__tagAdult"
               : "picAdmin__tagBlur"
+            : isAdult && props.adultContentSelected
+            ? "picAdmin__tagAdult"
             : "picAdmin__noFilter"
         }
         id={`pic_${props.picture.id}`}

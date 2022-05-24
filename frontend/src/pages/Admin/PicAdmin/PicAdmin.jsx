@@ -75,6 +75,9 @@ export const PicAdmin = () => {
           <div className="picAdmin__headerBackground">
             <div className="picAdmin__tagSelector">
               <Select
+                className={
+                  adultContentSelected && "picAdmin__tagSelectorDeactivated"
+                }
                 showSearch={true}
                 allowClear={true}
                 style={{ width: "100%" }}
@@ -94,7 +97,16 @@ export const PicAdmin = () => {
               </Select>
             </div>
             <div className="picAdmin__adultContentFlag">
-              &nbsp;or edit the <i>Adult-content</i> flag &nbsp;
+              &nbsp;
+              <span
+                style={
+                  adultContentSelected ? { opacity: ".1" } : { opacity: ".3" }
+                }
+              >
+                or edit the{" "}
+              </span>
+              &nbsp;
+              <i>Adult-content</i> flag &nbsp;
               <Switch
                 size="small"
                 defaultChecked={adultContentSelected}

@@ -33,6 +33,10 @@
   vertical-align: bottom; 
 }
 
+.picAdmin__tagSelectorDeactivated {
+  opacity: .2;
+}
+
 .picAdmin__adultContentFlag {
   background-color: rgba(33, 33, 33, 0.95);
   font-size: 14px;
