@@ -13,3 +13,10 @@ A2HS (Add2HomeScreen) https://developer.mozilla.org/en-US/docs/Web/Progressive_w
 
 # Image fingerprints
 https://medium.com/nerd-for-tech/detect-duplicate-images-with-perceptual-hashing-and-map-data-structure-in-node-js-e4a65bf5f10a
+
+
+### Ressources
+
+Good description and explaination about what is Erotic photography:
+- https://redsashphotography.com/erotic-photography
+- https://scene360.com/art/105129/erotic-photographers/
