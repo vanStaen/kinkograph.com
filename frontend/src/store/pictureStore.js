@@ -82,7 +82,7 @@ export class PictureStore {
       this.setAllPictures(pictures);
       this.setTotalPictures(totalPictures);
 
-      if (totalPictures > userStore.numberOfPicAtLastLogin && userStore.numberOfPicAtLastLogin) {
+      if (totalPictures > userStore.numberOfPicAtLastLogin && userStore.numberOfPicAtLastLogin !== null) {
         const numberOfNewPictures = totalPictures - userStore.numberOfPicAtLastLogin
         notification.open({
           message: `There is ${numberOfNewPictures} new picture${numberOfNewPictures > 1 && 's'} since your last visit.`,
