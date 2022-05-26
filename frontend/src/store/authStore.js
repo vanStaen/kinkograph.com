@@ -43,7 +43,6 @@ export class AuthStore {
   checkAccess = async () => {
     const resultCheckAccess = await getHasAccess();
     this.setHasAccess(resultCheckAccess.access);
-    userStore.setNumberOfPicAtLastLogin(resultCheckAccess.nb_picture_at_last_login);
   };
 
   setIsGuest = (isGuest) => {

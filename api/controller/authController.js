@@ -55,10 +55,8 @@ router.get("/access", async (req, res) => {
   try {
     const hasAccess = await authService.access(req);
     if (hasAccess) {
-      const nbPictureAtLastLogin = await userService.nbPictureAtLastLogin(req.userId);
       res.status(200).json({
         access: hasAccess,
-        nb_picture_at_last_login: nbPictureAtLastLogin,
       });
     } else {
       res.status(200).json({
