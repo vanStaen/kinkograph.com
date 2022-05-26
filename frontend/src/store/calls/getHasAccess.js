@@ -15,5 +15,5 @@ export const getHasAccess = async () => {
         }
     }
 
-    return response.data.access;
+    return response.data;
 };

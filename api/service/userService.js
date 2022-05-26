@@ -1,47 +1,47 @@
-const { User } = require("../../models/User");
-const checkUsernameforbidden = require("../../helpers/checkUsernameforbidden");
-const jsonwebtoken = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const { mailService } = require("./mailService");
+const { User } = require('../../models/User')
+const checkUsernameforbidden = require('../../helpers/checkUsernameforbidden')
+const jsonwebtoken = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
+const { mailService } = require('./mailService')
 
 exports.userService = {
-  async getUsers() {
+  async getUsers () {
     return await User.findAll({
       order: [
-        ["id", "ASC"],
-        ["last_login", "DESC"],
-      ],
-    });
+        ['id', 'ASC'],
+        ['last_login', 'DESC']
+      ]
+    })
   },
 
-  async getUser(userId) {
+  async getUser (userId) {
     return await User.findAll({
       where: {
-        id: userId,
-      },
-    });
+        id: userId
+      }
+    })
   },
 
-  async addUser(input) {
+  async addUser (input) {
     const foundUserEmail = await User.findOne({
       where: {
-        email: input.email,
-      },
-    });
+        email: input.email
+      }
+    })
     if (foundUserEmail) {
-      throw new Error("This email is already associated with an account.");
+      throw new Error('This email is already associated with an account.')
     }
     const foundUserUsername = await User.findOne({
       where: {
-        username: input.username,
-      },
-    });
+        username: input.username
+      }
+    })
     if (foundUserUsername) {
-      throw new Error("This username is already associated with an account.");
+      throw new Error('This username is already associated with an account.')
     }
 
     try {
-      hashedPassword = await bcrypt.hash(input.pwd, 12);
+      hashedPassword = await bcrypt.hash(input.pwd, 12)
       const user = new User({
         firstname: input.firstname,
         lastname: input.lastname,
@@ -50,151 +50,164 @@ exports.userService = {
         email: input.email,
         access_code: input.access_code,
         pwd: hashedPassword,
-        lastActive: Date.now(),
-      });
-      return await user.save();
+        lastActive: Date.now()
+      })
+      return await user.save()
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
   },
 
-  async updateUser(userId, data) {
-    const updateFields = [];
+  async updateUser (userId, data) {
+    const updateFields = []
     const updatableFields = [
-      "avatar",
-      "firstname",
-      "lastname",
-      "username",
-      "emailSettings",
-      "profilSettings",
-      "language",
-      "gender",
-      "archived",
-      "favorites",
-    ];
-    updatableFields.forEach((field) => {
+      'avatar',
+      'firstname',
+      'lastname',
+      'username',
+      'emailSettings',
+      'profilSettings',
+      'language',
+      'gender',
+      'archived',
+      'favorites'
+    ]
+    updatableFields.forEach(field => {
       if (field in data.input) {
-        updateFields[field] = data.input[field];
+        updateFields[field] = data.input[field]
       }
-    });
+    })
     if (data.input.password) {
-      updateFields.password = await bcrypt.hash(data.input.password, 12);
+      updateFields.password = await bcrypt.hash(data.input.password, 12)
     }
     try {
       const updatedUser = await User.update(updateFields, {
         where: {
-          id: userId,
+          id: userId
         },
         returning: true,
-        plain: true,
-      });
+        plain: true
+      })
       // updatedUser[0]: number or row udpated
       // updatedUser[1]: rows updated
-      return updatedUser[1];
+      return updatedUser[1]
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
   },
 
-  async deleteUser(args, req) {
+  async deleteUser (args, req) {
     if (!req.isAuth) {
-      throw new Error("Unauthorized!");
+      throw new Error('Unauthorized!')
     }
     await User.destroy({
       where: {
-        id: req.userId,
-      },
-    });
-    req.session = null;
-    return true;
+        id: req.userId
+      }
+    })
+    req.session = null
+    return true
   },
 
-  async taken(username) {
+  async taken (username) {
     foundUser = await User.findOne({
-      where: { username: username },
-    });
+      where: { username: username }
+    })
     if (foundUser) {
-      return true;
+      return true
     }
     if (checkUsernameforbidden(username)) {
-      return true;
+      return true
     }
-    return false;
+    return false
   },
 
-  async email(email) {
+  async email (email) {
     foundUser = await User.findOne({
-      where: { email: email },
-    });
+      where: { email: email }
+    })
     if (!foundUser) {
-      return false;
+      return false
     } else {
-      return true;
+      return true
     }
   },
 
-  async changepassword(token, password) {
+  async changepassword (token, password) {
     try {
       decodedToken = jsonwebtoken.verify(
         token,
         process.env.AUTH_SECRET_KEY_RECOVERY
-      );
-      const email = decodedToken.email;
-      const hashedPassword = await bcrypt.hash(password, 12);
+      )
+      const email = decodedToken.email
+      const hashedPassword = await bcrypt.hash(password, 12)
       await User.update(
         { pwd: hashedPassword },
         {
           where: {
-            email: email,
+            email: email
           },
           returning: true,
-          plain: true,
+          plain: true
         }
-      );
-      return true;
+      )
+      return true
     } catch (err) {
-      return false;
+      return false
     }
   },
 
-  async emailverified(token) {
+  async emailverified (token) {
     try {
       decodedToken = jsonwebtoken.verify(
         token,
         process.env.AUTH_SECRET_KEY_EMAILVERIFY
-      );
-      const email = decodedToken.email;
+      )
+      const email = decodedToken.email
       await User.update(
         { verifiedEmail: true },
         {
           where: {
-            email: email,
+            email: email
           },
           returning: true,
-          plain: true,
+          plain: true
         }
-      );
+      )
       // Send a mail to admin
       await mailService.mail(
         process.env.ADMIN_EMAIL,
         "Kinkograph | New User's email validated!",
         `The following email has just been validated: ${email}`
-      );
-      return true;
+      )
+      return true
     } catch (err) {
-      return false;
+      return false
     }
   },
 
-  async validtoken(token) {
+  async validtoken (token) {
     try {
       decodedToken = jsonwebtoken.verify(
         token,
         process.env.AUTH_SECRET_KEY_RECOVERY
-      );
+      )
     } catch (err) {
-      return false;
+      return false
     }
-    return true;
+    return true
   },
-};
+
+  async nbPictureAtLastLogin (userId) {
+    try {
+      const foundUser = await User.findOne({
+        where: {
+          id: userId
+        }
+      })
+      return foundUser.nb_picture_at_last_login
+    } catch (err) {
+      return false
+    }
+  }
+}

@@ -41,9 +41,9 @@ export class AuthStore {
   };
 
   checkAccess = async () => {
-    const hasAccess = await getHasAccess();
-    //console.log("Check if user has valid credentials.")
-    this.setHasAccess(hasAccess);
+    const resultCheckAccess = await getHasAccess();
+    this.setHasAccess(resultCheckAccess.access);
+    userStore.setNumberOfPicAtLastLogin(resultCheckAccess.nb_picture_at_last_login);
   };
 
   setIsGuest = (isGuest) => {
