@@ -3,7 +3,7 @@ import axios from "axios";
 export const getUsers = async () => {
 
     const response = await axios({
-        url: process.env.API_URL + `/admin/users/`,
+        url: process.env.API_URL + `/user/all`,
         method: "GET",
     });
 
@@ -15,5 +15,5 @@ export const getUsers = async () => {
         }
     }
 
-    return response.data;
+    return response.data.getAllUser;
 };

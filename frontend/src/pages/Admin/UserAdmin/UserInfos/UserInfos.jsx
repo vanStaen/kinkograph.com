@@ -11,8 +11,7 @@ export const UserInfos = (props) => {
 
   const fetchFavorites = useCallback(async () => {
     if (props.user.favorites) {
-      const arrayFav = JSON.parse(props.user.favorites);
-      const allFav = await getFavoritesPictures(arrayFav);
+      const allFav = await getFavoritesPictures(props.user.favorites);
       setFavorites(allFav);
     }
   }, [props.user.favorites]);
@@ -47,7 +46,7 @@ export const UserInfos = (props) => {
               <HistoryOutlined className="userInfos__lastOnline" />
             </Tooltip>
           )}
-          {props.user.name.toUpperCase()}
+          {props.user.firstname.toUpperCase()}
           <span className="smallFont">
             {props.user.access_code && ` ${props.user.access_code} `}
           </span>

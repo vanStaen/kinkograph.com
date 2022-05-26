@@ -15,6 +15,7 @@ export const UserAdmin = () => {
 
   const fetchAllUser = useCallback(async () => {
     const allUsers = await getUsers();
+    console.log("allUsers", allUsers);
     setAllUsers(allUsers);
     setisLoading(false);
   }, []);
