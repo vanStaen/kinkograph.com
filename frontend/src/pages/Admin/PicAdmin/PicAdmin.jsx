@@ -20,6 +20,8 @@ export const PicAdmin = () => {
   const [allTags, setAllTags] = useState([]);
   const [tagSelected, setTagSelected] = useState(null);
   const [adultContentSelected, setAdultContentSelected] = useState(false);
+  const [showOnlyMatchingPictures, setShowOnlyMatchingPictures] =
+    useState(false);
 
   const fetchAllPictures = useCallback(async () => {
     try {
@@ -96,26 +98,47 @@ export const PicAdmin = () => {
                 })}
               </Select>
             </div>
-            <div className="picAdmin__adultContentFlag">
-              &nbsp;
-              <span
-                style={
-                  adultContentSelected ? { opacity: ".1" } : { opacity: ".3" }
-                }
-              >
-                or edit the{" "}
-              </span>
-              &nbsp;
-              <i>Adult-content</i> flag &nbsp;
-              <Switch
-                size="small"
-                defaultChecked={adultContentSelected}
-                onChange={() => setAdultContentSelected(!adultContentSelected)}
-              />
-            </div>
+            {tagSelected ? (
+              <div className="picAdmin__adultContentFlag">
+                Only matching pictures&nbsp;&nbsp;&nbsp;
+                <Switch
+                  size="small"
+                  defaultChecked={showOnlyMatchingPictures}
+                  onChange={() =>
+                    setShowOnlyMatchingPictures(!showOnlyMatchingPictures)
+                  }
+                />
+              </div>
+            ) : (
+              <div className="picAdmin__adultContentFlag">
+                &nbsp;
+                <span
+                  style={
+                    adultContentSelected ? { opacity: ".1" } : { opacity: ".3" }
+                  }
+                >
+                  or edit the{" "}
+                </span>
+                &nbsp;
+                <i>Adult-content</i> flag &nbsp;
+                <Switch
+                  size="small"
+                  defaultChecked={adultContentSelected}
+                  onChange={() =>
+                    setAdultContentSelected(!adultContentSelected)
+                  }
+                />
+              </div>
+            )}
           </div>
           <div className="picAdmin__main">
             {allPictures.map((picture) => {
+              if (
+                showOnlyMatchingPictures &&
+                !picture.tags.includes(tagSelected)
+              ) {
+                return null;
+              }
               return (
                 <div className="picAdmin__picture">
                   <PicThumbAdmin
