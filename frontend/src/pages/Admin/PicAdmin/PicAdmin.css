@@ -1,6 +1,7 @@
 .picAdmin__main {
   background-color: rgba(33, 33, 33, 0.95);
   padding: 0.8em 1em 2em 1em;
+  min-height: calc(100vh - 110px);
   /* Prevent vertical gaps */
   line-height: 0;
   -webkit-column-count: 7;
