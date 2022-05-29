@@ -1,4 +1,4 @@
-import React, { Fragment, useLayoutEffect, useEffect, useState } from "react";
+import React, { useLayoutEffect, useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { observer } from "mobx-react";
 import { useTranslation } from "react-i18next";
@@ -9,11 +9,9 @@ import { Info } from "./pages/Info/Info";
 import { Admin } from "./pages/Admin/Admin";
 import { authStore } from "./store/authStore";
 import { userStore } from "./store/userStore";
-import { Login } from "./component/Login/Login";
-import { FooterStartPage } from "./component/FooterStartPage/FooterStartPage";
+import { Welcome } from "./pages/Welcome/Welcome";
 import { EmailVerified } from "./pages/EmailVerified/EmailVerified";
 import { NewPassword } from "./pages/NewPassword/NewPassword";
-import { LanguageDropDown } from "./component/LanguageDropDown/LanguageDropDown";
 
 import "../src/lib/i18n";
 import "./App.css";
@@ -26,7 +24,6 @@ const defineVariableHeight = () => {
 window.addEventListener("resize", defineVariableHeight);
 
 const App = observer(() => {
-  const [loginWithCode, setLoginWithCode] = useState(false);
   const { i18n } = useTranslation();
 
   useEffect(() => {
@@ -72,19 +69,7 @@ const App = observer(() => {
             <Route path="/:key" children={<GalleryOverlaySimple />} />
             <Route path="/">
               <div className="App__flex">
-                {authStore.hasAccess ? (
-                  <Gallery />
-                ) : (
-                  <Fragment>
-                    <LanguageDropDown />
-                    <div className="App__title">&nbsp;kinkograph</div>
-                    <Login loginWithCode={loginWithCode} />
-                    <FooterStartPage
-                      loginWithCode={loginWithCode}
-                      setLoginWithCode={setLoginWithCode}
-                    />
-                  </Fragment>
-                )}
+                {authStore.hasAccess ? <Gallery /> : <Welcome />}
               </div>
             </Route>
           </Switch>
