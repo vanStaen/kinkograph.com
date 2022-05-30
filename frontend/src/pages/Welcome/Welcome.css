@@ -13,3 +13,14 @@
     background-repeat: no-repeat;
     background-size: cover; 
 }
+
+.welcome__container {
+    /*
+    padding: 15px 15px 0px 15px;
+    border: 1px solid rgba(255,255,255,.15);
+    background-color: rgba(0,0,0,.75);
+    border-radius: 5px;
+    */
+    padding: 15px 15px 0px 15px;
+    
+}
