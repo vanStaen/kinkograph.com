@@ -161,7 +161,7 @@ export const LoginForm = () => {
           style={{ display: "inline-block", width: "calc(50%)" }}
         >
           <Checkbox className="login__remember">
-            <span>{t("login.rememberMe")}</span>
+            {t("login.rememberMe")}
           </Checkbox>
         </Form.Item>
 
