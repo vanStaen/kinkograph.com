@@ -57,7 +57,7 @@ router.post("/", async (req, res) => {
       throw new Error(`Email already associated with an account!`);
     }
     await userService.addUser(req.body.userInput);
-    res.status(201).json({ message: "Success! User have been created." });
+    res.status(201).json({ message: "Success! User has been created." });
   } catch (err) {
     res.status(400).json({
       error: `${err}`,
