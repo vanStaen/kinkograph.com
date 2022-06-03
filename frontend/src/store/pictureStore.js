@@ -87,7 +87,7 @@ export class PictureStore {
         const numberOfNewPictures = totalPictures - userStore.numberOfPicAtLastLogin
         notification.open({
           message: `There is ${numberOfNewPictures} new picture${numberOfNewPictures > 1 && 's'} since your last visit.`,
-          placement: "bottomRight",
+          placement: "bottomLeft",
           className: "app__blackNotification",
           duration: 5,
           icon: <CameraOutlined style={{ color: '#666' }} />,

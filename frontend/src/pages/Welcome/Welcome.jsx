@@ -11,6 +11,7 @@ import {
   getTotalPictures,
 } from "../../store/calls/getPictures";
 import { getTagsCount } from "../../store/calls/getTags";
+import { authStore } from "../../store/authStore";
 
 import "./Welcome.css";
 
@@ -29,31 +30,35 @@ export const Welcome = () => {
 
     if (numbNewPicSince30Days > 0) {
       setTimeout(() => {
-        notification.open({
-          message: `${numbNewPicSince30Days} 
+        if (authStore.hasAccess === false) {
+          notification.open({
+            message: `${numbNewPicSince30Days} 
                     ${t("welcome.newPicturesAdded")} 
                     ${COUNT_PICTURE_SINCE_DAYS} 
                     ${t("welcome.days")}`,
-          placement: "bottomLeft",
-          className: "app__blackNotification",
-          duration: 0,
-          icon: <CameraOutlined style={{ color: "#666" }} />,
-        });
+            placement: "bottomLeft",
+            className: "app__blackNotification",
+            duration: 0,
+            icon: <CameraOutlined style={{ color: "#666" }} />,
+          });
+        }
       }, "3000");
     }
 
     setTimeout(() => {
-      notification.open({
-        message: `${t("welcome.aTotalOf")} 
+      if (authStore.hasAccess === false) {
+        notification.open({
+          message: `${t("welcome.aTotalOf")} 
                   ${totalPictures} 
                   ${t("welcome.picOrganisedWith")} 
                   ${totalTags} 
                   ${t("welcome.tagsKeywords")}`,
-        placement: "bottomLeft",
-        className: "app__blackNotification",
-        duration: 0,
-        icon: <FileImageOutlined style={{ color: "#666" }} />,
-      });
+          placement: "bottomLeft",
+          className: "app__blackNotification",
+          duration: 0,
+          icon: <FileImageOutlined style={{ color: "#666" }} />,
+        });
+      }
     }, "6000");
   };
 
