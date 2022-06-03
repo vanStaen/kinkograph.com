@@ -247,14 +247,20 @@ router.post('/page/', async (req, res) => {
 
 // POST: Get Total of pictures, with filter
 router.post('/total/', async (req, res) => {
-  if (!req.isAuth) {
-    res.status(401).json({
-      error: 'Unauthorized'
-    })
-    return
-  }
   try {
     const count = await pictureService.countPictures(false, req.body.filter)
+    res.status(201).json(count)
+  } catch (err) {
+    res.status(400).json({
+      error: `${err})`
+    })
+  }
+})
+
+// POST: Get Total of pictures, with filter
+router.get('/total/:days', async (req, res) => {
+  try {
+    const count = await pictureService.countPicturesSinceDays(req.params.days)
     res.status(201).json(count)
   } catch (err) {
     res.status(400).json({

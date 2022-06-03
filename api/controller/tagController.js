@@ -21,6 +21,18 @@ router.get("/", async (req, res) => {
   }
 });
 
+// GET tags count
+router.get("/count/", async (req, res) => {
+    try {
+    const tags = await tagService.getTagsCount();
+    res.status(201).json(tags);
+  } catch (err) {
+    res.status(400).json({
+      error: `${err})`,
+    });
+  }
+});
+
 // POST return tags coresponding to a filter
 router.post("/filter/", async (req, res) => {
   if (!req.isAuth) {

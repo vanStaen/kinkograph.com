@@ -7,6 +7,11 @@ exports.tagService = {
     });
   },
 
+  async getTagsCount() {
+    const {count} = await Tag.findAndCountAll();
+    return count
+  },
+
   async addTag(tag) {
     try {
       const newTag = new Tag({
