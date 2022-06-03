@@ -1,7 +1,7 @@
 import React from "react";
 import { action, makeObservable, observable } from "mobx";
 import { notification } from "antd";
-import { CameraOutlined } from '@ant-design/icons';
+import { CameraOutlined } from "@ant-design/icons";
 
 import { getFilteredTags } from "./calls/getTags";
 import { getPicturesPerPage, getTotalPictures } from "./calls/getPictures";
@@ -83,14 +83,20 @@ export class PictureStore {
       this.setAllPictures(pictures);
       this.setTotalPictures(totalPictures);
 
-      if (totalPictures > userStore.numberOfPicAtLastLogin && userStore.numberOfPicAtLastLogin !== null) {
-        const numberOfNewPictures = totalPictures - userStore.numberOfPicAtLastLogin
+      if (
+        totalPictures > userStore.numberOfPicAtLastLogin &&
+        userStore.numberOfPicAtLastLogin !== null
+      ) {
+        const numberOfNewPictures =
+          totalPictures - userStore.numberOfPicAtLastLogin;
         notification.open({
-          message: `There is ${numberOfNewPictures} new picture${numberOfNewPictures > 1 && 's'} since your last visit.`,
+          message: `There is ${numberOfNewPictures} new picture${
+            numberOfNewPictures > 1 ? "s" : ""
+          } since your last visit.`,
           placement: "bottomLeft",
           className: "app__blackNotification",
           duration: 5,
-          icon: <CameraOutlined style={{ color: '#666' }} />,
+          icon: <CameraOutlined style={{ color: "#666" }} />,
         });
       }
     } catch (err) {
@@ -191,7 +197,6 @@ export class PictureStore {
   setTags = (tags) => {
     this.tags = tags;
   };
-
 }
 
 export const pictureStore = new PictureStore();
