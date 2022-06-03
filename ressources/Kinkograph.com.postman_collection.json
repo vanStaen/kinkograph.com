@@ -612,6 +612,42 @@
 			"response": []
 		},
 		{
+			"name": "pictures/total/:days",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"filter\": [\"Erotica\", \"Arty\"]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5009/pictures/total/30",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"pictures",
+						"total",
+						"30"
+					]
+				},
+				"description": "Post request : new user (format Json)\nTo localserver on port 5000"
+			},
+			"response": []
+		},
+		{
 			"name": "pictures/favorites",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {}
@@ -799,7 +835,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"fingerprint\": \"0010111100000111000001111100011111000111000001111100111100000011\"\n}"
+					"raw": "{\n    \"id\": 1870,\n    \"fingerprint\": \"0011110000111100000111000001111100101110000111100000111000111110\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:5009/pictures/duplicate/fingerprint/",
@@ -811,6 +847,42 @@
 					"path": [
 						"pictures",
 						"duplicate",
+						"fingerprint",
+						""
+					]
+				},
+				"description": "Post request : new user (format Json)\nTo localserver on port 5000"
+			},
+			"response": []
+		},
+		{
+			"name": "pictures/similar/fingerprint/",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1870,\n    \"threshold\": 80,\n    \"fingerprint\": \"0011110000111100000111000001111100101110000111100000111000111110\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5009/pictures/similar/fingerprint/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"pictures",
+						"similar",
 						"fingerprint",
 						""
 					]
@@ -855,6 +927,27 @@
 					"port": "5009",
 					"path": [
 						"tags"
+					]
+				},
+				"description": "GET request : list of all users\nTo localserver on port 5000\n"
+			},
+			"response": []
+		},
+		{
+			"name": "tags/count",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5009/tags/count",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5009",
+					"path": [
+						"tags",
+						"count"
 					]
 				},
 				"description": "GET request : list of all users\nTo localserver on port 5000\n"
