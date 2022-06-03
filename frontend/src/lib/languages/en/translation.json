@@ -78,5 +78,12 @@
     "emailAlreadyInUse": "Email is already in use",
     "over18": "Please confirm that you are at least 18, and aware that this site may contain pornographic content.",
     "pleaseConfirm18": "Please confirm that you are not underage!"
+  },
+  "welcome": {
+    "newPicturesAdded" : "new pictures have been added in the last",
+    "days": "days",
+    "aTotalOf": "A total of",
+    "picOrganisedWith": "pictures, organised with the help of",
+    "tagsKeywords": "tags/keywords"
   }
 }

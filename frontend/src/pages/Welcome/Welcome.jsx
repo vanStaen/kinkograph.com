@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { notification } from "antd";
 import { CameraOutlined, FileImageOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 import { Login } from "../../component/Login/Login";
 import { FooterStartPage } from "../../component/FooterStartPage/FooterStartPage";
@@ -16,6 +17,7 @@ import "./Welcome.css";
 const COUNT_PICTURE_SINCE_DAYS = 30;
 
 export const Welcome = () => {
+  const { t } = useTranslation();
   const [loginWithCode, setLoginWithCode] = useState(false);
 
   const teaserNotifications = async () => {
@@ -24,18 +26,29 @@ export const Welcome = () => {
     );
     const totalPictures = await getTotalPictures();
     const totalTags = await getTagsCount();
+
+    if (numbNewPicSince30Days > 0) {
+      setTimeout(() => {
+        notification.open({
+          message: `${numbNewPicSince30Days} 
+                    ${t("welcome.newPicturesAdded")} 
+                    ${COUNT_PICTURE_SINCE_DAYS} 
+                    ${t("welcome.days")}`,
+          placement: "bottomLeft",
+          className: "app__blackNotification",
+          duration: 0,
+          icon: <CameraOutlined style={{ color: "#666" }} />,
+        });
+      }, "3000");
+    }
+
     setTimeout(() => {
       notification.open({
-        message: `${numbNewPicSince30Days} new pictures have been added in the last ${COUNT_PICTURE_SINCE_DAYS} days`,
-        placement: "bottomLeft",
-        className: "app__blackNotification",
-        duration: 0,
-        icon: <CameraOutlined style={{ color: "#666" }} />,
-      });
-    }, "3000");
-    setTimeout(() => {
-      notification.open({
-        message: `A total of ${totalPictures} picture organised within ${totalTags} tags/keywords`,
+        message: `${t("welcome.aTotalOf")} 
+                  ${totalPictures} 
+                  ${t("welcome.picOrganisedWith")} 
+                  ${totalTags} 
+                  ${t("welcome.tagsKeywords")}`,
         placement: "bottomLeft",
         className: "app__blackNotification",
         duration: 0,

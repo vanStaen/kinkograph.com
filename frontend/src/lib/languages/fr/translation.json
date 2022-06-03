@@ -78,5 +78,12 @@
     "emailAlreadyInUse": "Email déja utlisé",
     "over18": "Merci de confirmer que vous étes majeur, et conscient que ce site peux contenir un charactére Pornographique.",
     "pleaseConfirm18": "Merci de confirmer que vous n'étes pas mineur!"
+  },
+  "welcome": {
+    "newPicturesAdded" : "nouvelles images ajoutées dans les derniers",
+    "days": "jours",
+    "aTotalOf": "En tout",
+    "picOrganisedWith": "photos, organisées a l'aide de",
+    "tagsKeywords": "mot-clefs"
   }
 }
