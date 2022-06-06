@@ -12,6 +12,7 @@ import {
 } from "../../store/calls/getPictures";
 import { getTagsCount } from "../../store/calls/getTags";
 import { authStore } from "../../store/authStore";
+import { isMobileCheck } from "../../helpers/checkMobileTablet";
 
 import "./Welcome.css";
 
@@ -63,7 +64,9 @@ export const Welcome = () => {
   };
 
   useEffect(() => {
-    teaserNotifications().catch(console.error);
+    if (!isMobileCheck) {
+      teaserNotifications().catch(console.error);
+    }
   }, []);
 
   return (
