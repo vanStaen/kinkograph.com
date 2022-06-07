@@ -53,13 +53,11 @@ export const Gallery = observer(() => {
           if (throttling.current === false) {
             throttling.current = true;
             if (keyPressed === "arrowright" && !pictureStore.lastPageReached) {
-              pictureStore.setShowFilterSelect(false);
               nextPageLocalHandler(true);
             } else if (
               keyPressed === "arrowleft" &&
               pictureStore.pageNumber > 1
             ) {
-              pictureStore.setShowFilterSelect(false);
               nextPageLocalHandler(false);
             } else if (keyPressed === "arrowdown") {
               scroll("down");
@@ -102,48 +100,48 @@ export const Gallery = observer(() => {
           <div className="gallery__spinnerText">loading</div>
         </div>
       ) : (
-          <Fragment>
-            {pictureStore.showOverlay && <GalleryOverlay />}
-            <div>
-              <div className="gallery__main">
-                {pictureStore.allPictures.map((picture, index) => {
-                  return (
-                    <div className="gallery__picture" key={index}>
-                      <PictureThumb picture={picture} key={picture.id} />
-                    </div>
-                  );
-                })}
-              </div>
-              {!onlyOnePage && (
-                <div className="gallery__next">
-                  <div className="gallery__nextTextContainer">
-                    {pictureStore.pageNumber === 1 ? (
-                      "Previous"
-                    ) : (
-                        <span
-                          className="gallery__nextText"
-                          onClick={() => nextPageLocalHandler(false)}
-                        >
-                          Previous
-                        </span>
-                      )}
-                    {" | "}
-                    {pictureStore.lastPageReached ? (
-                      "Next"
-                    ) : (
-                        <span
-                          className="gallery__nextText"
-                          onClick={() => nextPageLocalHandler(true)}
-                        >
-                          Next
-                        </span>
-                      )}
+        <Fragment>
+          {pictureStore.showOverlay && <GalleryOverlay />}
+          <div>
+            <div className="gallery__main">
+              {pictureStore.allPictures.map((picture, index) => {
+                return (
+                  <div className="gallery__picture" key={index}>
+                    <PictureThumb picture={picture} key={picture.id} />
                   </div>
-                </div>
-              )}
+                );
+              })}
             </div>
-          </Fragment>
-        )}
+            {!onlyOnePage && (
+              <div className="gallery__next">
+                <div className="gallery__nextTextContainer">
+                  {pictureStore.pageNumber === 1 ? (
+                    "Previous"
+                  ) : (
+                    <span
+                      className="gallery__nextText"
+                      onClick={() => nextPageLocalHandler(false)}
+                    >
+                      Previous
+                    </span>
+                  )}
+                  {" | "}
+                  {pictureStore.lastPageReached ? (
+                    "Next"
+                  ) : (
+                    <span
+                      className="gallery__nextText"
+                      onClick={() => nextPageLocalHandler(true)}
+                    >
+                      Next
+                    </span>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </Fragment>
+      )}
     </div>
   );
 });
