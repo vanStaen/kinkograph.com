@@ -25,6 +25,7 @@ export class PictureStore {
   lastPageReached = false;
   showOverlay = false;
   isGalleryLoading = true;
+  isGalleryLazyLoading = false;
   galleryNeedsRefresh = true;
   isTagInputActive = false;
   allPictures = [];
@@ -51,9 +52,12 @@ export class PictureStore {
       setFilter: action,
       isGalleryLoading: observable,
       setIsGalleryLoading: action,
+      isGalleryLazyLoading: observable,
+      setIsGalleryLazyLoading: action,
       galleryNeedsRefresh: observable,
       setGalleryNeedsRefresh: action,
       fetchPictures: action,
+      fetchNewAndAddPictures: action,
       nextPageHandler: action,
       goToPageHandler: action,
       tags: observable,
@@ -105,6 +109,27 @@ export class PictureStore {
     pictureStore.setIsGalleryLoading(false);
   };
 
+  fetchNewAndAddPictures = async () => {
+    try {
+      const nextPictures = await getPicturesPerPage(
+        this.pageNumber,
+        this.PAGE_SIZE,
+        this.filter
+      );
+      if (nextPictures.length < this.PAGE_SIZE) {
+        pictureStore.setLastPageReached(true);
+      } else {
+        pictureStore.setLastPageReached(false);
+      }
+      await Promise.all(nextPictures.map((picture) => loadImage(picture)));
+      const concatArrayPictures = this.allPictures.concat(nextPictures)
+      this.setAllPictures(concatArrayPictures);
+    } catch (err) {
+      console.log(err);
+    }
+    pictureStore.setIsGalleryLazyLoading(false);
+  };
+
   nextPageHandler = async (next) => {
     pictureStore.setIsGalleryLoading(true);
     if (next) {
@@ -116,6 +141,12 @@ export class PictureStore {
       this.pageNumber = previousPage;
       await this.fetchPictures(previousPage);
     }
+  };
+
+  nextPageLazyLoader = async () => {
+      const nextPage = this.pageNumber + 1;
+      this.pageNumber = nextPage;
+      await this.fetchNewAndAddPictures(nextPage);
   };
 
   goToPageHandler = async (page) => {
@@ -184,6 +215,10 @@ export class PictureStore {
 
   setIsGalleryLoading = (isGalleryLoading) => {
     this.isGalleryLoading = isGalleryLoading;
+  };
+
+  setIsGalleryLazyLoading = (isGalleryLazyLoading) => {
+    this.isGalleryLazyLoading = isGalleryLazyLoading;
   };
 
   setGalleryNeedsRefresh = (galleryNeedsRefresh) => {

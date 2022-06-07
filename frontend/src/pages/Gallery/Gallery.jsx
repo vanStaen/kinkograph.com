@@ -6,14 +6,13 @@ import { pictureStore } from "../../store/pictureStore";
 import { PictureThumb } from "../../component/PictureThumb/PictureThumb";
 import { GalleryOverlay } from "../../component/GalleryOverlay/GalleryOverlay";
 import { GalleryHeader } from "./GalleryHeader/GalleryHeader";
+import { GalleryFooter } from "./GalleryFooter/GalleryFooter";
 import { FavoritesDrawer } from "../../component/FavoritesDrawer/FavoritesDrawer";
 
 import "./Gallery.css";
 
 export const Gallery = observer(() => {
   const throttling = useRef(false);
-  const onlyOnePage =
-    pictureStore.pageNumber === 1 && pictureStore.lastPageReached;
 
   useEffect(() => {
     if (pictureStore.galleryNeedsRefresh) {
@@ -22,6 +21,25 @@ export const Gallery = observer(() => {
     }
     // eslint-disable-next-line
   }, [pictureStore.galleryNeedsRefresh]);
+
+  useEffect(() => {
+    document.addEventListener("keydown", keyDownHandler);
+    document.addEventListener("scroll", scrollHandler);
+    return () => {
+      document.removeEventListener("keydown", keyDownHandler);
+      document.removeEventListener("scroll", scrollHandler);
+    };
+  }, []);
+
+  const scrollHandler = () => {
+    if (
+      window.innerHeight + window.scrollY >=
+      document.body.scrollHeight * 0.9
+    ) {
+      pictureStore.nextPageLazyLoader();
+      pictureStore.fetchNewAndAddPictures();
+    }
+  };
 
   const scroll = useCallback((direction) => {
     const eightyPerCentOfHeight = window.innerHeight * 0.8;
@@ -83,13 +101,6 @@ export const Gallery = observer(() => {
     });
   };
 
-  useEffect(() => {
-    document.addEventListener("keydown", keyDownHandler);
-    return () => {
-      document.removeEventListener("keydown", keyDownHandler);
-    };
-  }, [keyDownHandler]);
-
   return (
     <div className="gallery">
       <GalleryHeader />
@@ -112,33 +123,7 @@ export const Gallery = observer(() => {
                 );
               })}
             </div>
-            {!onlyOnePage && (
-              <div className="gallery__next">
-                <div className="gallery__nextTextContainer">
-                  {pictureStore.pageNumber === 1 ? (
-                    "Previous"
-                  ) : (
-                    <span
-                      className="gallery__nextText"
-                      onClick={() => nextPageLocalHandler(false)}
-                    >
-                      Previous
-                    </span>
-                  )}
-                  {" | "}
-                  {pictureStore.lastPageReached ? (
-                    "Next"
-                  ) : (
-                    <span
-                      className="gallery__nextText"
-                      onClick={() => nextPageLocalHandler(true)}
-                    >
-                      Next
-                    </span>
-                  )}
-                </div>
-              </div>
-            )}
+            <GalleryFooter />
           </div>
         </Fragment>
       )}
