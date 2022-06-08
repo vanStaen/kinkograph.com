@@ -71,11 +71,16 @@ export const Gallery = observer(() => {
         if (!pictureStore.showOverlay && !pictureStore.isTagInputActive) {
           if (throttling.current === false) {
             throttling.current = true;
-            if (keyPressed === "arrowright" && !pictureStore.lastPageReached) {
+            if (
+              keyPressed === "arrowright" &&
+              !pictureStore.lastPageReached &&
+              !pictureStore.isGalleryLazyMode
+            ) {
               nextPageLocalHandler(true);
             } else if (
               keyPressed === "arrowleft" &&
-              pictureStore.pageNumber > 1
+              pictureStore.pageNumber > 1 &&
+              !pictureStore.isGalleryLazyMode
             ) {
               nextPageLocalHandler(false);
             } else if (keyPressed === "arrowdown") {

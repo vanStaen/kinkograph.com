@@ -27,6 +27,7 @@ export class PictureStore {
   showOverlay = false;
   isGalleryLoading = true;
   isGalleryLazyLoading = false;
+  isGalleryLazyMode = false;
   galleryNeedsRefresh = true;
   isTagInputActive = false;
   allPictures = [];
@@ -54,6 +55,7 @@ export class PictureStore {
       isGalleryLoading: observable,
       setIsGalleryLoading: action,
       isGalleryLazyLoading: observable,
+      isGalleryLazyMode: observable,
       galleryNeedsRefresh: observable,
       setGalleryNeedsRefresh: action,
       fetchPictures: action,
@@ -144,7 +146,10 @@ export class PictureStore {
   };
 
   nextPageLazyLoader = async (windowHeight) => {
-    if (!this.isGalleryLazyLoading) {
+    if (!this.isGalleryLazyMode){
+      this.isGalleryLazyMode = true;
+    }
+    if (!this.isGalleryLazyLoading && !this.lastPageReached) {
       const nextPage = this.pageNumber + 1;
       this.isGalleryLazyLoading = true;
       await this.fetchNewAndAddPictures(nextPage);

@@ -192,24 +192,34 @@ export const GalleryHeader = observer(() => {
           placement="bottomRight"
           title={
             <span>
-              <b>TIP: </b>You can use the ← and → keys to navigate through the
-              pages, and the ↑ and ↓ keys to scroll the page.
+              <b>TIP: </b>
+              {`You can use the ${
+                !pictureStore.isGalleryLazyMode
+                  ? "← and → keys to navigate through the pages, and the"
+                  : ""
+              } ↑ and ↓ keys to scroll the page.`}
             </span>
           }
         >
           <div className="galleryHeader__pageInfo">
             <div className="galleryHeader__BigFont">
-              <b>
-                Page{" "}
-                <div
-                  className="galleryHeader__PageSelector"
-                  contentEditable="true"
-                  onInput={onPageInputhandler}
-                  onKeyPress={onPageInputKeyPressHanlder}
-                >
-                  {pictureStore.pageNumber}
-                </div>
-              </b>
+              {!pictureStore.isGalleryLazyMode ? (
+                <b>
+                  Page
+                  <div
+                    className="galleryHeader__PageSelector"
+                    contentEditable="true"
+                    onInput={onPageInputhandler}
+                    onKeyPress={onPageInputKeyPressHanlder}
+                  >
+                    {pictureStore.pageNumber}
+                  </div>
+                </b>
+              ) : (
+                <span style={{ fontSize: "0.8em" }}>
+                  Loaded pages {pictureStore.pageNumber}
+                </span>
+              )}
               <span style={{ fontSize: "0.7em" }}>
                 {" "}
                 /{!isMobile && " "}
@@ -218,7 +228,10 @@ export const GalleryHeader = observer(() => {
             </div>
             {!isMobile && (
               <div className="galleryHeader__SmallFont">
-                {(pictureStore.pageNumber - 1) * pictureStore.PAGE_SIZE + 1}-
+                {pictureStore.isGalleryLazyMode
+                  ? 1
+                  : (pictureStore.pageNumber - 1) * pictureStore.PAGE_SIZE + 1}
+                {}-
                 {Math.min(
                   pictureStore.pageNumber * pictureStore.PAGE_SIZE,
                   pictureStore.totalPictures
