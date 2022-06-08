@@ -36,8 +36,9 @@ export const Gallery = observer(() => {
       window.innerHeight + window.scrollY >=
       document.body.scrollHeight * 0.9
     ) {
-      pictureStore.nextPageLazyLoader();
-      pictureStore.fetchNewAndAddPictures();
+      setTimeout(() => {
+        pictureStore.nextPageLazyLoader();
+      }, "3000");
     }
   };
 

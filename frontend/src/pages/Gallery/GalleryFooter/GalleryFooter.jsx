@@ -31,19 +31,13 @@ export const GalleryFooter = observer(() => {
         </span>
       </div>
     </div>
-  ) : pictureStore.isGalleryLazyLoading ? (
+  ) : (
     <div className="galleryFooter__next">
       <div className="galleryFooter__nextContainer">
         <LoadingOutlined className="galleryFooter__spinner" />
         <br />
         <span className="galleryFooter__thin">Loading page</span>{" "}
-        {pictureStore.pageNumber + 1} of {maxPage}
-      </div>
-    </div>
-  ) : (
-    <div className="galleryFooter__next">
-      <div className="galleryFooter__nextContainer">
-        Jeez, I don't Rick, this doesn't seems right.
+        {pictureStore.pageNumber} of {maxPage}
       </div>
     </div>
   );

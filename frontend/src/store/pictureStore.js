@@ -53,7 +53,6 @@ export class PictureStore {
       isGalleryLoading: observable,
       setIsGalleryLoading: action,
       isGalleryLazyLoading: observable,
-      setIsGalleryLazyLoading: action,
       galleryNeedsRefresh: observable,
       setGalleryNeedsRefresh: action,
       fetchPictures: action,
@@ -116,18 +115,13 @@ export class PictureStore {
         this.PAGE_SIZE,
         this.filter
       );
-      if (nextPictures.length < this.PAGE_SIZE) {
-        pictureStore.setLastPageReached(true);
-      } else {
-        pictureStore.setLastPageReached(false);
-      }
       await Promise.all(nextPictures.map((picture) => loadImage(picture)));
       const concatArrayPictures = this.allPictures.concat(nextPictures)
       this.setAllPictures(concatArrayPictures);
+      this.isGalleryLazyLoading = false;
     } catch (err) {
       console.log(err);
     }
-    pictureStore.setIsGalleryLazyLoading(false);
   };
 
   nextPageHandler = async (next) => {
@@ -144,9 +138,12 @@ export class PictureStore {
   };
 
   nextPageLazyLoader = async () => {
-      const nextPage = this.pageNumber + 1;
-      this.pageNumber = nextPage;
-      await this.fetchNewAndAddPictures(nextPage);
+      if (!this.isGalleryLazyLoading) {
+        const nextPage = this.pageNumber + 1;
+        this.pageNumber = nextPage;
+        this.isGalleryLazyLoading = true;
+        await this.fetchNewAndAddPictures(nextPage);
+      }
   };
 
   goToPageHandler = async (page) => {
@@ -215,10 +212,6 @@ export class PictureStore {
 
   setIsGalleryLoading = (isGalleryLoading) => {
     this.isGalleryLoading = isGalleryLoading;
-  };
-
-  setIsGalleryLazyLoading = (isGalleryLazyLoading) => {
-    this.isGalleryLazyLoading = isGalleryLazyLoading;
   };
 
   setGalleryNeedsRefresh = (galleryNeedsRefresh) => {
