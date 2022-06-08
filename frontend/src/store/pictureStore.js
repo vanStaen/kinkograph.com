@@ -6,6 +6,7 @@ import { CameraOutlined } from "@ant-design/icons";
 import { getFilteredTags } from "./calls/getTags";
 import { getPicturesPerPage, getTotalPictures } from "./calls/getPictures";
 import { userStore } from "./userStore";
+import { insertPageNotation } from "../pages/Gallery/insertPageNotation";
 
 const loadImage = (image) => {
   return new Promise((resolve, reject) => {
@@ -108,15 +109,20 @@ export class PictureStore {
     pictureStore.setIsGalleryLoading(false);
   };
 
-  fetchNewAndAddPictures = async () => {
+  fetchNewAndAddPictures = async (nextPage) => {
     try {
       const nextPictures = await getPicturesPerPage(
-        this.pageNumber,
+        nextPage,
         this.PAGE_SIZE,
         this.filter
       );
+      if (nextPictures.length < this.PAGE_SIZE) {
+        pictureStore.setLastPageReached(true);
+      } else {
+        pictureStore.setLastPageReached(false);
+      }
       await Promise.all(nextPictures.map((picture) => loadImage(picture)));
-      const concatArrayPictures = this.allPictures.concat(nextPictures)
+      const concatArrayPictures = this.allPictures.concat(nextPictures);
       this.setAllPictures(concatArrayPictures);
       this.isGalleryLazyLoading = false;
     } catch (err) {
@@ -137,13 +143,14 @@ export class PictureStore {
     }
   };
 
-  nextPageLazyLoader = async () => {
-      if (!this.isGalleryLazyLoading) {
-        const nextPage = this.pageNumber + 1;
-        this.pageNumber = nextPage;
-        this.isGalleryLazyLoading = true;
-        await this.fetchNewAndAddPictures(nextPage);
-      }
+  nextPageLazyLoader = async (windowHeight) => {
+    if (!this.isGalleryLazyLoading) {
+      const nextPage = this.pageNumber + 1;
+      this.isGalleryLazyLoading = true;
+      await this.fetchNewAndAddPictures(nextPage);
+      insertPageNotation(windowHeight, nextPage);
+      this.setPageNumber(nextPage);
+    }
   };
 
   goToPageHandler = async (page) => {

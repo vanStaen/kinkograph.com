@@ -34,11 +34,11 @@ export const Gallery = observer(() => {
   const scrollHandler = () => {
     if (
       window.innerHeight + window.scrollY >=
-      document.body.scrollHeight * 0.9
+      document.body.scrollHeight * 0.95
     ) {
       setTimeout(() => {
-        pictureStore.nextPageLazyLoader();
-      }, "1000");
+        pictureStore.nextPageLazyLoader(document.body.scrollHeight);
+      }, "500");
     }
   };
 
@@ -103,7 +103,7 @@ export const Gallery = observer(() => {
   };
 
   return (
-    <div className="gallery">
+    <div className="gallery" id="gallery">
       <GalleryHeader />
       <FavoritesDrawer />
       {pictureStore.isGalleryLoading ? (

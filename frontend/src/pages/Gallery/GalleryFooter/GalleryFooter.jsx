@@ -13,23 +13,22 @@ export const GalleryFooter = observer(() => {
   );
 
   return pictureStore.lastPageReached ? (
-    <div className="galleryFooter__next">
-      <div className="galleryFooter__nextContainer">
-        <span className="galleryFooter__thin">
-          You reached the end of the internet.
-        </span>
-        <span
-          onClick={() => {
-            window.scroll({
-              top: 0,
-              left: 0,
-              behavior: "smooth",
-            });
-          }}
-        >
-          Scroll back to the top
-        </span>
-      </div>
+    <div className="galleryFooter__nextContainer">
+      <span className="galleryFooter__thin">
+        You reached the end of the internet.{" "}
+      </span>
+      <span
+        className="link"
+        onClick={() => {
+          window.scroll({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+          });
+        }}
+      >
+        Scroll back to the top
+      </span>
     </div>
   ) : (
     <div className="galleryFooter__next">
@@ -37,7 +36,7 @@ export const GalleryFooter = observer(() => {
         <LoadingOutlined className="galleryFooter__spinner" />
         <br />
         <span className="galleryFooter__thin">Loading page</span>{" "}
-        {pictureStore.pageNumber} of {maxPage}
+        {pictureStore.pageNumber + 1} of {maxPage}
       </div>
     </div>
   );
