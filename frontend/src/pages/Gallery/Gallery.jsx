@@ -38,7 +38,7 @@ export const Gallery = observer(() => {
     ) {
       setTimeout(() => {
         pictureStore.nextPageLazyLoader();
-      }, "3000");
+      }, "1000");
     }
   };
 
