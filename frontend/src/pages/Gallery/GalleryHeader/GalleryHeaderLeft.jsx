@@ -19,7 +19,7 @@ export const GalleryHeaderLeft = observer(() => {
     if (!showFilter) {
       setShowFilter(true);
       setTimeout(() => {
-        filterElement[0].style.width = "300px";
+        filterElement[0].style.width = "min(300px, calc(100% - 40px))";
       }, [50]);
     } else {
       filterElement[0].style.width = "0px";

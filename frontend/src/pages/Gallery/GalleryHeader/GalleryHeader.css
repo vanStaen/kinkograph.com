@@ -78,3 +78,17 @@
   font-weight: 200;
   letter-spacing: 17px;
 }
+
+
+@media (max-width: 800px) {
+  .galleryHeader__right {
+    width: 50%;
+  }
+  .galleryHeader__left {
+    width: 50%;
+  }
+  .galleryHeader__center {
+    width: 0%;
+    display: none;
+  }
+}
