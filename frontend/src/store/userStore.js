@@ -4,6 +4,7 @@ import { getUserInfo } from "./calls/getUserInfo";
 import { favoriteStore } from "./favoriteStore";
 
 export class UserStore {
+  isLoading = true;
   email = null;
   firstname = null;
   lastname = null;
@@ -16,6 +17,7 @@ export class UserStore {
   constructor() {
     makeObservable(this, {
       fetchUserData: action,
+      isLoading: observable,
       email: observable,
       setEmail: action,
       firstname: observable,
@@ -82,6 +84,7 @@ export class UserStore {
       if (userData.is_admin) {
         userStore.setIsAdmin(userData.is_admin);
       }
+      this.isLoading = false;
     }
   };
 }

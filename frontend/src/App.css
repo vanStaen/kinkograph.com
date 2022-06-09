@@ -75,11 +75,11 @@
 /* Select custom */
 .ant-select-selector {
   color: #000 !important;
-  background-color: rgba(255, 255, 255, 0.05) !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
   border-top: 1px !important;
   border-right: 1px !important;
   border-left: 1px !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
 }
 .ant-select-item {
   color: #fff !important;
@@ -96,6 +96,13 @@
 }
 .ant-select-selection-search {
   color: #fff !important;
+}
+
+.ant-select-focused .ant-select-selector,
+.ant-select-selector:focus,
+.ant-select-selector:active,
+.ant-select-open .ant-select-selector {
+  box-shadow: none !important;
 }
 
 /* Input custom */

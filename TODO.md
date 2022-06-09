@@ -29,6 +29,7 @@
   - [ ] Detect if images is a duplicate on upload
   - [ ] Detect if images is a duplicate on Tag selection
   - [ ] Admin page to identify image with almost identical hash
+- [ ] Show badge on search icon when tag selected
   
 ## Completed ✓
 
