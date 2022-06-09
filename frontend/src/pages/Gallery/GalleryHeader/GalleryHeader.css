@@ -87,7 +87,7 @@
 
 .galleryHeader__center .galleryHeader__selectFilter {
   font-size: .8em;
-  width: 200px;
+  width: 30vw;
 }
 
 .galleryHeader__logoutMobile {
@@ -101,6 +101,6 @@
 @media (max-width: 600px) {
   .galleryHeader__center .galleryHeader__selectFilter {
     font-size: 1em;
-    width: 100px;
+    width: 50vw;
   }
  }
