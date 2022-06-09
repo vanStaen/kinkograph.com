@@ -42,9 +42,11 @@ export const GalleryHeaderRight = observer(() => {
             className="galleryHeader__logout galleryHeader__logoutMobile"
             onClick={handleClickLogOut}
           >
-            <Link className="link" to="/admin/">
-              <AppstoreAddOutlined />
-            </Link>
+            <Tooltip placement="bottomLeft" title="Admin">
+              <Link className="link" to="/admin/">
+                <AppstoreAddOutlined />
+              </Link>{" "}
+            </Tooltip>
           </span>
         </>
       )}
