@@ -5,8 +5,7 @@ import {
   LoadingOutlined,
   LockOutlined,
   UnlockOutlined,
-  UserOutlined,
-  AppstoreAddOutlined,
+  SettingOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
@@ -54,7 +53,7 @@ export const GalleryHeaderRight = observer(() => {
           <span className="galleryHeader__logout galleryHeader__logoutMobile">
             <Tooltip title="Admin">
               <Link className="link" to="/admin/">
-                <AppstoreAddOutlined
+                <SettingOutlined
                   style={{ position: "relative", bottom: "-2px" }}
                 />
               </Link>{" "}
@@ -73,9 +72,15 @@ export const GalleryHeaderRight = observer(() => {
           <Tooltip title="Profil">
             <Badge count={userStore.isLoading ? 0 : 0} offset={[0, 5]}>
               <Avatar
-                src={userStore.avatar ? userStore.avatar : diaboliAvatar}
+                src={
+                  userStore.isLoading
+                    ? null
+                    : userStore.avatar
+                    ? userStore.avatar
+                    : diaboliAvatar
+                }
                 icon={userStore.isLoading && <Spin indicator={spinIcon} />}
-                style={userStore.isLoading && { backgroundColor: "#000" }}
+                style={{ backgroundColor: "#000" }}
                 size={40}
               />
             </Badge>

@@ -68,6 +68,7 @@
 .galleryHeader__fitlerIcon{
   position: relative;
   bottom: -3px;
+  font-size: 25px;
 }
 
 .galleryHeader__title {

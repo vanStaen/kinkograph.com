@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { observer } from "mobx-react";
-import { Select, Tooltip } from "antd";
+import { Badge, Select, Tooltip } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 
 import { pictureStore } from "../../../store/pictureStore";
@@ -12,22 +12,41 @@ export const GalleryHeaderLeft = observer(() => {
   const { Option } = Select;
   const [showFilter, setShowFilter] = useState(false);
 
-  const filterIconHandler = () => {
-    setShowFilter(!showFilter);
-    setTimeout(() => {
-      const filterElement = document.getElementsByClassName(
-        "galleryHeader__selectFilter"
-      );
-      filterElement[0].style.width = "300px";
-    }, [50]);
+  const filterIconClickHandler = () => {
+    const filterElement = document.getElementsByClassName(
+      "galleryHeader__selectFilter"
+    );
+    if (!showFilter) {
+      setShowFilter(true);
+      setTimeout(() => {
+        filterElement[0].style.width = "300px";
+      }, [50]);
+    } else {
+      filterElement[0].style.width = "0px";
+      setTimeout(() => {
+        setShowFilter(false);
+      }, [350]);
+    }
   };
 
-  const handleTagChange = useCallback(async (fitlerArray) => {
+  const handleTagChange = useCallback((fitlerArray) => {
     pictureStore.setIsGalleryLoading(true);
     const fitlerArrayCleaned = fitlerArray.map((tag) => {
       return capitalizeFirstLetter(tag);
     });
     pictureStore.setFilter(fitlerArrayCleaned);
+  }, []);
+
+  const handleSelectBlur = useCallback(() => {
+    if (pictureStore.filter.length === 0) {
+      const filterElement = document.getElementsByClassName(
+        "galleryHeader__selectFilter"
+      );
+      filterElement[0].style.width = "0px";
+      setTimeout(() => {
+        setShowFilter(false);
+      }, [350]);
+    }
   }, []);
 
   return (
@@ -41,10 +60,17 @@ export const GalleryHeaderLeft = observer(() => {
       }}
     >
       <Tooltip title="Filters">
-        <SearchOutlined
-          onClick={filterIconHandler}
-          className="galleryHeader__fitlerIcon"
-        />
+        <Badge
+          count={pictureStore.filter.length}
+          offset={[0, 5]}
+          size="small"
+          style={{ backgroundColor: "darkgoldenrod" }}
+        >
+          <SearchOutlined
+            onClick={filterIconClickHandler}
+            className="link galleryHeader__fitlerIcon"
+          />
+        </Badge>
       </Tooltip>
 
       {showFilter && (
@@ -52,6 +78,7 @@ export const GalleryHeaderLeft = observer(() => {
           mode="multiple"
           defaultValue={pictureStore.filter}
           onChange={handleTagChange}
+          onBlur={handleSelectBlur}
           className="galleryHeader__selectFilter"
           optionLabelProp="label"
           autoFocus={true}

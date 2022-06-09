@@ -29,7 +29,7 @@
   - [ ] Detect if images is a duplicate on upload
   - [ ] Detect if images is a duplicate on Tag selection
   - [ ] Admin page to identify image with almost identical hash
-- [ ] Show badge on search icon when tag selected
+- [ ] Footer EndOfInternet, only on NoFilterMode
   
 ## Completed ✓
 
@@ -71,3 +71,4 @@
   - [x] Use Session Cookie
   - [x] Rework Login component
   - [x] Refactor BackEnd to use Sequelise
+- [x] Show badge on search icon when tag selected
