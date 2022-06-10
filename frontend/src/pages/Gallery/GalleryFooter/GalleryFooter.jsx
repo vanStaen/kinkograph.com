@@ -13,23 +13,27 @@ export const GalleryFooter = observer(() => {
   );
 
   return pictureStore.lastPageReached ? (
-    <div className="galleryFooter__nextContainer">
-      <span className="galleryFooter__thin">
-        You reached the end of the internet.{" "}
-      </span>
-      <span
-        className="link"
-        onClick={() => {
-          window.scroll({
-            top: 0,
-            left: 0,
-            behavior: "smooth",
-          });
-        }}
-      >
-        Scroll back to the top
-      </span>
-    </div>
+    pictureStore.filter.length > 0 ? (
+      <div className="galleryFooter__nextContainer"></div>
+    ) : (
+      <div className="galleryFooter__nextContainer">
+        <span className="galleryFooter__thin">
+          You reached the end of the internet.{" "}
+        </span>
+        <span
+          className="link"
+          onClick={() => {
+            window.scroll({
+              top: 0,
+              left: 0,
+              behavior: "smooth",
+            });
+          }}
+        >
+          Scroll back to the top
+        </span>
+      </div>
+    )
   ) : (
     <div className="galleryFooter__next">
       <div className="galleryFooter__nextContainer">

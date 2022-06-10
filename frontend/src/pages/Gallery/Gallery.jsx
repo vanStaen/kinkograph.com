@@ -71,19 +71,7 @@ export const Gallery = observer(() => {
         if (!pictureStore.showOverlay && !pictureStore.isTagInputActive) {
           if (throttling.current === false) {
             throttling.current = true;
-            if (
-              keyPressed === "arrowright" &&
-              !pictureStore.lastPageReached &&
-              !pictureStore.isGalleryLazyMode
-            ) {
-              nextPageLocalHandler(true);
-            } else if (
-              keyPressed === "arrowleft" &&
-              pictureStore.pageNumber > 1 &&
-              !pictureStore.isGalleryLazyMode
-            ) {
-              nextPageLocalHandler(false);
-            } else if (keyPressed === "arrowdown") {
+            if (keyPressed === "arrowdown") {
               scroll("down");
             } else if (keyPressed === "arrowup") {
               scroll("up");
@@ -98,15 +86,6 @@ export const Gallery = observer(() => {
     [scroll]
   );
 
-  const nextPageLocalHandler = async (value) => {
-    await pictureStore.nextPageHandler(value);
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
-  };
-
   return (
     <div className="gallery" id="gallery">
       <GalleryHeader />
@@ -120,7 +99,7 @@ export const Gallery = observer(() => {
         <Fragment>
           {pictureStore.showOverlay && <GalleryOverlay />}
           <div>
-            <div className="gallery__main">
+            <div className="gallery__main" id="gallery-main">
               {pictureStore.allPictures.map((picture, index) => {
                 return (
                   <div className="gallery__picture" key={index}>
