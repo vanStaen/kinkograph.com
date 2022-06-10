@@ -54,11 +54,11 @@
 
 @media (max-width: 600px) {
   .gallery__main img {
-    height: 160px;
+    height: 180px;
     width: 100%;
   }
   .gallery__picture {
-    height: 160px;
+    height: 180px;
     width: 120px;
     margin: 5px;
     flex: auto;
