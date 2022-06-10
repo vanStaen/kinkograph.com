@@ -53,6 +53,15 @@ export const GalleryOverlay = observer(() => {
 
   useEffect(() => {
     selected && loadImage(selected.url_med);
+    //sroll to selected
+    const clientTop =
+      document.getElementById(`pic_${selected.id}`).getBoundingClientRect()
+        .top + window.scrollY;
+    window.scroll({
+      top: clientTop,
+      left: 0,
+      behavior: "smooth",
+    });
   }, [selected]);
 
   const mouseHoverHandler = (hover) => {
