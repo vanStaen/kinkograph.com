@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { CloudUploadOutlined, PictureOutlined, TagsOutlined, TeamOutlined } from '@ant-design/icons';
 
 import "./AdminHeader.css";
 
@@ -17,7 +18,7 @@ export const AdminHeader = (props) => {
         onClick={() => clickHandler("upload")}
       >
         <div className="adminHeader__elementTitle">
-          UPLOAD
+          <CloudUploadOutlined />
         </div>
       </div>
       <div
@@ -26,7 +27,7 @@ export const AdminHeader = (props) => {
         onClick={() => clickHandler("pic")}
       >
         <div className="adminHeader__elementTitle">
-          PICTURES
+          <PictureOutlined />
         </div>
       </div>
       <div
@@ -35,7 +36,7 @@ export const AdminHeader = (props) => {
         onClick={() => clickHandler("tag")}
       >
         <div className="adminHeader__elementTitle">
-          TAGS
+          <TagsOutlined />
         </div>
       </div>
       <div
@@ -44,7 +45,7 @@ export const AdminHeader = (props) => {
         onClick={() => clickHandler("user")}
       >
         <div className="adminHeader__elementTitle">
-          USERS
+          <TeamOutlined />
         </div>
       </div>
     </div>

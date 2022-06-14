@@ -12,7 +12,6 @@
 }
 
 .adminHeader__element {
-  padding-top: 1.2vh;
   display: inline-block;
   width: 25%;
   height: 5vh;
@@ -27,6 +26,7 @@
   align-items: center;
   justify-content: center;
   height: 100%; 
+  font-size: 28px;
 } 
 
 .adminHeader__element:Hover {
