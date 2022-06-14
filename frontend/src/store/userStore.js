@@ -18,6 +18,7 @@ export class UserStore {
     makeObservable(this, {
       fetchUserData: action,
       isLoading: observable,
+      setIsLoading: action,
       email: observable,
       setEmail: action,
       firstname: observable,
@@ -61,6 +62,10 @@ export class UserStore {
     this.isAdmin = isAdmin;
   };
 
+  setIsLoading = (isLoading) => {
+    this.isLoading = isLoading;
+  };
+
   setLastLogin = (lastLogin) => {
     this.lastLogin = lastLogin;
   };
@@ -84,7 +89,7 @@ export class UserStore {
       if (userData.is_admin) {
         userStore.setIsAdmin(userData.is_admin);
       }
-      this.isLoading = false;
+      this.setIsLoading(false);
     }
   };
 }

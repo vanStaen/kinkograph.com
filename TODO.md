@@ -72,3 +72,4 @@
   - [x] Rework Login component
   - [x] Refactor BackEnd to use Sequelise
 - [x] Show badge on search icon when tag selected
+- [x] Navigation in overlay scrolls the gallery accordingly
