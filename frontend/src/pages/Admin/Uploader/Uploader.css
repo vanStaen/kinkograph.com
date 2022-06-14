@@ -14,7 +14,7 @@
   border-radius: 2px;
   cursor: pointer;
   transition: border-color 0.3s, background 0.3s, color 0.3s;
-  font-size: 14px;
+  font-size: 10px;
   font-variant: tabular-nums;
   line-height: 1.5715;
   list-style: none;
@@ -23,7 +23,8 @@
   display: table-cell;
   vertical-align: middle;
   text-align: center;
-  height: 75vh;
+  height: 150px;
+  width: 150px; 
 }
 
 .inputfile:focus + label,
@@ -35,12 +36,12 @@
 
 .form-upload-drag-icon {
   color: #fff;
-  font-size: 48px;
+  font-size: 36px;
   margin-bottom: 0 !important;
 }
 
 .form-upload-hint {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .form-upload-text {
@@ -52,32 +53,20 @@
 }
 
 .Uploader__formContainer {
-  position: absolute;
-  top: 5vh;
-  left: 0px;
+  border: 1px solid transparent; 
 }
 
 .Uploader__formContent {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 95vh;
-}
-
-.Uploader__missingContainer {
-  position: absolute;
-  top: 5vh;
-  right: 2vw;
+  display: inline-block;
+  position: relative;
+  margin: 15px;
+  vertical-align: top;
 }
 
 .Uploader__missingContent {
-  padding-top: 8vh;
   display: inline-block;
   text-align: center;
-  width: 50vw;
-  height: 95vh;
+  margin-top: 20px;
 }
 
 .Uploader__spinner {

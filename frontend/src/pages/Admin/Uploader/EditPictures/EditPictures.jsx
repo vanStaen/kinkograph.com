@@ -22,9 +22,6 @@ export const EditPictures = (props) => {
   };
 
   const clickHandler = () => {
-    setTimeout(function () {
-      props.setShowUploader(false);
-    }, 300);
     setShowDrawer(true);
   };
 

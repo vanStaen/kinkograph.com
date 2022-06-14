@@ -17,7 +17,17 @@
   width: 25%;
   height: 5vh;
   transition: background-color .3s, font-weight .3s, color .3s;
+  height: 100%; 
 }
+
+.adminHeader__elementTitle {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%; 
+} 
 
 .adminHeader__element:Hover {
   background-color: rgba(255, 255, 255, 0.75);
@@ -27,4 +37,5 @@
 
 .adminHeader__elementSelected {
   background-color: rgba(255, 255, 255, 0.15);
+  height: 100%; 
 }

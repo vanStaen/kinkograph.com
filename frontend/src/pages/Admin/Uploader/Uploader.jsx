@@ -23,7 +23,6 @@ export const Uploader = observer(() => {
   const [isUploading, setIsUploading] = useState(false);
   const [isDragDroping, setIsDragDroping] = useState(false);
   const [picsTagsMissing, setPicsTagsMissing] = useState([]);
-  const [showUploader, setShowUploader] = useState(true);
   const [uploadProgress, setUploadProgress] = useState([0, 0]);
   const [limit, setLimit] = useState(null);
   const [missingCountAll, setMissingCountAll] = useState(null);
@@ -49,13 +48,13 @@ export const Uploader = observer(() => {
   const calculateMissingTagPicLimit = useCallback(() => {
     const pageWidth = window.innerWidth;
     const pageHeight = window.innerHeight;
-    const missingPicContainerWidth = Math.floor(pageWidth * 0.5);
+    const missingPicContainerWidth = pageWidth;
     const missingPicContainerHeight = Math.floor(pageHeight * (1 - 0.25));
     const numOfPicFittingInContainer =
       Math.floor(missingPicContainerWidth / (SIZE_PICTURE_MISSING_TAG + 34)) *
       Math.floor(missingPicContainerHeight / (SIZE_PICTURE_MISSING_TAG + 30));
-    setLimit(numOfPicFittingInContainer);
-    return numOfPicFittingInContainer;
+    setLimit(numOfPicFittingInContainer - 1); //-1 for the uploader
+    return numOfPicFittingInContainer - 1;
   }, []);
 
   const fetchPicsTagsMissing = useCallback(async () => {
@@ -146,13 +145,10 @@ export const Uploader = observer(() => {
 
   return (
     <div className="Uploader__container">
-      <div className="Uploader__formContainer">
-        {showUploader && (
+      {picsTagsMissing.length > 0 && (
+        <div className="Uploader__missingContent">
           <div
             className="Uploader__formContent"
-            style={
-              picsTagsMissing.length ? { width: "50vw" } : { width: "100vw" }
-            }
           >
             <form onSubmit={submitHandler}>
               <input
@@ -165,11 +161,6 @@ export const Uploader = observer(() => {
               {isUploading ? (
                 <label
                   htmlFor="file"
-                  style={
-                    picsTagsMissing.length
-                      ? { width: "35vw" }
-                      : { width: "75vw" }
-                  }
                 >
                   <LoadingOutlined className="Uploader__spinner" />
                   {uploadProgress[1] ? (
@@ -187,11 +178,6 @@ export const Uploader = observer(() => {
                   onDragOver={(e) => handleDragOver(e)}
                   onDragEnter={(e) => handleDragEnter(e)}
                   onDragLeave={(e) => handleDragLeave(e)}
-                  style={
-                    picsTagsMissing.length
-                      ? { width: "35vw" }
-                      : { width: "75vw" }
-                  }
                 >
                   {!isDragDroping ? (
                     <Fragment>
@@ -219,24 +205,18 @@ export const Uploader = observer(() => {
               )}
             </form>
           </div>
-        )}
-      </div>
-      {picsTagsMissing.length > 0 && (
-        <div className="Uploader__missingContainer">
-          <div className="Uploader__missingContent">
-            {picsTagsMissing.map((picture, index) => {
-              return (
-                <EditPictures
-                  picture={picture}
-                  size={SIZE_PICTURE_MISSING_TAG}
-                  setShowUploader={setShowUploader}
-                  key={picture.id}
-                  reload={fetchPicsTagsMissing}
-                  totalMissingTag={index + 1 === limit ? missingCountAll : null}
-                />
-              );
-            })}
-          </div>
+
+          {picsTagsMissing.map((picture, index) => {
+            return (
+              <EditPictures
+                picture={picture}
+                size={SIZE_PICTURE_MISSING_TAG}
+                key={picture.id}
+                reload={fetchPicsTagsMissing}
+                totalMissingTag={index + 1 === limit ? missingCountAll : null}
+              />
+            );
+          })}
         </div>
       )}
     </div>

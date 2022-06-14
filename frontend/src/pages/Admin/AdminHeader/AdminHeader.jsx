@@ -12,36 +12,40 @@ export const AdminHeader = (props) => {
   return (
     <div className="adminHeader__main">
       <div
-        className={`adminHeader__element ${
-          selected === "upload" && `adminHeader__elementSelected`
-        }`}
+        className={`adminHeader__element ${selected === "upload" && `adminHeader__elementSelected`
+          }`}
         onClick={() => clickHandler("upload")}
       >
-        UPLOAD
+        <div className="adminHeader__elementTitle">
+          UPLOAD
+        </div>
       </div>
       <div
-        className={`adminHeader__element ${
-          selected === "pic" && `adminHeader__elementSelected`
-        }`}
+        className={`adminHeader__element ${selected === "pic" && `adminHeader__elementSelected`
+          }`}
         onClick={() => clickHandler("pic")}
       >
-        PICTURES
+        <div className="adminHeader__elementTitle">
+          PICTURES
+        </div>
       </div>
       <div
-        className={`adminHeader__element ${
-          selected === "tag" && `adminHeader__elementSelected`
-        }`}
+        className={`adminHeader__element ${selected === "tag" && `adminHeader__elementSelected`
+          }`}
         onClick={() => clickHandler("tag")}
       >
-        TAGS
+        <div className="adminHeader__elementTitle">
+          TAGS
+        </div>
       </div>
       <div
-        className={`adminHeader__element ${
-          selected === "user" && `adminHeader__elementSelected`
-        }`}
+        className={`adminHeader__element ${selected === "user" && `adminHeader__elementSelected`
+          }`}
         onClick={() => clickHandler("user")}
       >
-        USERS
+        <div className="adminHeader__elementTitle">
+          USERS
+        </div>
       </div>
     </div>
   );
