@@ -28,7 +28,7 @@
 }
 
 .picAdmin__tagSelector {
-  padding: 0.5em 1.2em 0em 1.5em;
+  padding: 1em 1.2em 0em 1.5em;
   width: calc(100% - 280px);
   display: inline-block;
   vertical-align: bottom; 
@@ -42,6 +42,8 @@
   background-color: rgba(33, 33, 33, 0.95);
   font-size: 14px;
   width: 280px;
+  height: 32px;
+  padding-top: 5px;
   display: inline-block;
   vertical-align: bottom; 
 }
@@ -116,6 +118,14 @@
   -moz-column-count:    3;
   -webkit-column-count: 3;
   column-count:         3;
+  }
+
+  .picAdmin__tagSelector {
+    width:100%;
+  }
+  .picAdmin__adultContentFlag {
+    padding-left: 1.5em;
+    padding-top: 15px;
   }
  }
  
