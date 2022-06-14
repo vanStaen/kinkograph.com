@@ -17,6 +17,16 @@ import { postDuplicateFingerprint } from "../../../../store/calls/postDuplicateF
 
 import "./EditDrawer.css";
 
+const isSmallScreen = window.innerWidth <= 768;
+
+const initialDrawerSize = () => {
+  let initialDrawerSize = "45%";
+  if (isSmallScreen) {
+    initialDrawerSize = window.innerWidth;
+  }
+  return initialDrawerSize;
+};
+
 const { Option } = Select;
 
 export const EditDrawer = (props) => {
@@ -26,6 +36,7 @@ export const EditDrawer = (props) => {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [similarFingerprints, setSimilarFingerPrints] = useState([]);
   const [duplicateFingerprints, setDuplicateFingerprints] = useState([]);
+  const [widthDrawer, setWidthDrawer] = useState(initialDrawerSize());
 
   const fetchAllTags = useCallback(async () => {
     try {
@@ -127,7 +138,7 @@ export const EditDrawer = (props) => {
       onClose={() => hideDrawer(false)}
       visible={props.showDrawer}
       key={`drawer${props.picture.id}`}
-      width="42.5%"
+      width={widthDrawer}
     >
       <div className="Drawer__font">Preview:</div>
       <img
