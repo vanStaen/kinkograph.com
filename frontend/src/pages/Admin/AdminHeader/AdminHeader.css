@@ -13,10 +13,23 @@
 
 .adminHeader__element {
   display: inline-block;
-  width: 25%;
+  width: calc(25% - 2%);
   height: 5vh;
   transition: background-color .3s, font-weight .3s, color .3s;
   height: 100%; 
+}
+
+
+.adminHeader__close {
+  display: inline-block;
+  width: 8%;  
+  height: 100%;
+  transition: background-color .3s, color .3s;
+  text-align: center;
+}
+
+.adminHeader__close:hover {
+  background-color: rgb(102, 0, 0);
 }
 
 .adminHeader__elementTitle {

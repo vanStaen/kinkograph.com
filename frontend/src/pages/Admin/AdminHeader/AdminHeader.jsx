@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { CloudUploadOutlined, PictureOutlined, TagsOutlined, TeamOutlined } from '@ant-design/icons';
+import { Link } from "react-router-dom";
+import {
+  CloudUploadOutlined,
+  PictureOutlined,
+  TagsOutlined,
+  TeamOutlined,
+  CloseOutlined,
+} from '@ant-design/icons';
 
 import "./AdminHeader.css";
 
@@ -47,6 +54,15 @@ export const AdminHeader = (props) => {
         <div className="adminHeader__elementTitle">
           <TeamOutlined />
         </div>
+      </div>
+      <div
+        className={`adminHeader__close`}
+      >
+        <Link to="/">
+          <div className="adminHeader__elementTitle">
+            <CloseOutlined />
+          </div>
+        </Link>
       </div>
     </div>
   );
