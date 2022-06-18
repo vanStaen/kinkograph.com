@@ -67,10 +67,12 @@
   display: inline-block;
   text-align: center;
   margin-top: 20px;
+  width: 100%; 
 }
 
 .Uploader__spinner {
-  font-size: 10vh;
+  font-size: 30px;
+  margin-top: 1em
 }
 
 .Uploader__noAccess {
