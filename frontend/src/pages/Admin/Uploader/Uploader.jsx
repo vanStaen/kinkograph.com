@@ -147,9 +147,7 @@ export const Uploader = observer(() => {
     <div className="Uploader__container">
       {picsTagsMissing.length > 0 && (
         <div className="Uploader__missingContent">
-          <div
-            className="Uploader__formContent"
-          >
+          <div className="Uploader__formContent">
             <form onSubmit={submitHandler}>
               <input
                 type="file"
@@ -159,9 +157,7 @@ export const Uploader = observer(() => {
                 onChange={fileSelectHandler}
               />
               {isUploading ? (
-                <label
-                  htmlFor="file"
-                >
+                <label htmlFor="file">
                   <LoadingOutlined className="Uploader__spinner" />
                   {uploadProgress[1] ? (
                     <p className="form-upload-text">
